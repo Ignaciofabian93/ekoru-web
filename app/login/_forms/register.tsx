@@ -1,20 +1,28 @@
 "use client";
 import { useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { LOGIN } from "@/graphql/auth/querys";
-import { GET_USER } from "@/graphql/user/querys";
+import { LOGIN } from "@/graphql/auth/query";
+import { GET_USER } from "@/graphql/user/query";
 import TextInput from "@/components/textInput/input";
 import Button from "@/components/buttons/button";
 
 type Form = {
+  name: string;
   email: string;
   password: string;
+  isCompany: boolean;
 };
 
-export default function LoginForm() {
+type RegisterForm = {
+  handleCurrentView: (view: string) => void;
+};
+
+export default function RegisterForm({ handleCurrentView }: RegisterForm) {
   const [form, setForm] = useState<Form>({
+    name: "",
     email: "",
     password: "",
+    isCompany: false,
   });
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +56,13 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit}>
       <TextInput name="email" value={form.email} onChange={handleFormChange} />
       <TextInput name="password" value={form.password} onChange={handleFormChange} />
-      <Button text="Submit" type="submit" disabled={authLoading || userLoading} />
+      <Button text="Registrarse" type="submit" disabled={authLoading || userLoading} />
+      <Button
+        text="Cancelar"
+        variant="secondary"
+        onClick={() => handleCurrentView("default")}
+        disabled={authLoading || userLoading}
+      />
     </form>
   );
 }
