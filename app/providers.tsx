@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 export default function Providers({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
+    uri: "http://localhost:4000",
     cache: new InMemoryCache(),
     headers: token ? { authorization: `Bearer ${token}` } : {},
     credentials: "include",

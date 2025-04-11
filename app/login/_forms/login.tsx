@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { LOGIN } from "@/graphql/auth/query";
 import { GET_USER } from "@/graphql/user/query";
 import TextInput from "@/components/textInput/input";
@@ -25,7 +25,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const [login, { error: authError, loading: authLoading }] = useLazyQuery(LOGIN);
+  const [login, { error: authError, loading: authLoading }] = useMutation(LOGIN);
 
   const [getUser, { loading: userLoading, error: userError }] = useLazyQuery(GET_USER);
 
@@ -50,10 +50,25 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput name="email" value={form.email} onChange={handleFormChange} />
-      <TextInput name="password" value={form.password} onChange={handleFormChange} />
-      <Button text="Ingresar" type="submit" disabled={authLoading || userLoading} />
+      <TextInput
+        key={"email"}
+        name="email"
+        placeholder="Correo"
+        type="email"
+        value={form.email}
+        onChange={handleFormChange}
+      />
+      <TextInput
+        key={"password"}
+        name="password"
+        placeholder="Contraseña"
+        type="password"
+        value={form.password}
+        onChange={handleFormChange}
+      />
+      <Button key={"signin"} text="Ingresar" type="submit" disabled={authLoading || userLoading} />
       <Button
+        key={"cancel"}
         text="Cancelar"
         variant="secondary"
         onClick={() => handleCurrentView("default")}

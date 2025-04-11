@@ -18,7 +18,7 @@ export default function Button({ text, onClick, className, variant = "primary", 
       "bg-primary text-[#f7f7f7] border-[1px] border-primary": variant === "primary",
       "bg-secondary text-primary border-[1px] border-primary": variant === "secondary",
     },
-    className
+    className,
   );
   return (
     <button onClick={onClick} className={className} {...rest}>
