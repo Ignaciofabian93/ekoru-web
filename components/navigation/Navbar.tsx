@@ -5,6 +5,7 @@ import clsx from "clsx";
 import SearchInput from "../textInput/Search";
 import Cart from "../cart/Cart";
 import MenuIcon from "@/assets/icons/menu";
+import UserData from "./UserData";
 
 export default function Navbar() {
   const router = useRouter();
@@ -28,9 +29,7 @@ export default function Navbar() {
         </div>
         <SearchInput />
         <div className="flex items-center justify-between w-[18%]">
-          <p className="text-[18px] font-semibold cursor-pointer" onClick={navigateToProfile}>
-            Ignacio Rodriguez Rulas
-          </p>
+          <UserData navigateToProfile={navigateToProfile} />
           <Cart />
         </div>
       </nav>

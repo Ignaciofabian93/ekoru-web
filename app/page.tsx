@@ -1,11 +1,11 @@
 "use client";
-import { useAuthContext } from "@/context/auth";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import useSessionStore from "@/store/session";
 
 export default function InitApp() {
   const router = useRouter();
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated } = useSessionStore();
 
   useEffect(() => {
     const initializeApp = (path: string) =>
@@ -16,7 +16,6 @@ export default function InitApp() {
     if (isAuthenticated) {
       initializeApp("/feed");
     } else {
-      // initializeApp("/feed");
       initializeApp("/login");
     }
   }, [isAuthenticated, router]);

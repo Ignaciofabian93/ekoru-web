@@ -3,9 +3,7 @@ import Image, { StaticImageData } from "next/image";
 
 export function Carousel({ children }: { children: React.ReactNode }) {
   return (
-    <section className="w-full h-full flex items-center justify-between relative rounded-lg overflow-hidden">
-      {children}
-    </section>
+    <section className="w-full h-full flex items-center justify-between relative overflow-hidden">{children}</section>
   );
 }
 

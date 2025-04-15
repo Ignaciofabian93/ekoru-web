@@ -1,7 +1,7 @@
 "use client";
-import AuthProvider from "@/context/auth";
 import { GRAPHQL_URL } from "@/config/environment";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import SessionWrapper from "./SessionWrapper";
 
 export default function Providers({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const client = new ApolloClient({
@@ -12,7 +12,7 @@ export default function Providers({ children, token }: { children: React.ReactNo
 
   return (
     <ApolloProvider client={client}>
-      <AuthProvider token={token}>{children}</AuthProvider>
+      <SessionWrapper token={token}>{children}</SessionWrapper>
     </ApolloProvider>
   );
 }

@@ -48,7 +48,6 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
       notifyError("Error al registrar usuario");
     }
     if (data.register.id) {
-      console.log(data);
       notify("Usuario registrado correctamente. Redirigiendo a inicio de sesión");
       setTimeout(() => {
         handleCurrentView("default");
