@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Button from "@/components/buttons/button";
+import Button from "@/components/buttons/Button";
 import LoginForm from "../_forms/login";
 import RegisterForm from "../_forms/register";
 

@@ -1,12 +1,12 @@
 "use client";
 import AuthProvider from "@/context/auth";
+import { GRAPHQL_URL } from "@/config/environment";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 export default function Providers({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const client = new ApolloClient({
-    uri: "http://localhost:4000",
+    uri: GRAPHQL_URL,
     cache: new InMemoryCache(),
-    headers: token ? { authorization: `Bearer ${token}` } : {},
     credentials: "include",
   });
 
