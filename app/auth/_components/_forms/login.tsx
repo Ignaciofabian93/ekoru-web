@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import TextInput from "@/components/textInput/Input";
 import Button from "@/components/buttons/Button";
 import Login from "@/services/auth/rest-auth";
-import useSessionStore from "@/store/session";
+// import useSessionStore from "@/store/session";
 import { useLazyQueryWithoutVariables } from "@/hooks/useQuery";
 
 type Form = {
@@ -22,7 +22,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
   const router = useRouter();
   const notify = (message: string) => toast.success(message);
   const notifyError = (error: string) => toast.error(error);
-  const { handleSession } = useSessionStore();
+  // const { handleSession } = useSessionStore();
   const [form, setForm] = useState<Form>({
     email: "",
     password: "",
@@ -52,13 +52,13 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
         notifyError("Error al intentar iniciar sesión.");
         return;
       }
-      // if (data) {
-      //   handleSession((data).me);
-      //   notify("Inicio de sesión exitoso. Redirigiendo a inicio.");
-      //   setTimeout(() => {
-      //     router.replace("/feed");
-      //   }, 3000);
-      // }
+      if (data) {
+        // handleSession((data));
+        notify("Inicio de sesión exitoso. Redirigiendo a inicio.");
+        setTimeout(() => {
+          router.replace("/feed");
+        }, 3000);
+      }
     } else {
       notifyError("Error al intentar iniciar sesión.");
     }
