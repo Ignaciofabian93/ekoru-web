@@ -5,6 +5,7 @@ import { REGISTER } from "@/graphql/auth/mutations";
 import { toast } from "react-toastify";
 import TextInput from "@/components/textInput/Input";
 import Button from "@/components/buttons/Button";
+import { colors } from "@/constants/colors";
 
 type Form = {
   name: string;
@@ -18,8 +19,10 @@ type RegisterForm = {
 };
 
 export default function RegisterForm({ handleCurrentView }: RegisterForm) {
-  const notify = (message: string) => toast.success(message);
-  const notifyError = (error: string) => toast.error(error);
+  const notify = (message: string) =>
+    toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
+  const notifyError = (error: string) =>
+    toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
   const [form, setForm] = useState<Form>({
     name: "",
     email: "",
@@ -82,7 +85,7 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
         onChange={handleFormChange}
       />
       <Button text="Registrarse" type="submit" disabled={authLoading} />
-      <Button text="Cancelar" variant="secondary" onClick={() => handleCurrentView("default")} disabled={authLoading} />
+      <Button text="Volver" variant="secondary" onClick={() => handleCurrentView("login")} disabled={authLoading} />
     </form>
   );
 }

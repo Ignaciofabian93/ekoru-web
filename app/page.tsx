@@ -16,7 +16,7 @@ export default function InitApp() {
     if (isAuthenticated) {
       initializeApp("/feed");
     } else {
-      initializeApp("/login");
+      initializeApp("/auth");
     }
   }, [isAuthenticated, router]);
 

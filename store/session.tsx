@@ -1,11 +1,23 @@
 import { create } from "zustand";
 
-type UserData = {
+export type UserData = {
+  id: string;
   name: string;
   email: string;
+  phone: string;
+  address: string;
+  city: string;
+  county: string;
+  region: string;
   isCompany: boolean;
   createdAt: string;
   updatedAt: string;
+  userCategory: {
+    id: string;
+    name: string;
+    categoryDiscountAmount: number;
+    pointsThreshold: number;
+  };
 };
 
 type SessionStore = {
@@ -17,11 +29,23 @@ type SessionStore = {
 
 const useSessionStore = create<SessionStore>((set) => ({
   data: {
+    id: "",
     name: "",
     email: "",
     isCompany: false,
+    phone: "",
+    address: "",
+    city: "",
+    county: "",
+    region: "",
     createdAt: "",
     updatedAt: "",
+    userCategory: {
+      id: "",
+      name: "",
+      categoryDiscountAmount: 0,
+      pointsThreshold: 0,
+    },
   },
   handleSession: (data: UserData) => set(() => ({ data })),
   isAuthenticated: false,

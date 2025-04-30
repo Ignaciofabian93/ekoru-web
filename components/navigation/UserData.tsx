@@ -12,7 +12,7 @@ export default function UserData({ navigateToProfile }: UserData) {
       <p className="text-[16px] font-semibold cursor-pointer" onClick={navigateToProfile}>
         {data.name}
       </p>
-      <p className="text-[12px] font-semibold cursor-pointer">{data.email}</p>
+      <p className="text-[12px] font-semibold cursor-pointer">{data.userCategory.name}</p>
     </div>
   );
 }

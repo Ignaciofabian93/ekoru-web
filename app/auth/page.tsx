@@ -1,7 +1,7 @@
-import LoginLayout from "./_layout";
-import Wrapper from "./_components/wrapper";
+import LoginLayout from "./_components/loginLayout";
 import Image from "next/image";
 import ActionPanel from "./_components/actionPanel";
+import Wrapper from "./_components/wrapper";
 
 export default function LoginPage() {
   return (

@@ -1,4 +1,4 @@
-import PageWrapper from "../_components/PageWrapper";
+import PageWrapper from "../_components/pageWrapper";
 
 export default function ProfilePage() {
   return (

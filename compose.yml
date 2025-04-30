@@ -1,0 +1,9 @@
+services:
+  ekoru-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    container_name: ekoru-web
+    ports:
+      - "8000:8000"
