@@ -3,11 +3,11 @@ import { useState } from "react";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import TextInput from "@/components/textInput/Input";
-import Button from "@/components/buttons/Button";
+import Button from "@/components/buttons/button";
 import Login from "@/services/auth/rest-auth";
 // import useSessionStore from "@/store/session";
 import { useLazyQueryWithoutVariables } from "@/hooks/useQuery";
+import TextInput from "@/components/textInput/input";
 
 type Form = {
   email: string;

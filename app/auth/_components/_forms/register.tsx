@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "@/graphql/auth/mutations";
 import { toast } from "react-toastify";
-import TextInput from "@/components/textInput/Input";
-import Button from "@/components/buttons/Button";
+import TextInput from "@/components/textInput/input";
+import Button from "@/components/buttons/button";
 import { colors } from "@/constants/colors";
 
 type Form = {

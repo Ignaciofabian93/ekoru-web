@@ -2,10 +2,10 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import clsx from "clsx";
-import SearchInput from "../textInput/Search";
-import Cart from "../cart/Cart";
+import SearchInput from "../textInput/search";
+import Cart from "../cart/cart";
 import MenuIcon from "@/assets/icons/menu";
-import UserData from "./UserData";
+import UserData from "./userData";
 
 export default function Navbar() {
   const router = useRouter();
