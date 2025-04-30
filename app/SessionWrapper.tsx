@@ -13,7 +13,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   const [GetMe, { error: authError }] = useLazyQuery(GET_PROFILE);
 
   const handleUserData = async () => {
-    const { data: userData } = await GetMe({ variables: { token } });
+    const { data: userData } = await GetMe();
     if (authError) {
       notifyError("Ha ocurrido un error con los datos de sesión");
       return;
@@ -23,7 +23,6 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setIsAuthenticated(true);
     }
   };
-  console.log("DATA:: ", data);
 
   useEffect(() => {
     if (!token) {

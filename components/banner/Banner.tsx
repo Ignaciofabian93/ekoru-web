@@ -12,7 +12,7 @@ export default function Banner({ title, description }: Banner) {
         "w-[90%] h-[132px]",
         "flex flex-col items-center justify-center",
         "rounded-[11px]",
-        "border-[5px] border-primary",
+        "border-[5px] border-primary bg-white",
         "shadow-sm shadow-slate-950/25",
         "mx-auto",
       )}

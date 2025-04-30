@@ -1,6 +1,6 @@
-import PageWrapper from "../_components/pageWrapper";
-import Stories from "./_components/stories";
-import Hero from "./_components/hero";
+import PageWrapper from "../components/pageWrapper";
+import Stories from "../components/stories";
+import Hero from "../components/hero";
 import Banner from "@/components/banner/banner";
 
 export default function FeedPage() {

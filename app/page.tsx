@@ -5,20 +5,24 @@ import useSessionStore from "@/store/session";
 
 export default function InitApp() {
   const router = useRouter();
-  const { isAuthenticated } = useSessionStore();
+  const { isAuthenticated, data } = useSessionStore();
 
   useEffect(() => {
     const initializeApp = (path: string) =>
       setTimeout(() => {
         router.replace(path);
-      }, 2000);
+      }, 3000);
 
     if (isAuthenticated) {
-      initializeApp("/feed");
+      if (data.isCompany) {
+        initializeApp("/dashboard");
+      } else {
+        initializeApp("/feed");
+      }
     } else {
       initializeApp("/auth");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, data]);
 
   return (
     <main>

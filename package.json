@@ -16,6 +16,7 @@
     "clsx": "^2.1.1",
     "eslint-config-prettier": "^10.1.2",
     "graphql": "^16.10.0",
+    "lucide-react": "^0.503.0",
     "motion": "^12.6.3",
     "next": "^15.2.3",
     "prettier": "^3.5.3",

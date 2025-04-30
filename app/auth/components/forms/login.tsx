@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Button from "@/components/buttons/button";
 import Login from "@/services/auth/rest-auth";
-// import useSessionStore from "@/store/session";
-import { useLazyQueryWithoutVariables } from "@/hooks/useQuery";
+import useSessionStore from "@/store/session";
 import TextInput from "@/components/textInput/input";
+import { useLazyQuery } from "@apollo/client";
 
 type Form = {
   email: string;
@@ -22,7 +22,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
   const router = useRouter();
   const notify = (message: string) => toast.success(message);
   const notifyError = (error: string) => toast.error(error);
-  // const { handleSession } = useSessionStore();
+  const { handleSession } = useSessionStore();
   const [form, setForm] = useState<Form>({
     email: "",
     password: "",
@@ -32,7 +32,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const { fetchData, loading, error, data: profile } = useLazyQueryWithoutVariables(GET_PROFILE);
+  const [GetMe, { error: authError, loading }] = useLazyQuery(GET_PROFILE);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,17 +43,15 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     }
     const response = await Login({ email, password });
     if (response.token) {
-      console.log("DATA:: ", profile);
-
-      const { data } = await fetchData();
+      const { data } = await GetMe();
       console.log("ME:: ", data);
 
-      if (error) {
+      if (authError) {
         notifyError("Error al intentar iniciar sesión.");
         return;
       }
       if (data) {
-        // handleSession((data));
+        handleSession(data.me);
         notify("Inicio de sesión exitoso. Redirigiendo a inicio.");
         setTimeout(() => {
           router.replace("/feed");

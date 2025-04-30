@@ -1,4 +1,4 @@
-import CartIcon from "@/assets/icons/cart";
+import { ShoppingCart } from "lucide-react";
 import clsx from "clsx";
 
 const Badge = () => {
@@ -12,7 +12,7 @@ const Badge = () => {
 export default function Cart() {
   return (
     <div className={clsx("relative w-fit h-fit cursor-pointer")}>
-      <CartIcon />
+      <ShoppingCart size={28} />
       <div>
         <Badge />
       </div>

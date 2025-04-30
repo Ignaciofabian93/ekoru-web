@@ -1,12 +1,12 @@
-import SearchIcon from "@/assets/icons/search";
+import { Search } from "lucide-react";
 import clsx from "clsx";
 
 export default function SearchInput() {
   return (
     <div
-      className={clsx("w-full max-w-[50%] h-[41px]", "rounded-[20.5px] bg-white flex items-center justify-start pl-4")}
+      className={clsx("w-full max-w-[40%] h-[41px]", "rounded-[20.5px] bg-white flex items-center justify-start pl-4")}
     >
-      <SearchIcon />
+      <Search size={20} color="#aaa" />
       <input
         type="search"
         placeholder="Buscar en EKORU"

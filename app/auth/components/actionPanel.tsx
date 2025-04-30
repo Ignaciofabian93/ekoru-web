@@ -1,17 +1,7 @@
 "use client";
 import { useState } from "react";
-// import Button from "@/components/buttons/Button";
-import LoginForm from "./_forms/login";
-import RegisterForm from "./_forms/register";
-
-// const MainAction = ({ handleCurrentView }: { handleCurrentView: (view: string) => void }) => {
-//   return (
-//     <>
-//       <Button text="Registrarse" variant="primary" onClick={() => handleCurrentView("register")} />
-//       <Button text="Ingresar" variant="secondary" onClick={() => handleCurrentView("login")} />
-//     </>
-//   );
-// };
+import LoginForm from "./forms/login";
+import RegisterForm from "./forms/register";
 
 export default function ActionPanel() {
   const [currentView, setCurrentView] = useState<"login" | "register">("login");
@@ -19,15 +9,12 @@ export default function ActionPanel() {
   const handleCurrentView = (view: string) => {
     if (view === "login") {
       setCurrentView("login");
-      // } else if (view === "login") {
-      //   setCurrentView("login");
     } else if (view === "register") {
       setCurrentView("register");
     }
   };
 
   const Views = {
-    // default: <MainAction handleCurrentView={handleCurrentView} />,
     login: <LoginForm handleCurrentView={handleCurrentView} />,
     register: <RegisterForm handleCurrentView={handleCurrentView} />,
   };
