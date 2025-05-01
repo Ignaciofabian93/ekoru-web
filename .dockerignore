@@ -5,7 +5,6 @@ node_modules
 .next
 
 # Ignore Dockerfile and .dockerignore itself
-Dockerfile
 .dockerignore
 
 # Ignore any local environment files you may have
