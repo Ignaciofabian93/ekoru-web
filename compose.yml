@@ -7,9 +7,3 @@ services:
     container_name: ekoru-web
     ports:
       - "8000:8000"
-    networks:
-      - ekoru-network
-
-networks:
-  ekoru-network:
-    external: true
