@@ -7,3 +7,9 @@ services:
     container_name: ekoru-web
     ports:
       - "3000:3000"
+    networks:
+      - ekoru-network
+
+networks:
+  ekoru-network:
+    external: true
