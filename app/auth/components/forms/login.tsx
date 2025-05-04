@@ -63,7 +63,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-[80%] flex flex-col items-center justify-center">
+    <form onSubmit={handleSubmit} className="w-full flex flex-col items-center justify-center">
       <TextInput
         key={"email"}
         name="email"

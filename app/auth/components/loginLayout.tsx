@@ -6,8 +6,8 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
       className={clsx(
         "w-screen h-screen",
         "flex flex-col md:flex-row items-center justify-center",
-        "p-2",
-        "gap-[16px]"
+        "px-8",
+        "gap-[8px]"
       )}
     >
       {children}

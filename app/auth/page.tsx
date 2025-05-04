@@ -6,11 +6,11 @@ import Wrapper from "./components/wrapper";
 export default function LoginPage() {
   return (
     <LoginLayout>
-      <Wrapper>
-        <div className="w-[380px] h-[90px]">
+      <section className="w-full h-1/4 flex items-center justify-center">
+        <div className="w-[80%] h-auto md:w-[50%]">
           <Image src={"/logo.png"} alt="Ekoru" className="w-full h-full" width={4096} height={996} />
         </div>
-      </Wrapper>
+      </section>
       <Wrapper>
         <ActionPanel />
       </Wrapper>
