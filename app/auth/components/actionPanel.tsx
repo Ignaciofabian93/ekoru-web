@@ -20,6 +20,8 @@ export default function ActionPanel() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start md:justify-center">{Views[currentView]}</div>
+    <div className="w-full max-w-[500px] h-full flex flex-col items-center justify-start md:justify-center">
+      {Views[currentView]}
+    </div>
   );
 }

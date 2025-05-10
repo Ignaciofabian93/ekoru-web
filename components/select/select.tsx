@@ -1,14 +1,16 @@
 import clsx from "clsx";
 
 type Select = {
-  options?: string[];
+  options?: { label: string; value: string | number }[];
   className?: string;
-  value?: string | number;
+  value?: string | number | undefined;
   name: string;
   size?: "sm" | "md" | "lg" | "full";
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  label: string;
 };
 
-export default function Select({ className, value, options, name, size }: Select) {
+export default function Select({ className, value, options, name, size, onChange, label }: Select) {
   const getSize = () => {
     switch (size) {
       case "sm":
@@ -39,10 +41,11 @@ export default function Select({ className, value, options, name, size }: Select
     className
   );
   return (
-    <select className={className} value={value} name={name}>
+    <select className={className} value={value} name={name} onChange={onChange}>
+      <option value="">{label}</option>
       {options?.map((option) => (
-        <option key={option} value={option}>
-          {option}
+        <option key={option.value} value={option.value}>
+          {option.label}
         </option>
       ))}
     </select>

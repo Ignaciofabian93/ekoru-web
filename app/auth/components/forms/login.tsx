@@ -52,9 +52,10 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
       }
       if (data) {
         handleSession(data.me);
-        notify("Inicio de sesión exitoso. Redirigiendo a inicio.");
+        notify(`Bienvenido(a) ${data.me.name}`);
+        const redirectTo = data.me.isCompany ? "/dashboard" : "/feed";
         setTimeout(() => {
-          router.replace("/feed");
+          router.replace(redirectTo);
         }, 3000);
       }
     } else {
@@ -63,7 +64,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full flex flex-col items-center justify-center">
+    <form onSubmit={handleSubmit} className="w-full flex flex-col items-center justify-center md:w-[80%]">
       <TextInput
         key={"email"}
         name="email"

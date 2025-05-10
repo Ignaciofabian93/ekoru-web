@@ -13,10 +13,11 @@ export const LOGIN = gql`
 `;
 
 export const REGISTER = gql`
-  mutation Register($name: String!, $email: String!, $password: String!, $isCompany: Boolean!) {
-    register(name: $name, email: $email, password: $password, isCompany: $isCompany) {
+  mutation Register($name: String!, $surnames: String!, $email: String!, $password: String!, $isCompany: Boolean!) {
+    register(name: $name, surnames: $surnames, email: $email, password: $password, isCompany: $isCompany) {
       id
       name
+      surnames
       email
       isCompany
       createdAt

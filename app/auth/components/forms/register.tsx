@@ -4,11 +4,10 @@ import { useMutation } from "@apollo/client";
 import { REGISTER } from "@/graphql/auth/mutations";
 import { toast } from "react-toastify";
 import { colors } from "@/constants/colors";
+import { ArrowLeft } from "lucide-react";
 import TextInput from "@/components/textInput/input";
 import Button from "@/components/buttons/button";
-import Select from "@/components/select/select";
-import useRegister from "../../hooks/useRegister";
-import { ArrowLeft } from "lucide-react";
+import CheckBox from "@/components/checkbox/checkbox";
 
 type Form = {
   name: string;
@@ -16,11 +15,6 @@ type Form = {
   email: string;
   password: string;
   isCompany: boolean;
-  phone: string;
-  countryId: number;
-  regionId: number;
-  cityId: number;
-  countyId: number;
 };
 
 type RegisterForm = {
@@ -29,24 +23,14 @@ type RegisterForm = {
 
 const CancelButton = ({ handleCurrentView }: { handleCurrentView: () => void }) => {
   return (
-    <div className="w-full flex items-center justify-start gap-2 fixed top-4 left-4" onClick={handleCurrentView}>
-      <ArrowLeft color={colors.primary} size={24} />
-      <span className="text-lg text-primary cursor-pointer text-center font-semibold">Cancelar</span>
+    <div className="w-fit flex items-center justify-start gap-2 fixed top-4 left-4" onClick={handleCurrentView}>
+      <ArrowLeft color={colors.primary} size={20} />
+      <span className="text-md text-primary cursor-pointer text-center font-semibold">Volver</span>
     </div>
   );
 };
 
 export default function RegisterForm({ handleCurrentView }: RegisterForm) {
-  const {
-    countries,
-    cities,
-    regions,
-    counties,
-    handleCountrySelected,
-    handleCitySelected,
-    handleRegionSelected,
-    handleCountySelected,
-  } = useRegister();
   const notify = (message: string) =>
     toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
   const notifyError = (error: string) =>
@@ -57,30 +41,32 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     email: "",
     password: "",
     isCompany: false,
-    phone: "",
-    countryId: 0,
-    regionId: 0,
-    cityId: 0,
-    countyId: 0,
   });
 
-  console.log("CO::", countries);
-
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, type } = e.target;
+    const value = type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
+    console.log("NAME & VALUE:: ", name, value);
+    setForm({ ...form, [name]: value });
   };
 
   const [register, { error: authError, loading: authLoading }] = useMutation(REGISTER);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, email, password } = form;
-    if (!name || !email || !password) {
+    const { name, surnames, email, password } = form;
+    if (!name || !surnames || !email || !password) {
       notifyError("Todos los campos son obligatorios");
       return;
     }
     const { data } = await register({
-      variables: { name: form.name, email: form.email, password: form.password, isCompany: form.isCompany },
+      variables: {
+        name: form.name,
+        surnames: form.surnames,
+        email: form.email,
+        password: form.password,
+        isCompany: form.isCompany,
+      },
     });
     if (authError) {
       console.error(authError);
@@ -89,23 +75,17 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     if (data.register.id) {
       notify("Usuario registrado correctamente. Redirigiendo a inicio de sesión");
       setTimeout(() => {
-        handleCurrentView("default");
+        handleCurrentView("login");
       }, 3000);
     }
   };
 
+  console.log("FORM:: ", form);
+
   return (
-    <form onSubmit={handleSubmit} className="w-full overflow-y-scroll md:overflow-hidden">
+    <form onSubmit={handleSubmit} className="w-full">
       <CancelButton handleCurrentView={() => handleCurrentView("login")} />
-      <div className="w-full flex flex-col md:flex-row gap-4">
-        <Select key={"country"} name="country" options={countries.map((c) => c.country)} />
-        <Select key={"region"} name="region" options={regions.map((r) => r.region)} />
-      </div>
-      <div className="w-full flex flex-col md:flex-row gap-4">
-        <Select key={"city"} name="city" options={cities.map((c) => c.city)} />
-        <Select key={"county"} name="county" options={counties.map((c) => c.county)} />
-      </div>
-      <div className="w-full flex flex-col md:flex-row gap-4">
+      <div className="w-full flex flex-col md:flex-row md:gap-4">
         <TextInput
           key={"name"}
           name="name"
@@ -123,15 +103,7 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
           onChange={handleFormChange}
         />
       </div>
-      <div className="w-full flex flex-col md:flex-row gap-4">
-        <TextInput
-          key={"phone"}
-          placeholder="Celular"
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleFormChange}
-        />
+      <div className="w-full flex flex-col md:flex-row md:gap-4">
         <TextInput
           key={"email"}
           placeholder="Email"
@@ -140,8 +112,6 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
           value={form.email}
           onChange={handleFormChange}
         />
-      </div>
-      <div className="w-full flex flex-col md:flex-row gap-4">
         <TextInput
           key={"password"}
           placeholder="Contraseña"
@@ -150,16 +120,17 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
           value={form.password}
           onChange={handleFormChange}
         />
-        <TextInput
-          key={"address"}
-          placeholder="Dirección"
-          type="password"
-          name="password"
-          value={form.password}
+      </div>
+      <div className="w-full flex flex-col md:flex-row md:gap-4">
+        <CheckBox
+          id="isCompany"
+          name="isCompany"
+          label="Empresa"
+          checked={form.isCompany}
           onChange={handleFormChange}
         />
       </div>
-      <Button text="Registrarse" type="submit" disabled={authLoading} />
+      <Button text="Registrarse" type="submit" disabled={authLoading} className="mt-6" />
     </form>
   );
 }

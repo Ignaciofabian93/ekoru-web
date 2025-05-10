@@ -1,4 +1,4 @@
-import { GET_COUNTRIES } from "@/graphql/auth/query";
+import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/auth/query";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 
@@ -28,25 +28,53 @@ export default function useRegister() {
   const [cities, setCities] = useState<City[]>([]);
   const [counties, setCounties] = useState<County[]>([]);
 
-  const [GetCountries, { data, error, loading }] = useLazyQuery(GET_COUNTRIES);
+  const [GetCountries, { data: Countries }] = useLazyQuery(GET_COUNTRIES);
+
+  const [GetRegions, { data: Regions }] = useLazyQuery(GET_REGIONS);
+
+  const [GetCities, { data: Cities }] = useLazyQuery(GET_CITIES);
+
+  const [GetCounties, { data: Counties }] = useLazyQuery(GET_COUNTIES);
 
   useEffect(() => {
     GetCountries();
   }, []);
 
   useEffect(() => {
-    if (data) {
-      setCountries(data.countries);
+    if (Countries) {
+      setCountries(Countries.countries);
     }
-  }, [data]);
+  }, [Countries]);
 
-  const handleCountrySelected = () => {};
+  useEffect(() => {
+    if (Regions) {
+      setRegions(Regions.regions);
+    }
+  }, [Regions]);
 
-  const handleRegionSelected = () => {};
+  useEffect(() => {
+    if (Cities) {
+      setCities(Cities.cities);
+    }
+  }, [Cities]);
 
-  const handleCitySelected = () => {};
+  useEffect(() => {
+    if (Counties) {
+      setCounties(Counties.counties);
+    }
+  }, [Counties]);
 
-  const handleCountySelected = () => {};
+  const handleCountrySelected = (countryId: number) => {
+    GetRegions({ variables: { countryId } });
+  };
+
+  const handleRegionSelected = (regionId: number) => {
+    GetCities({ variables: { regionId } });
+  };
+
+  const handleCitySelected = (cityId: number) => {
+    GetCounties({ variables: { cityId } });
+  };
 
   return {
     countries,
@@ -56,6 +84,5 @@ export default function useRegister() {
     handleCountrySelected,
     handleRegionSelected,
     handleCitySelected,
-    handleCountySelected,
   };
 }
