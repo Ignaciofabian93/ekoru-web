@@ -46,7 +46,6 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const { name, type } = e.target;
     const value = type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
-    console.log("NAME & VALUE:: ", name, value);
     setForm({ ...form, [name]: value });
   };
 
@@ -79,8 +78,6 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
       }, 3000);
     }
   };
-
-  console.log("FORM:: ", form);
 
   return (
     <form onSubmit={handleSubmit} className="w-full">

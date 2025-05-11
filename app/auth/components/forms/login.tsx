@@ -44,8 +44,6 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     const response = await Login({ email, password });
     if (response.token) {
       const { data } = await GetMe();
-      console.log("ME:: ", data);
-
       if (authError) {
         notifyError("Error al intentar iniciar sesión.");
         return;

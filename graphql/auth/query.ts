@@ -5,11 +5,25 @@ export const GET_PROFILE = gql`
     me {
       id
       name
+      surnames
       email
       address
-      county
-      city
-      region
+      county {
+        id
+        county
+      }
+      city {
+        id
+        city
+      }
+      region {
+        id
+        region
+      }
+      country {
+        id
+        country
+      }
       phone
       isCompany
       createdAt
