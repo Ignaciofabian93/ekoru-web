@@ -11,8 +11,10 @@ export default function UserData({ navigateToProfile }: UserData) {
     <div className="flex flex-col items-start justify-start">
       <p className="text-[16px] font-semibold cursor-pointer" onClick={navigateToProfile}>
         {data.name}
+        <br />
+        {data.surnames}
       </p>
-      <p className="text-[12px] font-semibold cursor-pointer">{data.userCategory.name}</p>
+      <p className="text-[12px] font-semibold cursor-pointer">{data.userCategory?.name}</p>
     </div>
   );
 }

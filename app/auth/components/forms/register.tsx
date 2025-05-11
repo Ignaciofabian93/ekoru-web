@@ -3,12 +3,15 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "@/graphql/auth/mutations";
 import { toast } from "react-toastify";
+import { colors } from "@/constants/colors";
+import { ArrowLeft } from "lucide-react";
 import TextInput from "@/components/textInput/input";
 import Button from "@/components/buttons/button";
-import { colors } from "@/constants/colors";
+import CheckBox from "@/components/checkbox/checkbox";
 
 type Form = {
   name: string;
+  surnames: string;
   email: string;
   password: string;
   isCompany: boolean;
@@ -18,6 +21,15 @@ type RegisterForm = {
   handleCurrentView: (view: string) => void;
 };
 
+const CancelButton = ({ handleCurrentView }: { handleCurrentView: () => void }) => {
+  return (
+    <div className="w-fit flex items-center justify-start gap-2 fixed top-4 left-4" onClick={handleCurrentView}>
+      <ArrowLeft color={colors.primary} size={20} />
+      <span className="text-md text-primary cursor-pointer text-center font-semibold">Volver</span>
+    </div>
+  );
+};
+
 export default function RegisterForm({ handleCurrentView }: RegisterForm) {
   const notify = (message: string) =>
     toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
@@ -25,26 +37,35 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
   const [form, setForm] = useState<Form>({
     name: "",
+    surnames: "",
     email: "",
     password: "",
     isCompany: false,
   });
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, type } = e.target;
+    const value = type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
+    setForm({ ...form, [name]: value });
   };
 
   const [register, { error: authError, loading: authLoading }] = useMutation(REGISTER);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, email, password } = form;
-    if (!name || !email || !password) {
+    const { name, surnames, email, password } = form;
+    if (!name || !surnames || !email || !password) {
       notifyError("Todos los campos son obligatorios");
       return;
     }
     const { data } = await register({
-      variables: { name: form.name, email: form.email, password: form.password, isCompany: form.isCompany },
+      variables: {
+        name: form.name,
+        surnames: form.surnames,
+        email: form.email,
+        password: form.password,
+        isCompany: form.isCompany,
+      },
     });
     if (authError) {
       console.error(authError);
@@ -53,39 +74,60 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     if (data.register.id) {
       notify("Usuario registrado correctamente. Redirigiendo a inicio de sesión");
       setTimeout(() => {
-        handleCurrentView("default");
+        handleCurrentView("login");
       }, 3000);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextInput
-        key={"name"}
-        name="name"
-        placeholder="Nombre"
-        type="text"
-        value={form.name}
-        onChange={handleFormChange}
-      />
-      <TextInput
-        key={"email"}
-        placeholder="correo"
-        type="email"
-        name="email"
-        value={form.email}
-        onChange={handleFormChange}
-      />
-      <TextInput
-        key={"password"}
-        placeholder="Contraseña"
-        type="password"
-        name="password"
-        value={form.password}
-        onChange={handleFormChange}
-      />
-      <Button text="Registrarse" type="submit" disabled={authLoading} />
-      <Button text="Volver" variant="secondary" onClick={() => handleCurrentView("login")} disabled={authLoading} />
+    <form onSubmit={handleSubmit} className="w-full">
+      <CancelButton handleCurrentView={() => handleCurrentView("login")} />
+      <div className="w-full flex flex-col md:flex-row md:gap-4">
+        <TextInput
+          key={"name"}
+          name="name"
+          placeholder="Nombre"
+          type="text"
+          value={form.name}
+          onChange={handleFormChange}
+        />
+        <TextInput
+          key={"surnames"}
+          name="surnames"
+          placeholder="Apellidos"
+          type="text"
+          value={form.surnames}
+          onChange={handleFormChange}
+        />
+      </div>
+      <div className="w-full flex flex-col md:flex-row md:gap-4">
+        <TextInput
+          key={"email"}
+          placeholder="Email"
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleFormChange}
+        />
+        <TextInput
+          key={"password"}
+          placeholder="Contraseña"
+          type="password"
+          name="password"
+          value={form.password}
+          onChange={handleFormChange}
+        />
+      </div>
+      <div className="w-full flex flex-col md:flex-row md:gap-4">
+        <CheckBox
+          id="isCompany"
+          name="isCompany"
+          label="Empresa"
+          checked={form.isCompany}
+          onChange={handleFormChange}
+        />
+      </div>
+      <Button text="Registrarse" type="submit" disabled={authLoading} className="mt-6" />
     </form>
   );
 }

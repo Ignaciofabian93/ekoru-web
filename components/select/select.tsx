@@ -1,16 +1,16 @@
 import clsx from "clsx";
 
-type TextInput = {
-  type: string;
-  size?: "sm" | "md" | "lg" | "full";
+type Select = {
+  options?: { label: string; value: string | number }[];
   className?: string;
+  value?: string | number | undefined;
   name: string;
-  placeholder?: string;
-  value: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  size?: "sm" | "md" | "lg" | "full";
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  label: string;
 };
 
-export default function TextInput({ type, className, size, placeholder, name, value, onChange }: TextInput) {
+export default function Select({ className, value, options, name, size, onChange, label }: Select) {
   const getSize = () => {
     switch (size) {
       case "sm":
@@ -40,8 +40,14 @@ export default function TextInput({ type, className, size, placeholder, name, va
     "placeholder:text-primary placeholder:opacity-[0.5] placeholder:italic",
     className
   );
-
   return (
-    <input type={type} placeholder={placeholder} className={className} name={name} value={value} onChange={onChange} />
+    <select className={className} value={value} name={name} onChange={onChange}>
+      <option value="">{label}</option>
+      {options?.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
   );
 }
