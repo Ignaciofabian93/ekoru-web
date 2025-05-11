@@ -20,10 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <script crossOrigin="anonymous" src="//unpkg.com/react-scan/dist/auto.global.js" />
-      </head>
+    <html lang="es">
       <body className={`${cabin.variable} antialiased`}>
         <ToastContainer theme="light" autoClose={4000} pauseOnHover position="top-center" closeOnClick />
         <AppWrapper>{children}</AppWrapper>
