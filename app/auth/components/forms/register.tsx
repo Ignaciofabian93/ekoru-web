@@ -125,7 +125,7 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form onSubmit={handleSubmit} className="w-full h-full pb-8 md:pb-0">
       <div className="w-full flex flex-col md:flex-row md:gap-4">
         <TextInput
           key={"name"}
