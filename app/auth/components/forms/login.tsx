@@ -3,11 +3,14 @@ import { useState } from "react";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useLazyQuery } from "@apollo/client";
+import { validateEmail } from "@/utils/regexValidations";
+import { Eye, EyeOff } from "lucide-react";
+import { colors } from "@/constants/colors";
 import Button from "@/components/buttons/button";
 import Login from "@/services/auth/rest-auth";
 import useSessionStore from "@/store/session";
 import TextInput from "@/components/textInput/input";
-import { useLazyQuery } from "@apollo/client";
 
 type Form = {
   email: string;
@@ -15,7 +18,7 @@ type Form = {
 };
 
 type LoginForm = {
-  handleCurrentView: (view: string) => void;
+  handleCurrentView: (view: "login" | "register") => void;
 };
 
 export default function LoginForm({ handleCurrentView }: LoginForm) {
@@ -27,20 +30,57 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+
+  // Fields validation
+  const validateFields = (email: string, password: string) => {
+    const newErrors: typeof errors = {};
+
+    if (!email) newErrors.email = "El correo es requerido.";
+    else if (!validateEmail(email)) newErrors.email = "Formato de correo inválido.";
+
+    if (!password) newErrors.password = "La contraseña es requerida.";
+
+    return newErrors;
   };
 
+  // Inputs handler
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    let error = "";
+
+    if (name === "email" && value.length > 0) {
+      if (!validateEmail(value)) error = "Formato de correo inválido";
+      else if (value.length > 50) error = "El correo no puede tener más de 50 caracteres";
+      else error = "";
+    }
+
+    setErrors({ ...errors, [name]: error });
+  };
+
+  // GraphQL Query and Submit
   const [GetMe, { error: authError, loading }] = useLazyQuery(GET_PROFILE);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password } = form;
     if (!email || !password) {
-      notifyError("Debe ingresar un correo y una contraseña.");
+      notifyError("Todos los campos son obligatorios");
+    }
+
+    const validationErrors = validateFields(email, password);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
+
+    setErrors({}); // clear previous errors
+
     const response = await Login({ email, password });
     if (response.token) {
       const { data } = await GetMe();
@@ -70,6 +110,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
         type="email"
         value={form.email}
         onChange={handleFormChange}
+        errorMessage={errors.email}
       />
       <TextInput
         key={"password"}
@@ -78,6 +119,14 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
         type="password"
         value={form.password}
         onChange={handleFormChange}
+        errorMessage={errors.password}
+        icon={
+          isPasswordVisible ? (
+            <EyeOff onClick={togglePasswordVisibility} color={colors.primary} />
+          ) : (
+            <Eye onClick={togglePasswordVisibility} color={colors.primary} />
+          )
+        }
       />
       <Button key={"signin"} text="Ingresar" type="submit" disabled={loading} />
       <span
