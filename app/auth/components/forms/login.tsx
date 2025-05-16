@@ -23,8 +23,10 @@ type LoginForm = {
 
 export default function LoginForm({ handleCurrentView }: LoginForm) {
   const router = useRouter();
-  const notify = (message: string) => toast.success(message);
-  const notifyError = (error: string) => toast.error(error);
+  const notify = (message: string) =>
+    toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
+  const notifyError = (error: string) =>
+    toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
   const { handleSession } = useSessionStore();
   const [form, setForm] = useState<Form>({
     email: "",

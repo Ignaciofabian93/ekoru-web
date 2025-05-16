@@ -54,8 +54,7 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     else if (!validateEmail(email)) newErrors.email = "Formato de correo inválido.";
 
     if (!password) newErrors.password = "La contraseña es requerida.";
-    else if (!validatePassword(password))
-      newErrors.password = "Debe tener al menos 1 mayúscula, 1 número, 4-16 caracteres.";
+    else if (!validatePassword(password)) newErrors.password = "Formato de contraseña inválido.";
 
     return newErrors;
   };
