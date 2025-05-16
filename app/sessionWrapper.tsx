@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import useSessionStore from "@/store/session";
 
 export default function SessionWrapper({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
   const notifyError = (error: string) => toast.error(error);
 
@@ -16,6 +17,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
     const { data: userData } = await GetMe();
     if (authError) {
       notifyError("Ha ocurrido un error con los datos de sesión");
+      router.replace("/auth");
       return;
     }
     if (userData) {
@@ -25,11 +27,13 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   };
 
   useEffect(() => {
-    if (!token) {
-      router.replace("/auth");
-    } else {
-      if (!data.name) {
-        handleUserData();
+    if (pathname !== "/" && pathname !== "/auth") {
+      if (!token) {
+        router.replace("/auth");
+      } else {
+        if (!data.name) {
+          handleUserData();
+        }
       }
     }
   }, [token, data]);
