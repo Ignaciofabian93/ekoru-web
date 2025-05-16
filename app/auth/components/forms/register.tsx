@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { REGISTER } from "@/graphql/auth/mutations";
 import { toast } from "react-toastify";
 import { colors } from "@/constants/colors";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { validateEmail, validateNameLength, validatePassword } from "@/utils/regexValidations";
 import TextInput from "@/components/textInput/input";
 import Button from "@/components/buttons/button";
@@ -19,16 +19,7 @@ type Form = {
 };
 
 type RegisterForm = {
-  handleCurrentView: (view: string) => void;
-};
-
-const CancelButton = ({ handleCurrentView }: { handleCurrentView: () => void }) => {
-  return (
-    <div className="w-fit flex items-center justify-start gap-2 fixed top-4 left-4" onClick={handleCurrentView}>
-      <ArrowLeft color={colors.primary} size={20} />
-      <span className="text-md text-primary cursor-pointer text-center font-semibold">Volver</span>
-    </div>
-  );
+  handleCurrentView: (view: "login" | "register") => void;
 };
 
 export default function RegisterForm({ handleCurrentView }: RegisterForm) {
@@ -48,7 +39,7 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
-  //Fields validations
+  // Fields validations
   const validateFields = (email: string, password: string, name: string, surnames: string) => {
     const newErrors: typeof errors = {};
 
@@ -136,7 +127,6 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
-      <CancelButton handleCurrentView={() => handleCurrentView("login")} />
       <div className="w-full flex flex-col md:flex-row md:gap-4">
         <TextInput
           key={"name"}
@@ -196,6 +186,14 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
         />
       </div>
       <Button text="Registrarse" type="submit" disabled={authLoading} className="mt-6" />
+      <Button
+        text="Volver"
+        type="button"
+        variant="secondary"
+        disabled={authLoading}
+        className="mt-4"
+        onClick={() => handleCurrentView("login")}
+      />
     </form>
   );
 }

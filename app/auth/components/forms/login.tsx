@@ -3,14 +3,14 @@ import { useState } from "react";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useLazyQuery } from "@apollo/client";
+import { validateEmail } from "@/utils/regexValidations";
+import { Eye, EyeOff } from "lucide-react";
+import { colors } from "@/constants/colors";
 import Button from "@/components/buttons/button";
 import Login from "@/services/auth/rest-auth";
 import useSessionStore from "@/store/session";
 import TextInput from "@/components/textInput/input";
-import { useLazyQuery } from "@apollo/client";
-import { validateEmail, validatePassword } from "@/utils/regexValidations";
-import { Eye, EyeOff } from "lucide-react";
-import { colors } from "@/constants/colors";
 
 type Form = {
   email: string;
@@ -18,7 +18,7 @@ type Form = {
 };
 
 type LoginForm = {
-  handleCurrentView: (view: string) => void;
+  handleCurrentView: (view: "login" | "register") => void;
 };
 
 export default function LoginForm({ handleCurrentView }: LoginForm) {
@@ -35,6 +35,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
+  // Fields validation
   const validateFields = (email: string, password: string) => {
     const newErrors: typeof errors = {};
 
@@ -42,12 +43,11 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     else if (!validateEmail(email)) newErrors.email = "Formato de correo inválido.";
 
     if (!password) newErrors.password = "La contraseña es requerida.";
-    else if (!validatePassword(password))
-      newErrors.password = "Debe tener al menos 1 mayúscula, 1 número, 4-16 caracteres.";
 
     return newErrors;
   };
 
+  // Inputs handler
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -60,20 +60,18 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
       else error = "";
     }
 
-    if (name === "password" && value.length > 0) {
-      if (!validatePassword(value)) error = "Formato de contraseña inválido";
-      else if (value.length > 16) error = "La contraseña no puede tener más de 16 caracteres";
-      else error = "";
-    }
-
     setErrors({ ...errors, [name]: error });
   };
 
+  // GraphQL Query and Submit
   const [GetMe, { error: authError, loading }] = useLazyQuery(GET_PROFILE);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password } = form;
+    if (!email || !password) {
+      notifyError("Todos los campos son obligatorios");
+    }
 
     const validationErrors = validateFields(email, password);
     if (Object.keys(validationErrors).length > 0) {
