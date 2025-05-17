@@ -15,22 +15,20 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
   const notifyError = (error: string) => toast.error(error);
 
-  console.log("PATH::", pathname);
-
   const [GetMe, { error: authError, loading: authLoading }] = useLazyQuery(GET_PROFILE);
 
   const handleUserData = async () => {
     setLoading(true);
-    const { data: userData } = await GetMe();
+    const { data: userData, loading: dataLoading } = await GetMe();
     if (authError) {
       notifyError("Ha ocurrido un error con los datos de sesión");
       setTimeout(() => {
         setLoading(false);
         router.replace("/auth");
-      }, 2000);
+      }, 3000);
       return;
     }
-    if (userData) {
+    if (userData && !dataLoading) {
       handleSession(userData.me);
       setIsAuthenticated(true);
       setTimeout(() => {
@@ -44,7 +42,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setTimeout(() => {
         setLoading(false);
         router.replace("/auth");
-      }, 2000);
+      }, 3000);
     } else {
       if (!data.name) {
         handleUserData();

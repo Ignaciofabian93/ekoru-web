@@ -11,7 +11,7 @@ export default function InitApp() {
     const initializeApp = (path: string) =>
       setTimeout(() => {
         router.replace(path);
-      }, 1000);
+      }, 1500);
 
     if (isAuthenticated) {
       if (data.isCompany) {
@@ -22,7 +22,7 @@ export default function InitApp() {
     } else {
       initializeApp("/auth");
     }
-  }, [isAuthenticated, router, data]);
+  }, [isAuthenticated, data]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-white">
