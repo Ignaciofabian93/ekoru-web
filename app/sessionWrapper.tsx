@@ -21,14 +21,18 @@ export default function SessionWrapper({ children, token }: { children: React.Re
     const { data: userData } = await GetMe();
     if (authError) {
       notifyError("Ha ocurrido un error con los datos de sesión");
-      router.replace("/auth");
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        router.replace("/auth");
+      }, 3000);
       return;
     }
     if (userData) {
       handleSession(userData.me);
       setIsAuthenticated(true);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
   };
 
@@ -50,6 +54,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
           <motion.div
             initial={{ scale: 0.7, opacity: 0.5 }}
             animate={{ scale: 1, opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 2, ease: "easeInOut" }}
             className="relative shine-wrapper"
           >

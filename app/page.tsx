@@ -11,7 +11,7 @@ export default function InitApp() {
     const initializeApp = (path: string) =>
       setTimeout(() => {
         router.replace(path);
-      }, 3000);
+      }, 1000);
 
     if (isAuthenticated) {
       if (data.isCompany) {
