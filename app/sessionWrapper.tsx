@@ -10,6 +10,7 @@ import Image from "next/image";
 
 export default function SessionWrapper({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const [loading, setLoading] = useState<boolean>(true);
+  const [animationDone, setAnimationDone] = useState<boolean>(false);
   const router = useRouter();
   const pathname = usePathname();
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
@@ -18,54 +19,64 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   const [GetMe, { error: authError, loading: authLoading }] = useLazyQuery(GET_PROFILE);
 
   const handleUserData = async () => {
-    setLoading(true);
-    const { data: userData, loading: dataLoading } = await GetMe();
-    if (authError) {
-      notifyError("Ha ocurrido un error con los datos de sesión");
-      setTimeout(() => {
-        setLoading(false);
-        router.replace("/auth");
-      }, 3000);
-      return;
-    }
-    if (userData && !dataLoading) {
-      handleSession(userData.me);
-      setIsAuthenticated(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+    try {
+      const { data: userData } = await GetMe();
+      if (userData) {
+        handleSession(userData.me);
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        notifyError("Error al intentar iniciar sesión.");
+      }
+    } catch (error) {
+      console.error(authError);
+      toast.error("Sesión expirada. Redirigiendo...");
+      setIsAuthenticated(false);
+      router.replace("/auth");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (!token) {
-      setTimeout(() => {
-        setLoading(false);
+      setIsAuthenticated(false);
+      if (pathname === "/") {
+        if (animationDone) {
+          router.replace("/auth");
+        }
+      } else {
         router.replace("/auth");
-      }, 3000);
-    } else {
-      if (!data.name) {
-        handleUserData();
       }
+      return;
     }
-  }, [token, data]);
 
-  if (loading || authLoading) {
-    pathname === "/" ? (
+    if (!data.id) {
+      handleUserData();
+    } else {
+      setLoading(false);
+    }
+  }, [token, animationDone]);
+
+  if ((loading || authLoading) && pathname === "/") {
+    return (
       <main className="w-full h-screen flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
-            initial={{ scale: 0.7, opacity: 0.5 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ scale: 0.8, opacity: 0.8, filter: "brightness(90%)" }}
+            animate={{ scale: 1, opacity: 1, filter: "brightness(120%)" }}
             transition={{ duration: 2, ease: "easeInOut" }}
-            className="relative shine-wrapper"
+            onAnimationComplete={() => setAnimationDone(true)}
           >
-            <Image src={logo} alt="Logo Ekoru" priority width={4096} className="shine w-[40%] mx-auto" />
+            <Image src={logo} alt="Logo Ekoru" priority width={4096} className="w-[40%] mx-auto" />
           </motion.div>
         </AnimatePresence>
       </main>
-    ) : (
+    );
+  }
+
+  if (loading || authLoading) {
+    return (
       <div className="flex items-center justify-center h-screen bg-white">
         <div className="w-16 h-16 border-4 border-primary border-t-transparent border-solid rounded-full animate-spin"></div>
       </div>

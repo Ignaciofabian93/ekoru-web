@@ -8,25 +8,15 @@ export default function InitApp() {
   const { isAuthenticated, data } = useSessionStore();
 
   useEffect(() => {
-    const initializeApp = (path: string) =>
-      setTimeout(() => {
-        router.replace(path);
-      }, 1500);
+    const nextPath = isAuthenticated ? (data.isCompany ? "/dashboard" : "/feed") : "/auth";
 
-    if (isAuthenticated) {
-      if (data.isCompany) {
-        initializeApp("/dashboard");
-      } else {
-        initializeApp("/feed");
-      }
-    } else {
-      initializeApp("/auth");
-    }
+    const delay = 1000;
+    const timeout = setTimeout(() => {
+      router.replace(nextPath);
+    }, delay);
+
+    return () => clearTimeout(timeout);
   }, [isAuthenticated, data]);
 
-  return (
-    <div className="flex items-center justify-center h-screen bg-white">
-      <div className="w-16 h-16 border-4 border-primary border-t-transparent border-solid rounded-full animate-spin"></div>
-    </div>
-  );
+  return null;
 }
