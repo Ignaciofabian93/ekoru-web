@@ -3,7 +3,10 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import useSessionStore from "@/store/session";
+import logo from "@/assets/logo.png";
+import Image from "next/image";
 
 export default function SessionWrapper({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,9 +45,18 @@ export default function SessionWrapper({ children, token }: { children: React.Re
 
   if (loading || authLoading)
     return (
-      <div className="flex items-center justify-center h-screen bg-white">
-        <div className="w-16 h-16 border-4 border-primary border-t-transparent border-solid rounded-full animate-spin"></div>
-      </div>
+      <main className="w-full h-screen flex flex-col items-center justify-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0.5 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            className="relative shine-wrapper"
+          >
+            <Image src={logo} alt="Logo Ekoru" priority width={4096} className="shine w-[40%] mx-auto" />
+          </motion.div>
+        </AnimatePresence>
+      </main>
     );
 
   return <>{children}</>;
