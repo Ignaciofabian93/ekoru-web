@@ -25,7 +25,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setTimeout(() => {
         setLoading(false);
         router.replace("/auth");
-      }, 1000);
+      }, 2000);
       return;
     }
     if (userData) {
@@ -33,7 +33,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setIsAuthenticated(true);
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 2000);
     }
   };
 
@@ -56,7 +56,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
             initial={{ scale: 0.7, opacity: 0.5 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            transition={{ duration: 2, ease: "easeInOut" }}
             className="relative shine-wrapper"
           >
             <Image src={logo} alt="Logo Ekoru" priority width={4096} className="shine w-[40%] mx-auto" />
