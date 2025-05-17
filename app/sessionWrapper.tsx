@@ -15,6 +15,8 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
   const notifyError = (error: string) => toast.error(error);
 
+  console.log("PATH::", pathname);
+
   const [GetMe, { error: authError, loading: authLoading }] = useLazyQuery(GET_PROFILE);
 
   const handleUserData = async () => {
@@ -39,8 +41,10 @@ export default function SessionWrapper({ children, token }: { children: React.Re
 
   useEffect(() => {
     if (!token) {
-      setLoading(false);
-      router.replace("/auth");
+      setTimeout(() => {
+        setLoading(false);
+        router.replace("/auth");
+      }, 2000);
     } else {
       if (!data.name) {
         handleUserData();
