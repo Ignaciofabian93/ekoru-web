@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import useSessionStore from "@/store/session";
 import logo from "@/assets/logo.png";
@@ -11,6 +11,7 @@ import Image from "next/image";
 export default function SessionWrapper({ children, token }: { children: React.ReactNode; token: string | undefined }) {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+  const pathname = usePathname();
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
   const notifyError = (error: string) => toast.error(error);
 
@@ -24,7 +25,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setTimeout(() => {
         setLoading(false);
         router.replace("/auth");
-      }, 2000);
+      }, 1000);
       return;
     }
     if (userData) {
@@ -32,7 +33,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setIsAuthenticated(true);
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1000);
     }
   };
 
@@ -47,22 +48,27 @@ export default function SessionWrapper({ children, token }: { children: React.Re
     }
   }, [token, data]);
 
-  if (loading || authLoading)
-    return (
+  if (loading || authLoading) {
+    pathname === "/" ? (
       <main className="w-full h-screen flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             initial={{ scale: 0.7, opacity: 0.5 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
             className="relative shine-wrapper"
           >
             <Image src={logo} alt="Logo Ekoru" priority width={4096} className="shine w-[40%] mx-auto" />
           </motion.div>
         </AnimatePresence>
       </main>
+    ) : (
+      <div className="flex items-center justify-center h-screen bg-white">
+        <div className="w-16 h-16 border-4 border-primary border-t-transparent border-solid rounded-full animate-spin"></div>
+      </div>
     );
+  }
 
   return <>{children}</>;
 }
