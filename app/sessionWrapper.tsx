@@ -24,7 +24,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setTimeout(() => {
         setLoading(false);
         router.replace("/auth");
-      }, 3000);
+      }, 2000);
       return;
     }
     if (userData) {
@@ -32,7 +32,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       setIsAuthenticated(true);
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 2000);
     }
   };
 
