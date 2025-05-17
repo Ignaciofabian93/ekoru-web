@@ -118,7 +118,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
         key={"password"}
         name="password"
         placeholder="Contraseña"
-        type="password"
+        type={isPasswordVisible ? "text" : "password"}
         value={form.password}
         onChange={handleFormChange}
         errorMessage={errors.password}
