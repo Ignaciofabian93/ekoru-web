@@ -6,6 +6,8 @@ import { useRouter, usePathname } from "next/navigation";
 import useSessionStore from "@/store/session";
 
 export default function SessionWrapper({ children, token }: { children: React.ReactNode; token: string | undefined }) {
+  console.log("SESSION TOKEN::", token);
+
   const router = useRouter();
   const pathname = usePathname();
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
@@ -27,13 +29,11 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   };
 
   useEffect(() => {
-    if (pathname !== "/" && pathname !== "/auth") {
-      if (!token) {
-        router.replace("/auth");
-      } else {
-        if (!data.name) {
-          handleUserData();
-        }
+    if (!token) {
+      router.replace("/auth");
+    } else {
+      if (!data.name) {
+        handleUserData();
       }
     }
   }, [token, data]);
