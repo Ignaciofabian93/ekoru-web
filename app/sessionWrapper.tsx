@@ -27,6 +27,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
       } else {
         setIsAuthenticated(false);
         notifyError("Error al intentar iniciar sesión.");
+        router.replace("/auth");
       }
     } catch (error) {
       console.error(authError);
@@ -39,24 +40,26 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   };
 
   useEffect(() => {
-    if (!token) {
+    if (!token && animationDone) {
       setIsAuthenticated(false);
-      if (pathname === "/") {
-        if (animationDone) {
-          router.replace("/auth");
-        }
-      } else {
-        router.replace("/auth");
-      }
+      setLoading(false);
+      router.replace("/auth");
       return;
     }
 
-    if (!data.id) {
+    if (token && !data.id) {
       handleUserData();
-    } else {
+    } else if (token && data.id) {
       setLoading(false);
     }
-  }, [token, animationDone]);
+  }, [token, animationDone, data]);
+
+  useEffect(() => {
+    const fallback = setTimeout(() => {
+      if (!animationDone) setAnimationDone(true);
+    }, 3000);
+    return () => clearTimeout(fallback);
+  }, []);
 
   if ((loading || authLoading) && pathname === "/") {
     return (
