@@ -3,6 +3,7 @@ import Stories from "../components/stories";
 import Hero from "./_components/hero";
 import Banner from "../../../components/banner/banner";
 import InfoSection from "./_components/infoSection";
+import PageSection from "@/components/section/pageSection";
 
 export default function FeedPage() {
   return (
@@ -18,6 +19,7 @@ export default function FeedPage() {
         title="dale una segunda vida"
         description="¡Tu elección hace la diferencia! Reduce, reutiliza, impacta."
       />
+      <PageSection />
     </PageWrapper>
   );
 }
