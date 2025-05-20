@@ -15,7 +15,7 @@ export default function Button({ text, onClick, className, variant = "primary", 
     "disabled:opacity-50",
     "disabled:cursor-not-allowed",
     {
-      "w-full py-4": size === "full",
+      "w-full py-2": size === "full",
       "w-[80%] py-2": size === "lg",
       "w-[60%] py-2": size === "md",
       "w-[50%] py-1": size === "sm",

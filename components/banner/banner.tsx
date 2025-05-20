@@ -9,20 +9,20 @@ export default function Banner({ title, description }: Banner) {
   return (
     <article
       className={clsx(
-        "w-[90%] h-[132px]",
+        "w-[95%]",
         "flex flex-col items-center justify-center",
         "rounded-[11px]",
-        "border-[5px] border-primary bg-white",
+        "border-[4px] border-primary bg-white",
         "shadow-sm shadow-slate-950/25",
-        "mx-auto",
+        "mx-auto my-4 py-2 px-2"
       )}
     >
       <div className="flex items-center justify-center">
-        <span className="w-[17px] h-[17px] rounded-full bg-primary mx-4" />
-        <h4 className="text-[28px] uppercase">{title}</h4>
-        <span className="w-[17px] h-[17px] rounded-full bg-primary mx-4" />
+        <span className="w-[10px] h-[10px] rounded-full bg-primary mx-2" />
+        <h4 className="text-[14px] md:text-[18px] lg:text-[22px] uppercase text-center font-semibold">{title}</h4>
+        <span className="w-[10px] h-[10px] rounded-full bg-primary mx-2" />
       </div>
-      <p className="text-[24px]">{description}</p>
+      <p className="text-sm md:text-[16px] lg:text-[18px] text-center">{description}</p>
     </article>
   );
 }
