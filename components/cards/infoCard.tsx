@@ -3,14 +3,14 @@ import co2 from "@/assets/icons/co2.png";
 import trash from "@/assets/icons/trash.png";
 import drop from "@/assets/icons/drop.png";
 import clsx from "clsx";
-import { Info, Sprout } from "lucide-react";
+import { Info, Bean } from "lucide-react";
 
 export default function InfoCard() {
   return (
     <article
       className={clsx(
-        "w-full max-w-[450px] flex flex-col gap-4",
-        "p-4",
+        "min-w-[350px] w-full max-w-[400px] h-[510px] flex flex-col gap-4",
+        "px-6 py-8",
         "rounded-2xl",
         "bg-white",
         "shadow-md shadow-black/30"
@@ -18,7 +18,7 @@ export default function InfoCard() {
     >
       <div className="w-full flex items-center justify-between gap-2 mb-2">
         <div className="w-[64px] h-[64px] flex items-center justify-center rounded-full overflow-hidden border-[2px] border-primary bg-subtle">
-          <Sprout className="text-primary" size={26} />
+          <Bean className="text-primary" size={26} />
         </div>
         <div className="w-[calc(100%_-_70px)] flex flex-col">
           <p className="text-[14px]">Nivel 1: Eco-intercambiador</p>
