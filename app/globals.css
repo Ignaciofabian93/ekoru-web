@@ -1,6 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #71b64a;
+  --color-primary-dark: #5d9c3a;
+  --color-primary-light: #9cd270;
+  --color-secondary: #ef9f4a;
+  --color-accent: #4ab68a;
+  --color-danger: #f44336;
+  --color-main: #1a1a1a;
+  --color-disabled: #9a9a9a;
+  --color-placeholder: #aaa;
+
+  --color-background-page: #f5fdf4;
+  --color-background-section: #eaf6e3;
+  --color-background-card: #ffffff;
+  --color-subtle: #f0f9eb;
+
+  --color-border: #d1e1cb;
+  --color-border-hover: #9cd270;
+  --color-divider: #e0e0e0;
+
+  --color-success: #4caf50;
+  --color-warning: #ffc107;
+  --color-error: #f44336;
+  --color-info: #2196f3;
+}
 
 html {
   scroll-behavior: smooth;
@@ -40,4 +64,9 @@ main {
 .sidebar-gradient {
   background-color: #ffffff;
   background-image: linear-gradient(180deg, #ffffff 0%, #9fc645 100%);
+}
+
+.footer-gradient {
+  background-color: #ffffff;
+  background-image: linear-gradient(90deg, #ffffff 0%, #9fc645 100%);
 }

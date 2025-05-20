@@ -1,29 +1,31 @@
 import clsx from "clsx";
 import Image from "next/image";
-import { Instagram, Twitter, Facebook } from "lucide-react";
+import { FacebookIcon, InstagramIcon, XIcon, YouTubeIcon, LinkedinIcon } from "@/assets/icons";
 
 export default function Footer() {
   return (
-    <footer
-      className={clsx("w-full h-[300px] navbar-gradient", "flex flex-wrap items-center justify-between", "px-4 mt-8")}
-    >
-      <div className="w-1/3 h-full">
-        <p>Artículos</p>
+    <footer className={clsx("w-full footer-gradient", "flex flex-col items-center justify-between", "px-4 pt-2 mt-8")}>
+      <div className="w-full text-center mb-8">
+        <p>Artículos y Leyes</p>
       </div>
-      <div className="w-1/3 h-full flex flex-col items-center justify-center">
-        <div className="w-1/2 flex items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-center mb-8">
+        <div className="w-[60%] flex items-center justify-center">
           <Image src={"/logo.png"} alt="logo Ekoru" width={4096} height={996} />
         </div>
-        <p className="text-primary font-semibold mt-4">&copy; Ekoru 2025</p>
       </div>
-      <div className="w-1/3 h-full">
-        <p>Información</p>
+      <div className="w-full mb-8">
+        <p className="text-center text-main text-lg font-semibold mb-4">
+          Para más información síguenos en nuestras redes sociales
+        </p>
         <div className="flex items-center justify-center gap-4">
-          <Instagram />
-          <Twitter />
-          <Facebook />
+          <FacebookIcon width={36} height={36} />
+          <InstagramIcon width={36} height={36} />
+          <XIcon width={36} height={36} />
+          <YouTubeIcon width={36} height={36} />
+          <LinkedinIcon width={36} height={36} />
         </div>
       </div>
+      <p className="text-main font-semibold mt-4">&copy; Ekoru 2025</p>
     </footer>
   );
 }

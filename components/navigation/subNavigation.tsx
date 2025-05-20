@@ -5,10 +5,10 @@ export default function SubNavigation() {
   return (
     <div
       className={clsx(
-        "w-full h-[48px]",
+        "hidden w-full h-[48px]",
         "bg-white text-sm font-normal",
         "text-[24px]",
-        "transition-all ease-in-out duration-300",
+        "transition-all ease-in-out duration-300"
       )}
     >
       <div
