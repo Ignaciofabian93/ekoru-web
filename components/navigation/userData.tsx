@@ -14,16 +14,14 @@ export default function UserData({ navigateToProfile }: UserData) {
 
   return (
     <div className="flex items-start justify-start">
-      <div className="mr-4 ml-2" onClick={() => router.push("/profile")}>
+      <div className="mr-4 ml-2 lg:hidden" onClick={() => router.push("/profile")}>
         <CircleUserRound size={26} />
       </div>
-      <div className={clsx("hidden")}>
+      <div className={clsx("hidden lg:flex flex-col", "mx-4", "min-w-[140px]")}>
         <p className="text-[16px] font-semibold cursor-pointer" onClick={navigateToProfile}>
           {data.name}
-          <br />
-          {data.surnames}
         </p>
-        <p className="text-[12px] font-semibold cursor-pointer">{data.userCategory?.name}</p>
+        <p className="text-[12px] font-semibold cursor-pointer">{data.userCategory?.name ?? "Reciclador amateur"}</p>
       </div>
     </div>
   );

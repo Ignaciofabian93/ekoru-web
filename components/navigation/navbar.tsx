@@ -61,21 +61,23 @@ export default function Navbar() {
   const handleSideNav = () => setIsSideNavOpened(!isSideNavOpened);
 
   return (
-    <header className={clsx("w-full", "fixed top-0 left-0", "navbar-gradient shadow-sm shadow-primary")}>
+    <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary")}>
       <nav
         className={clsx(
-          "w-full h-[80px] max-w-[1600px] flex items-center justify-between px-4 gap-4 mx-auto",
+          "w-full h-[80px] max-w-[1600px] flex items-center justify-between px-8 gap-4 mx-auto",
           "text-white"
         )}
       >
         {/* LEFT SIDE - MENU & LOGO */}
         <div className="flex items-center justify-between">
-          <Menu onClick={handleSideNav} className="cursor-pointer" color={colors.primary} size={30} />
-          <div className="hidden w-[180px] h-[90%] items-center justify-center cursor-pointer" onClick={brandClick}>
+          <Menu onClick={handleSideNav} className="cursor-pointer md:hidden" color={colors.primary} size={30} />
+          <div
+            className="hidden md:flex w-[140px] h-[90%] items-center justify-center cursor-pointer"
+            onClick={brandClick}
+          >
             <Image src={"/logo.png"} alt="Logo Ekoru" width={4096} height={996} />
           </div>
         </div>
-
         {/* SEARCH INPUT */}
         <SearchInput />
 
@@ -86,7 +88,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <SubNavigation />
+      {/* <SubNavigation /> */}
       {isSideNavOpened && (
         <div
           className="fixed w-full h-[calc(100%_-_80px)] top-[80px] inset-0 z-30 bg-black/30 bg-opacity-30"
