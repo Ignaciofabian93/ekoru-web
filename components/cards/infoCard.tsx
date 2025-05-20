@@ -1,10 +1,9 @@
 import Image from "next/image";
-import crop from "@/assets/icons/crop.png";
 import co2 from "@/assets/icons/co2.png";
 import trash from "@/assets/icons/trash.png";
 import drop from "@/assets/icons/drop.png";
 import clsx from "clsx";
-import { Info } from "lucide-react";
+import { Info, Sprout } from "lucide-react";
 
 export default function InfoCard() {
   return (
@@ -18,13 +17,13 @@ export default function InfoCard() {
       )}
     >
       <div className="w-full flex items-center justify-between gap-2 mb-2">
-        <div className="w-[64px] h-[64px] rounded-full overflow-hidden border-[2px] border-primary bg-subtle">
-          <Image src={crop} alt="crop icon" width={800} className="w-full h-full object-fill" />
+        <div className="w-[64px] h-[64px] flex items-center justify-center rounded-full overflow-hidden border-[2px] border-primary bg-subtle">
+          <Sprout className="text-primary" size={26} />
         </div>
         <div className="w-[calc(100%_-_70px)] flex flex-col">
           <p className="text-[14px]">Nivel 1: Eco-intercambiador</p>
           <div className="w-full h-[12px] rounded-full bg-subtle my-2 overflow-hidden">
-            <div className="w-4/12 h-full bg-primary" />
+            <div className="w-1/8 h-full bg-primary" />
           </div>
           <div className="flex items-center justify-between">
             <p className="text-[12px] italic">¡Ya germinó tu semilla!</p>
@@ -70,17 +69,17 @@ export default function InfoCard() {
           <div className="w-1/3 flex flex-col items-center justify-center">
             <Image src={co2} alt="co2" className="w-[36px] h-[36px] object-fill" />
             <span className="text-[12px]">0 kg</span>
-            <span className="text-[12px]">Co2 evitado</span>
+            <span className="text-[11px]">Co2 evitado</span>
           </div>
           <div className="w-1/3 flex flex-col items-center justify-center">
             <Image src={trash} alt="trash" width={800} className="w-[36px] h-[36px] object-fill" />
             <span className="text-[12px]">0 kg</span>
-            <span className="text-[12px]">Deshechos evitados</span>
+            <span className="text-[11px]">Deshechos evitados</span>
           </div>
           <div className="w-1/3 flex flex-col items-center justify-center">
             <Image src={drop} alt="drop" width={800} className="w-[36px] h-[36px] object-fill" />
             <span className="text-[12px]">0 kg</span>
-            <span className="text-[12px]">Agua ahorrada</span>
+            <span className="text-[11px]">Agua ahorrada</span>
           </div>
         </div>
       </div>
