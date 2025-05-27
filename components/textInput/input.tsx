@@ -13,7 +13,7 @@ type TextInput = {
 export default function TextInput({
   type,
   className,
-  size,
+  size = "full",
   placeholder,
   name,
   value,
@@ -25,44 +25,37 @@ export default function TextInput({
   infoText,
   ...props
 }: TextInput) {
-  const getSize = () => {
-    switch (size) {
-      case "sm":
-        return "w-1/3";
-      case "md":
-        return "w-1/2";
-      case "lg":
-        return "w-2/3";
-      case "full":
-        return "w-full";
-      default:
-        return "w-full";
-    }
-  };
-
   const inputClassName = clsx(
     "min-w-[80px] h-12",
-    `${getSize()}`,
     "rounded-[11px]",
     "pl-4 pr-4",
-    {
-      "pl-8": infoIcon,
-    },
     "bg-white",
     "text-primary",
     "text-semibold",
     "outline-none",
     "border-[1px]",
+    "placeholder:text-primary placeholder:opacity-[0.8] placeholder:italic",
     {
       "border-primary": !errorMessage,
       "border-red-500": errorMessage,
+      "pl-8": infoIcon,
+      "w-1/3": size === "sm",
+      "w-1/2": size === "md",
+      "w-2/3": size === "lg",
+      "w-full": size === "full",
     },
-    "placeholder:text-primary placeholder:opacity-[0.8] placeholder:italic",
     className
   );
 
   return (
-    <div className={clsx(getSize(), "rounded-[11px] flex flex-col items-start justify-center mb-4 mt-2 relative")}>
+    <div
+      className={clsx("rounded-[11px] flex flex-col items-start justify-center mb-4 mt-2 relative", {
+        "w-1/3": size === "sm",
+        "w-1/2": size === "md",
+        "w-2/3": size === "lg",
+        "w-full": size === "full",
+      })}
+    >
       <input
         type={type}
         placeholder={placeholder}
