@@ -1,7 +1,5 @@
 import Button from "@/components/buttons/button";
 import TextInput from "@/components/textInput/input";
-import { colors } from "@/constants/colors";
-import { UserData } from "@/store/session";
 import clsx from "clsx";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -198,12 +196,7 @@ export default function ProfileForm() {
             />
           </FormField>
           <FormField field="Fecha de nacimiento">
-            <DateInput
-              name="birthDate"
-              value={formData.birthday}
-              onChange={handleFormData}
-              label="Fecha de nacimiento"
-            />
+            <DateInput name="birthday" value={formData.birthday} onChange={handleFormData} />
           </FormField>
         </FormRowWrapper>
         <div className="w-full flex items-center justify-center mt-8">

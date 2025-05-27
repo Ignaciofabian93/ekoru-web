@@ -1,108 +1,115 @@
-import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import clsx from "clsx";
 
-type Select = {
-  options?: { label: string; value: string | number }[];
+type Option = {
+  label: string;
+  value: string | number;
+};
+
+type SelectProps = {
+  options?: Option[];
   className?: string;
-  value?: string | number | undefined;
+  value?: string | number;
   name: string;
   size?: "sm" | "md" | "lg" | "full";
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string | number) => void;
   label: string;
   disabled?: boolean;
 };
 
-export default function Select({
+export default function CustomSelect({
   className,
   value,
-  options,
-  name,
+  options = [],
   size = "full",
   onChange,
   label,
   disabled = false,
-}: Select) {
-  const [isFocused, setIsFocused] = useState(false);
+}: SelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const getSizeClass = () => {
-    switch (size) {
-      case "sm":
-        return "w-1/3";
-      case "md":
-        return "w-1/2";
-      case "lg":
-        return "w-2/3";
-      case "full":
-      default:
-        return "w-full";
-    }
-  };
+  const selectedLabel = options.find((o) => o.value === value)?.label || label;
 
-  const baseStyles = clsx(
-    "appearance-none",
-    "min-w-[80px] h-12",
-    "rounded-[11px]",
-    "px-4 pr-10 mb-4 mt-2", // add space on the right for icon
-    "bg-white",
-    "text-primary",
-    "text-semibold",
-    "outline-none",
-    "border-[1px]",
-    disabled ? "border-gray-300 cursor-not-allowed opacity-50" : "border-primary",
-    "placeholder:text-primary placeholder:opacity-[0.8] placeholder:italic",
-    getSizeClass(),
-    className
-  );
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  className = clsx(
-    "min-w-[80px] h-12",
-    "rounded-[11px]",
-    "px-4 mb-4 mt-2",
-    "bg-white",
-    "text-primary",
-    "text-semibold",
-    "outline-none",
-    "border-[1px] border-primary",
-    "placeholder:text-primary placeholder:opacity-[0.8] placeholder:italic",
-    {
-      "w-1/3": size === "sm",
-      "w-1/2": size === "md",
-      "w-2/3": size === "lg",
-      "w-full": size === "full",
-      "cursor-not-allowed": disabled,
-      "opacity-50": disabled,
-    },
-    className
-  );
+  const filteredOptions = options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()));
+
+  const sizeClass = {
+    sm: "w-1/3",
+    md: "w-1/2",
+    lg: "w-2/3",
+    full: "w-full",
+  }[size];
+
   return (
-    <div className={clsx("relative", getSizeClass())}>
-      <select
+    <div className={clsx("relative", sizeClass)} ref={containerRef}>
+      <button
+        type="button"
         disabled={disabled}
-        className={baseStyles}
-        value={value}
-        name={name}
-        onChange={onChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      >
-        <option value="">{label}</option>
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-
-      {/* Custom caret icon */}
-      <ChevronDown
-        size={18}
+        onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          "absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none transition-transform duration-200",
-          isFocused && "rotate-180 text-primary",
-          !isFocused && "text-primary/70"
+          "h-12 w-full text-left rounded-[11px] px-4 pr-10 mb-4 mt-2",
+          "bg-white border border-primary text-base text-primary font-semibold",
+          "focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+          disabled && "opacity-50 cursor-not-allowed",
+          className
         )}
-      />
+      >
+        {selectedLabel}
+        <ChevronDown
+          size={18}
+          className={clsx(
+            "absolute right-3 top-1/2 transform -translate-y-1/2 transition-transform duration-200",
+            isOpen && "rotate-180"
+          )}
+        />
+      </button>
+
+      {/* Dropdown Modal */}
+      {isOpen && (
+        <div className="absolute z-20 mt-1 w-full bg-white border border-primary rounded-xl shadow-lg animate-fade-in-down">
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="w-full px-4 py-2 border-b border-primary outline-none text-base"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <ul className="max-h-60 overflow-y-auto">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <li
+                  key={option.value}
+                  onClick={() => {
+                    onChange(option.value);
+                    setIsOpen(false);
+                    setSearch("");
+                  }}
+                  className={clsx(
+                    "px-4 py-2 cursor-pointer hover:bg-primary/10",
+                    option.value === value && "bg-primary/10 font-semibold"
+                  )}
+                >
+                  {option.label}
+                </li>
+              ))
+            ) : (
+              <li className="px-4 py-2 text-sm text-gray-500 italic">No se encuentran resultados</li>
+            )}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

@@ -81,8 +81,7 @@ export default function useProfile() {
     setFormData((prev) => ({ ...prev, profileImage: base64Image }));
   };
 
-  const handleCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
+  const handleCountry = (value: string | number) => {
     const country = countries.find((country) => country.id === value);
     if (country) {
       setFormData((prev) => ({
@@ -95,8 +94,7 @@ export default function useProfile() {
     }
   };
 
-  const handleRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
+  const handleRegion = (value: string | number) => {
     const region = regions.find((region) => region.id === value);
     if (region) {
       setFormData((prev) => ({
@@ -108,9 +106,7 @@ export default function useProfile() {
     }
   };
 
-  const handleCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("ID: ", e.target.value);
-    const { value } = e.target;
+  const handleCity = (value: string | number) => {
     console.log("CITIES:: ", cities);
     const city = cities.find((city) => city.id === value);
     console.log("CITY:: ", city);
@@ -124,8 +120,7 @@ export default function useProfile() {
     }
   };
 
-  const handleCounty = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
+  const handleCounty = (value: string | number) => {
     const county = counties.find((county) => county.id === value);
     if (county) {
       setFormData((prev) => ({

@@ -9,55 +9,55 @@ type PhoneInputProps = {
   disabled?: boolean;
 };
 
-export default function PhoneInput({ value, name, size, onChange, errorMessage, disabled }: PhoneInputProps) {
-  const getSize = () => {
-    switch (size) {
-      case "sm":
-        return "w-1/3";
-      case "md":
-        return "w-1/2";
-      case "lg":
-        return "w-2/3";
-      case "full":
-        return "w-full";
-      default:
-        return "w-full";
-    }
-  };
-
+export default function PhoneInput({ value, name, size = "full", onChange, errorMessage, disabled }: PhoneInputProps) {
   const containerClass = clsx(
-    "flex items-center gap-2",
-    getSize(),
-    "h-12 rounded-[11px] px-2",
-    "bg-white border-[1px]",
+    "relative flex items-center gap-2 px-3 h-12 rounded-xl",
+    "border transition-all duration-200 bg-white",
     {
-      "border-primary": !errorMessage,
-      "border-red-500": errorMessage,
+      "border-primary focus-within:ring-2 focus-within:ring-primary/30": !errorMessage,
+      "border-red-500 focus-within:ring-2 focus-within:ring-red-300": errorMessage,
+      "opacity-50 cursor-not-allowed": disabled,
     },
-    "mt-2 mb-4 relative"
+    {
+      "w-1/3": size === "sm",
+      "w-1/2": size === "md",
+      "w-2/3": size === "lg",
+      "w-full": size === "full",
+    },
+    "mt-2 mb-4"
   );
 
   const inputClass = clsx(
-    "flex-1 h-full outline-none bg-transparent text-primary text-semibold px-2",
+    "flex-1 h-full px-2 outline-none bg-transparent",
+    "text-primary text-sm font-medium",
     "placeholder:italic placeholder:text-primary placeholder:opacity-80"
   );
 
   return (
     <div className={containerClass}>
-      <select disabled className="text-primary bg-transparent outline-none px-2 cursor-not-allowed" value="+56">
+      {/* Country code (non-editable) */}
+      <select
+        disabled
+        className="text-primary bg-transparent outline-none px-2 text-sm font-medium cursor-not-allowed"
+        value="+56"
+      >
         <option value="+56">+56</option>
       </select>
+
+      {/* Phone input */}
       <input
         type="tel"
         name={name}
         value={value}
         onChange={onChange}
-        className={inputClass}
         placeholder="9 1234 5678"
         disabled={disabled}
+        className={inputClass}
       />
+
+      {/* Error Message */}
       {errorMessage && (
-        <span className="text-red-500 text-xs pl-1 mt-1 absolute left-0 -bottom-4 w-full">{errorMessage}</span>
+        <span className="absolute left-0 -bottom-4 text-xs text-red-500 pl-1 w-full">{errorMessage}</span>
       )}
     </div>
   );

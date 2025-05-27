@@ -1,6 +1,6 @@
-import { colors } from "@/constants/colors";
 import clsx from "clsx";
 import { Info } from "lucide-react";
+import { colors } from "@/constants/colors";
 
 type TextInput = {
   size?: "sm" | "md" | "lg" | "full";
@@ -11,7 +11,7 @@ type TextInput = {
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
 
 export default function TextInput({
-  type,
+  type = "text",
   className,
   size = "full",
   placeholder,
@@ -26,62 +26,62 @@ export default function TextInput({
   ...props
 }: TextInput) {
   const inputClassName = clsx(
-    "min-w-[80px] h-12",
-    "rounded-[11px]",
-    "pl-4 pr-4",
-    "bg-white",
-    "text-primary",
-    "text-semibold",
-    "outline-none",
-    "border-[1px]",
-    "placeholder:text-primary placeholder:opacity-[0.8] placeholder:italic",
+    "h-12 px-4 pr-10 rounded-xl",
+    "bg-white border outline-none",
+    "placeholder:text-primary placeholder:italic placeholder:opacity-80",
+    "text-primary text-base font-medium",
+    "transition-all duration-200 ease-in-out",
     {
-      "border-primary": !errorMessage,
-      "border-red-500": errorMessage,
-      "pl-8": infoIcon,
+      "border-primary focus:ring-2 focus:ring-primary/30": !errorMessage,
+      "border-red-500 focus:ring-2 focus:ring-red-300": !!errorMessage,
+      "pl-10": infoIcon,
       "w-1/3": size === "sm",
       "w-1/2": size === "md",
       "w-2/3": size === "lg",
       "w-full": size === "full",
+      "cursor-not-allowed opacity-50": disabled,
     },
     className
   );
 
   return (
     <div
-      className={clsx("rounded-[11px] flex flex-col items-start justify-center mb-4 mt-2 relative", {
+      className={clsx("relative flex flex-col items-start justify-center gap-1 mb-4 mt-2", {
         "w-1/3": size === "sm",
         "w-1/2": size === "md",
         "w-2/3": size === "lg",
         "w-full": size === "full",
       })}
     >
+      {/* Input Field */}
       <input
         type={type}
         placeholder={placeholder}
-        className={inputClassName}
         name={name}
         value={value}
         onChange={onChange}
         disabled={disabled}
+        className={inputClassName}
         {...props}
       />
-      <div className={clsx("absolute right-4 cursor-pointer")}>{icon}</div>
-      {errorMessage && (
-        <span className="text-red-500 text-xs pl-1 mt-1 absolute left-0 -bottom-4 w-full">{errorMessage}</span>
-      )}
+
+      {/* Right-side Icon */}
+      {icon && <div className="absolute right-3 top-[50%] translate-y-[-50%] text-primary">{icon}</div>}
+
+      {/* Left-side Info Icon with Tooltip */}
       {infoIcon && (
-        <div className="absolute left-2 cursor-pointer">
-          <div className="relative group">
-            <Info color={colors.primary} size={16} />
-            {infoText && (
-              <div className="absolute left-full bottom-0 ml-2 w-52 text-xs p-2 rounded bg-gray-100 text-gray-800 shadow-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-10 pointer-events-none">
-                {infoText}
-              </div>
-            )}
-          </div>
+        <div className="absolute left-3 top-[50%] translate-y-[-50%] group cursor-pointer z-10">
+          <Info size={16} color={colors.primary} />
+          {infoText && (
+            <div className="absolute left-full bottom-1 ml-2 w-52 text-xs p-2 rounded-xl bg-gray-100 text-gray-700 shadow-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none">
+              {infoText}
+            </div>
+          )}
         </div>
       )}
+
+      {/* Error Message */}
+      {errorMessage && <span className="text-red-500 text-xs mt-1 ml-1">{errorMessage}</span>}
     </div>
   );
 }
