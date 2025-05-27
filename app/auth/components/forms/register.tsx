@@ -13,6 +13,7 @@ import CheckBox from "@/components/checkbox/checkbox";
 type Form = {
   name: string;
   surnames: string;
+  businessName: string;
   email: string;
   password: string;
   isCompany: boolean;
@@ -30,17 +31,24 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
   const [form, setForm] = useState<Form>({
     name: "",
     surnames: "",
+    businessName: "",
     email: "",
     password: "",
     isCompany: false,
   });
-  const [errors, setErrors] = useState<{ email?: string; password?: string; name?: string; surnames?: string }>({});
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    name?: string;
+    surnames?: string;
+    businessName?: string;
+  }>({});
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   // Fields validations
-  const validateFields = (email: string, password: string, name: string, surnames: string) => {
+  const validateFields = (email: string, password: string, name: string, surnames: string, businessName: string) => {
     const newErrors: typeof errors = {};
 
     if (!name) newErrors.name = "El nombre es requerido";
@@ -49,6 +57,8 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     if (!surnames) newErrors.surnames = "El/Los apellido(s) son requeridos";
     else if (!validateNameLength(surnames))
       newErrors.surnames = "El/Los apellido(s) deben tener entre 2 y 50 caracteres";
+
+    if (!businessName && form.isCompany) newErrors.businessName = "El nombre de la empresa es requerido";
 
     if (!email) newErrors.email = "El correo es requerido.";
     else if (!validateEmail(email)) newErrors.email = "Formato de correo inválido.";
@@ -68,6 +78,9 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
     let error = "";
 
     if ((name === "name" && value.length > 0) || (name === "surnames" && value.length > 0))
+      if (!validateNameLength(value)) error = "Debe tener entre 2 y 50 caracteres";
+
+    if (name === "businessName" && value.length > 0)
       if (!validateNameLength(value)) error = "Debe tener entre 2 y 50 caracteres";
 
     if (name === "email" && value.length > 0) {
@@ -90,12 +103,12 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, surnames, email, password } = form;
-    if (!name || !surnames || !email || !password) {
+    const { name, surnames, email, password, businessName, isCompany } = form;
+    if ((!isCompany && !name) || (!isCompany && !surnames) || !email || !password || (isCompany && !businessName)) {
       notifyError("Todos los campos son obligatorios");
     }
 
-    const validationErrors = validateFields(email, password, name, surnames);
+    const validationErrors = validateFields(email, password, name, surnames, businessName);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -126,25 +139,39 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
 
   return (
     <form onSubmit={handleSubmit} className="w-full h-full pb-8 md:pb-0">
-      <div className="w-full flex flex-col md:flex-row md:gap-4">
-        <TextInput
-          key={"name"}
-          name="name"
-          placeholder="Nombre"
-          type="text"
-          value={form.name}
-          onChange={handleFormChange}
-          errorMessage={errors.name}
-        />
-        <TextInput
-          key={"surnames"}
-          name="surnames"
-          placeholder="Apellido(s)"
-          type="text"
-          value={form.surnames}
-          onChange={handleFormChange}
-          errorMessage={errors.surnames}
-        />
+      <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+        {form.isCompany ? (
+          <TextInput
+            key={"businessName"}
+            name="businessName"
+            placeholder="Razón Social"
+            type="text"
+            value={form.businessName}
+            onChange={handleFormChange}
+            errorMessage={errors.businessName}
+          />
+        ) : (
+          <>
+            <TextInput
+              key={"name"}
+              name="name"
+              placeholder="Nombre"
+              type="text"
+              value={form.name}
+              onChange={handleFormChange}
+              errorMessage={errors.name}
+            />
+            <TextInput
+              key={"surnames"}
+              name="surnames"
+              placeholder="Apellido(s)"
+              type="text"
+              value={form.surnames}
+              onChange={handleFormChange}
+              errorMessage={errors.surnames}
+            />
+          </>
+        )}
       </div>
       <div className="w-full flex flex-col md:flex-row md:gap-4">
         <TextInput

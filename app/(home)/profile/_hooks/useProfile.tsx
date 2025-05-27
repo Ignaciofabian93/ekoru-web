@@ -1,0 +1,164 @@
+import { useEffect, useState } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
+import useSessionStore, { UserData } from "@/store/session";
+import { City, Country, Region, County } from "@/types/geo";
+
+export default function useProfile() {
+  const { handleSession, data } = useSessionStore();
+  const [formData, setFormData] = useState<UserData>(data);
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [regions, setRegions] = useState<Region[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [counties, setCounties] = useState<County[]>([]);
+
+  const [GetCountries] = useLazyQuery(GET_COUNTRIES);
+  const [GetRegions] = useLazyQuery(GET_REGIONS);
+  const [GetCities] = useLazyQuery(GET_CITIES);
+  const [GetCounties] = useLazyQuery(GET_COUNTIES);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const { data } = await GetCountries();
+        setCountries(data.countries);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  useEffect(() => {
+    const fetchRegions = async () => {
+      try {
+        const { data } = await GetRegions({ variables: { countryId: formData.country.id } });
+        setRegions(data.regions);
+      } catch (error) {
+        console.error("Error fetching regions:", error);
+      }
+    };
+
+    fetchRegions();
+  }, [formData.country.id]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const { data } = await GetCities({ variables: { regionId: formData.region.id } });
+        setCities(data.cities);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+
+    fetchCities();
+  }, [formData.region.id]);
+
+  useEffect(() => {
+    const fetchCounties = async () => {
+      try {
+        const { data } = await GetCounties({ variables: { cityId: formData.city.id } });
+        setCounties(data.counties);
+      } catch (error) {
+        console.error("Error fetching counties:", error);
+      }
+    };
+
+    fetchCounties();
+  }, [formData.city.id]);
+
+  const handleFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleProfileImage = (base64Image: string) => {
+    setFormData((prev) => ({ ...prev, profileImage: base64Image }));
+  };
+
+  const handleCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    const country = countries.find((country) => country.id === value);
+    if (country) {
+      setFormData((prev) => ({
+        ...prev,
+        country: country,
+        region: { id: "", region: "" },
+        city: { id: "", city: "" },
+        county: { id: "", county: "" },
+      }));
+    }
+  };
+
+  const handleRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    const region = regions.find((region) => region.id === value);
+    if (region) {
+      setFormData((prev) => ({
+        ...prev,
+        region: region,
+        city: { id: "", city: "" },
+        county: { id: "", county: "" },
+      }));
+    }
+  };
+
+  const handleCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log("ID: ", e.target.value);
+    const { value } = e.target;
+    console.log("CITIES:: ", cities);
+    const city = cities.find((city) => city.id === value);
+    console.log("CITY:: ", city);
+
+    if (city) {
+      setFormData((prev) => ({
+        ...prev,
+        city: city,
+        county: { id: "", county: "" },
+      }));
+    }
+  };
+
+  const handleCounty = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    const county = counties.find((county) => county.id === value);
+    if (county) {
+      setFormData((prev) => ({
+        ...prev,
+        county: county,
+      }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Update Zustand store
+    handleSession(formData);
+    // Optionally call API
+    // await api.put("/profile", formData)
+    // Close modal
+    // toggleEdit(); // if passed as prop
+  };
+
+  console.log("FORM:: ", formData);
+
+  return {
+    handleFormData,
+    formData,
+    handleProfileImage,
+    handleSubmit,
+    countries,
+    regions,
+    cities,
+    counties,
+    handleCity,
+    handleCountry,
+    handleCounty,
+    handleRegion,
+  };
+}

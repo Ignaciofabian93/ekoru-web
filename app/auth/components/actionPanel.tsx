@@ -16,7 +16,7 @@ export default function ActionPanel() {
 
   return (
     <div className="w-full max-w-[500px] h-full flex flex-col items-center justify-start md:justify-center">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={currentView}
           initial={{ opacity: 0, x: 50 }}

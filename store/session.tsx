@@ -4,13 +4,16 @@ export type UserData = {
   id: string;
   name: string;
   surnames: string;
+  businessName: string;
+  profileImage?: string;
+  birthday: string;
   email: string;
   phone: string;
   address: string;
-  city: { id: number; city: string };
-  county: { id: number; county: string };
-  region: { id: number; region: string };
-  country: { id: number; country: string };
+  city: { id: string; city: string };
+  county: { id: string; county: string };
+  region: { id: string; region: string };
+  country: { id: string; country: string };
   isCompany: boolean;
   createdAt: string;
   updatedAt: string;
@@ -27,6 +30,8 @@ type SessionStore = {
   handleSession: (data: UserData) => void;
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
+  edit: boolean;
+  toggleEdit: () => void;
 };
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -34,14 +39,17 @@ const useSessionStore = create<SessionStore>((set) => ({
     id: "",
     name: "",
     surnames: "",
+    businessName: "",
+    profileImage: "",
+    birthday: "",
     email: "",
     isCompany: false,
     phone: "",
     address: "",
-    county: { id: 0, county: "" },
-    region: { id: 0, region: "" },
-    country: { id: 0, country: "" },
-    city: { id: 0, city: "" },
+    county: { id: "", county: "" },
+    region: { id: "", region: "" },
+    country: { id: "", country: "" },
+    city: { id: "", city: "" },
     createdAt: "",
     updatedAt: "",
     userCategory: {
@@ -54,6 +62,8 @@ const useSessionStore = create<SessionStore>((set) => ({
   handleSession: (data: UserData) => set(() => ({ data })),
   isAuthenticated: false,
   setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated })),
+  edit: false,
+  toggleEdit: () => set((state) => ({ edit: !state.edit })),
 }));
 
 export default useSessionStore;

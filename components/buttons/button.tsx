@@ -12,6 +12,7 @@ export default function Button({ text, onClick, className, variant = "primary", 
     "flex items-center justify-center",
     "rounded-full",
     "font-semibold",
+    "cursor-pointer",
     "disabled:opacity-50",
     "disabled:cursor-not-allowed",
     {
@@ -22,7 +23,7 @@ export default function Button({ text, onClick, className, variant = "primary", 
     },
     {
       "bg-primary text-main-inverted border-[1px] border-primary": variant === "primary",
-      "bg-secondary text-primary border-[1px] border-primary": variant === "secondary",
+      "bg-white text-primary border-[1px] border-primary": variant === "secondary",
       "bg-danger text-white border-[1px] border-danger": variant === "danger",
     },
     className

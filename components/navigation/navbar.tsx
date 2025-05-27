@@ -8,7 +8,6 @@ import clsx from "clsx";
 import SearchInput from "../textInput/search";
 import Cart from "../cart/cart";
 import UserData from "./userData";
-import SubNavigation from "./subNavigation";
 import Button from "../buttons/button";
 import useSessionStore from "@/store/session";
 
