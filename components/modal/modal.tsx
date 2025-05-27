@@ -1,44 +1,45 @@
 import clsx from "clsx";
 import Button from "../buttons/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Modal = {
   title: string;
   children: React.ReactNode;
   className?: string;
   close?: () => void;
+  isOpen?: boolean;
 };
 
-export default function Modal({ title, children, close }: Modal) {
+export default function Modal({ title, children, close, isOpen = true }: Modal) {
   return (
-    <div
-      className={clsx(
-        "fixed top-0 left-0 right-0 z-[9999]",
-        "bg-black/80",
-        "w-screen h-screen",
-        "flex items-center justify-center"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className={clsx("fixed inset-0 z-[9999]", "flex items-center justify-center", "bg-black/50 backdrop-blur-sm")}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.article
+            className={clsx(
+              "w-[90%] md:w-[60%] max-h-[90%]",
+              "bg-white border border-primary shadow-xl rounded-[20px]",
+              "px-6 py-5 md:px-10 md:py-8",
+              "flex flex-col justify-between overflow-y-auto no-scrollbar",
+              "transform transition-all duration-300"
+            )}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+          >
+            <h3 className="text-2xl md:text-3xl font-semibold mb-6">{title}</h3>
+            <div className="flex-1">{children}</div>
+            <div className="w-full flex justify-center mt-6">
+              <Button text="Cerrar" variant="secondary" onClick={close} />
+            </div>
+          </motion.article>
+        </motion.div>
       )}
-    >
-      <article
-        className={clsx(
-          "w-[90%] h-[90%]",
-          "md:w-[60%]",
-          "px-4 py-4 md:px-8 md:py-8",
-          "bg-white",
-          "rounded-[11px]",
-          "shadow-md shadow-slate-950/40",
-          "border-[1px] border-primary",
-          "overflow-y-auto",
-          "mx-auto",
-          "flex flex-col justify-between",
-          "no-scrollbar"
-        )}
-      >
-        <h3 className="text-[24px] md:text-[28px] text-left ml-4 mt-2 font-semibold">{title}</h3>
-        {children}
-        <div className="w-full flex items-center justify-center mx-auto">
-          <Button text="Cerrar" variant="secondary" onClick={close} />
-        </div>
-      </article>
-    </div>
+    </AnimatePresence>
   );
 }

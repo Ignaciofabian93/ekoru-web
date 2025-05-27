@@ -4,6 +4,7 @@ import useSessionStore from "@/store/session";
 import clsx from "clsx";
 import Image from "next/image";
 import ProfileForm from "./form";
+import { Pencil } from "lucide-react";
 
 export default function ProfileHeader() {
   const { data, edit, toggleEdit } = useSessionStore();
@@ -19,9 +20,10 @@ export default function ProfileHeader() {
           {data.name.split(" ")[0]} {data.surnames.split(" ")[0]}
         </span>
         <span className="text-[14px] font-semibold">{data.address || "Sin dirección"}</span>
-        <span className="text-[14px] font-semibold text-primary cursor-pointer" onClick={toggleEdit}>
-          Editar perfil
-        </span>
+        <div className="flex items-center mt-2" onClick={toggleEdit}>
+          <span className="text-[14px] font-semibold text-primary cursor-pointer mr-2">Editar perfil</span>
+          <Pencil size={16} className="text-primary" />
+        </div>
       </div>
       {edit && (
         <Modal title="Editar Perfil" close={toggleEdit}>

@@ -75,7 +75,7 @@ export default function ProfileForm() {
   };
 
   return (
-    <div className="w-full min-h-fit h-full flex flex-col items-start justify-start mt-8 pb-8">
+    <div className="w-full min-h-fit h-full flex flex-col items-start justify-start">
       <ProfileImage />
       <form className="w-full">
         {/* NAMES */}

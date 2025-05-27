@@ -3,7 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/graphql/auth/query";
 import { toast } from "react-toastify";
 import { usePathname, useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 import useSessionStore from "@/store/session";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
