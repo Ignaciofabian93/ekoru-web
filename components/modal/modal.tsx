@@ -22,7 +22,7 @@ export default function Modal({ title, children, close, isOpen = true }: Modal) 
         >
           <motion.article
             className={clsx(
-              "w-[90%] md:w-[60%] max-h-[90%]",
+              "w-[90%] lg:w-[80%] max-h-[90%]",
               "bg-white border border-primary shadow-xl rounded-[20px]",
               "px-6 py-5 md:px-10 md:py-8",
               "flex flex-col justify-between overflow-y-auto no-scrollbar",

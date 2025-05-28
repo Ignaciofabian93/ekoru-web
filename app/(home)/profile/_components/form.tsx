@@ -59,12 +59,14 @@ export default function ProfileForm() {
     );
   };
 
+  const rowClassname = "w-full flex flex-col lg:flex-row lg:gap-4 transition-all duration-300 ease-in-out";
+
   return (
     <div className="w-full min-h-fit h-full flex flex-col items-start justify-start">
       <ProfileImage />
       <form className="w-full" onSubmit={handleSubmit}>
         {/* NAMES */}
-        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+        <div className={rowClassname}>
           {formData.isCompany ? (
             <div className="w-full">
               <span className="text-[14px] font-semibold">Razón social</span>
@@ -106,7 +108,7 @@ export default function ProfileForm() {
         </div>
 
         {/* EMAIL & PHONE */}
-        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+        <div className={rowClassname}>
           <div className="w-full">
             <span className="text-[14px] font-semibold">Email</span>
             <TextInput
@@ -125,7 +127,7 @@ export default function ProfileForm() {
         </div>
 
         {/* COUNTRY & REGION */}
-        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+        <div className={rowClassname}>
           <div className="w-full">
             <span className="text-[14px] font-semibold">País</span>
             <Select
@@ -150,7 +152,7 @@ export default function ProfileForm() {
         </div>
 
         {/* CITY & COUNTY */}
-        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+        <div className={rowClassname}>
           <div className="w-full">
             <span className="text-[14px] font-semibold">Ciudad</span>
             <Select
@@ -174,7 +176,7 @@ export default function ProfileForm() {
         </div>
 
         {/* ADDRESS & BIRTHDAY */}
-        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+        <div className={rowClassname}>
           <div className="w-full">
             <span className="text-[14px] font-semibold">Dirección</span>
             <TextInput
