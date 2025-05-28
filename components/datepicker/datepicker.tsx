@@ -1,73 +1,97 @@
-import clsx from "clsx";
+import { useState } from "react";
+import CustomSelect from "../select/select";
 
 type DateInputProps = {
-  className?: string;
+  onChange: (value: string) => void; // value in "YYYY-MM-DD" format
   value?: string;
-  name: string;
-  size?: "sm" | "md" | "lg" | "full";
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label?: string;
-  errorMessage?: string;
+  label: string;
   disabled?: boolean;
 };
 
-export default function DateInput({
-  className,
-  value,
-  name,
-  size,
-  onChange,
-  label = "Seleccionar fecha",
-  errorMessage,
-  disabled,
-}: DateInputProps) {
-  const getSize = () => {
-    switch (size) {
-      case "sm":
-        return "w-1/3";
-      case "md":
-        return "w-1/2";
-      case "lg":
-        return "w-2/3";
-      case "full":
-        return "w-full";
-      default:
-        return "w-full";
-    }
+const getDays = (month: number, year: number) => {
+  return new Array(new Date(year, month, 0).getDate())
+    .fill(null)
+    .map((_, i) => ({ label: String(i + 1), value: i + 1 }));
+};
+
+export default function DateSelectInput({ onChange, value, label, disabled }: DateInputProps) {
+  const currentDate = value ? new Date(value) : new Date();
+  const [day, setDay] = useState(currentDate.getDate());
+  const [month, setMonth] = useState(currentDate.getMonth() + 1);
+  const [year, setYear] = useState(currentDate.getFullYear());
+
+  const years = Array.from({ length: 100 }, (_, i) => ({
+    label: String(currentDate.getFullYear() - i),
+    value: currentDate.getFullYear() - i,
+  }));
+
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ].map((label, index) => ({ label, value: index + 1 }));
+
+  const days = getDays(month, year);
+
+  const handleChange = (newDay: number, newMonth: number, newYear: number) => {
+    const formatted = `${newYear}-${String(newMonth).padStart(2, "0")}-${String(newDay).padStart(2, "0")}`;
+    onChange(formatted);
   };
 
-  const inputClassName = clsx(
-    "min-w-[80px] h-12",
-    getSize(),
-    "rounded-[11px]",
-    "px-4",
-    "bg-white",
-    "text-primary",
-    "text-semibold",
-    "outline-none",
-    "border-[1px]",
-    {
-      "border-primary": !errorMessage,
-      "border-red-500": errorMessage,
-    },
-    "placeholder:text-primary placeholder:opacity-[0.8] placeholder:italic",
-    className
-  );
-
   return (
-    <div className={clsx(getSize(), "flex flex-col items-start justify-center mt-2 mb-4 relative")}>
-      <input
-        type="date"
-        name={name}
-        value={value}
-        onChange={onChange}
-        className={inputClassName}
+    <div className="flex gap-2 w-full">
+      <CustomSelect
+        name="day"
+        label="Día"
+        options={days}
+        value={day}
+        onChange={(val) => {
+          setDay(Number(val));
+          handleChange(Number(val), month, year);
+        }}
+        size="sm"
         disabled={disabled}
-        placeholder={label}
       />
-      {errorMessage && (
-        <span className="text-red-500 text-xs pl-1 mt-1 absolute left-0 -bottom-4 w-full">{errorMessage}</span>
-      )}
+      <CustomSelect
+        name="month"
+        label="Mes"
+        options={months}
+        value={month}
+        onChange={(val) => {
+          setMonth(Number(val));
+          // Adjust day in case new month has fewer days
+          const maxDay = new Date(year, Number(val), 0).getDate();
+          const newDay = Math.min(day, maxDay);
+          setDay(newDay);
+          handleChange(newDay, Number(val), year);
+        }}
+        size="sm"
+        disabled={disabled}
+      />
+      <CustomSelect
+        name="year"
+        label="Año"
+        options={years}
+        value={year}
+        onChange={(val) => {
+          setYear(Number(val));
+          const maxDay = new Date(Number(val), month, 0).getDate();
+          const newDay = Math.min(day, maxDay);
+          setDay(newDay);
+          handleChange(newDay, month, Number(val));
+        }}
+        size="sm"
+        disabled={disabled}
+      />
     </div>
   );
 }

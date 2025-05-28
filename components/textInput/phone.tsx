@@ -38,7 +38,7 @@ export default function PhoneInput({ value, name, size = "full", onChange, error
       {/* Country code (non-editable) */}
       <select
         disabled
-        className="text-primary bg-transparent outline-none px-2 text-sm font-medium cursor-not-allowed"
+        className="text-primary bg-transparent outline-none text-sm font-medium cursor-not-allowed"
         value="+56"
       >
         <option value="+56">+56</option>

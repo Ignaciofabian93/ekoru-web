@@ -5,10 +5,14 @@ import clsx from "clsx";
 import Image from "next/image";
 import ProfileForm from "./form";
 import { Pencil } from "lucide-react";
+import { useState } from "react";
 
 export default function ProfileHeader() {
-  const { data, edit, toggleEdit } = useSessionStore();
+  const { data } = useSessionStore();
+  const [edit, setEdit] = useState<boolean>(false);
   const image = data.profileImage || "/brandIcon.webp";
+
+  const toggleEdit = () => setEdit(!edit);
 
   return (
     <div className={clsx("relative w-full flex items-center justify-start", "px-8 py-2 mt-4 mb-8")}>
@@ -19,7 +23,9 @@ export default function ProfileHeader() {
         <span className="text-[20px] font-semibold">
           {data.name.split(" ")[0]} {data.surnames.split(" ")[0]}
         </span>
-        <span className="text-[14px] font-semibold">{data.address || "Sin dirección"}</span>
+        <span className="text-[14px] font-semibold">
+          {data.address || "Sin dirección"}, {data.county.county || ""}, {data.city.city || ""}
+        </span>
         <div className="flex items-center mt-2" onClick={toggleEdit}>
           <span className="text-[14px] font-semibold text-primary cursor-pointer mr-2">Editar perfil</span>
           <Pencil size={16} className="text-primary" />

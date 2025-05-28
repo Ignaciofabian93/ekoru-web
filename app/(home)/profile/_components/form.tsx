@@ -1,8 +1,8 @@
+import { useRef, useState } from "react";
 import Button from "@/components/buttons/button";
 import TextInput from "@/components/textInput/input";
 import clsx from "clsx";
 import Image from "next/image";
-import { useRef, useState } from "react";
 import useProfile from "../_hooks/useProfile";
 import Select from "@/components/select/select";
 import DateInput from "@/components/datepicker/datepicker";
@@ -13,6 +13,7 @@ export default function ProfileForm() {
   const {
     formData,
     handleFormData,
+    handleDate,
     handleProfileImage,
     handleSubmit,
     counties,
@@ -57,31 +58,15 @@ export default function ProfileForm() {
     );
   };
 
-  const FormField = ({ children, field }: { children: React.ReactNode; field: string }) => {
-    return (
-      <div className="w-full">
-        <span className="text-[14px] font-semibold">{field}</span>
-        {children}
-      </div>
-    );
-  };
-
-  const FormRowWrapper = ({ children }: { children: React.ReactNode }) => {
-    return (
-      <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
-        {children}
-      </div>
-    );
-  };
-
   return (
     <div className="w-full min-h-fit h-full flex flex-col items-start justify-start">
       <ProfileImage />
-      <form className="w-full">
+      <form className="w-full" onSubmit={handleSubmit}>
         {/* NAMES */}
-        <FormRowWrapper>
+        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
           {formData.isCompany ? (
-            <FormField field="Razón Social">
+            <div className="w-full">
+              <span className="text-[14px] font-semibold">Razón social</span>
               <TextInput
                 key={"businessName"}
                 name="businessName"
@@ -89,12 +74,12 @@ export default function ProfileForm() {
                 type="text"
                 value={formData.businessName}
                 onChange={handleFormData}
-                // errorMessage={errors.businessName}
               />
-            </FormField>
+            </div>
           ) : (
             <>
-              <FormField field="Nombre">
+              <div className="w-full">
+                <span className="text-[14px] font-semibold">Nombre</span>
                 <TextInput
                   key={"name"}
                   name="name"
@@ -102,10 +87,10 @@ export default function ProfileForm() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleFormData(e)}
-                  // errorMessage={errors.name}
                 />
-              </FormField>
-              <FormField field="Apellido(s)">
+              </div>
+              <div className="w-full">
+                <span className="text-[14px] font-semibold">Apellido(s)</span>
                 <TextInput
                   key={"surnames"}
                   name="surnames"
@@ -113,16 +98,16 @@ export default function ProfileForm() {
                   type="text"
                   value={formData.surnames}
                   onChange={handleFormData}
-                  // errorMessage={errors.surnames}
                 />
-              </FormField>
+              </div>
             </>
           )}
-        </FormRowWrapper>
+        </div>
 
         {/* EMAIL & PHONE */}
-        <FormRowWrapper>
-          <FormField field="Correo">
+        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Email</span>
             <TextInput
               key={"email"}
               name="email"
@@ -131,15 +116,17 @@ export default function ProfileForm() {
               value={formData.email}
               onChange={handleFormData}
             />
-          </FormField>
-          <FormField field="Teléfono">
-            <PhoneInput name="phone" value={formData.phone} onChange={handleFormData} />
-          </FormField>
-        </FormRowWrapper>
+          </div>
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Celular</span>
+            <PhoneInput key={"phone"} name="phone" value={formData.phone} onChange={handleFormData} />
+          </div>
+        </div>
 
         {/* COUNTRY & REGION */}
-        <FormRowWrapper>
-          <FormField field="País">
+        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">País</span>
             <Select
               name="country"
               options={countries.map((c) => ({ label: c.country, value: c.id }))}
@@ -148,8 +135,9 @@ export default function ProfileForm() {
               label="País"
               disabled
             />
-          </FormField>
-          <FormField field="Región">
+          </div>
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Región</span>
             <Select
               name="region"
               options={regions.map((r) => ({ label: r.region, value: r.id }))}
@@ -157,12 +145,13 @@ export default function ProfileForm() {
               onChange={handleRegion}
               label="Region"
             />
-          </FormField>
-        </FormRowWrapper>
+          </div>
+        </div>
 
         {/* CITY & COUNTY */}
-        <FormRowWrapper>
-          <FormField field="Ciudad">
+        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Ciudad</span>
             <Select
               name="city"
               options={cities.map((c) => ({ label: c.city, value: c.id }))}
@@ -170,8 +159,9 @@ export default function ProfileForm() {
               onChange={handleCity}
               label="Ciudad"
             />
-          </FormField>
-          <FormField field="Comuna">
+          </div>
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Comuna</span>
             <Select
               name="county"
               options={counties.map((c) => ({ label: c.county, value: c.id }))}
@@ -179,12 +169,13 @@ export default function ProfileForm() {
               onChange={handleCounty}
               label="Comuna"
             />
-          </FormField>
-        </FormRowWrapper>
+          </div>
+        </div>
 
         {/* ADDRESS & BIRTHDAY */}
-        <FormRowWrapper>
-          <FormField field="Dirección">
+        <div className="w-full flex flex-col md:flex-row md:gap-4 transition-all duration-300 ease-in-out">
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Dirección</span>
             <TextInput
               key={"address"}
               name="address"
@@ -192,15 +183,15 @@ export default function ProfileForm() {
               type="text"
               value={formData.address}
               onChange={handleFormData}
-              // errorMessage={errors.surnames}
             />
-          </FormField>
-          <FormField field="Fecha de nacimiento">
-            <DateInput name="birthday" value={formData.birthday} onChange={handleFormData} />
-          </FormField>
-        </FormRowWrapper>
+          </div>
+          <div className="w-full">
+            <span className="text-[14px] font-semibold">Fecha de nacimiento</span>
+            <DateInput label="Fecha de nacimiento" value={formData.birthday} onChange={handleDate} />
+          </div>
+        </div>
         <div className="w-full flex items-center justify-center mt-8">
-          <Button text="Guardar" variant="primary" size="full" />
+          <Button text="Guardar" variant="primary" size="full" type="submit" />
         </div>
       </form>
     </div>

@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
-import useSessionStore, { UserData } from "@/store/session";
+import { UPDATE_USER } from "@/graphql/user/mutations";
 import { City, Country, Region, County } from "@/types/geo";
+import { toast } from "react-toastify";
+import { colors } from "@/constants/colors";
+import useSessionStore, { UserData } from "@/store/session";
 
 export default function useProfile() {
+  const notify = (message: string) =>
+    toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
+  const notifyError = (error: string) =>
+    toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
   const { handleSession, data } = useSessionStore();
   const [formData, setFormData] = useState<UserData>(data);
   const [countries, setCountries] = useState<Country[]>([]);
@@ -16,6 +23,8 @@ export default function useProfile() {
   const [GetRegions] = useLazyQuery(GET_REGIONS);
   const [GetCities] = useLazyQuery(GET_CITIES);
   const [GetCounties] = useLazyQuery(GET_COUNTIES);
+
+  const [UpdateProfile, { error: updateError, loading: updateLoading }] = useMutation(UPDATE_USER);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -77,6 +86,8 @@ export default function useProfile() {
     }));
   };
 
+  const handleDate = (date: string) => setFormData({ ...formData, birthday: date });
+
   const handleProfileImage = (base64Image: string) => {
     setFormData((prev) => ({ ...prev, profileImage: base64Image }));
   };
@@ -107,10 +118,7 @@ export default function useProfile() {
   };
 
   const handleCity = (value: string | number) => {
-    console.log("CITIES:: ", cities);
     const city = cities.find((city) => city.id === value);
-    console.log("CITY:: ", city);
-
     if (city) {
       setFormData((prev) => ({
         ...prev,
@@ -130,20 +138,57 @@ export default function useProfile() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Update Zustand store
     handleSession(formData);
-    // Optionally call API
-    // await api.put("/profile", formData)
-    // Close modal
-    // toggleEdit(); // if passed as prop
+    // Send to gateway
+    const {
+      id,
+      name,
+      surnames,
+      email,
+      profileImage,
+      birthday,
+      address,
+      city,
+      country,
+      county,
+      region,
+      businessName,
+      phone,
+    } = formData;
+    const { data } = await UpdateProfile({
+      variables: {
+        id,
+        name,
+        surnames,
+        email,
+        profileImage,
+        birthday,
+        address,
+        city: Number(city.id),
+        country: Number(country.id),
+        county: Number(county.id),
+        region: Number(region.id),
+        businessName,
+        phone,
+      },
+    });
+    if (updateError) {
+      console.error(updateError);
+      notifyError("Error al actualizar el usuario");
+      return;
+    }
+    if (data.updateProfile.id) {
+      notify("Usuario actualizado correctamente");
+      return;
+    }
   };
-
-  console.log("FORM:: ", formData);
 
   return {
     handleFormData,
+    handleDate,
     formData,
     handleProfileImage,
     handleSubmit,

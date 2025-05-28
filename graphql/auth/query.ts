@@ -7,6 +7,9 @@ export const GET_PROFILE = gql`
       name
       surnames
       email
+      profileImage
+      birthday
+      businessName
       address
       county {
         id
