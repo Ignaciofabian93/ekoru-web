@@ -8,6 +8,8 @@ type TextInput = {
   icon?: React.ReactNode;
   infoIcon?: boolean;
   infoText?: string;
+  hasLabel?: boolean;
+  labelText?: string;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
 
 export default function TextInput({
@@ -23,6 +25,8 @@ export default function TextInput({
   icon,
   infoIcon = false,
   infoText,
+  hasLabel = false,
+  labelText,
   ...props
 }: TextInput) {
   const inputClassName = clsx(
@@ -53,6 +57,7 @@ export default function TextInput({
         "w-full": size === "full",
       })}
     >
+      {hasLabel && <span className="text-[14px] font-semibold">{labelText}</span>}
       {/* Input Field */}
       <input
         type={type}

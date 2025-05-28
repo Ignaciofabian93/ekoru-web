@@ -3,16 +3,12 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
 import { UPDATE_USER } from "@/graphql/user/mutations";
 import { City, Country, Region, County } from "@/types/geo";
-import { toast } from "react-toastify";
-import { colors } from "@/constants/colors";
 import useSessionStore, { UserData } from "@/store/session";
+import useAlert from "@/hooks/useAlert";
 
 export default function useProfile() {
-  const notify = (message: string) =>
-    toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
-  const notifyError = (error: string) =>
-    toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
   const { handleSession, data, toggleEdit } = useSessionStore();
+  const { notify, notifyError } = useAlert();
   const [formData, setFormData] = useState<UserData>(data);
   const [countries, setCountries] = useState<Country[]>([]);
   const [regions, setRegions] = useState<Region[]>([]);
@@ -24,6 +20,7 @@ export default function useProfile() {
   const [GetCities] = useLazyQuery(GET_CITIES);
   const [GetCounties] = useLazyQuery(GET_COUNTIES);
 
+  // Update user data
   const [UpdateProfile, { loading: updateLoading }] = useMutation(UPDATE_USER, {
     onError: () => notifyError("Error al intentar actualizar datos de usuario"),
     onCompleted: (data) => {
@@ -33,6 +30,8 @@ export default function useProfile() {
     },
   });
 
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // Geological information
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -56,7 +55,7 @@ export default function useProfile() {
       }
     };
 
-    fetchRegions();
+    if (formData.country.id) fetchRegions();
   }, [formData.country.id]);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ export default function useProfile() {
       }
     };
 
-    fetchCities();
+    if (formData.region.id) fetchCities();
   }, [formData.region.id]);
 
   useEffect(() => {
@@ -82,8 +81,11 @@ export default function useProfile() {
       }
     };
 
-    fetchCounties();
+    if (formData.city.id) fetchCounties();
   }, [formData.city.id]);
+
+  // //////////////////////////////////////////////////////////////////////////////////////////
+  // Handle form data
 
   const handleFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -93,7 +95,7 @@ export default function useProfile() {
     }));
   };
 
-  const handleDate = (date: string) => setFormData({ ...formData, birthday: date });
+  const handleDate = (date: string) => setFormData((prev) => ({ ...prev, birthday: date }));
 
   const handleProfileImage = (base64Image: string) => {
     setFormData((prev) => ({ ...prev, profileImage: base64Image }));
@@ -145,6 +147,7 @@ export default function useProfile() {
     }
   };
 
+  // Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const {

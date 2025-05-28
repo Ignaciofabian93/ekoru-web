@@ -1,6 +1,6 @@
+import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 import Button from "../buttons/button";
-import { motion, AnimatePresence } from "framer-motion";
 
 type Modal = {
   title: string;

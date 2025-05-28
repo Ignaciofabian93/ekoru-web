@@ -68,130 +68,119 @@ export default function ProfileForm() {
         {/* NAMES */}
         <div className={rowClassname}>
           {formData.isCompany ? (
-            <div className="w-full">
-              <span className="text-[14px] font-semibold">Razón social</span>
-              <TextInput
-                key={"businessName"}
-                name="businessName"
-                placeholder="Razón Social"
-                type="text"
-                value={formData.businessName}
-                onChange={handleFormData}
-              />
-            </div>
+            <TextInput
+              key={"businessName"}
+              name="businessName"
+              placeholder="Razón Social"
+              type="text"
+              value={formData.businessName}
+              onChange={handleFormData}
+              hasLabel
+              labelText="Razón social"
+            />
           ) : (
             <>
-              <div className="w-full">
-                <span className="text-[14px] font-semibold">Nombre</span>
-                <TextInput
-                  key={"name"}
-                  name="name"
-                  placeholder="Nombre"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => handleFormData(e)}
-                />
-              </div>
-              <div className="w-full">
-                <span className="text-[14px] font-semibold">Apellido(s)</span>
-                <TextInput
-                  key={"surnames"}
-                  name="surnames"
-                  placeholder="Apellido(s)"
-                  type="text"
-                  value={formData.surnames}
-                  onChange={handleFormData}
-                />
-              </div>
+              <TextInput
+                key={"name"}
+                name="name"
+                placeholder="Nombre"
+                type="text"
+                value={formData.name}
+                onChange={(e) => handleFormData(e)}
+                hasLabel
+                labelText="Nombre"
+              />
+
+              <TextInput
+                key={"surnames"}
+                name="surnames"
+                placeholder="Apellido(s)"
+                type="text"
+                value={formData.surnames}
+                onChange={handleFormData}
+                hasLabel
+                labelText="Apellido(s)"
+              />
             </>
           )}
         </div>
 
         {/* EMAIL & PHONE */}
         <div className={rowClassname}>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Email</span>
-            <TextInput
-              key={"email"}
-              name="email"
-              placeholder="Correo"
-              type="text"
-              value={formData.email}
-              onChange={handleFormData}
-            />
-          </div>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Celular</span>
-            <PhoneInput key={"phone"} name="phone" value={formData.phone} onChange={handleFormData} />
-          </div>
+          <TextInput
+            key={"email"}
+            name="email"
+            placeholder="Email"
+            type="text"
+            value={formData.email}
+            onChange={handleFormData}
+            hasLabel
+            labelText="Email"
+          />
+          <PhoneInput
+            key={"phone"}
+            name="phone"
+            value={formData.phone}
+            onChange={handleFormData}
+            hasLabel
+            labelText="Celular"
+          />
         </div>
 
         {/* COUNTRY & REGION */}
         <div className={rowClassname}>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">País</span>
-            <Select
-              name="country"
-              options={countries.map((c) => ({ label: c.country, value: c.id }))}
-              value={formData.country.id}
-              onChange={handleCountry}
-              label="País"
-              disabled
-            />
-          </div>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Región</span>
-            <Select
-              name="region"
-              options={regions.map((r) => ({ label: r.region, value: r.id }))}
-              value={formData.region.id}
-              onChange={handleRegion}
-              label="Region"
-            />
-          </div>
+          <Select
+            name="country"
+            options={countries.map((c) => ({ label: c.country, value: c.id }))}
+            value={formData.country.id}
+            onChange={handleCountry}
+            hasLabel
+            labelText="País"
+            disabled
+          />
+          <Select
+            name="region"
+            options={regions.map((r) => ({ label: r.region, value: r.id }))}
+            value={formData.region.id}
+            onChange={handleRegion}
+            labelText="Region"
+            hasLabel
+          />
         </div>
 
         {/* CITY & COUNTY */}
         <div className={rowClassname}>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Ciudad</span>
-            <Select
-              name="city"
-              options={cities.map((c) => ({ label: c.city, value: c.id }))}
-              value={formData.city.id}
-              onChange={handleCity}
-              label="Ciudad"
-            />
-          </div>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Comuna</span>
-            <Select
-              name="county"
-              options={counties.map((c) => ({ label: c.county, value: c.id }))}
-              value={formData.county.id}
-              onChange={handleCounty}
-              label="Comuna"
-            />
-          </div>
+          <Select
+            name="city"
+            options={cities.map((c) => ({ label: c.city, value: c.id }))}
+            value={formData.city.id}
+            onChange={handleCity}
+            labelText="Ciudad"
+            hasLabel
+          />
+          <Select
+            name="county"
+            options={counties.map((c) => ({ label: c.county, value: c.id }))}
+            value={formData.county.id}
+            onChange={handleCounty}
+            labelText="Comuna"
+            hasLabel
+          />
         </div>
 
         {/* ADDRESS & BIRTHDAY */}
         <div className={rowClassname}>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Dirección</span>
-            <TextInput
-              key={"address"}
-              name="address"
-              placeholder="Dirección"
-              type="text"
-              value={formData.address}
-              onChange={handleFormData}
-            />
-          </div>
-          <div className="w-full">
-            <span className="text-[14px] font-semibold">Fecha de nacimiento</span>
-            <DateInput label="Fecha de nacimiento" value={formData.birthday} onChange={handleDate} />
-          </div>
+          <TextInput
+            key={"address"}
+            name="address"
+            placeholder="Dirección"
+            type="text"
+            value={formData.address}
+            onChange={handleFormData}
+            hasLabel
+            labelText="Dirección"
+          />
+          <DateInput hasLabel labelText="Fecha de nacimiento" value={formData.birthday} onChange={handleDate} />
         </div>
         <div className="w-full flex items-center justify-center mt-8">
           <Button text="Guardar" variant="primary" size="full" type="submit" isLoading={updateLoading} />

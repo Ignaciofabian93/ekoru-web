@@ -14,8 +14,10 @@ type SelectProps = {
   name: string;
   size?: "sm" | "md" | "lg" | "full";
   onChange: (value: string | number) => void;
-  label: string;
   disabled?: boolean;
+  hasLabel?: boolean;
+  labelText?: string;
+  omitSpacing?: boolean;
 };
 
 export default function CustomSelect({
@@ -24,14 +26,16 @@ export default function CustomSelect({
   options = [],
   size = "full",
   onChange,
-  label,
+  labelText,
+  hasLabel = false,
   disabled = false,
+  omitSpacing = false,
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const selectedLabel = options.find((o) => o.value === value)?.label || label;
+  const selectedLabel = options.find((o) => o.value === value)?.label;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -53,13 +57,24 @@ export default function CustomSelect({
   }[size];
 
   return (
-    <div className={clsx("relative", sizeClass)} ref={containerRef}>
+    <div
+      className={clsx(
+        "relative flex flex-col gap-1",
+        {
+          "mb-4": !omitSpacing,
+          "mt-2": !omitSpacing,
+        },
+        sizeClass
+      )}
+      ref={containerRef}
+    >
+      {hasLabel && <span className="text-[14px] font-semibold">{labelText}</span>}
       <button
         type="button"
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          "h-12 w-full text-left rounded-[11px] px-4 pr-10 mb-4 mt-2",
+          "h-12 w-full text-left rounded-[11px] px-4 pr-10",
           "bg-white border border-primary text-base text-primary font-semibold",
           "focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
           disabled && "opacity-50 cursor-not-allowed",
