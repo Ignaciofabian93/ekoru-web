@@ -24,6 +24,7 @@ export default function ProfileForm() {
     handleCounty,
     handleCity,
     handleRegion,
+    updateLoading,
   } = useProfile();
   const [previewImage, setPreviewImage] = useState<string>(formData.profileImage || "/brandIcon.webp");
 
@@ -191,7 +192,7 @@ export default function ProfileForm() {
           </div>
         </div>
         <div className="w-full flex items-center justify-center mt-8">
-          <Button text="Guardar" variant="primary" size="full" type="submit" />
+          <Button text="Guardar" variant="primary" size="full" type="submit" isLoading={updateLoading} />
         </div>
       </form>
     </div>

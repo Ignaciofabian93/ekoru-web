@@ -12,7 +12,7 @@ export default function useProfile() {
     toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
   const notifyError = (error: string) =>
     toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
-  const { handleSession, data } = useSessionStore();
+  const { handleSession, data, toggleEdit } = useSessionStore();
   const [formData, setFormData] = useState<UserData>(data);
   const [countries, setCountries] = useState<Country[]>([]);
   const [regions, setRegions] = useState<Region[]>([]);
@@ -24,7 +24,14 @@ export default function useProfile() {
   const [GetCities] = useLazyQuery(GET_CITIES);
   const [GetCounties] = useLazyQuery(GET_COUNTIES);
 
-  const [UpdateProfile, { error: updateError, loading: updateLoading }] = useMutation(UPDATE_USER);
+  const [UpdateProfile, { loading: updateLoading }] = useMutation(UPDATE_USER, {
+    onError: () => notifyError("Error al intentar actualizar datos de usuario"),
+    onCompleted: (data) => {
+      handleSession(data.updateProfile);
+      toggleEdit();
+      notify("Datos actualizados correctamente");
+    },
+  });
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -140,9 +147,6 @@ export default function useProfile() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Update Zustand store
-    handleSession(formData);
-    // Send to gateway
     const {
       id,
       name,
@@ -158,7 +162,7 @@ export default function useProfile() {
       businessName,
       phone,
     } = formData;
-    const { data } = await UpdateProfile({
+    await UpdateProfile({
       variables: {
         id,
         name,
@@ -167,23 +171,14 @@ export default function useProfile() {
         profileImage,
         birthday,
         address,
-        city: Number(city.id),
-        country: Number(country.id),
-        county: Number(county.id),
-        region: Number(region.id),
+        cityId: Number(city.id),
+        countryId: Number(country.id),
+        countyId: Number(county.id),
+        regionId: Number(region.id),
         businessName,
         phone,
       },
     });
-    if (updateError) {
-      console.error(updateError);
-      notifyError("Error al actualizar el usuario");
-      return;
-    }
-    if (data.updateProfile.id) {
-      notify("Usuario actualizado correctamente");
-      return;
-    }
   };
 
   return {
@@ -200,5 +195,6 @@ export default function useProfile() {
     handleCountry,
     handleCounty,
     handleRegion,
+    updateLoading,
   };
 }

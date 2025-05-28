@@ -15,10 +15,16 @@ const getDays = (month: number, year: number) => {
 };
 
 export default function DateSelectInput({ onChange, value, label, disabled }: DateInputProps) {
-  const currentDate = value ? new Date(value) : new Date();
-  const [day, setDay] = useState(currentDate.getDate());
-  const [month, setMonth] = useState(currentDate.getMonth() + 1);
-  const [year, setYear] = useState(currentDate.getFullYear());
+  const normalizeDate = (val?: string) => {
+    if (!val) return new Date();
+    const [y, m, d] = val.split("-");
+    return new Date(Date.UTC(Number(y), Number(m) - 1, Number(d)));
+  };
+
+  const currentDate = normalizeDate(value);
+  const [day, setDay] = useState(currentDate.getUTCDate());
+  const [month, setMonth] = useState(currentDate.getUTCMonth() + 1);
+  const [year, setYear] = useState(currentDate.getUTCFullYear());
 
   const years = Array.from({ length: 100 }, (_, i) => ({
     label: String(currentDate.getFullYear() - i),

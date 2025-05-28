@@ -30,6 +30,8 @@ type SessionStore = {
   handleSession: (data: UserData) => void;
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
+  edit: boolean;
+  toggleEdit: () => void;
 };
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -60,6 +62,8 @@ const useSessionStore = create<SessionStore>((set) => ({
   handleSession: (data: UserData) => set(() => ({ data })),
   isAuthenticated: false,
   setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated })),
+  edit: false,
+  toggleEdit: () => set((state) => ({ edit: !state.edit })),
 }));
 
 export default useSessionStore;

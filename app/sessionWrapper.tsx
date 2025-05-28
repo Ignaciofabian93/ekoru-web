@@ -26,8 +26,6 @@ export default function SessionWrapper({ children, token }: { children: React.Re
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
-        console.log("ERROR: ", authError);
-
         notifyError("Error al intentar iniciar sesión.");
         router.replace("/auth");
       }

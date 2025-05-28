@@ -1,18 +1,14 @@
 "use client";
+import { Pencil } from "lucide-react";
 import Modal from "@/components/modal/modal";
 import useSessionStore from "@/store/session";
 import clsx from "clsx";
 import Image from "next/image";
 import ProfileForm from "./form";
-import { Pencil } from "lucide-react";
-import { useState } from "react";
 
 export default function ProfileHeader() {
-  const { data } = useSessionStore();
-  const [edit, setEdit] = useState<boolean>(false);
-  const image = data.profileImage || "/brandIcon.webp";
-
-  const toggleEdit = () => setEdit(!edit);
+  const { data, edit, toggleEdit } = useSessionStore();
+  const image = data?.profileImage || "/brandIcon.webp";
 
   return (
     <div className={clsx("relative w-full flex items-center justify-start", "px-8 py-2 mt-4 mb-8")}>
@@ -21,10 +17,10 @@ export default function ProfileHeader() {
       </div>
       <div className="flex flex-col items-start justify-center">
         <span className="text-[20px] font-semibold">
-          {data.name.split(" ")[0]} {data.surnames.split(" ")[0]}
+          {data.name.split(" ")[0]} {data?.surnames.split(" ")[0]}
         </span>
         <span className="text-[14px] font-semibold">
-          {data.address || "Sin dirección"}, {data.county.county || ""}, {data.city.city || ""}
+          {data.address || "Sin dirección"}, {data?.county?.county || ""}, {data?.city?.city || ""}
         </span>
         <div className="flex items-center mt-2" onClick={toggleEdit}>
           <span className="text-[14px] font-semibold text-primary cursor-pointer mr-2">Editar perfil</span>

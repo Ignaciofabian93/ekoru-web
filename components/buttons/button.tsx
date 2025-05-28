@@ -1,12 +1,22 @@
 import clsx from "clsx";
+import Spinner from "../spinner/spinner";
 
 type Button = React.ComponentProps<"button"> & {
   text: string;
   variant?: "primary" | "secondary" | "danger";
   size?: "sm" | "md" | "lg" | "full";
+  isLoading?: boolean;
 };
 
-export default function Button({ text, onClick, className, variant = "primary", size = "full", ...rest }: Button) {
+export default function Button({
+  text,
+  onClick,
+  className,
+  variant = "primary",
+  size = "full",
+  isLoading = false,
+  ...rest
+}: Button) {
   className = clsx(
     "min-w-[120px]",
     "flex items-center justify-center",
@@ -20,6 +30,8 @@ export default function Button({ text, onClick, className, variant = "primary", 
       "w-[80%] py-2": size === "lg",
       "w-[60%] py-2": size === "md",
       "w-[50%] py-1": size === "sm",
+      "h-[32px]": size === "sm" || size === "md",
+      "h-[42px]": size === "lg" || size === "full",
     },
     {
       "bg-primary text-main-inverted border-[1px] border-primary": variant === "primary",
@@ -30,7 +42,7 @@ export default function Button({ text, onClick, className, variant = "primary", 
   );
   return (
     <button onClick={onClick} className={className} {...rest}>
-      {text}
+      {isLoading ? <Spinner size={size} color={variant === "primary" ? "white" : "primary"} /> : text}
     </button>
   );
 }
