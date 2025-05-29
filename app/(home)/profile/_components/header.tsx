@@ -42,7 +42,7 @@ export default function ProfileHeader() {
   return (
     <div className={clsx("relative w-full flex items-center justify-start", "px-8 py-2 mt-4 mb-8")}>
       <div
-        className={clsx("w-[90px] h-[90px] rounded-full overflow-hidden", "mr-8", "bg-white", "cursor-pointer")}
+        className={clsx("w-[80px] h-[80px] rounded-full overflow-hidden", "mr-8", "bg-white", "cursor-pointer")}
         onClick={toggleExpandImage}
       >
         <Image src={image} alt="perfil" className="w-full h-full object-cover" width={90} height={90} priority />

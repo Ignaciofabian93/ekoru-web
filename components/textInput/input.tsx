@@ -50,7 +50,7 @@ export default function TextInput({
 
   return (
     <div
-      className={clsx("relative flex flex-col items-start justify-center gap-1 mb-4 mt-2", {
+      className={clsx("relative flex flex-col gap-1 mb-4 mt-2", {
         "w-1/3": size === "sm",
         "w-1/2": size === "md",
         "w-2/3": size === "lg",
@@ -59,31 +59,33 @@ export default function TextInput({
     >
       {hasLabel && <span className="text-[14px] font-semibold">{labelText}</span>}
       {/* Input Field */}
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        className={inputClassName}
-        {...props}
-      />
+      <div className="w-full relative">
+        <input
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          className={inputClassName}
+          {...props}
+        />
 
-      {/* Right-side Icon */}
-      {icon && <div className="absolute right-3 top-[50%] translate-y-[-50%] text-primary">{icon}</div>}
+        {/* Right-side Icon */}
+        {icon && <div className="absolute right-3 top-[50%] translate-y-[-50%] text-primary">{icon}</div>}
 
-      {/* Left-side Info Icon with Tooltip */}
-      {infoIcon && (
-        <div className="absolute left-3 top-[50%] translate-y-[-50%] group cursor-pointer z-10">
-          <Info size={16} color={colors.primary} />
-          {infoText && (
-            <div className="absolute left-full bottom-1 ml-2 w-52 text-xs p-2 rounded-xl bg-gray-100 text-gray-700 shadow-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none">
-              {infoText}
-            </div>
-          )}
-        </div>
-      )}
+        {/* Left-side Info Icon with Tooltip */}
+        {infoIcon && (
+          <div className="absolute left-3 top-[50%] translate-y-[-50%] group cursor-pointer z-10">
+            <Info size={16} color={colors.primary} />
+            {infoText && (
+              <div className="absolute left-full bottom-1 ml-2 w-52 text-xs p-2 rounded-xl bg-gray-100 text-gray-700 shadow-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none">
+                {infoText}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       {/* Error Message */}
       {errorMessage && <span className="text-red-500 text-xs mt-1 ml-1">{errorMessage}</span>}

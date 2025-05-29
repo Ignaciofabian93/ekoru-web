@@ -35,7 +35,7 @@ export default function CustomSelect({
   const [search, setSearch] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const selectedLabel = options.find((o) => o.value === value)?.label;
+  const selectedLabel = options.find((o) => o.value === value)?.label || "Seleccione";
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -74,7 +74,7 @@ export default function CustomSelect({
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          "h-12 w-full text-left rounded-[11px] px-4 pr-10",
+          "h-12 w-full relative text-left rounded-[11px] px-4 pr-10",
           "bg-white border border-primary text-base text-primary font-semibold",
           "focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
           disabled && "opacity-50 cursor-not-allowed",
@@ -93,7 +93,7 @@ export default function CustomSelect({
 
       {/* Dropdown Modal */}
       {isOpen && (
-        <div className="absolute z-20 mt-1 w-full bg-white border border-primary rounded-xl shadow-lg animate-fade-in-down">
+        <div className="absolute top-full left-0 z-20 mt-1 w-full bg-white border border-primary rounded-xl shadow-lg animate-fade-in-down">
           <input
             type="text"
             placeholder="Buscar..."
