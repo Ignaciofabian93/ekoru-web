@@ -5,11 +5,6 @@ export const GET_DEPARTMENTS = gql`
     departments {
       id
       department
-      departmentCategories {
-        id
-        departmentCategory
-        departmentId
-      }
     }
   }
 `;
@@ -23,12 +18,22 @@ export const GET_DEPARTMENT = gql`
   }
 `;
 
+// //////////////////////////////////////////////////////////////////////////////////
+// DEPARTMENT CATEGORIES
+export const GET_DEPARTMENT_CATEGORY_BY_DEPARTMENT = gql`
+  query DepartmentCategoriesByDepartment($id: ID!) {
+    departmentCategoriesByDepartment(id: $id) {
+      id
+      departmentCategory
+    }
+  }
+`;
+
 export const GET_DEPARTMENT_CATEGORIES = gql`
   query DepartmentCategories {
     departmentCategories {
       id
       departmentCategory
-      departmentId
     }
   }
 `;
@@ -38,7 +43,17 @@ export const GET_DEPARTMENT_CATEGORY = gql`
     departmentCategory(id: $id) {
       id
       departmentCategory
-      departmentId
+    }
+  }
+`;
+
+// //////////////////////////////////////////////////////////////////////////////////
+// PRODUCT CATEGORIES
+export const GET_PRODUCT_CATEGORIES_BY_DEPARTMENT_CATEGORY = gql`
+  query ProductCategoriesByDepartmentCategory($id: ID!) {
+    productCategoriesByDepartmentCategory(id: $id) {
+      id
+      productCategory
     }
   }
 `;
@@ -48,7 +63,6 @@ export const GET_PRODUCT_CATEGORIES = gql`
     productCategories {
       id
       productCategory
-      departmentCategoryId
     }
   }
 `;
@@ -58,11 +72,12 @@ export const GET_PRODUCT_CATEGORY = gql`
     productCategory(id: $id) {
       id
       productCategory
-      departmentCategoryId
     }
   }
 `;
 
+// //////////////////////////////////////////////////////////////////////////////////
+// PRODUCTS
 export const GET_PRODUCTS = gql`
   query Products {
     products {
@@ -84,6 +99,24 @@ export const GET_PRODUCTS = gql`
 export const GET_PRODUCT = gql`
   query Product($id: ID!) {
     product(id: $id) {
+      id
+      name
+      description
+      price
+      images
+      hasOffer
+      offerPrice
+      stock
+      size
+      productCategoryId
+      userId
+    }
+  }
+`;
+
+export const GET_PRODUCTS_BY_OWNER = gql`
+  query ProductsByOwner($id: ID!) {
+    productsByOwner(id: $id) {
       id
       name
       description

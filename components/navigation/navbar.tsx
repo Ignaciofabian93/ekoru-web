@@ -144,6 +144,9 @@ export default function Navbar() {
               <p className="font-semibold">Cultura</p>
             </SideLink>
           </SideArticle>
+          <SideArticle className="h-1/12">
+            <Button text="Vender" onClick={() => router.push("/product")} variant="primary" size="full" />
+          </SideArticle>
 
           <SideArticle className="h-1/12">
             <Button text="Cerrar sesión" onClick={handleLogout} variant="danger" size="full" />

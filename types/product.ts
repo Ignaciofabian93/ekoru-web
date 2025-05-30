@@ -1,21 +1,19 @@
 export type Department = {
   id: number;
   department: string;
-  departmentCategories: DepartmentCategory[];
+  departmentCategories?: DepartmentCategory[];
 };
 
 export type ProductCategory = {
   id: number;
   productCategory: string;
-  products: Product[];
-  departmentCategoryId: number;
+  products?: Product[];
 };
 
 export type DepartmentCategory = {
   id: number;
   departmentCategory: string;
-  departmentId: number;
-  productCategories: ProductCategory[];
+  productCategories?: ProductCategory[];
 };
 
 export type Product = {

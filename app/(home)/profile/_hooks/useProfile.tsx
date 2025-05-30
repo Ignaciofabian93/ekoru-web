@@ -3,8 +3,10 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
 import { UPDATE_USER } from "@/graphql/user/mutations";
 import { City, Country, Region, County } from "@/types/geo";
+import { GET_PRODUCTS_BY_OWNER } from "@/graphql/products/query";
 import useSessionStore, { UserData } from "@/store/session";
 import useAlert from "@/hooks/useAlert";
+import { Product } from "@/types/product";
 
 export default function useProfile() {
   const { handleSession, data, toggleEdit } = useSessionStore();
@@ -15,10 +17,14 @@ export default function useProfile() {
   const [cities, setCities] = useState<City[]>([]);
   const [counties, setCounties] = useState<County[]>([]);
 
+  const [myProducts, setMyProducts] = useState<Product[]>([]);
+
   const [GetCountries] = useLazyQuery(GET_COUNTRIES);
   const [GetRegions] = useLazyQuery(GET_REGIONS);
   const [GetCities] = useLazyQuery(GET_CITIES);
   const [GetCounties] = useLazyQuery(GET_COUNTIES);
+
+  const [GetProductsByOwner] = useLazyQuery(GET_PRODUCTS_BY_OWNER);
 
   // Update user data
   const [UpdateProfile, { loading: updateLoading }] = useMutation(UPDATE_USER, {
@@ -29,6 +35,22 @@ export default function useProfile() {
       notify("Datos actualizados correctamente");
     },
   });
+
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // Get user products
+  useEffect(() => {
+    const { id } = data;
+    const fetchProducts = async () => {
+      try {
+        const { data } = await GetProductsByOwner({ variables: { id: id } });
+        setMyProducts(data.productsByOwner);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [data.id]);
 
   // /////////////////////////////////////////////////////////////////////////////////////////
   // Geological information
@@ -199,5 +221,7 @@ export default function useProfile() {
     handleCounty,
     handleRegion,
     updateLoading,
+    myProducts,
+    data,
   };
 }

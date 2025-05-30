@@ -15,7 +15,7 @@ const Row = ({ field, value }: { field: string; value: string }) => {
 export default function PersonalInformation() {
   const { data } = useSessionStore();
   return (
-    <div className={clsx("w-full flex flex-col items-start justify-center", "mx-auto px-8")}>
+    <div className={clsx("w-full flex flex-col items-start justify-center", "mx-auto px-8 mb-8")}>
       <SectionTitle title="Información Personal" />
       <div className="w-full flex flex-col lg:flex-row lg:justify-between mt-6 lg:gap-6">
         <div className="w-full">
