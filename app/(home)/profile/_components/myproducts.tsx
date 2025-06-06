@@ -8,7 +8,7 @@ export default function MyProducts() {
   const { myProducts, data } = useProfile();
 
   return (
-    <div className={clsx("w-full flex flex-col items-start justify-center", "mx-auto px-8 mb-8")}>
+    <div className={clsx("w-full min-h-[400px] flex flex-col items-center justify-start", "mx-auto px-8 mb-8")}>
       <SectionTitle title="Mis Productos" />
       {myProducts.length > 0 ? (
         <div className="w-full flex flex-wrap items-center justify-center gap-4">

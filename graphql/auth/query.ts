@@ -11,6 +11,9 @@ export const GET_PROFILE = gql`
       birthday
       businessName
       address
+      accountType
+      preferredContactMethod
+      points
       county {
         id
         county

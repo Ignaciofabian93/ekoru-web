@@ -4,7 +4,6 @@ import TextInput from "@/components/textInput/input";
 import useProduct from "../_hooks/useProduct";
 import Button from "@/components/buttons/button";
 import ImageUploader from "./imageUploader";
-import CheckBox from "@/components/checkbox/checkbox";
 
 export default function ProductForm() {
   const {

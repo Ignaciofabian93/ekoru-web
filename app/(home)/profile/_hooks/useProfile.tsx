@@ -169,6 +169,13 @@ export default function useProfile() {
     }
   };
 
+  const handleContactMethod = (value: "EMAIL" | "WHATSAPP" | "ALL") => {
+    setFormData((prev) => ({
+      ...prev,
+      preferredContactMethod: value,
+    }));
+  };
+
   // Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,6 +193,8 @@ export default function useProfile() {
       region,
       businessName,
       phone,
+      accountType,
+      preferredContactMethod,
     } = formData;
     await UpdateProfile({
       variables: {
@@ -202,6 +211,8 @@ export default function useProfile() {
         regionId: Number(region.id),
         businessName,
         phone,
+        accountType,
+        preferredContactMethod,
       },
     });
   };
@@ -223,5 +234,6 @@ export default function useProfile() {
     updateLoading,
     myProducts,
     data,
+    handleContactMethod,
   };
 }

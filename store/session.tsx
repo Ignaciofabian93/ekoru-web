@@ -4,19 +4,22 @@ export type UserData = {
   id: string;
   name: string;
   surnames: string;
+  email: string;
   businessName: string;
   profileImage: string;
   birthday: string;
-  email: string;
   phone: string;
   address: string;
+  isCompany: boolean;
+  accountType: "FREE" | "PLUS" | "PREMIUM";
+  preferredContactMethod: "EMAIL" | "ALL" | "WHATSAPP";
+  points: number;
+  createdAt: string;
+  updatedAt: string;
   city: { id: string; city: string };
   county: { id: string; county: string };
   region: { id: string; region: string };
   country: { id: string; country: string };
-  isCompany: boolean;
-  createdAt: string;
-  updatedAt: string;
   userCategory: {
     id: string;
     name: string;
@@ -46,6 +49,9 @@ const useSessionStore = create<SessionStore>((set) => ({
     isCompany: false,
     phone: "",
     address: "",
+    accountType: "FREE",
+    preferredContactMethod: "EMAIL",
+    points: 0,
     county: { id: "", county: "" },
     region: { id: "", region: "" },
     country: { id: "", country: "" },

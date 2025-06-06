@@ -7,6 +7,7 @@ import useProfile from "../_hooks/useProfile";
 import Select from "@/components/select/select";
 import DateInput from "@/components/datepicker/datepicker";
 import PhoneInput from "@/components/textInput/phone";
+import CheckBox from "@/components/checkbox/checkbox";
 
 export default function ProfileForm() {
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -25,19 +26,40 @@ export default function ProfileForm() {
     handleCity,
     handleRegion,
     updateLoading,
+    handleContactMethod,
   } = useProfile();
   const [previewImage, setPreviewImage] = useState<string>(formData.profileImage || "/brandIcon.webp");
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const compressImage = (file: File, maxWidth = 300, quality = 0.8): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+      };
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const scale = Math.min(maxWidth / img.width, 1);
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return reject("No canvas context");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL("image/jpeg", quality);
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setPreviewImage(base64String);
-        handleProfileImage(base64String);
-      };
-      reader.readAsDataURL(file);
+      const base64Image = await compressImage(file);
+      setPreviewImage(base64Image);
+      handleProfileImage(base64Image);
     }
   };
 
@@ -181,6 +203,32 @@ export default function ProfileForm() {
             labelText="Dirección"
           />
           <DateInput hasLabel labelText="Fecha de nacimiento" value={formData.birthday} onChange={handleDate} />
+        </div>
+        <div className={"w-full flex flex-col transition-all duration-300 ease-in-out"}>
+          <p className="text-left font-semibold">Método de contacto preferido</p>
+          <div className="">
+            <CheckBox
+              id="whatsApp"
+              label="WhatsApp"
+              name="whatsApp"
+              checked={formData.preferredContactMethod === "WHATSAPP"}
+              onChange={() => handleContactMethod("WHATSAPP")}
+            />
+            <CheckBox
+              id="email"
+              label="Email"
+              name="email"
+              checked={formData.preferredContactMethod === "EMAIL"}
+              onChange={() => handleContactMethod("EMAIL")}
+            />
+            <CheckBox
+              id="all"
+              label="Todos"
+              name="all"
+              checked={formData.preferredContactMethod === "ALL"}
+              onChange={() => handleContactMethod("ALL")}
+            />
+          </div>
         </div>
         <div className="w-full flex items-center justify-center mt-8">
           <Button text="Guardar" variant="primary" size="full" type="submit" isLoading={updateLoading} />

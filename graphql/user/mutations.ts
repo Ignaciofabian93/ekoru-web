@@ -15,6 +15,9 @@ export const UPDATE_USER = gql`
     $regionId: Int
     $countryId: Int
     $phone: String
+    $accountType: AccountType
+    $preferredContactMethod: PreferredContactMethod
+    $points: Int
   ) {
     updateProfile(
       id: $id
@@ -30,6 +33,9 @@ export const UPDATE_USER = gql`
       regionId: $regionId
       countryId: $countryId
       phone: $phone
+      accountType: $accountType
+      preferredContactMethod: $preferredContactMethod
+      points: $points
     ) {
       id
       name
@@ -39,6 +45,9 @@ export const UPDATE_USER = gql`
       birthday
       businessName
       address
+      accountType
+      preferredContactMethod
+      points
       county {
         id
         county
