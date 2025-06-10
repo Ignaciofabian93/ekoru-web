@@ -102,11 +102,12 @@ export default function Navbar() {
           "w-[260px] h-[calc(100%_-_80px)]",
           "transition-all ease-in-out duration-300",
           "bg-white text-main",
-          isSideNavOpened ? "translate-x-0" : "-translate-x-full"
+          isSideNavOpened ? "translate-x-0" : "-translate-x-full",
+          "overflow-y-auto"
         )}
       >
-        <div className={clsx("w-full h-full", "px-4 py-6", "flex flex-col items-start justify-between")}>
-          <div className="flex items-center justify-center w-full h-1/12">
+        <div className={clsx("w-full h-full", "px-4 py-6", "flex flex-col items-start justify-between", "gap-4")}>
+          <div className="flex items-center justify-center w-full h-1/12 mb-4">
             <div className="w-[80%] flex items-center justify-center cursor-pointer" onClick={brandClick}>
               <Image src={"/logo.png"} alt="Logo Ekoru" width={4096} height={996} />
             </div>

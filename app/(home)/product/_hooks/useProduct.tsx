@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
+import { BadgeType, Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
+import { ADD_PRODUCT } from "@/graphql/products/mutation";
 import {
   GET_DEPARTMENTS,
   GET_DEPARTMENT_CATEGORY_BY_DEPARTMENT,
@@ -8,7 +9,6 @@ import {
 } from "@/graphql/products/query";
 import useAlert from "@/hooks/useAlert";
 import useSessionStore from "@/store/session";
-import { ADD_PRODUCT } from "@/graphql/products/mutation";
 
 export default function useProduct() {
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -26,12 +26,16 @@ export default function useProduct() {
     id: 0,
     departmentCategory: "",
   });
-  const [productCategory, setProductCategory] = useState<ProductCategory>({
+  const [productCategory, setProductCategory] = useState<Partial<ProductCategory>>({
     id: 0,
     productCategory: "",
   });
   const [product, setProduct] = useState<Product>({
     id: 0,
+    sku: "",
+    barcode: "",
+    color: "",
+    brand: "",
     name: "",
     description: "",
     price: 0,
@@ -39,16 +43,23 @@ export default function useProduct() {
     hasOffer: false,
     offerPrice: 0,
     stock: 0,
-    size: "",
+    isExchangeable: false,
+    isActive: true,
+    ratings: 0,
+    ratingCount: 0,
+    reviewsNumber: 0,
     productCategoryId: 0,
     userId: "",
+    badges: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   const [Departments] = useLazyQuery(GET_DEPARTMENTS);
   const [DepartmentCategoriesByDepartment] = useLazyQuery(GET_DEPARTMENT_CATEGORY_BY_DEPARTMENT);
   const [ProductCategoriesByDepartmentCategory] = useLazyQuery(GET_PRODUCT_CATEGORIES_BY_DEPARTMENT_CATEGORY);
 
-  const [AddProduct, { loading: ProductLoading, error: ProductError }] = useMutation(ADD_PRODUCT, {
+  const [AddProduct, { loading: ProductLoading }] = useMutation(ADD_PRODUCT, {
     onError: () => {
       notifyError("Ha ocurrido un error al intentar guardar el producto");
     },
@@ -57,6 +68,10 @@ export default function useProduct() {
       setProducts((prev) => [...prev, data.addProduct]);
       setProduct({
         id: 0,
+        sku: "",
+        barcode: "",
+        color: "",
+        brand: "",
         name: "",
         description: "",
         price: 0,
@@ -64,9 +79,14 @@ export default function useProduct() {
         hasOffer: false,
         offerPrice: 0,
         stock: 0,
-        size: "",
         productCategoryId: 0,
         userId: "",
+        isActive: true,
+        isExchangeable: false,
+        ratingCount: 0,
+        reviewsNumber: 0,
+        badges: [],
+        createdAt: new Date(),
       });
       setDepartments([]);
       setDepartment({ id: 0, department: "" });
@@ -134,24 +154,32 @@ export default function useProduct() {
 
   const handleProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "offerPrice") {
-      const parsedValue = Number(value);
-      if (parsedValue !== 0) setProduct((prev) => ({ ...prev, hasOffer: true, offerPrice: parsedValue }));
-      else setProduct((prev) => ({ ...prev, hasOffer: false, offerPrice: 0 }));
-    } else if (name === "price" || name === "stock") {
+    if (name === "stock") {
       const parsedValue = Number(value);
       setProduct((prev) => ({ ...prev, [name]: parsedValue }));
+    } else if (name === "hasOffer" || name === "isExchangeable" || name === "isActive") {
+      setProduct((prev) => ({ ...prev, [name]: e.target.checked }));
     } else {
       setProduct((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleImageUpload = (image: string) => {
-    if (product.images.length < 3) {
-      setProduct((prev) => ({ ...prev, images: [...prev.images, image] }));
-    } else {
-      notifyError("Solo puedes subir 3 imágenes");
+  const handleBadges = (selectedBadges: BadgeType[]) => {
+    setProduct((prev) => ({ ...prev, badges: selectedBadges }));
+  };
+
+  const handleImageUpload = (image: string | null) => {
+    if (image) {
+      if (product.images.length < 3) {
+        setProduct((prev) => ({ ...prev, images: [...prev.images, image] }));
+      } else {
+        notifyError("Solo puedes subir 3 imágenes");
+      }
     }
+  };
+
+  const handleImageRemove = (image: string) => {
+    setProduct((prev) => ({ ...prev, images: prev.images.filter((img) => img !== image) }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -163,19 +191,27 @@ export default function useProduct() {
       await AddProduct({
         variables: {
           name: product.name,
+          brand: product.brand,
+          sku: product.sku,
+          barcode: product.barcode,
+          color: product.color,
+          badges: product.badges,
+          isExchangeable: product.isExchangeable,
+          isActive: product.isActive,
           description: product.description,
-          price: product.price,
+          price: Number(product.price),
           images: product.images,
           hasOffer: product.hasOffer,
-          offerPrice: product.offerPrice,
+          offerPrice: Number(product.offerPrice),
           stock: product.stock,
-          size: "regular",
           productCategoryId: Number(productCategory.id),
           userId: data.id,
         },
       });
     }
   };
+
+  console.log("product", product);
 
   return {
     departments,
@@ -193,5 +229,8 @@ export default function useProduct() {
     handleImageUpload,
     handleSubmit,
     ProductLoading,
+    handleBadges,
+    data,
+    handleImageRemove,
   };
 }

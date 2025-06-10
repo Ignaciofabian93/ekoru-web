@@ -10,7 +10,7 @@ type CheckBox = {
 
 export default function CheckBox({ id, name, label, checked, onChange }: CheckBox) {
   return (
-    <div className="w-full flex items-center justify-start mb-2 mt-2">
+    <div className="w-fit h-12 flex items-center justify-start mb-2 mt-2">
       <input
         type="checkbox"
         id={id}

@@ -1,4 +1,4 @@
-import PageWrapper from "../components/pageWrapper";
+import PageWrapper from "../_components/pageWrapper";
 import ProfileHeader from "./_components/header";
 import PersonalInformation from "./_components/info";
 import MyProducts from "./_components/myproducts";

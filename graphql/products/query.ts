@@ -83,13 +83,19 @@ export const GET_PRODUCTS = gql`
     products {
       id
       name
+      brand
+      sku
+      barcode
+      color
+      badges
+      isExchangeable
+      isActive
       description
       price
       images
       hasOffer
       offerPrice
       stock
-      size
       productCategoryId
       userId
     }
@@ -101,13 +107,19 @@ export const GET_PRODUCT = gql`
     product(id: $id) {
       id
       name
+      brand
+      sku
+      barcode
+      color
+      badges
+      isExchangeable
+      isActive
       description
       price
       images
       hasOffer
       offerPrice
       stock
-      size
       productCategoryId
       userId
     }
@@ -119,13 +131,19 @@ export const GET_PRODUCTS_BY_OWNER = gql`
     productsByOwner(id: $id) {
       id
       name
+      brand
+      sku
+      barcode
+      color
+      badges
+      isExchangeable
+      isActive
       description
       price
       images
       hasOffer
       offerPrice
       stock
-      size
       productCategoryId
       userId
     }

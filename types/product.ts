@@ -1,19 +1,25 @@
 export type ProductCategory = {
   id: number;
   productCategory: string;
-  products: Product[];
+  departmentCategoryId: number;
+  products?: Product[];
+  keywords: string[];
+  minWeight: number;
+  maxWeight: number;
+  size: "SMALL" | "MEDIUM" | "LARGE";
+  weightUnit: "KG" | "GR";
 };
 
 export type DepartmentCategory = {
   id: number;
   departmentCategory: string;
-  productCategories: ProductCategory[];
+  productCategories?: ProductCategory[];
 };
 
 export type Department = {
   id: number;
   department: string;
-  departmentCategories: DepartmentCategory[];
+  departmentCategories?: DepartmentCategory[];
 };
 
 export type Product = {
@@ -29,17 +35,13 @@ export type Product = {
   hasOffer: boolean;
   offerPrice: number;
   stock: number;
-  size?: "SMALL" | "MEDIUM" | "LARGE";
-  weight?: number;
-  weightUnit?: "KG" | "LB" | "OZ" | "G";
   isExchangeable: boolean;
   isActive: boolean;
-  ratings: number;
+  ratings?: number;
   ratingCount: number;
   reviewsNumber: number;
   userId: string;
-  keywords: string[];
-  badges:
+  badges: (
     | "POPULAR"
     | "DISCOUNTED"
     | "WOMAN_OWNED"
@@ -57,13 +59,14 @@ export type Product = {
     | "CHARITY_SUPPORT"
     | "LIMITED_STOCK"
     | "SEASONAL"
-    | "FREE_SHIPPING";
+    | "FREE_SHIPPING"
+  )[];
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
   productCategoryId: number;
-  likes: Like[];
-  comments: Comment[];
-  itemsOrdered: ItemOrdered[];
+  likes?: Like[];
+  comments?: Comment[];
+  itemsOrdered?: ItemOrdered[];
 };
 
 export type Like = {
@@ -89,3 +92,5 @@ export type ItemOrdered = {
   quantity: number;
   orderId: string;
 };
+
+export type BadgeType = Product["badges"][number];

@@ -11,9 +11,10 @@ export default function MyProducts() {
     <div className={clsx("w-full min-h-[400px] flex flex-col items-center justify-start", "mx-auto px-8 mb-8")}>
       <SectionTitle title="Mis Productos" />
       {myProducts.length > 0 ? (
-        <div className="w-full flex flex-wrap items-center justify-center gap-4">
+        <div className="w-full flex flex-wrap items-center justify-center gap-4 mt-8">
           {myProducts.map((product) => (
             <ProductCard
+              key={product.id}
               title={product.name}
               image={product.images[0]}
               price={product.price}

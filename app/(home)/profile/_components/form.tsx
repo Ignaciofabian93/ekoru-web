@@ -8,6 +8,7 @@ import Select from "@/components/select/select";
 import DateInput from "@/components/datepicker/datepicker";
 import PhoneInput from "@/components/textInput/phone";
 import CheckBox from "@/components/checkbox/checkbox";
+import { compressImage } from "@/utils/imageCompressor";
 
 export default function ProfileForm() {
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -29,30 +30,6 @@ export default function ProfileForm() {
     handleContactMethod,
   } = useProfile();
   const [previewImage, setPreviewImage] = useState<string>(formData.profileImage || "/brandIcon.webp");
-
-  const compressImage = (file: File, maxWidth = 300, quality = 0.8): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const img = new window.Image();
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        img.src = e.target?.result as string;
-      };
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const scale = Math.min(maxWidth / img.width, 1);
-        canvas.width = img.width * scale;
-        canvas.height = img.height * scale;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return reject("No canvas context");
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL("image/jpeg", quality);
-        resolve(dataUrl);
-      };
-      img.onerror = reject;
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
