@@ -187,25 +187,6 @@ export default function useProduct() {
     if (!name || !description || !price || !stock || images.length === 0) {
       notifyError("Todos los campos son obligatorios");
     } else {
-      console.log("SEND: ", {
-        name: product.name,
-        brand: product.brand,
-        sku: product.sku,
-        barcode: product.barcode,
-        color: product.color,
-        badges: product.badges,
-        isExchangeable: product.isExchangeable,
-        isActive: product.isActive,
-        description: product.description,
-        price: Number(product.price),
-        images: product.images,
-        hasOffer: product.hasOffer,
-        offerPrice: Number(product.offerPrice),
-        stock: product.stock,
-        productCategoryId: Number(productCategory.id),
-        userId: data.id,
-      });
-
       await AddProduct({
         variables: {
           name: product.name,
@@ -228,8 +209,6 @@ export default function useProduct() {
       });
     }
   };
-
-  console.log("product", product);
 
   return {
     departments,
