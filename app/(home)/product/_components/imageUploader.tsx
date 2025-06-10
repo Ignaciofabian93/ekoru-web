@@ -1,8 +1,8 @@
+import { useRef } from "react";
 import { Image as ImageIcon, XCircle } from "lucide-react";
+import { compressImage } from "@/utils/imageCompressor";
 import clsx from "clsx";
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { compressImage } from "@/utils/imageCompressor";
 
 type ImageUploader = {
   handleImage: (image: string | null) => void;
@@ -12,13 +12,11 @@ type ImageUploader = {
 
 export default function ImageUploader({ image, handleImage, removeImage }: ImageUploader) {
   const galleryInputRef = useRef<HTMLInputElement>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(image);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const base64Image = await compressImage(file);
-      setPreviewImage(base64Image);
       handleImage(base64Image);
     }
   };
@@ -28,12 +26,11 @@ export default function ImageUploader({ image, handleImage, removeImage }: Image
   };
 
   const handleRemoveImage = (image: string) => {
-    setPreviewImage(null);
     handleImage(null);
     removeImage(image);
   };
 
-  const hasImage = !!previewImage;
+  const hasImage = !!image;
 
   return (
     <div
@@ -46,7 +43,7 @@ export default function ImageUploader({ image, handleImage, removeImage }: Image
       {hasImage ? (
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
-            src={previewImage as string}
+            src={image}
             alt="product"
             className="object-cover w-full h-full rounded-[8px] border"
             width={400}
@@ -55,7 +52,7 @@ export default function ImageUploader({ image, handleImage, removeImage }: Image
           />
           <button
             type="button"
-            onClick={() => handleRemoveImage(image as string)}
+            onClick={() => handleRemoveImage(image)}
             className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:bg-red-100 transition"
             title="Eliminar imagen"
           >

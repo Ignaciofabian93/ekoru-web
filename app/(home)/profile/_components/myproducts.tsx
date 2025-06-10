@@ -8,17 +8,17 @@ export default function MyProducts() {
   const { myProducts, data } = useProfile();
 
   return (
-    <div className={clsx("w-full min-h-[400px] flex flex-col items-center justify-start", "mx-auto px-8 mb-8")}>
+    <div className={clsx("w-full min-h-[400px] flex flex-col items-center justify-start", "mx-auto px-4 mb-8")}>
       <SectionTitle title="Mis Productos" />
       {myProducts.length > 0 ? (
-        <div className="w-full flex flex-wrap items-center justify-center gap-4 mt-8">
+        <div className="w-full flex overflow-x-scroll no-scrollbar items-center justify-start gap-4 mt-4 px-1 py-4">
           {myProducts.map((product) => (
             <ProductCard
               key={product.id}
               title={product.name}
               image={product.images[0]}
               price={product.price}
-              seller={`${data.name.split(" ")[0]} ${data.surnames.split(" ")[0]}`}
+              seller={data.name.split(" ")[0]}
               sellerImage={data.profileImage}
               description={product.description}
               location={`${data.county.county}, ${data.city.city}`}
