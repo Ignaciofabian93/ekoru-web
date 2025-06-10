@@ -21,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      {/* <head>
+      <head>
         <script crossOrigin="anonymous" src="//unpkg.com/react-scan/dist/auto.global.js" />
-      </head> */}
+      </head>
       <body className={`${cabin.variable} antialiased`}>
         <ToastContainer theme="light" autoClose={4000} pauseOnHover position="top-center" closeOnClick />
         <AppWrapper>{children}</AppWrapper>

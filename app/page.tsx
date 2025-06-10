@@ -8,7 +8,7 @@ export default function InitApp() {
   const { isAuthenticated, data } = useSessionStore();
 
   useEffect(() => {
-    const nextPath = isAuthenticated ? (data.isCompany ? "/dashboard" : "/feed") : "/auth";
+    const nextPath = isAuthenticated ? "/feed" : "/auth";
 
     const delay = 1000;
     const timeout = setTimeout(() => {

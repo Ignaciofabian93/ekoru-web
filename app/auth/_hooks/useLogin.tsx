@@ -1,39 +1,30 @@
-"use client";
 import { useState } from "react";
-import { GET_PROFILE } from "@/graphql/auth/query";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { useLazyQuery } from "@apollo/client";
 import { validateEmail } from "@/utils/regexValidations";
-import { Eye, EyeOff } from "lucide-react";
-import { colors } from "@/constants/colors";
-import Button from "@/components/buttons/button";
-import Login from "@/services/auth/rest-auth";
+import { useLazyQuery } from "@apollo/client";
+import { GET_PROFILE } from "@/graphql/auth/query";
+import useAlert from "@/hooks/useAlert";
 import useSessionStore from "@/store/session";
-import TextInput from "@/components/textInput/input";
+import Login from "@/services/auth/rest-auth";
 
 type Form = {
   email: string;
   password: string;
 };
 
-type LoginForm = {
-  handleCurrentView: (view: "login" | "register") => void;
-};
-
-export default function LoginForm({ handleCurrentView }: LoginForm) {
+export default function useLogin() {
   const router = useRouter();
-  const notify = (message: string) =>
-    toast.success(message, { style: { backgroundColor: colors.primary, color: "#f7f7f7" } });
-  const notifyError = (error: string) =>
-    toast.error(error, { style: { backgroundColor: "#D32F2F", color: "#f7f7f7" } });
+  const { notify, notifyError } = useAlert();
   const { handleSession } = useSessionStore();
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [form, setForm] = useState<Form>({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
+  // GraphQL Query and Submit
+  const [GetMe, { error: authError, loading }] = useLazyQuery(GET_PROFILE);
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
@@ -64,9 +55,6 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
 
     setErrors({ ...errors, [name]: error });
   };
-
-  // GraphQL Query and Submit
-  const [GetMe, { error: authError, loading }] = useLazyQuery(GET_PROFILE);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,40 +91,13 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="w-full flex flex-col items-center justify-center md:w-[80%]">
-      <TextInput
-        key={"email"}
-        name="email"
-        placeholder="Correo"
-        type="email"
-        value={form.email}
-        onChange={handleFormChange}
-        errorMessage={errors.email}
-      />
-      <TextInput
-        key={"password"}
-        name="password"
-        placeholder="Contraseña"
-        type={isPasswordVisible ? "text" : "password"}
-        value={form.password}
-        onChange={handleFormChange}
-        errorMessage={errors.password}
-        icon={
-          isPasswordVisible ? (
-            <EyeOff onClick={togglePasswordVisibility} color={colors.primary} />
-          ) : (
-            <Eye onClick={togglePasswordVisibility} color={colors.primary} />
-          )
-        }
-      />
-      <Button key={"signin"} text="Ingresar" type="submit" disabled={loading} />
-      <span
-        className="text-sm text-primary cursor-pointer text-center font-semibold mt-2"
-        onClick={() => handleCurrentView("register")}
-      >
-        ¿No tienes una cuenta?. Regístrate aquí
-      </span>
-    </form>
-  );
+  return {
+    form,
+    errors,
+    isPasswordVisible,
+    loading,
+    handleFormChange,
+    togglePasswordVisibility,
+    handleSubmit,
+  };
 }
