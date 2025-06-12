@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import type { Product } from "@/types/product";
 import Badge from "./badge";
 
 type BadgeType = Product["badges"][number];
 
-const ALL_BADGES: BadgeType[] = [
+const STORE_BADGES: BadgeType[] = [
   "POPULAR",
   "DISCOUNTED",
   "WOMAN_OWNED",
@@ -25,12 +25,31 @@ const ALL_BADGES: BadgeType[] = [
   "FREE_SHIPPING",
 ];
 
+const MARKET_BADGES: BadgeType[] = [
+  "NEW",
+  "USED",
+  "SLIGHT_DAMAGE",
+  "WORN",
+  "FOR_REPAIR",
+  "REFURBISHED",
+  "EXCHANGEABLE",
+  "LAST_PRICE",
+  "FOR_GIFT",
+  "OPEN_TO_OFFERS",
+  "OPEN_BOX",
+  "CRUELTY_FREE",
+  "DELIVERED_TO_HOME",
+  "IN_HOUSE_PICKUP",
+  "IN_MID_POINT_PICKUP",
+];
+
 type BadgeSelectorProps = {
   value: BadgeType[];
   onChange: (badges: BadgeType[]) => void;
+  isCompany: boolean;
 };
 
-const BadgeSelector: React.FC<BadgeSelectorProps> = ({ value, onChange }) => {
+const BadgeSelector: React.FC<BadgeSelectorProps> = ({ value, onChange, isCompany }) => {
   const handleToggle = (badge: BadgeType) => {
     if (value.includes(badge)) {
       onChange(value.filter((b) => b !== badge));
@@ -38,6 +57,8 @@ const BadgeSelector: React.FC<BadgeSelectorProps> = ({ value, onChange }) => {
       onChange([...value, badge]);
     }
   };
+
+  const ALL_BADGES = isCompany ? STORE_BADGES : MARKET_BADGES;
 
   return (
     <div className="p-4 bg-white border-[0.5px] border-primary rounded-[11px] mt-2 mb-6">

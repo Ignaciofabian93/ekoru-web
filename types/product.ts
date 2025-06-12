@@ -60,6 +60,21 @@ export type Product = {
     | "LIMITED_STOCK"
     | "SEASONAL"
     | "FREE_SHIPPING"
+    | "NEW"
+    | "USED"
+    | "SLIGHT_DAMAGE"
+    | "WORN"
+    | "FOR_REPAIR"
+    | "REFURBISHED"
+    | "EXCHANGEABLE"
+    | "LAST_PRICE"
+    | "FOR_GIFT"
+    | "OPEN_TO_OFFERS"
+    | "OPEN_BOX"
+    | "CRUELTY_FREE"
+    | "DELIVERED_TO_HOME"
+    | "IN_HOUSE_PICKUP"
+    | "IN_MID_POINT_PICKUP"
   )[];
   createdAt: Date;
   updatedAt?: Date;

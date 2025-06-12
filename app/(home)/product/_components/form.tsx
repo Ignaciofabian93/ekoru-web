@@ -186,7 +186,7 @@ export default function ProductForm() {
             <p className="leading-relaxed font-semibold text-md">
               Selecciona hasta 3 etiquetas para resaltar tu producto
             </p>
-            <BadgeSelector value={product.badges} onChange={handleBadges} />
+            <BadgeSelector value={product.badges} onChange={handleBadges} isCompany={data.isCompany} />
           </div>
         </div>
         <div className="w-full mt-8">
