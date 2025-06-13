@@ -16,10 +16,10 @@ export type UserData = {
   points: number;
   createdAt: string;
   updatedAt: string;
-  city: { id: string; city: string };
-  county: { id: string; county: string };
-  region: { id: string; region: string };
-  country: { id: string; country: string };
+  city: { id: number; city: string };
+  county: { id: number; county: string };
+  region: { id: number; region: string };
+  country: { id: number; country: string };
   userCategory: {
     id: string;
     name: string;
@@ -52,10 +52,10 @@ const useSessionStore = create<SessionStore>((set) => ({
     accountType: "FREE",
     preferredContactMethod: "EMAIL",
     points: 0,
-    county: { id: "", county: "" },
-    region: { id: "", region: "" },
-    country: { id: "", country: "" },
-    city: { id: "", city: "" },
+    county: { id: 0, county: "" },
+    region: { id: 0, region: "" },
+    country: { id: 0, country: "" },
+    city: { id: 0, city: "" },
     createdAt: "",
     updatedAt: "",
     userCategory: {

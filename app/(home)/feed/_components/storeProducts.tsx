@@ -32,6 +32,8 @@ export default function StoreMainProducts() {
                 {...product}
                 image={product.images[0]}
                 title={product.name}
+                sellerImage={product.user?.profileImage}
+                location={product.user?.city?.city}
               />
             ))}
           </div>

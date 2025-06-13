@@ -82,22 +82,52 @@ export const GET_PRODUCTS = gql`
   query Products {
     products {
       id
-      name
-      brand
       sku
       barcode
       color
-      badges
-      isExchangeable
-      isActive
+      brand
+      name
       description
       price
       images
       hasOffer
       offerPrice
       stock
+      isExchangeable
+      interests
+      isActive
+      ratings
+      ratingCount
+      reviewsNumber
+      badges
+      createdAt
+      updatedAt
       productCategoryId
       userId
+      user {
+        id
+        name
+        surnames
+        email
+        businessName
+        profileImage
+        phone
+        address
+        isCompany
+        accountType
+        createdAt
+        updatedAt
+        preferredContactMethod
+      }
+      comments {
+        id
+        comment
+        userId
+      }
+      likes {
+        id
+        userId
+      }
     }
   }
 `;
@@ -106,22 +136,52 @@ export const GET_PRODUCT = gql`
   query Product($id: ID!) {
     product(id: $id) {
       id
-      name
-      brand
       sku
       barcode
       color
-      badges
-      isExchangeable
-      isActive
+      brand
+      name
       description
       price
       images
       hasOffer
       offerPrice
       stock
+      isExchangeable
+      interests
+      isActive
+      ratings
+      ratingCount
+      reviewsNumber
+      badges
+      createdAt
+      updatedAt
       productCategoryId
       userId
+      user {
+        id
+        name
+        surnames
+        email
+        businessName
+        profileImage
+        phone
+        address
+        isCompany
+        accountType
+        createdAt
+        updatedAt
+        preferredContactMethod
+      }
+      comments {
+        id
+        comment
+        userId
+      }
+      likes {
+        id
+        userId
+      }
     }
   }
 `;
@@ -130,22 +190,52 @@ export const GET_PRODUCTS_BY_OWNER = gql`
   query ProductsByOwner($id: ID!) {
     productsByOwner(id: $id) {
       id
-      name
-      brand
       sku
       barcode
       color
-      badges
-      isExchangeable
-      isActive
+      brand
+      name
       description
       price
       images
       hasOffer
       offerPrice
       stock
+      isExchangeable
+      interests
+      isActive
+      ratings
+      ratingCount
+      reviewsNumber
+      badges
+      createdAt
+      updatedAt
       productCategoryId
       userId
+      user {
+        id
+        name
+        surnames
+        email
+        businessName
+        profileImage
+        phone
+        address
+        isCompany
+        accountType
+        createdAt
+        updatedAt
+        preferredContactMethod
+      }
+      comments {
+        id
+        comment
+        userId
+      }
+      likes {
+        id
+        userId
+      }
     }
   }
 `;

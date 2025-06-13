@@ -6,6 +6,7 @@ export const LOGIN = gql`
       id
       name
       email
+      businessName
       token
       isCompany
     }
@@ -13,11 +14,26 @@ export const LOGIN = gql`
 `;
 
 export const REGISTER = gql`
-  mutation Register($name: String!, $surnames: String!, $email: String!, $password: String!, $isCompany: Boolean!) {
-    register(name: $name, surnames: $surnames, email: $email, password: $password, isCompany: $isCompany) {
+  mutation Register(
+    $name: String!
+    $surnames: String!
+    $email: String!
+    $password: String!
+    $isCompany: Boolean!
+    $businessName: String
+  ) {
+    register(
+      name: $name
+      surnames: $surnames
+      email: $email
+      password: $password
+      isCompany: $isCompany
+      businessName: $businessName
+    ) {
       id
       name
       surnames
+      businessName
       email
       isCompany
       createdAt

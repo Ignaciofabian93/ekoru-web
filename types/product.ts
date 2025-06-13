@@ -1,31 +1,11 @@
-export type ProductCategory = {
-  id: number;
-  productCategory: string;
-  departmentCategoryId: number;
-  products?: Product[];
-  keywords: string[];
-  minWeight: number;
-  maxWeight: number;
-  size: "SMALL" | "MEDIUM" | "LARGE";
-  weightUnit: "KG" | "GR";
-};
-
-export type DepartmentCategory = {
-  id: number;
-  departmentCategory: string;
-  productCategories?: ProductCategory[];
-};
-
-export type Department = {
-  id: number;
-  department: string;
-  departmentCategories?: DepartmentCategory[];
-};
+import { type Badge, type ProductSize, type WeightUnit } from "./enums";
+import { ProductComment, ProductLike } from "./product-interaction";
+import { User } from "./user";
 
 export type Product = {
   id: number;
-  sku?: string | null;
-  barcode?: string | null;
+  sku?: string;
+  barcode?: string;
   color?: string;
   brand: string;
   name: string;
@@ -36,76 +16,52 @@ export type Product = {
   offerPrice: number;
   stock: number;
   isExchangeable: boolean;
+  interests: string[];
   isActive: boolean;
-  ratings?: number;
+  ratings: number;
   ratingCount: number;
   reviewsNumber: number;
-  userId: string;
-  badges: (
-    | "POPULAR"
-    | "DISCOUNTED"
-    | "WOMAN_OWNED"
-    | "ECO_FRIENDLY"
-    | "BEST_SELLER"
-    | "TOP_RATED"
-    | "COMMUNITY_FAVORITE"
-    | "LIMITED_TIME_OFFER"
-    | "FLASH_SALE"
-    | "BEST_VALUE"
-    | "HANDMADE"
-    | "SUSTAINABLE"
-    | "SUPPORTS_CAUSE"
-    | "FAMILY_BUSINESS"
-    | "CHARITY_SUPPORT"
-    | "LIMITED_STOCK"
-    | "SEASONAL"
-    | "FREE_SHIPPING"
-    | "NEW"
-    | "USED"
-    | "SLIGHT_DAMAGE"
-    | "WORN"
-    | "FOR_REPAIR"
-    | "REFURBISHED"
-    | "EXCHANGEABLE"
-    | "LAST_PRICE"
-    | "FOR_GIFT"
-    | "OPEN_TO_OFFERS"
-    | "OPEN_BOX"
-    | "CRUELTY_FREE"
-    | "DELIVERED_TO_HOME"
-    | "IN_HOUSE_PICKUP"
-    | "IN_MID_POINT_PICKUP"
-  )[];
-  createdAt: Date;
-  updatedAt?: Date;
+  badges: Badge[];
+  createdAt: string;
+  updatedAt: string;
   productCategoryId: number;
-  likes?: Like[];
-  comments?: Comment[];
-  itemsOrdered?: ItemOrdered[];
-};
-
-export type Like = {
-  id: number;
   userId: string;
-  productId: number;
-  createdAt: Date;
+  user?: User;
+  productCategory?: ProductCategory;
+  comments: ProductComment[];
+  likes: ProductLike[];
 };
 
-export type Comment = {
+export type ProductCategory = {
   id: number;
-  userId: string;
-  productId: number;
-  comment: string;
-  createdAt: Date;
-  updatedAt: Date;
+  productCategory: string;
+  departmentCategoryId: number;
+  keywords: string[];
+  materialImpactEstimateId: number;
+  size?: ProductSize;
+  minWeight?: number;
+  maxWeight?: number;
+  weightUnit?: WeightUnit;
 };
 
-export type ItemOrdered = {
+export type MaterialImpactEstimate = {
   id: number;
-  productId: number;
-  userId: string;
-  quantity: number;
-  orderId: string;
+  materialType: string;
+  minWeight: number;
+  maxWeight: number;
+  estimatedCo2SavingsKG: number;
+  estimatedWaterSavingsLT: number;
+  estimatedWasteSavingsKG: number;
+  notes: string;
 };
 
-export type BadgeType = Product["badges"][number];
+export type DepartmentCategory = {
+  id: number;
+  departmentCategory: string;
+  departmentId: number;
+};
+
+export type Department = {
+  id: number;
+  department: string;
+};

@@ -1,4 +1,4 @@
-import { REGISTER } from "@/graphql/auth/mutations";
+import { REGISTER } from "@/app/auth/_graphql/mutations";
 import useAlert from "@/hooks/useAlert";
 import { validateEmail, validateNameLength, validatePassword } from "@/utils/regexValidations";
 import { useMutation } from "@apollo/client";
@@ -39,17 +39,30 @@ export default function useRegister({ handleCurrentView }: Props) {
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   // GraphQL Query & Submit
-  const [register, { error: authError, loading: authLoading }] = useMutation(REGISTER);
+  const [register, { error: authError, loading: authLoading }] = useMutation(REGISTER, {
+    onError: (error) => {
+      console.error("Error during registration:", error);
+      notifyError("Error al registrar usuario");
+    },
+    onCompleted: (data) => {
+      if (data.register.id) {
+        notify("Usuario registrado correctamente. Redirigiendo a inicio de sesión");
+        setTimeout(() => {
+          handleCurrentView("login");
+        }, 3000);
+      }
+    },
+  });
 
   // Fields validations
   const validateFields = (email: string, password: string, name: string, surnames: string, businessName: string) => {
     const newErrors: typeof errors = {};
 
-    if (!name) newErrors.name = "El nombre es requerido";
-    else if (!validateNameLength(name)) newErrors.name = "Debe tener entre 2 y 50 caracteres";
+    if (!form.isCompany && !name) newErrors.name = "El nombre es requerido";
+    else if (!form.isCompany && !validateNameLength(name)) newErrors.name = "Debe tener entre 2 y 50 caracteres";
 
-    if (!surnames) newErrors.surnames = "El/Los apellido(s) son requeridos";
-    else if (!validateNameLength(surnames))
+    if (!form.isCompany && !surnames) newErrors.surnames = "El/Los apellido(s) son requeridos";
+    else if (!form.isCompany && !validateNameLength(surnames))
       newErrors.surnames = "El/Los apellido(s) deben tener entre 2 y 50 caracteres";
 
     if (!businessName && form.isCompany) newErrors.businessName = "El nombre de la empresa es requerido";
@@ -95,8 +108,10 @@ export default function useRegister({ handleCurrentView }: Props) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, surnames, email, password, businessName, isCompany } = form;
+
     if ((!isCompany && !name) || (!isCompany && !surnames) || !email || !password || (isCompany && !businessName)) {
       notifyError("Todos los campos son obligatorios");
+      return;
     }
 
     const validationErrors = validateFields(email, password, name, surnames, businessName);
@@ -107,25 +122,16 @@ export default function useRegister({ handleCurrentView }: Props) {
 
     setErrors({}); // clear previous errors
 
-    const { data } = await register({
+    await register({
       variables: {
         name: form.name,
         surnames: form.surnames,
         email: form.email,
         password: form.password,
         isCompany: form.isCompany,
+        businessName: form.isCompany ? form.businessName : "",
       },
     });
-    if (authError) {
-      console.error(authError);
-      notifyError("Error al registrar usuario");
-    }
-    if (data.register.id) {
-      notify("Usuario registrado correctamente. Redirigiendo a inicio de sesión");
-      setTimeout(() => {
-        handleCurrentView("login");
-      }, 3000);
-    }
   };
 
   return {

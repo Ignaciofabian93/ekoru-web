@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
 import { UPDATE_USER } from "@/graphql/user/mutations";
-import { City, Country, Region, County } from "@/types/geo";
+import { City, Country, Region, County } from "@/types/location";
 import { GET_PRODUCTS_BY_OWNER } from "@/graphql/products/query";
+import { type Product } from "@/types/product";
 import useSessionStore, { UserData } from "@/store/session";
 import useAlert from "@/hooks/useAlert";
-import { Product } from "@/types/product";
 
 export default function useProfile() {
   const { handleSession, data, toggleEdit } = useSessionStore();
@@ -129,9 +129,9 @@ export default function useProfile() {
       setFormData((prev) => ({
         ...prev,
         country: country,
-        region: { id: "", region: "" },
-        city: { id: "", city: "" },
-        county: { id: "", county: "" },
+        region: { id: 0, region: "" },
+        city: { id: 0, city: "" },
+        county: { id: 0, county: "" },
       }));
     }
   };
@@ -142,8 +142,8 @@ export default function useProfile() {
       setFormData((prev) => ({
         ...prev,
         region: region,
-        city: { id: "", city: "" },
-        county: { id: "", county: "" },
+        city: { id: 0, city: "" },
+        county: { id: 0, county: "" },
       }));
     }
   };
@@ -154,7 +154,7 @@ export default function useProfile() {
       setFormData((prev) => ({
         ...prev,
         city: city,
-        county: { id: "", county: "" },
+        county: { id: 0, county: "" },
       }));
     }
   };

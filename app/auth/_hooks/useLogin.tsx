@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { validateEmail } from "@/utils/regexValidations";
 import { useLazyQuery } from "@apollo/client";
-import { GET_PROFILE } from "@/graphql/auth/query";
+import { GET_PROFILE } from "@/app/auth/_graphql/query";
 import useAlert from "@/hooks/useAlert";
 import useSessionStore from "@/store/session";
 import Login from "@/services/auth/rest-auth";
@@ -81,9 +81,8 @@ export default function useLogin() {
       if (data) {
         handleSession(data.me);
         notify(`Bienvenido(a) ${data.me.name}`);
-        const redirectTo = data.me.isCompany ? "/dashboard" : "/feed";
         setTimeout(() => {
-          router.replace(redirectTo);
+          router.replace("/feed");
         }, 3000);
       }
     } else {

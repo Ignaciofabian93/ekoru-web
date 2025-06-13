@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { GET_PROFILE } from "@/graphql/auth/query";
+import { GET_PROFILE } from "@/app/auth/_graphql/query";
 import { toast } from "react-toastify";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
