@@ -56,12 +56,6 @@ export const GET_FEED_PRODUCTS = gql`
           id
           country
         }
-        userCategory {
-          id
-          name
-          categoryDiscountAmount
-          pointsThreshold
-        }
       }
       comments {
         id
