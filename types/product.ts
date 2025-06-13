@@ -22,14 +22,14 @@ export type Product = {
   ratingCount: number;
   reviewsNumber: number;
   badges: Badge[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   productCategoryId: number;
   userId: string;
   user?: User;
   productCategory?: ProductCategory;
-  comments: ProductComment[];
-  likes: ProductLike[];
+  comments?: ProductComment[];
+  likes?: ProductLike[];
 };
 
 export type ProductCategory = {
@@ -58,7 +58,6 @@ export type MaterialImpactEstimate = {
 export type DepartmentCategory = {
   id: number;
   departmentCategory: string;
-  departmentId: number;
 };
 
 export type Department = {

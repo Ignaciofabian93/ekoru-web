@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { BadgeType, Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
+import { Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
 import { ADD_PRODUCT } from "@/graphql/products/mutation";
 import {
   GET_DEPARTMENTS,
@@ -9,6 +9,7 @@ import {
 } from "@/graphql/products/query";
 import useAlert from "@/hooks/useAlert";
 import useSessionStore from "@/store/session";
+import { Badge } from "@/types/enums";
 
 export default function useProduct() {
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -38,6 +39,7 @@ export default function useProduct() {
     brand: "",
     name: "",
     description: "",
+    interests: [],
     price: 0,
     images: [],
     hasOffer: false,
@@ -74,6 +76,7 @@ export default function useProduct() {
         brand: "",
         name: "",
         description: "",
+        interests: [],
         price: 0,
         images: [],
         hasOffer: false,
@@ -83,10 +86,12 @@ export default function useProduct() {
         userId: "",
         isActive: true,
         isExchangeable: false,
+        ratings: 0,
         ratingCount: 0,
         reviewsNumber: 0,
         badges: [],
         createdAt: new Date(),
+        updatedAt: new Date(),
       });
       setDepartment({ id: 0, department: "" });
       setDepartmentCategories([]);
@@ -163,7 +168,7 @@ export default function useProduct() {
     }
   };
 
-  const handleBadges = (selectedBadges: BadgeType[]) => {
+  const handleBadges = (selectedBadges: Badge[]) => {
     setProduct((prev) => ({ ...prev, badges: selectedBadges }));
   };
 
