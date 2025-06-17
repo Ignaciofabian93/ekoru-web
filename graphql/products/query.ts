@@ -4,7 +4,7 @@ export const GET_DEPARTMENTS = gql`
   query Departments {
     departments {
       id
-      department
+      departmentName
     }
   }
 `;
@@ -13,7 +13,7 @@ export const GET_DEPARTMENT = gql`
   query Department($id: ID!) {
     department(id: $id) {
       id
-      department
+      departmentName
     }
   }
 `;
@@ -24,7 +24,7 @@ export const GET_DEPARTMENT_CATEGORY_BY_DEPARTMENT = gql`
   query DepartmentCategoriesByDepartment($id: ID!) {
     departmentCategoriesByDepartment(id: $id) {
       id
-      departmentCategory
+      departmentCategoryName
     }
   }
 `;
@@ -33,7 +33,7 @@ export const GET_DEPARTMENT_CATEGORIES = gql`
   query DepartmentCategories {
     departmentCategories {
       id
-      departmentCategory
+      departmentCategoryName
     }
   }
 `;
@@ -42,7 +42,7 @@ export const GET_DEPARTMENT_CATEGORY = gql`
   query DepartmentCategory($id: ID!) {
     departmentCategory(id: $id) {
       id
-      departmentCategory
+      departmentCategoryName
     }
   }
 `;
@@ -53,7 +53,7 @@ export const GET_PRODUCT_CATEGORIES_BY_DEPARTMENT_CATEGORY = gql`
   query ProductCategoriesByDepartmentCategory($id: ID!) {
     productCategoriesByDepartmentCategory(id: $id) {
       id
-      productCategory
+      productCategoryName
     }
   }
 `;
@@ -62,7 +62,7 @@ export const GET_PRODUCT_CATEGORIES = gql`
   query ProductCategories {
     productCategories {
       id
-      productCategory
+      productCategoryName
     }
   }
 `;
@@ -71,7 +71,7 @@ export const GET_PRODUCT_CATEGORY = gql`
   query ProductCategory($id: ID!) {
     productCategory(id: $id) {
       id
-      productCategory
+      productCategoryName
     }
   }
 `;

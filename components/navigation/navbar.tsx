@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home } from "lucide-react";
+import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, LogOut } from "lucide-react";
 import { colors } from "@/constants/colors";
 import Image from "next/image";
 import clsx from "clsx";
@@ -10,6 +10,7 @@ import Cart from "../cart/cart";
 import UserData from "./userData";
 import Button from "../buttons/button";
 import useSessionStore from "@/store/session";
+import SearchModule from "./searchModule";
 
 const SideArticle = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   className = clsx("w-full flex flex-col items-start justify-start", className);
@@ -45,7 +46,7 @@ export default function Navbar() {
   const { data } = useSessionStore();
 
   const handleLogout = async () => {
-    await fetch("/app/api/logout", { method: "POST", credentials: "include" });
+    await fetch("/api/logout", { method: "POST", credentials: "include" });
     router.push("/auth");
   };
 
@@ -78,12 +79,12 @@ export default function Navbar() {
           </div>
         </div>
         {/* SEARCH INPUT */}
-        <SearchInput />
-
+        <SearchModule />
         {/* RIGHT SIDE - USER & CART */}
-        <div className="flex items-center justify-between">
-          <UserData navigateToProfile={navigateToProfile} />
+        <div className="flex items-center justify-between gap-4">
           <Cart />
+          <UserData navigateToProfile={navigateToProfile} />
+          <LogOut onClick={handleLogout} className="cursor-pointer" />
         </div>
       </nav>
 

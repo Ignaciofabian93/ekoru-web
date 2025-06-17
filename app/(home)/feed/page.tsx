@@ -1,9 +1,7 @@
 "use client";
 import PageWrapper from "../_components/pageWrapper";
-import Stories from "../_components/stories";
 import Hero from "./_components/hero";
 import Banner from "../../../components/banner/banner";
-import PageSection from "@/components/section/pageSection";
 import dynamic from "next/dynamic";
 import MarketMainProducts from "./_components/marketProducts";
 import StoreMainProducts from "./_components/storeProducts";

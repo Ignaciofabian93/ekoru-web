@@ -1,25 +1,60 @@
-import { Search } from "lucide-react";
+import { Loader2, Search as SearchIcon, X } from "lucide-react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
-export default function SearchInput() {
+type Search = {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  submit: (e: React.FormEvent) => void;
+  loading?: boolean;
+};
+
+export default function SearchInput({ value, onChange, submit, loading }: Search) {
+  // Handler to clear the input
+  const handleClear = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // Create a synthetic event to clear the input
+    const event = {
+      target: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>;
+    onChange(event);
+  };
+
   return (
-    <div
-      className={clsx(
-        "w-full max-w-[700px] h-[38px]",
-        "rounded-[20.5px] bg-white flex items-center justify-start pl-4",
-        "md:mx-2"
-      )}
-    >
-      <Search size={20} color="#aaa" />
-      <input
-        type="search"
-        placeholder="Buscar en EKORU"
-        className={clsx(
-          "w-full h-full rounded-[20.5px] text-[20px] font-[400] px-2",
-          "outline-none",
-          "text-placeholder"
-        )}
-      />
-    </div>
+    <form onSubmit={submit} className="w-full">
+      <div className={clsx("relative flex flex-col gap-1 w-full")}>
+        <div className="w-full relative">
+          <input
+            type="search"
+            placeholder="Buscar en EKORU"
+            value={value}
+            onChange={onChange}
+            className={clsx(
+              "w-full h-12 px-6 pr-10 rounded-full",
+              "bg-white border outline-none",
+              "placeholder:text-primary placeholder:italic placeholder:opacity-80",
+              "text-primary text-base font-medium",
+              "transition-all duration-200 ease-in-out"
+            )}
+          />
+          {/* Right-side Icon */}
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-primary">
+            {loading ? (
+              <motion.span
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                className="flex items-center justify-center"
+              >
+                <Loader2 size={20} color="#aaa" className="animate-spin" />
+              </motion.span>
+            ) : value ? (
+              <X size={20} color="#aaa" className="cursor-pointer" onClick={handleClear} />
+            ) : (
+              <SearchIcon size={20} color="#aaa" />
+            )}
+          </div>
+        </div>
+      </div>
+    </form>
   );
 }

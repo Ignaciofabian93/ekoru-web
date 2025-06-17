@@ -14,7 +14,7 @@ export default function UserData({ navigateToProfile }: UserData) {
 
   return (
     <div className="flex items-start justify-start">
-      <div className="mr-4 ml-2 lg:hidden cursor-pointer" onClick={() => router.push("/profile")}>
+      <div className="lg:hidden cursor-pointer" onClick={() => router.push("/profile")}>
         <CircleUserRound size={26} />
       </div>
       <div className={clsx("hidden lg:flex flex-col", "mx-4", "min-w-[140px]")}>

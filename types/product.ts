@@ -3,6 +3,7 @@ import { ProductComment, ProductLike } from "./product-interaction";
 import { User } from "./user";
 
 export type Product = {
+  __typename: "Product";
   id: number;
   sku?: string;
   barcode?: string;
@@ -27,15 +28,17 @@ export type Product = {
   productCategoryId: number;
   userId: string;
   user?: User;
-  productCategory?: ProductCategory;
+  productCategory: ProductCategory;
   comments?: ProductComment[];
   likes?: ProductLike[];
 };
 
 export type ProductCategory = {
+  __typename: "ProductCategory";
   id: number;
-  productCategory: string;
+  productCategoryName: string;
   departmentCategoryId: number;
+  departmentCategory: DepartmentCategory;
   keywords: string[];
   materialImpactEstimateId: number;
   size?: ProductSize;
@@ -56,11 +59,15 @@ export type MaterialImpactEstimate = {
 };
 
 export type DepartmentCategory = {
+  __typename: "DepartmentCategory";
   id: number;
-  departmentCategory: string;
+  departmentCategoryName: string;
+  departmentId: number;
+  department: Department;
 };
 
 export type Department = {
+  __typename: "Department";
   id: number;
-  department: string;
+  departmentName: string;
 };
