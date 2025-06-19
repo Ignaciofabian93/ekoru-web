@@ -1,7 +1,7 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import { ProductCategory } from "@/types/product";
-import DropDown, { DropdownItem } from "../dropdowns/dropdown";
+import NavDropDown, { DropdownItem } from "./navDropdown";
 import clsx from "clsx";
 import Button from "../buttons/button";
 import useBrowse from "@/hooks/useBrowse";
@@ -42,8 +42,6 @@ export default function SubNavigation() {
   }
 
   function treeToDropdownItems(tree: Record<string, any>): DropdownItem[] {
-    console.log("tree", tree);
-
     return Object.values(tree).map((dept: any) => ({
       label: dept.name,
       href: `/browse/department/${dept.id}`,
@@ -66,8 +64,6 @@ export default function SubNavigation() {
     router.push("/product");
   };
 
-  console.log("productCategories", productCategories);
-
   return (
     <div
       className={clsx(
@@ -79,11 +75,11 @@ export default function SubNavigation() {
       )}
     >
       <div className={clsx("max-w-[1600px] mx-auto w-full h-full", "flex items-center justify-start gap-4", "py-4")}>
-        <DropDown title="Mercado" items={mercadoItems} />
-        <DropDown title="Tiendas" items={[]} disabled />
-        <DropDown title="Servicios" items={[]} disabled />
-        <DropDown title="Comunidad" items={[]} disabled />
-        <DropDown title="Cultura" items={[]} disabled />
+        <NavDropDown title="Mercado" items={mercadoItems} />
+        <NavDropDown title="Tiendas" items={[]} disabled />
+        <NavDropDown title="Servicios" items={[]} disabled />
+        <NavDropDown title="Comunidad" items={[]} disabled />
+        <NavDropDown title="Cultura" items={[]} disabled />
       </div>
       <div className="flex items-center justify-center">
         <Button text="Vender" onClick={uploadProduct} size="sm" />

@@ -10,8 +10,6 @@ export default function SearchHeader() {
     const items = [];
 
     if (products.length > 0) {
-      console.log("Products: ", products);
-
       // Use the first product as an example
       const product = products[0];
       const department = product.productCategory.departmentCategory?.department;
@@ -36,8 +34,6 @@ export default function SearchHeader() {
         href: `/search/product/${product.id}`,
       });
     } else if (productCategories.length > 0) {
-      console.log("Product Categories: ", productCategories);
-
       const productCategory = productCategories[0];
       const departmentCategory = productCategory.departmentCategory;
       const department = departmentCategory?.department;
@@ -55,8 +51,6 @@ export default function SearchHeader() {
         href: `/search/product-category/${productCategory.id}`,
       });
     } else if (departmentCategories.length > 0) {
-      console.log("Department Categories: ", departmentCategories);
-
       const departmentCategory = departmentCategories[0];
       const department = departmentCategory?.department;
 
@@ -76,7 +70,7 @@ export default function SearchHeader() {
   return (
     <section className="bg-white shadow-md flex flex-col items-center justify-start w-full">
       <Breadcrumbs items={crumbs()} />
-      <div className="w-full h-[450px] relative">
+      <div className="w-[98%] h-[450px] relative overflow-hidden mx-auto rounded-lg mt-2 shadow-lg">
         <Image
           src={"/wallpaper.jpg"}
           alt="imagen de portada para resultados"

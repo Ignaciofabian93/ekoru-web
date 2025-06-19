@@ -45,6 +45,7 @@ export type ProductCategory = {
   minWeight?: number;
   maxWeight?: number;
   weightUnit?: WeightUnit;
+  products: Product[];
 };
 
 export type MaterialImpactEstimate = {
@@ -64,10 +65,12 @@ export type DepartmentCategory = {
   departmentCategoryName: string;
   departmentId: number;
   department: Department;
+  productCategories: ProductCategory[];
 };
 
 export type Department = {
   __typename: "Department";
   id: number;
   departmentName: string;
+  departmentCategories: DepartmentCategory[];
 };

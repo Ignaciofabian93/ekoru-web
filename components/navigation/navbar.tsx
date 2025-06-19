@@ -1,11 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, LogOut } from "lucide-react";
+import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, LogOut, UserRoundPen } from "lucide-react";
 import { colors } from "@/constants/colors";
 import Image from "next/image";
 import clsx from "clsx";
-import SearchInput from "../textInput/search";
 import Cart from "../cart/cart";
 import UserData from "./userData";
 import Button from "../buttons/button";
@@ -84,7 +83,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between gap-4">
           <Cart />
           <UserData navigateToProfile={navigateToProfile} />
-          <LogOut onClick={handleLogout} className="cursor-pointer" />
+          {/* <LogOut onClick={handleLogout} className="cursor-pointer" /> */}
         </div>
       </nav>
 
@@ -129,7 +128,7 @@ export default function Navbar() {
               <CircleDollarSign />
               <p className="font-semibold">Mercado</p>
             </SideLink>
-            <SideLink onClick={() => router.push("/stores")}>
+            <SideLink onClick={() => router.push("/stores")} disabled>
               <Store />
               <p className="font-semibold">Tiendas</p>
             </SideLink>
@@ -145,11 +144,16 @@ export default function Navbar() {
               <BookText />
               <p className="font-semibold">Cultura</p>
             </SideLink>
-          </SideArticle>
-          <SideArticle className="h-1/12">
-            <Button text="Vender" onClick={() => router.push("/product")} variant="primary" size="full" />
+            <div className="w-full h-[0.5px] bg-gray-200 my-2" />
+            <SideLink onClick={() => router.push("/profile")}>
+              <UserRoundPen />
+              <p className="font-semibold">Perfil</p>
+            </SideLink>
           </SideArticle>
 
+          <SideArticle className="h-1/12 mt-4">
+            <Button text="Vender" onClick={() => router.push("/product")} variant="primary" size="full" />
+          </SideArticle>
           <SideArticle className="h-1/12">
             <Button text="Cerrar sesión" onClick={handleLogout} variant="danger" size="full" />
           </SideArticle>

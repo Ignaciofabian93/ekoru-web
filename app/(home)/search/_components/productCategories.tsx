@@ -6,8 +6,6 @@ export default function ProductCategoryResults() {
 
   if (!productCategories || productCategories.length === 0) return null;
 
-  console.log("Product Categories: ", productCategories);
-
   return (
     <section className="w-full overflow-x-auto py-4">
       <div className="flex gap-3 w-max px-4">

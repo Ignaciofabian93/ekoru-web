@@ -46,8 +46,6 @@ export default function useSearch() {
     );
     const products: Product[] = (data as Product[]).filter((item) => item.__typename === "Product");
 
-    console.log("DATA:: ", data);
-
     setDepartments(departmentResults);
     setDepartmentCategories(departmentCategoryResults);
     setProductCategories(productCategoryResults);

@@ -6,7 +6,7 @@ import ProductResults from "./_components/products";
 export default function SearchResultsPage() {
   return (
     <PageWrapper>
-      {/* <SearchHeader /> */}
+      <SearchHeader />
       <ProductCategoryResults />
       <ProductResults />
     </PageWrapper>

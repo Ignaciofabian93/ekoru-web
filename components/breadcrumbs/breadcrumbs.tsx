@@ -2,7 +2,7 @@
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-type Crumb = {
+export type Crumb = {
   label: string;
   href?: string;
 };
@@ -14,10 +14,12 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   const router = useRouter();
 
-  if (!items || items.length === 0) return null;
+  if (!items || items.length === 0) {
+    return <nav aria-label="Breadcrumb" className="w-full h-[36px] px-4 py-2" />;
+  }
 
   return (
-    <nav aria-label="Breadcrumb" className="w-full px-4 py-2">
+    <nav aria-label="Breadcrumb" className="w-full px-4 py-3">
       <ol className="flex items-center gap-2 text-sm text-gray-500">
         {items.map((item, idx) => (
           <li key={idx} className="flex items-center">
