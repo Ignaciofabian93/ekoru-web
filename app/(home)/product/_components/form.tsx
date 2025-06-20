@@ -43,7 +43,7 @@ export default function ProductForm() {
           <Select
             name="department"
             value={department.id}
-            options={departments.map((d) => ({ label: d.department, value: d.id }))}
+            options={departments.map((d) => ({ label: d.departmentName, value: d.id }))}
             onChange={selectDepartment}
             labelText="Departamento"
             hasLabel
@@ -51,7 +51,7 @@ export default function ProductForm() {
           <Select
             name="departmentCategory"
             value={departmentCategory.id}
-            options={departmentCategories.map((d) => ({ label: d.departmentCategory, value: d.id }))}
+            options={departmentCategories.map((d) => ({ label: d.departmentCategoryName, value: d.id }))}
             onChange={selectDepartmentCategory}
             labelText="Categoría"
             hasLabel
@@ -60,7 +60,7 @@ export default function ProductForm() {
           <Select
             name="productCategory"
             value={productCategory.id}
-            options={productCategories.map((d) => ({ label: d.productCategory, value: d.id }))}
+            options={productCategories.map((d) => ({ label: d.productCategoryName, value: d.id }))}
             onChange={selectProductCategory}
             labelText="Tipo de producto"
             hasLabel

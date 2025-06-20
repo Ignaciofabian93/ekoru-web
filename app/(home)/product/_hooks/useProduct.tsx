@@ -20,18 +20,35 @@ export default function useProduct() {
   const { data } = useSessionStore();
 
   const [department, setDepartment] = useState<Department>({
+    __typename: "Department",
     id: 0,
-    department: "",
+    departmentName: "",
+    departmentCategories: [],
   });
   const [departmentCategory, setDepartmentCategory] = useState<DepartmentCategory>({
+    __typename: "DepartmentCategory",
     id: 0,
-    departmentCategory: "",
+    departmentCategoryName: "",
+    productCategories: [],
+    departmentId: 0,
+    department: {} as Department,
   });
-  const [productCategory, setProductCategory] = useState<Partial<ProductCategory>>({
+  const [productCategory, setProductCategory] = useState<ProductCategory>({
+    __typename: "ProductCategory",
     id: 0,
-    productCategory: "",
+    productCategoryName: "",
+    departmentCategoryId: 0,
+    departmentCategory: {} as DepartmentCategory,
+    keywords: [],
+    materialImpactEstimateId: 0,
+    size: "MEDIUM",
+    minWeight: 0,
+    maxWeight: 0,
+    weightUnit: "KG",
+    products: [],
   });
   const [product, setProduct] = useState<Product>({
+    __typename: "Product",
     id: 0,
     sku: "",
     barcode: "",
@@ -55,6 +72,7 @@ export default function useProduct() {
     badges: [],
     createdAt: new Date(),
     updatedAt: new Date(),
+    productCategory: {} as ProductCategory,
   });
 
   const [Departments] = useLazyQuery(GET_DEPARTMENTS);
@@ -69,6 +87,7 @@ export default function useProduct() {
       notify("Producto guardado con éxito");
       setProducts((prev) => [...prev, data.addProduct]);
       setProduct({
+        __typename: "Product",
         id: 0,
         sku: "",
         barcode: "",
@@ -92,12 +111,33 @@ export default function useProduct() {
         badges: [],
         createdAt: new Date(),
         updatedAt: new Date(),
+        productCategory: {} as ProductCategory,
       });
-      setDepartment({ id: 0, department: "" });
+      setDepartment({ __typename: "Department", id: 0, departmentName: "", departmentCategories: [] });
       setDepartmentCategories([]);
-      setDepartmentCategory({ id: 0, departmentCategory: "" });
+      setDepartmentCategory({
+        __typename: "DepartmentCategory",
+        id: 0,
+        departmentCategoryName: "",
+        productCategories: [],
+        departmentId: 0,
+        department: {} as Department,
+      });
       setProductCategories([]);
-      setProductCategory({ id: 0, productCategory: "" });
+      setProductCategory({
+        __typename: "ProductCategory",
+        id: 0,
+        productCategoryName: "",
+        departmentCategoryId: 0,
+        departmentCategory: {} as DepartmentCategory,
+        keywords: [],
+        materialImpactEstimateId: 0,
+        size: "MEDIUM",
+        minWeight: 0,
+        maxWeight: 0,
+        weightUnit: "KG",
+        products: [],
+      });
     },
   });
 
