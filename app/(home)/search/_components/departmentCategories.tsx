@@ -14,7 +14,7 @@ export default function DepartmentCategoryResults() {
               className="p-4 border rounded hover:bg-gray-100 cursor-pointer"
               onClick={() => handleDepartmentCategorySelect(category)}
             >
-              <h3 className="text-lg font-semibold">{category.departmentCategory}</h3>
+              <h3 className="text-lg font-semibold">{category.departmentCategoryName}</h3>
             </li>
           ))}
         </ul>
