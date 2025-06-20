@@ -2,13 +2,11 @@
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import ContentWrapper from "@/app/(home)/market/_components/contentWrapper";
 import MarketHeader from "@/app/(home)/market/_components/header";
-import useBrowse from "@/hooks/useBrowse";
+import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
 import clsx from "clsx";
 
 export default function BrowseDepartmentCategoryPage() {
-  const { selectedDepartmentCategory, departmentCategories } = useBrowse();
-  console.log("Selected Department Category:", selectedDepartmentCategory);
-
+  const { departmentCategories, selectedDepartmentCategory } = useDepartmentCategories();
   return (
     <PageWrapper>
       <MarketHeader />

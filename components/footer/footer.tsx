@@ -84,7 +84,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <p className="text-center mt-6 text-sm font-semibold text-main">
-        &copy; {new Date().getFullYear()} Ekoru. Todos los derechos reservados.
+        &copy; 2025 Ekoru. Todos los derechos reservados.
       </p>
     </footer>
   );

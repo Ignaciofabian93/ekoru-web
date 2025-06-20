@@ -38,11 +38,11 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
     // Determine the "View All" link for this level
     let viewAllHref = "#";
     if (level === 0) {
-      viewAllHref = "/browse/department";
+      viewAllHref = "/market/department";
     } else if (level === 1 && parentIds.length > 0) {
-      viewAllHref = `/browse/department/${parentIds[0]}/department-category`;
+      viewAllHref = `/market/department/${parentIds[0]}/department-category`;
     } else if (level === 2 && parentIds.length > 1) {
-      viewAllHref = `/browse/department/${parentIds[0]}/department-category/${parentIds[1]}/product-category`;
+      viewAllHref = `/market/department/${parentIds[0]}/department-category/${parentIds[1]}/product-category`;
     }
 
     return (
@@ -58,7 +58,7 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
           const currentIds = [...parentIds];
           if (level === 0 && item.href) {
             // /browse/department/[id]
-            const match = item.href.match(/\/browse\/department\/(\d+)/);
+            const match = item.href.match(/\/market\/department\/(\d+)/);
             if (match) currentIds.push(Number(match[1]));
           }
           if (level === 1 && item.href) {

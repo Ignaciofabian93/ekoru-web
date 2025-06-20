@@ -1,71 +1,59 @@
 import useAlert from "@/hooks/useAlert";
 import { useLazyQuery } from "@apollo/client";
-import { GET_DEPARTMENT, GET_DEPARTMENTS } from "../_graphql/departments";
 import { usePathname } from "next/navigation";
 import useCategoryStore from "../_store/categories";
 import { useEffect, useState } from "react";
-import { Department } from "@/types/product";
+import { ProductCategory } from "@/types/product";
+import { GET_PRODUCT_CATEGORIES, GET_PRODUCT_CATEGORY } from "../_graphql/productCategories";
 
 export default function useProductCategories() {
   const pathname = usePathname();
-  const [breadcrumbs, setBreadcrumbs] = useState<{ label: string; href?: string }[]>([]);
   const { notifyError } = useAlert();
-  const { departments, setDepartments, selectedDepartment, setSelectedDepartment } = useCategoryStore();
+  const { productCategories, selectedProductCategory, setSelectedProductCategory, setProductCategories } =
+    useCategoryStore();
 
-  const [Departments, { loading: departmentsLoading }] = useLazyQuery(GET_DEPARTMENTS);
-  const [Department, { loading: departmentLoading }] = useLazyQuery(GET_DEPARTMENT);
+  const [ProductCategories, { loading: productCategoriesLoading }] = useLazyQuery(GET_PRODUCT_CATEGORIES);
+  const [ProductCategory, { loading: productCategoryLoading }] = useLazyQuery(GET_PRODUCT_CATEGORY);
 
   const isAllDepartmentsPage = pathname === "/browse/department";
   const isDepartmentPage = pathname.startsWith("/browse/department/");
   const departmentId = isDepartmentPage ? parseInt(pathname.split("/").pop() || "0") : null;
 
-  const cleanBreadcrumbs = () => setBreadcrumbs([]);
+  const selectProductCategory = (productCategory: ProductCategory) => setSelectedProductCategory(productCategory);
 
-  const selectDepartment = (department: Department) => setSelectedDepartment(department);
-
-  useEffect(() => {
-    fetchDepartments();
-  }, [isAllDepartmentsPage]);
-
-  useEffect(() => {
-    if (isDepartmentPage && departmentId && !selectedDepartment) {
-      fetchDepartment(departmentId);
-    }
-  }, [isDepartmentPage, departmentId]);
-
-  const fetchDepartments = async () => {
+  const fetchProductCategories = async () => {
     try {
-      const { data } = await Departments();
-      if (data.departments) {
-        setDepartments(data.departments);
-        cleanBreadcrumbs();
-        const breadcrumb = { label: "Todos los departamentos", href: "/browse/department" };
-        setBreadcrumbs([breadcrumb]);
+      const { data } = await ProductCategories();
+      if (data.productCategories) {
+        setProductCategories(data.productCategories);
       } else {
-        notifyError("No se encontraron departamentos");
+        notifyError("No se encontraron categorías de productos");
       }
     } catch (error) {
-      notifyError("Error al cargar los departamentos");
-      console.error("Error fetching departments:", error);
+      notifyError("Error al cargar las categorías de productos");
+      console.error("Error fetching product categories:", error);
     }
   };
 
-  const fetchDepartment = async (id: number) => {
+  const fetchProductCategory = async (id: number) => {
     try {
-      const { data } = await Department({ variables: { id } });
+      const { data } = await ProductCategory({ variables: { id } });
       if (data.department) {
-        setSelectedDepartment(data.department);
-        cleanBreadcrumbs();
-        const breadcrumb = { label: data.department.departmentName, href: `/browse/department/${data.department.id}` };
-        setBreadcrumbs([breadcrumb]);
+        setSelectedProductCategory(data.department);
       } else {
-        notifyError("No se encontró el departamento");
+        notifyError("No se encontró la categoría de producto");
       }
     } catch (error) {
-      notifyError("Error al cargar el departamento");
-      console.error("Error fetching department:", error);
+      notifyError("Error al cargar la categoría de producto");
+      console.error("Error fetching product category:", error);
     }
   };
 
-  return { departments, selectedDepartment, departmentLoading, departmentsLoading, breadcrumbs, selectDepartment };
+  return {
+    productCategories,
+    selectedProductCategory,
+    productCategoriesLoading,
+    productCategoryLoading,
+    selectProductCategory,
+  };
 }

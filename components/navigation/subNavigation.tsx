@@ -1,63 +1,27 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import { ProductCategory } from "@/types/product";
 import NavDropDown, { DropdownItem } from "./navDropdown";
 import clsx from "clsx";
 import Button from "../buttons/button";
-import useBrowse from "@/hooks/useBrowse";
+import useMarketCatalog from "@/app/(home)/market/_hooks/useCatalog";
 
 export default function SubNavigation() {
   const router = useRouter();
   const pathname = usePathname();
-  const { productCategories } = useBrowse();
+  const { catalog } = useMarketCatalog();
 
-  function buildCategoryTree(productCategories: ProductCategory[]) {
-    const tree: Record<string, any> = {};
-
-    productCategories.forEach((cat) => {
-      const dept = cat.departmentCategory.department;
-      const deptCat = cat.departmentCategory;
-
-      if (!tree[dept.id]) {
-        tree[dept.id] = {
-          id: dept.id,
-          name: dept.departmentName,
-          categories: {},
-        };
-      }
-      if (!tree[dept.id].categories[deptCat.id]) {
-        tree[dept.id].categories[deptCat.id] = {
-          id: deptCat.id,
-          name: deptCat.departmentCategoryName,
-          productCategories: [],
-        };
-      }
-      tree[dept.id].categories[deptCat.id].productCategories.push({
-        id: cat.id,
-        name: cat.productCategoryName,
-      });
-    });
-
-    return tree;
-  }
-
-  function treeToDropdownItems(tree: Record<string, any>): DropdownItem[] {
-    return Object.values(tree).map((dept: any) => ({
-      label: dept.name,
-      href: `/browse/department/${dept.id}`,
-      children: Object.values(dept.categories).map((cat: any) => ({
-        label: cat.name,
-        href: `/browse/department/${dept.id}/department-category/${cat.id}`,
-        children: cat.productCategories.map((prod: any) => ({
-          label: prod.name,
-          href: `/browse/department/${dept.id}/department-category/${cat.id}/product-category/${prod.id}`,
-        })),
+  const marketTree: DropdownItem[] = catalog.map((dept) => ({
+    label: dept.departmentName,
+    href: `/market/department/${dept.id}`,
+    children: dept.departmentCategories.map((cat) => ({
+      label: cat.departmentCategoryName,
+      href: `/market/department/${dept.id}/department-category/${cat.id}`,
+      children: cat.productCategories.map((prodCat) => ({
+        label: prodCat.productCategoryName,
+        href: `/market/department/${dept.id}/department-category/${cat.id}/product-category/${prodCat.id}`,
       })),
-    }));
-  }
-
-  const categoryTree = buildCategoryTree(productCategories);
-  const mercadoItems = treeToDropdownItems(categoryTree);
+    })),
+  }));
 
   const uploadProduct = () => {
     if (pathname === "/product") return;
@@ -75,7 +39,7 @@ export default function SubNavigation() {
       )}
     >
       <div className={clsx("max-w-[1600px] mx-auto w-full h-full", "flex items-center justify-start gap-4", "py-4")}>
-        <NavDropDown title="Mercado" items={mercadoItems} />
+        <NavDropDown title="Mercado" items={marketTree} />
         <NavDropDown title="Tiendas" items={[]} disabled />
         <NavDropDown title="Servicios" items={[]} disabled />
         <NavDropDown title="Comunidad" items={[]} disabled />

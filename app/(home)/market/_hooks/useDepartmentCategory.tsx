@@ -20,9 +20,6 @@ export default function useDepartmentCategories() {
   const isDepartmentCategoryPage = /^\/browse\/department\/\d+\/department-category\/?$/.test(pathname);
   const departmentCategoryId = isDepartmentCategoryPage ? parseInt(pathname.split("/").pop() || "0") : null;
 
-  console.log("isDepartmentCategoryPage:", isDepartmentCategoryPage);
-  console.log("departmentCategoryId:", departmentCategoryId);
-
   const cleanBreadcrumbs = () => setBreadcrumbs([]);
 
   const selectDepartmentCategory = (departmentCategory: DepartmentCategory) =>
@@ -41,8 +38,6 @@ export default function useDepartmentCategories() {
   const fetchDepartmentCategories = async () => {
     try {
       const { data } = await departmentCategoriesByDepartment({ variables: { id: 1 } });
-      console.log("Fetched department categories:", data);
-
       if (data.departmentCategoriesByDepartment.length) {
         setDepartmentCategories(data.departmentCategoriesByDepartment);
         cleanBreadcrumbs();

@@ -3,6 +3,8 @@ import { User } from "@/types/user";
 import { create } from "zustand";
 
 export type CategoryStore = {
+  catalog: Department[];
+  setCatalog: (catalog: Department[]) => void;
   departments: Department[];
   setDepartments: (departments: Department[]) => void;
   selectedDepartment: Department | null;
@@ -26,6 +28,8 @@ export type CategoryStore = {
 };
 
 const useCategoryStore = create<CategoryStore>((set) => ({
+  catalog: [],
+  setCatalog: (catalog) => set({ catalog }),
   departments: [],
   setDepartments: (departments) => set({ departments }),
   selectedDepartment: null,
