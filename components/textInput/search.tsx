@@ -21,7 +21,7 @@ export default function SearchInput({ value, onChange, submit, loading }: Search
   };
 
   return (
-    <form onSubmit={submit} className="w-full">
+    <form onSubmit={submit} className="w-full max-w-[800px]">
       <div className={clsx("relative flex flex-col gap-1 w-full")}>
         <div className="w-full relative">
           <input

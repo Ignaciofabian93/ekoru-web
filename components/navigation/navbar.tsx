@@ -81,8 +81,8 @@ export default function Navbar() {
         <SearchModule />
         {/* RIGHT SIDE - USER & CART */}
         <div className="flex items-center justify-between gap-4">
+          <UserData />
           <Cart />
-          <UserData navigateToProfile={navigateToProfile} />
           {/* <LogOut onClick={handleLogout} className="cursor-pointer" /> */}
         </div>
       </nav>
