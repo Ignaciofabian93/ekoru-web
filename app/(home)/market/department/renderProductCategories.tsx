@@ -17,7 +17,14 @@ export const RenderProductCategories = ({
 }: RenderProductCategoriesProps) => {
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div
+        className={clsx(
+          // Horizontal scroll on mobile, grid on sm+
+          "flex overflow-x-auto gap-4 pb-2 -mx-2 px-2",
+          "sm:grid sm:grid-cols-2 md:grid-cols-4 sm:gap-6 sm:overflow-visible sm:px-0 sm:mx-0"
+        )}
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
         {selectedDepartmentCategory?.productCategories?.map((cat) => (
           <motion.div
             key={cat.id}
@@ -29,7 +36,12 @@ export const RenderProductCategories = ({
             }}
             transition={{ duration: 0.2 }}
             className={clsx(
-              "rounded-xl shadow-md p-5 hover:bg-lime-50 transition cursor-pointer flex flex-col items-start border border-lime-100",
+              "flex flex-col items-start min-w-[70vw] max-w-[90vw] sm:min-w-0 sm:max-w-none",
+              "p-5",
+              "rounded-xl shadow-md",
+              "border border-lime-100",
+              "transition cursor-pointer",
+              "hover:bg-lime-50",
               {
                 "bg-lime-50 border-lime-200": selectedProductCategory?.id === cat.id,
                 "bg-white": selectedProductCategory?.id !== cat.id,
@@ -45,7 +57,7 @@ export const RenderProductCategories = ({
                 redirectToProductCategory(
                   selectedDepartmentCategory?.departmentId,
                   selectedDepartmentCategory.id,
-                  selectedProductCategory?.id as number
+                  cat.id
                 );
               }}
               className="mt-2 text-sm text-primary-dark underline"

@@ -10,7 +10,13 @@ type RenderProductsProps = {
 export const RenderProducts = ({ selectedDepartmentCategory, selectedProductCategory }: RenderProductsProps) => {
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div
+        className="
+          flex overflow-x-auto gap-4 pb-2 -mx-2 px-2
+          sm:grid sm:grid-cols-2 md:grid-cols-4 sm:gap-6 sm:overflow-visible sm:px-0 sm:mx-0
+        "
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
         {selectedProductCategory &&
           selectedProductCategory?.products?.map((prod) => (
             <motion.div
@@ -18,8 +24,11 @@ export const RenderProducts = ({ selectedDepartmentCategory, selectedProductCate
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => {}}
               transition={{ duration: 0.2 }}
+              className="
+                flex-shrink-0 min-w-[70vw] max-w-[90vw]
+                sm:min-w-0 sm:max-w-none
+              "
             >
               <ProductCard title={prod.name} onClick={() => {}} />
             </motion.div>
