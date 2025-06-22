@@ -10,7 +10,6 @@ export default function BrowseDepartmentCategoriesPage() {
     departmentCategoriesLoading,
     selectedDepartmentCategory,
     selectDepartmentCategory,
-    breadcrumbs,
   } = useDepartmentCategories();
   return (
     <PageWrapper>
