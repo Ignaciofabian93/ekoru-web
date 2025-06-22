@@ -1,12 +1,12 @@
-import { Heart, Share2, Star } from "lucide-react";
-import clsx from "clsx";
-import Button from "../buttons/button";
-import co2 from "@/assets/icons/co2.png";
-import Image from "next/image";
+import { useState } from "react";
+import CardImage from "./product/cardImage";
+import CardInfo from "./product/cardInfo";
+import CardCTA from "./product/cardCta";
+import CardDetails from "./product/cardDetails";
 
 type ProductCard = {
   title?: string;
-  image?: string;
+  images?: string[]; // Change to array for carousel
   price?: number;
   seller?: string;
   sellerImage?: string;
@@ -29,7 +29,7 @@ type ProductCard = {
 
 export default function ProductCard({
   title,
-  image,
+  images = [],
   price,
   seller,
   location,
@@ -47,85 +47,46 @@ export default function ProductCard({
   onEdit,
   onDelete,
 }: ProductCard) {
+  const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";
+  const carouselImages = images.length > 0 ? images.slice(0, 3) : [];
+
   return (
-    <div
-      onClick={onClick}
-      className={clsx(
-        "min-w-[330px] w-full max-w-[350px] h-[440px] flex flex-col justify-between pb-3",
-        "rounded-2xl",
-        "bg-white",
-        "shadow-lg shadow-black/20",
-        "overflow-hidden",
-        "relative",
-        "transition-transform hover:scale-[1.025] hover:shadow-xl"
-      )}
-    >
-      {/* Product Image */}
-      <div className="w-full h-[58%] bg-slate-200 relative">
-        {image ? (
-          <Image
-            src={image}
-            alt="product"
-            className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
-            width={500}
-            height={300}
-            priority
+    <div className="card-flip-perspective min-w-[250px] w-full max-w-[280px] h-[430px] pb-3">
+      <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""}`}>
+        {/* Front Side */}
+        <div className="card-flip-front rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 h-full">
+          <CardImage
+            images={carouselImages}
+            onFlip={() => setFlipped(true)}
+            isFavoriteActivated={isFavoriteActivated}
+            isSharedActivated={isSharedActivated}
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400">Sin imagen</div>
-        )}
-        {/* Action Buttons */}
-        <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
-          {isFavoriteActivated && (
-            <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition">
-              <Heart className="text-primary" />
-            </button>
-          )}
-          {isSharedActivated && (
-            <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition">
-              <Share2 className="text-primary" />
-            </button>
-          )}
+          <CardInfo
+            seller={seller || ""}
+            sellerImage={sellerPreview}
+            location={location || ""}
+            sales={sales}
+            areNumberOfSalesActivated={areNumberOfSalesActivated}
+            isRatingActivated={isRatingActivated}
+            rating={rating}
+            title={title || ""}
+            description={description || ""}
+            price={price || 0}
+          />
+          <CardCTA isImpactActivated={isImpactActivated} isButtonActivated={isButtonActivated} />
         </div>
-      </div>
-      {/* Seller & Info */}
-      <div className="relative w-full h-[27%] flex items-start justify-between px-4 pt-2">
-        <div className="absolute -top-10 left-2 w-[64px] h-[64px] rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-primary shadow">
-          <Image src={sellerPreview} alt="seller" className="w-full h-full object-cover" width={100} height={100} />
+        {/* Back Side */}
+        <div className="card-flip-back">
+          <CardDetails
+            userProfileImage={sellerPreview}
+            userName={seller || "Vendedor Anónimo"}
+            userLocation={location || "Ubicación no disponible"}
+            ratings={rating}
+            description={description}
+            onBack={() => setFlipped(false)}
+          />
         </div>
-        <div className="w-2/5 pt-6 pl-2">
-          <p className="text-[14px] font-semibold truncate">{seller}</p>
-          <p className="text-[12px] font-medium text-gray-500 truncate">{location}</p>
-          {areNumberOfSalesActivated && <p className="text-[12px] text-gray-400">{sales} ventas exitosas</p>}
-          {isRatingActivated && (
-            <div className="flex items-center gap-1 mt-1">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-xs font-semibold">{rating}</span>
-            </div>
-          )}
-        </div>
-        <div className="w-3/5 flex flex-col gap-1">
-          <p className="text-[16px] font-semibold truncate">{title}</p>
-          <p className="text-[13px] text-gray-600 line-clamp-2">{description}</p>
-          <p className="text-[15px] font-bold text-primary mt-1">${price?.toLocaleString()}</p>
-        </div>
-      </div>
-      {/* Bottom Actions */}
-      <div className="px-4 w-full flex items-center justify-between mt-2">
-        {isImpactActivated ? (
-          <div className="flex flex-col items-center justify-center">
-            <Image src={co2} alt="co2" className="w-[24px] h-[24px]" />
-            <span className="text-xs text-gray-500">Conoce tu impacto</span>
-          </div>
-        ) : (
-          <div />
-        )}
-        {isButtonActivated && (
-          <div className="w-[55%] flex items-center justify-center">
-            <Button text="¡Me interesa!" />
-          </div>
-        )}
       </div>
     </div>
   );
