@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Pen } from "lucide-react";
 import useSessionStore from "@/store/session";
 import Image from "next/image";
 import Button from "../buttons/button";
@@ -37,7 +38,7 @@ export default function UserData() {
   return (
     <div className="relative mx-4" ref={dropdownRef}>
       <button
-        className="rounded-full overflow-hidden border-2 border-primary w-[40px] h-[40px] flex items-center justify-center focus:outline-none"
+        className="rounded-full overflow-hidden border-2 cursor-pointer border-primary w-[40px] h-[40px] flex items-center justify-center focus:outline-none"
         onClick={() => setOpen((v) => !v)}
         aria-label="Abrir menú de usuario"
         type="button"
@@ -58,13 +59,22 @@ export default function UserData() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-0 mt-2 w-[260px] bg-white text-main rounded-md shadow-lg z-50 p-4 flex flex-col gap-2"
+            className="absolute right-0 mt-2 min-w-[260px] bg-white text-main rounded-md shadow-lg z-50 p-4 flex flex-col gap-2"
           >
-            <span className="font-semibold text-lg">{data.name || data.businessName}</span>
-            <span className="text-sm text-gray-600">
+            <div className="w-full flex items-center justify-between gap-2">
+              <span className="font-semibold text-lg">{data.name || data.businessName}</span>
+              <span
+                className="flex items-center text-sm text-primary cursor-pointer"
+                onClick={() => router.push("/profile")}
+              >
+                Ir al perfil
+              </span>
+            </div>
+            <span className="text-sm text-main">
               {data.county.county || ""}, {data.city.city || ""}
             </span>
-            <span className="text-sm text-gray-500">{data.userCategory?.name ?? "Reciclador amateur"}</span>
+            <span className="text-sm text-main">{data.userCategory?.name ?? "Reciclador amateur"}</span>
+            <span className="text-sm text-main">Puntos: {data.points}</span>
             <Button text="Cerrar sesión" onClick={handleLogout} variant="danger" size="sm" className="mt-4 w-full" />
           </motion.div>
         )}

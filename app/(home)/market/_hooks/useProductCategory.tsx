@@ -15,11 +15,15 @@ export default function useProductCategories() {
   const [ProductCategories, { loading: productCategoriesLoading }] = useLazyQuery(GET_PRODUCT_CATEGORIES);
   const [ProductCategory, { loading: productCategoryLoading }] = useLazyQuery(GET_PRODUCT_CATEGORY);
 
-  const isAllDepartmentsPage = pathname === "/browse/department";
-  const isDepartmentPage = pathname.startsWith("/browse/department/");
-  const departmentId = isDepartmentPage ? parseInt(pathname.split("/").pop() || "0") : null;
+  const isProductCategoryPage = /^\/browse\/department\/\d+\/department-category\/\d+\/product-category\/?$/.test(
+    pathname
+  );
 
   const selectProductCategory = (productCategory: ProductCategory) => setSelectedProductCategory(productCategory);
+
+  useEffect(() => {
+    fetchProductCategories();
+  }, [isProductCategoryPage]);
 
   const fetchProductCategories = async () => {
     try {
@@ -32,20 +36,6 @@ export default function useProductCategories() {
     } catch (error) {
       notifyError("Error al cargar las categorías de productos");
       console.error("Error fetching product categories:", error);
-    }
-  };
-
-  const fetchProductCategory = async (id: number) => {
-    try {
-      const { data } = await ProductCategory({ variables: { id } });
-      if (data.department) {
-        setSelectedProductCategory(data.department);
-      } else {
-        notifyError("No se encontró la categoría de producto");
-      }
-    } catch (error) {
-      notifyError("Error al cargar la categoría de producto");
-      console.error("Error fetching product category:", error);
     }
   };
 
