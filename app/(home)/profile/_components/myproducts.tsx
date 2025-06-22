@@ -16,7 +16,7 @@ export default function MyProducts() {
             <ProductCard
               key={product.id}
               title={product.name}
-              image={product.images[0]}
+              images={product.images}
               price={product.price}
               seller={data.name.split(" ")[0]}
               sellerImage={data.profileImage}

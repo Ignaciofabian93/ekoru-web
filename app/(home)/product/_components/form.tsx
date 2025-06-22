@@ -224,7 +224,7 @@ export default function ProductForm() {
             price={product.price}
             seller={data.name.split(" ")[0]}
             location={`${data.address}, ${data.county.county}`}
-            image={product.images[0]}
+            images={product.images}
             sellerImage={data.profileImage}
             description={product.description}
           />

@@ -30,7 +30,7 @@ export default function MarketMainProducts() {
                 onClick={() => redirectToProduct(product.id)}
                 key={product.id}
                 {...product}
-                image={product.images[0]}
+                images={product.images}
                 title={product.name}
                 sellerImage={product.user?.profileImage}
                 location={product.user?.city?.city}
