@@ -14,7 +14,7 @@ export default function useFeedMarket({ scope, exchange }: { scope: Scope; excha
 
   useEffect(() => {
     async function fetchProducts() {
-      const { data } = await Products({ variables: { limit: 10, scope, exchange } });
+      const { data } = await Products({ variables: { take: 10, scope, exchange } });
       if (data) {
         setProducts(data.feedProducts);
       } else {
