@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_DEPARTMENTS = gql`
-  query Departments {
-    departments {
+  query Departments($take: Int, $skip: Int, $orderBy: OrderByInput) {
+    departments(take: $take, skip: $skip, orderBy: $orderBy) {
       id
       departmentName
       departmentCategories {

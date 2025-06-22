@@ -1,5 +1,6 @@
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 
+// This page is for browsing product categories in a department category.
 export default function BrowseProductCategoriesPage() {
   return (
     <PageWrapper>

@@ -1,5 +1,6 @@
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 
+// This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
   return (
     <PageWrapper>

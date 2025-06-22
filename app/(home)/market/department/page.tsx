@@ -2,12 +2,12 @@
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { RenderDepartments } from "./renderDepartments";
+import { RenderDepartments } from "./_ui/renderDepartments";
 import { Department, DepartmentCategory, ProductCategory } from "@/types/product";
 import { DepartmentSkeleton } from "../_components/skeletons";
-import { RenderDepartmentCategories } from "./renderDepartmentCategories";
-import { RenderProductCategories } from "./renderProductCategories";
-import { RenderProducts } from "./renderProducts";
+import { RenderDepartmentCategories } from "./_ui/renderDepartmentCategories";
+import { RenderProductCategories } from "./_ui/renderProductCategories";
+import { RenderProducts } from "./_ui/renderProducts";
 import PageWrapper from "../../_components/pageWrapper";
 import BrowseHeader from "../_components/header";
 import ContentWrapper from "../_components/contentWrapper";

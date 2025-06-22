@@ -1,5 +1,6 @@
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 
+// This page is used to display the results of browsing a specific product category
 export default function BrowseProductCategoryResultsPage() {
   return (
     <PageWrapper>

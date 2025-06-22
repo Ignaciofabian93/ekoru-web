@@ -5,6 +5,7 @@ import MarketHeader from "@/app/(home)/market/_components/header";
 import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
 import clsx from "clsx";
 
+// This page is for browsing a specific department category in a specific department.
 export default function BrowseDepartmentCategoryPage() {
   const { departmentCategories, selectedDepartmentCategory } = useDepartmentCategories();
   return (
