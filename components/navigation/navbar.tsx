@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, LogOut, UserRoundPen } from "lucide-react";
+import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, UserRoundPen } from "lucide-react";
 import { colors } from "@/constants/colors";
 import Image from "next/image";
 import clsx from "clsx";
@@ -40,9 +40,9 @@ const SideLink = ({
 };
 
 export default function Navbar() {
-  const [isSideNavOpened, setIsSideNavOpened] = useState<boolean>(false);
   const router = useRouter();
   const { data } = useSessionStore();
+  const [isSideNavOpened, setIsSideNavOpened] = useState<boolean>(false);
 
   const handleLogout = async () => {
     await fetch("/api/logout", { method: "POST", credentials: "include" });
@@ -51,10 +51,6 @@ export default function Navbar() {
 
   const brandClick = () => {
     router.push("/feed");
-  };
-
-  const navigateToProfile = () => {
-    router.push("/profile");
   };
 
   const handleSideNav = () => setIsSideNavOpened(!isSideNavOpened);

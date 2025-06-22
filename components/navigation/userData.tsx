@@ -36,7 +36,7 @@ export default function UserData() {
   }, [open]);
 
   return (
-    <div className="relative mx-4" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <button
         className="rounded-full overflow-hidden border-2 cursor-pointer border-primary w-[40px] h-[40px] flex items-center justify-center focus:outline-none"
         onClick={() => setOpen((v) => !v)}
