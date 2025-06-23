@@ -1,4 +1,13 @@
 {
-  "cSpell.ignoreWords": ["Linkedin", "heroui", "myproducts"],
-  "cSpell.words": ["Contáctanos", "Previsualizar", "Reacondicionado", "WHATSAPP"]
+  "cSpell.ignoreWords": [
+    "ENTRETENCION",
+    "Electrohogar",
+    "INSTRUMENTOSMUSICALES",
+    "JARDIN",
+    "Linkedin",
+    "TECNOLOGIA",
+    "heroui",
+    "myproducts"
+  ],
+  "cSpell.words": ["Contáctanos", "Entretención", "Previsualizar", "Reacondicionado", "WHATSAPP"]
 }

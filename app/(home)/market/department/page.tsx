@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { RenderDepartments } from "./_ui/renderDepartments";
-import { Department, DepartmentCategory, ProductCategory } from "@/types/product";
+import { Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
 import { DepartmentSkeleton } from "../_components/skeletons";
 import { RenderDepartmentCategories } from "./_ui/renderDepartmentCategories";
 import { RenderProductCategories } from "./_ui/renderProductCategories";
@@ -15,6 +15,7 @@ import useDepartments from "../_hooks/useDepartment";
 import Banner from "@/components/banner/banner";
 import useDepartmentCategories from "../_hooks/useDepartmentCategory";
 import useProductCategories from "../_hooks/useProductCategory";
+import CategorySection from "./_ui/categorySection";
 
 export default function BrowseDepartmentsPage() {
   const router = useRouter();
@@ -22,6 +23,30 @@ export default function BrowseDepartmentsPage() {
   const { departments, selectedDepartment, departmentsLoading, selectDepartment } = useDepartments();
   const { selectedDepartmentCategory, selectDepartmentCategory } = useDepartmentCategories();
   const { selectedProductCategory, selectProductCategory } = useProductCategories();
+
+  function getProductsByDepartment(departments: Department[]) {
+    const productsByDepartment: Record<string, Product[]> = {};
+
+    departments.forEach((department) => {
+      const departmentName = department.departmentName;
+      department.departmentCategories.forEach((deptCategory) => {
+        deptCategory.productCategories.forEach((prodCategory) => {
+          prodCategory.products.forEach((product) => {
+            if (!productsByDepartment[departmentName]) {
+              productsByDepartment[departmentName] = [];
+            }
+            productsByDepartment[departmentName].push(product);
+          });
+        });
+      });
+    });
+
+    return productsByDepartment;
+  }
+
+  const productsByDepartment = getProductsByDepartment(departments);
+
+  console.log("productsByDepartment", productsByDepartment);
 
   const redirectToDepartment = (departmentId: number) => {
     router.push(`/market/department/${departmentId}`);
@@ -49,16 +74,21 @@ export default function BrowseDepartmentsPage() {
     }, 0);
   };
 
-  const handleDepartmentCategorySelect = (category: DepartmentCategory) => {
-    selectDepartmentCategory(category);
-    selectProductCategory({} as ProductCategory); // Reset product category selection when changing department category
+  const DepartmentNames = {
+    AUTOMOTRIZ: "Automotriz",
+    BEBES: "Bebés",
+    DEPORTES: "Deportes y Outdoor",
+    ELECTROHOGAR: "Electrohogar",
+    ENTRETENCION: "Entretención",
+    HERRAMIENTAS: "Herramientas y Maquinaria",
+    HOGAR: "Hogar y Decoración",
+    INSTRUMENTOSMUSICALES: "Instrumentos Musicales",
+    JARDIN: "Jardín y Terraza",
+    MASCOTAS: "Mascotas",
+    ROPA: "Ropa, Calzado y Accesorios",
+    SERVICIOS: "Servicios",
+    TECNOLOGIA: "Tecnología",
   };
-
-  const handleProductCategorySelect = (category: ProductCategory) => {
-    selectProductCategory(category);
-  };
-
-  const blockClassName = "mb-8 p-6 rounded-xl border border-gray-200 bg-white shadow-sm transition-all";
 
   return (
     <PageWrapper>
@@ -70,14 +100,14 @@ export default function BrowseDepartmentsPage() {
         />
       </ContentWrapper>
       <ContentWrapper>
-        <section className="mb-8 p-6 rounded-xl border border-gray-200 bg-white shadow-sm">
+        <section className="mb-8 mt-10">
           <h2 className="text-xl font-semibold mb-4 text-main flex items-center gap-2">
             <ChevronRight className="text-primary" size={20} />
             Departamentos
           </h2>
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto gap-6 pb-4 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
+            className="flex overflow-x-auto gap-6 pb-6 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
           >
             {departmentsLoading ? (
               Array.from({ length: 10 }).map((_, i) => <DepartmentSkeleton key={i} />)
@@ -93,46 +123,103 @@ export default function BrowseDepartmentsPage() {
         </section>
       </ContentWrapper>
       <ContentWrapper>
-        <section className={blockClassName}>
-          <h3 className="text-lg font-semibold mb-4 text-main flex items-center gap-2">
-            <ChevronRight className="text-primary" size={20} />
-            Categorías
-          </h3>
-          <div>
-            <RenderDepartmentCategories
-              selectedDepartment={selectedDepartment}
-              selectedDepartmentCategory={selectedDepartmentCategory}
-              handleDepartmentCategorySelect={handleDepartmentCategorySelect}
-              redirectToDepartmentCategory={redirectToDepartmentCategory}
-            />
-          </div>
-        </section>
+        <CategorySection
+          sectionName="Automotriz"
+          title="Potencia y estilo."
+          subtitle="Siente la fuerza en cada viaje."
+          products={productsByDepartment[DepartmentNames.AUTOMOTRIZ]}
+        />
       </ContentWrapper>
       <ContentWrapper>
-        <section className={blockClassName}>
-          <h3 className="text-lg font-semibold mb-4 text-main flex items-center gap-2">
-            <ChevronRight className="text-primary" size={20} />
-            Sub Categorías
-          </h3>
-          <RenderProductCategories
-            selectedDepartmentCategory={selectedDepartmentCategory}
-            selectedProductCategory={selectedProductCategory}
-            handleProductCategorySelect={handleProductCategorySelect}
-            redirectToProductCategory={redirectToProductCategory}
-          />
-        </section>
+        <CategorySection
+          sectionName="Bebés"
+          title="Lo mejor para los más pequeños."
+          subtitle="Cuida su mundo con amor."
+          products={productsByDepartment[DepartmentNames.BEBES]}
+        />
       </ContentWrapper>
       <ContentWrapper>
-        <section className={blockClassName}>
-          <h3 className="text-lg font-semibold mb-4 text-main flex items-center gap-2">
-            <ChevronRight className="text-primary" size={20} />
-            Productos
-          </h3>
-          <RenderProducts
-            selectedDepartmentCategory={selectedDepartmentCategory}
-            selectedProductCategory={selectedProductCategory}
-          />
-        </section>
+        <CategorySection
+          sectionName="Deportes y Outdoor"
+          title="Energía circular."
+          subtitle="Sigue tu ritmo sin dejar huella."
+          products={productsByDepartment[DepartmentNames.DEPORTES]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Electrohogar"
+          title="Tecnología al servicio del hogar."
+          subtitle="Haz de tu hogar un lugar más sustentable."
+          products={productsByDepartment[DepartmentNames.ELECTROHOGAR]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Entretención"
+          title="Eco aventuras en marcha."
+          subtitle="¡El planeta también quiere que te diviertas!"
+          products={productsByDepartment[DepartmentNames.ENTRETENCION]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Herramientas y Maquinaria"
+          title="Potencia y precisión."
+          subtitle="Las mejores herramientas para tus proyectos."
+          products={productsByDepartment[DepartmentNames.HERRAMIENTAS]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Muebles de hogar"
+          title="Renueva con propósito."
+          subtitle="Piezas únicas que vuelven a la vida."
+          products={productsByDepartment[DepartmentNames.HOGAR]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Instrumentos Musicales"
+          title="De segunda mano, de primera nota."
+          subtitle="Deja que el pasado suene como nuevo."
+          products={productsByDepartment[DepartmentNames.INSTRUMENTOSMUSICALES]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Jardín y Terraza"
+          title="Naturaleza en casa."
+          subtitle="Crea tu oasis verde."
+          products={productsByDepartment[DepartmentNames.JARDIN]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Mascotas"
+          title="Sustentabilidad con cola."
+          subtitle="Cuidemos el entorno de quienes más queremos."
+          products={productsByDepartment[DepartmentNames.MASCOTAS]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Ropa, Calzado y Accesorios"
+          title="Tu ropa, tu revolución verde."
+          subtitle="Transforma tu clóset en un acto consciente."
+          products={productsByDepartment[DepartmentNames.ROPA]}
+        />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection sectionName="Servicios" products={productsByDepartment[DepartmentNames.SERVICIOS]} />
+      </ContentWrapper>
+      <ContentWrapper>
+        <CategorySection
+          sectionName="Tecnología"
+          title="Innovación que transforma."
+          subtitle="Comodidad y eficiencia que nos hace avanzar."
+          products={productsByDepartment[DepartmentNames.TECNOLOGIA]}
+        />
       </ContentWrapper>
     </PageWrapper>
   );

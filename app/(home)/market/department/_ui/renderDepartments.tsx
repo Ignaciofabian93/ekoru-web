@@ -47,10 +47,11 @@ export const RenderDepartments = ({
             }
             className={clsx(
               "min-w-[150px] min-h-[150px]",
-              "relative rounded-full shadow-lg",
+              "relative rounded-full shadow-lg shadow-gray-800/30",
               "border-2",
               "flex flex-col items-center justify-center",
               "p-4",
+              "transition-all duration-300 ease-in-out",
               "cursor-pointer",
               "hover:shadow-xl"
             )}

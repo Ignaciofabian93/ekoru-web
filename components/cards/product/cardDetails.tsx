@@ -31,14 +31,14 @@ export default function CardDetails({
   return (
     <div className="flex flex-col items-center card-gradient w-full h-full relative justify-between pb-3 px-4">
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
-        <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition">
-          <RotateCw
-            className="w-5 h-5 text-primary"
-            onClick={(e) => {
-              e.stopPropagation();
-              onBack();
-            }}
-          />
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onBack();
+          }}
+          className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
+        >
+          <RotateCw className="w-5 h-5 text-primary" />
         </button>
       </div>
       <div className="flex flex-col items-center mt-8 mb-2">

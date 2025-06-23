@@ -7,5 +7,6 @@ dictionaryDefinitions:
 dictionaries:
   - custom-dictionary
 words: []
-ignoreWords: []
+ignoreWords:
+  - ELECTROHOGAR
 import: []

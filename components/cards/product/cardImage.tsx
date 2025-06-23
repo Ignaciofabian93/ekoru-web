@@ -25,14 +25,14 @@ export default function CardImage({
     <div className="w-full h-[240px] bg-white relative flex items-start">
       {/* fixed height */}
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
-        <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition">
-          <RotateCw
-            className="w-5 h-5 text-primary"
-            onClick={(e) => {
-              e.stopPropagation();
-              onFlip();
-            }}
-          />
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onFlip();
+          }}
+          className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
+        >
+          <RotateCw className="w-5 h-5 text-primary" />
         </button>
       </div>
       {images.length > 0 ? (
@@ -41,7 +41,7 @@ export default function CardImage({
             src={images[current]}
             alt="product"
             className="w-full h-[240px] object-cover"
-            width={500}
+            width={480}
             height={240} // match the container height
             priority
           />
