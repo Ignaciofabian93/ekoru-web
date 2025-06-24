@@ -14,57 +14,62 @@ export const RenderDepartmentCategories = ({
   handleDepartmentCategorySelect,
   redirectToDepartmentCategory,
 }: RenderDepartmentCategoriesProps) => {
+  const departmentCategoryNameClass = clsx("font-semibold text-md text-center w-full mb-4 text-primary-dark clamp-2");
+  const seeMoreClass = clsx(
+    "absolute bottom-6 font-semibold w-full text-xs underline hover:brightness-125 cursor-pointer text-primary-dark"
+  );
   return (
     <>
-      <div
-        className={clsx(
-          // Use horizontal scroll on mobile, grid on md+
-          "flex overflow-x-auto gap-4 pb-2 -mx-2 px-2",
-          "sm:grid sm:grid-cols-2 md:grid-cols-4 sm:gap-6 sm:overflow-visible sm:px-0 sm:mx-0"
-        )}
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        {selectedDepartment?.departmentCategories?.map((cat) => (
+      {selectedDepartment?.departmentCategories?.map((cat) => {
+        const isSelected = selectedDepartmentCategory?.id === cat.id;
+        return (
           <motion.div
             key={cat.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            layout
+            animate={
+              isSelected
+                ? {
+                    backgroundColor: "#f7fee7",
+                    borderColor: "#9cd270",
+                  }
+                : undefined
+            }
+            transition={{ duration: 0.3 }}
             onClick={() => {
               handleDepartmentCategorySelect(cat);
             }}
+            style={
+              !isSelected
+                ? {
+                    backgroundColor: "#fff",
+                    borderColor: "#9cd270",
+                  }
+                : undefined
+            }
             className={clsx(
-              "flex flex-col items-start min-w-[70vw] max-w-[90vw] sm:min-w-0 sm:max-w-none",
-              "p-5",
-              "rounded-xl shadow-md",
-              "border border-lime-100",
-              "transition cursor-pointer",
-              "hover:bg-lime-50",
-              {
-                "bg-lime-50 border-lime-200": selectedDepartmentCategory?.id === cat.id,
-                "bg-white": selectedDepartmentCategory?.id !== cat.id,
-              }
+              "min-w-[150px] min-h-[150px] w-full h-full max-w-[150px] max-h-[150px]",
+              "relative rounded-full shadow-lg shadow-gray-800/30",
+              "border-2",
+              "flex flex-col items-center justify-center",
+              "p-4",
+              "transition-all duration-300 ease-in-out",
+              "cursor-pointer",
+              "hover:shadow-xl"
             )}
           >
-            <span className="font-semibold text-primary-dark text-left w-full text-base">
-              {cat.departmentCategoryName}
-            </span>
+            <span className={departmentCategoryNameClass}>{cat.departmentCategoryName}</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                redirectToDepartmentCategory(selectedDepartmentCategory?.departmentId as number, cat.id);
+                redirectToDepartmentCategory(selectedDepartment?.id as number, cat.id);
               }}
-              className="mt-2 text-sm text-primary-dark underline"
+              className={seeMoreClass}
             >
               Ver más
             </button>
           </motion.div>
-        ))}
-      </div>
-      {!selectedDepartment && (
-        <div className="text-left text-main">Selecciona un departamento para ver sus categorías.</div>
-      )}
+        );
+      })}
     </>
   );
 };

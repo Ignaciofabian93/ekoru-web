@@ -14,20 +14,9 @@ type CardInfoProps = {
   price: number;
 };
 
-export default function CardInfo({
-  seller,
-  sellerImage,
-  location,
-  sales,
-  areNumberOfSalesActivated,
-  isRatingActivated,
-  rating,
-  title,
-  description,
-  price,
-}: CardInfoProps) {
+export default function CardInfo({ title, description, price }: CardInfoProps) {
   return (
-    <div className="relative w-full h-[30%] flex flex-col items-center justify-between px-4 pt-2">
+    <div className="relative w-full h-[50%] flex flex-col items-center justify-between px-4 pt-2">
       <div className="w-full flex flex-col gap-1">
         <p className="text-lg font-semibold truncate">{title}</p>
         <p className="text-base text-gray-600 line-clamp-2">{description}</p>

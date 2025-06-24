@@ -162,3 +162,14 @@ button {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
+
+input[type="range"].slider-track::-webkit-slider-runnable-track {
+  background: #fff;
+}
+input[type="range"].slider-track::-moz-range-track {
+  background: #fff;
+}
+input[type="range"].slider-track::-ms-fill-lower,
+input[type="range"].slider-track::-ms-fill-upper {
+  background: #fff;
+}

@@ -46,7 +46,7 @@ Carousel.NextImage = function ({
 }) {
   return (
     <Image
-      className="absolute top-0 left-0 w-full h-full z-[1] object-cover"
+      className="absolute top-0 left-0 w-full h-[120%] z-[1] object-cover"
       src={src}
       alt={alt}
       width={width}
@@ -74,15 +74,15 @@ Carousel.CurrentImage = function ({
     isSliding && direction === "left"
       ? "translate-x-[-120%] opacity-0"
       : isSliding && direction === "right"
-        ? "translate-x-[120%] opacity-0"
-        : "";
+      ? "translate-x-[120%] opacity-0"
+      : "";
 
   return (
     <div
       className={`absolute top-0 left-0 w-full h-full z-[2] transition-transform duration-500 ease-in-out ${slideClass}`}
     >
       <Image
-        className="absolute top-0 left-0 w-full h-full object-cover z-[9] transition-all duration-500 ease-in-out"
+        className="absolute top-0 left-0 w-full h-[120%] object-cover z-[9] transition-all duration-500 ease-in-out"
         src={src}
         alt={alt}
         width={width}

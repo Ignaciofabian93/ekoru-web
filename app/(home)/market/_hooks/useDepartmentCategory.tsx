@@ -18,8 +18,11 @@ export default function useDepartmentCategories() {
 
   const isDepartmentCategoryPage = /^\/browse\/department\/\d+\/department-category\/?$/.test(pathname);
 
-  const selectDepartmentCategory = (departmentCategory: DepartmentCategory) =>
-    setSelectedDepartmentCategory(departmentCategory);
+  const selectDepartmentCategory = (departmentCategory: DepartmentCategory) => {
+    if (selectedDepartmentCategory?.id === departmentCategory.id) {
+      setSelectedDepartmentCategory(null);
+    } else setSelectedDepartmentCategory(departmentCategory);
+  };
 
   useEffect(() => {
     fetchDepartmentCategories();

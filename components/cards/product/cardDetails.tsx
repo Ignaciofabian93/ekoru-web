@@ -46,38 +46,38 @@ export default function CardDetails({
           <Image
             src={userProfileImage}
             alt={userName || "Usuario"}
-            width={64}
-            height={64}
+            width={55}
+            height={55}
             className="rounded-full mb-2 object-cover w-[80px] h-[80px] shadow-md"
           />
         )}
         {userName && <p className="font-semibold text-base">{userName}</p>}
         {userLocation && <p className="text-sm text-gray-500">{userLocation}</p>}
-        {typeof ratings === "number" && (
+        {/* {typeof ratings === "number" && (
           <div className="flex items-center gap-1 mt-1">
             <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
             <span className="text-xs font-semibold">{ratings}/5</span>
           </div>
-        )}
+        )} */}
       </div>
-      <p className="text-gray-700 text-sm mb-2 text-center">
+      <p className="text-gray-700 text-xs mb-2 text-center">
         El impacto de tu compra se representa en las siguientes cifras:
       </p>
       <div className="w-full">
         <div className="flex items-center justify-center gap-2 mb-2 text-primary-dark">
-          <div className="flex flex-col items-center gap-2 w-[60px]">
+          <div className="flex flex-col items-center w-[60px]">
             <div className="flex items-center justify-center w-8 h-8">
               <Image src={co2} alt="CO2 savings" width={24} height={24} className="object-contain" />
             </div>
             <span className="text-sm font-semibold">-{estimatedCo2SavingsKG} kg</span>
           </div>
-          <div className="flex flex-col items-center gap-2 w-[60px]">
+          <div className="flex flex-col items-center w-[60px]">
             <div className="flex items-center justify-center w-8 h-8">
               <Image src={drop} alt="Water savings" width={24} height={24} className="object-contain" />
             </div>
             <span className="text-sm font-semibold">-{estimatedWaterSavingsLT} L</span>
           </div>
-          <div className="flex flex-col items-center gap-2 w-[60px]">
+          <div className="flex flex-col items-center w-[60px]">
             <div className="flex items-center justify-center w-8 h-8">
               <Image src={waste} alt="Waste savings" width={24} height={24} className="object-contain" />
             </div>

@@ -3,26 +3,19 @@ import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { RenderDepartments } from "./_ui/renderDepartments";
-import { Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
+import { Department, Product } from "@/types/product";
 import { DepartmentSkeleton } from "../_components/skeletons";
-import { RenderDepartmentCategories } from "./_ui/renderDepartmentCategories";
-import { RenderProductCategories } from "./_ui/renderProductCategories";
-import { RenderProducts } from "./_ui/renderProducts";
 import PageWrapper from "../../_components/pageWrapper";
-import BrowseHeader from "../_components/header";
+import MarketHeader from "../_components/header";
 import ContentWrapper from "../_components/contentWrapper";
 import useDepartments from "../_hooks/useDepartment";
 import Banner from "@/components/banner/banner";
-import useDepartmentCategories from "../_hooks/useDepartmentCategory";
-import useProductCategories from "../_hooks/useProductCategory";
 import CategorySection from "./_ui/categorySection";
 
 export default function BrowseDepartmentsPage() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { departments, selectedDepartment, departmentsLoading, selectDepartment } = useDepartments();
-  const { selectedDepartmentCategory, selectDepartmentCategory } = useDepartmentCategories();
-  const { selectedProductCategory, selectProductCategory } = useProductCategories();
 
   function getProductsByDepartment(departments: Department[]) {
     const productsByDepartment: Record<string, Product[]> = {};
@@ -46,27 +39,13 @@ export default function BrowseDepartmentsPage() {
 
   const productsByDepartment = getProductsByDepartment(departments);
 
-  console.log("productsByDepartment", productsByDepartment);
-
   const redirectToDepartment = (departmentId: number) => {
     router.push(`/market/department/${departmentId}`);
-  };
-
-  const redirectToDepartmentCategory = (departmentId: number, categoryId: number) => {
-    router.push(`/market/department/${departmentId}/department-category/${categoryId}`);
-  };
-
-  const redirectToProductCategory = (departmentId: number, categoryId: number, productCategoryId: number) => {
-    router.push(
-      `/market/department/${departmentId}/department-category/${categoryId}/product-category/${productCategoryId}`
-    );
   };
 
   const handleDepartmentSelect = (dept: Department) => {
     const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
     selectDepartment(dept);
-    selectDepartmentCategory({} as DepartmentCategory); // Reset category selection when changing department
-    selectProductCategory({} as ProductCategory); // Reset product category selection when changing department
     setTimeout(() => {
       if (scrollRef.current) {
         scrollRef.current.scrollLeft = scrollLeft;
@@ -92,7 +71,7 @@ export default function BrowseDepartmentsPage() {
 
   return (
     <PageWrapper>
-      <BrowseHeader />
+      <MarketHeader />
       <ContentWrapper>
         <Banner
           title="Explora los departamentos"

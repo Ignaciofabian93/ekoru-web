@@ -65,7 +65,12 @@ export default function Hero() {
   };
 
   return (
-    <div className={clsx("w-[95%] h-[430px] mx-auto overflow-hidden rounded-lg shadow-lg", "mb-8 mt-4")}>
+    <div
+      className={clsx(
+        "w-[95%] max-w-[1000px] h-[450px] md:h-[500px] mx-auto overflow-hidden rounded-lg shadow-lg",
+        "mb-8 mt-4"
+      )}
+    >
       <Carousel>
         <Carousel.LeftButton onClick={handlePrev} />
         <Carousel.Wrapper>

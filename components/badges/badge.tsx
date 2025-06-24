@@ -79,10 +79,17 @@ const badgeLabels: Record<BadgeType, string> = {
 type BadgeProps = {
   type: BadgeType;
   className?: string;
+  selected?: boolean;
+  onClick?: () => void;
 };
 
-const Badge: React.FC<BadgeProps> = ({ type, className }) => (
-  <span className={clsx("inline-block px-3 py-1 rounded-full text-xs font-semibold", badgeStyles[type], className)}>
+const Badge: React.FC<BadgeProps> = ({ type, className, selected, onClick }) => (
+  <span
+    className={clsx("inline-block px-3 py-1 rounded-full text-xs font-semibold", badgeStyles[type], className)}
+    onClick={onClick}
+    style={{ cursor: onClick ? "pointer" : "default", opacity: selected ? 1 : 0.8 }}
+    role={onClick ? "button" : undefined}
+  >
     {badgeLabels[type]}
   </span>
 );

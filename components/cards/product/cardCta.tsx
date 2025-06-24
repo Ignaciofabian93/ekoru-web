@@ -9,7 +9,7 @@ type CardCTAProps = {
 
 export default function CardCTA({ isImpactActivated, isButtonActivated }: CardCTAProps) {
   return (
-    <div className="px-4 w-full flex items-center justify-center mt-4">
+    <div className="px-4 w-full h-[15%] flex items-center justify-center mt-4">
       {isButtonActivated && <Button text="¡Me interesa!" size="sm" />}
     </div>
   );

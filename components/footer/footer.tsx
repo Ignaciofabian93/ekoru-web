@@ -19,7 +19,7 @@ const LawLink = ({ lawName, url }: { lawName: string; url: string }) => (
 export default function Footer() {
   return (
     <footer className="w-full footer-gradient px-4 py-10 mt-8 text-main">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-center md:text-left">
+      <div className="w-full max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-center md:text-left">
         {/* Legal Section */}
         <div>
           <h3 className="text-lg font-semibold mb-1">Artículos y Leyes</h3>

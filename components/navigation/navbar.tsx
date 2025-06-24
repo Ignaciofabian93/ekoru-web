@@ -59,7 +59,7 @@ export default function Navbar() {
     <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary")}>
       <nav
         className={clsx(
-          "w-full h-[80px] max-w-[1600px] flex items-center justify-between px-4 md:px-8 gap-4 mx-auto",
+          "w-full h-[80px] max-w-[1300px] flex items-center justify-between px-4 md:px-8 gap-4 mx-auto",
           "text-white"
         )}
       >

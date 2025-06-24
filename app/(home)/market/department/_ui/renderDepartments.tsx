@@ -46,7 +46,7 @@ export const RenderDepartments = ({
                 : undefined
             }
             className={clsx(
-              "min-w-[150px] min-h-[150px]",
+              "min-w-[150px] min-h-[150px] w-full h-full max-w-[150px] max-h-[150px]",
               "relative rounded-full shadow-lg shadow-gray-800/30",
               "border-2",
               "flex flex-col items-center justify-center",
@@ -60,6 +60,7 @@ export const RenderDepartments = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
+                handleDepartmentSelect(dept);
                 redirectToDepartment(dept.id);
               }}
               className={seeMoreClass}

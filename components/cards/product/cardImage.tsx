@@ -22,7 +22,7 @@ export default function CardImage({
   const [current, setCurrent] = useState(0);
 
   return (
-    <div className="w-full h-[240px] bg-white relative flex items-start">
+    <div className="w-full h-[50%] bg-white relative flex items-start">
       {/* fixed height */}
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
         <button
@@ -40,7 +40,7 @@ export default function CardImage({
           <Image
             src={images[current]}
             alt="product"
-            className="w-full h-[240px] object-cover"
+            className="w-full h-full object-cover"
             width={480}
             height={240} // match the container height
             priority
