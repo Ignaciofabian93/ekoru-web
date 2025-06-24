@@ -1,10 +1,6 @@
 "use client";
-import { useRef } from "react";
-import { useRouter } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { DepartmentNames } from "@/constants/departments";
 import { RenderDepartments } from "./_ui/renderDepartments";
-import { Department, Product } from "@/types/product";
-import { DepartmentSkeleton } from "../_components/skeletons";
 import PageWrapper from "../../_components/pageWrapper";
 import MarketHeader from "../_components/header";
 import ContentWrapper from "../_components/contentWrapper";
@@ -13,61 +9,14 @@ import Banner from "@/components/banner/banner";
 import CategorySection from "./_ui/categorySection";
 
 export default function BrowseDepartmentsPage() {
-  const router = useRouter();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const { departments, selectedDepartment, departmentsLoading, selectDepartment } = useDepartments();
-
-  function getProductsByDepartment(departments: Department[]) {
-    const productsByDepartment: Record<string, Product[]> = {};
-
-    departments.forEach((department) => {
-      const departmentName = department.departmentName;
-      department.departmentCategories.forEach((deptCategory) => {
-        deptCategory.productCategories.forEach((prodCategory) => {
-          prodCategory.products.forEach((product) => {
-            if (!productsByDepartment[departmentName]) {
-              productsByDepartment[departmentName] = [];
-            }
-            productsByDepartment[departmentName].push(product);
-          });
-        });
-      });
-    });
-
-    return productsByDepartment;
-  }
-
-  const productsByDepartment = getProductsByDepartment(departments);
-
-  const redirectToDepartment = (departmentId: number) => {
-    router.push(`/market/department/${departmentId}`);
-  };
-
-  const handleDepartmentSelect = (dept: Department) => {
-    const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
-    selectDepartment(dept);
-    setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft = scrollLeft;
-      }
-    }, 0);
-  };
-
-  const DepartmentNames = {
-    AUTOMOTRIZ: "Automotriz",
-    BEBES: "Bebés",
-    DEPORTES: "Deportes y Outdoor",
-    ELECTROHOGAR: "Electrohogar",
-    ENTRETENCION: "Entretención",
-    HERRAMIENTAS: "Herramientas y Maquinaria",
-    HOGAR: "Hogar y Decoración",
-    INSTRUMENTOSMUSICALES: "Instrumentos Musicales",
-    JARDIN: "Jardín y Terraza",
-    MASCOTAS: "Mascotas",
-    ROPA: "Ropa, Calzado y Accesorios",
-    SERVICIOS: "Servicios",
-    TECNOLOGIA: "Tecnología",
-  };
+  const {
+    departments,
+    selectedDepartment,
+    departmentsLoading,
+    selectDepartment,
+    productsByDepartment,
+    redirectToDepartment,
+  } = useDepartments();
 
   return (
     <PageWrapper>
@@ -79,27 +28,13 @@ export default function BrowseDepartmentsPage() {
         />
       </ContentWrapper>
       <ContentWrapper>
-        <section className="mb-8 mt-10">
-          <h2 className="text-xl font-semibold mb-4 text-main flex items-center gap-2">
-            <ChevronRight className="text-primary" size={20} />
-            Departamentos
-          </h2>
-          <div
-            ref={scrollRef}
-            className="flex overflow-x-auto gap-6 pb-6 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
-          >
-            {departmentsLoading ? (
-              Array.from({ length: 10 }).map((_, i) => <DepartmentSkeleton key={i} />)
-            ) : (
-              <RenderDepartments
-                departments={departments}
-                selectedDepartment={selectedDepartment}
-                handleDepartmentSelect={handleDepartmentSelect}
-                redirectToDepartment={redirectToDepartment}
-              />
-            )}
-          </div>
-        </section>
+        <RenderDepartments
+          departments={departments}
+          selectedDepartment={selectedDepartment}
+          selectDepartment={selectDepartment}
+          redirectToDepartment={redirectToDepartment}
+          departmentsLoading={departmentsLoading}
+        />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
@@ -188,9 +123,6 @@ export default function BrowseDepartmentsPage() {
           subtitle="Transforma tu clóset en un acto consciente."
           products={productsByDepartment[DepartmentNames.ROPA]}
         />
-      </ContentWrapper>
-      <ContentWrapper>
-        <CategorySection sectionName="Servicios" products={productsByDepartment[DepartmentNames.SERVICIOS]} />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection

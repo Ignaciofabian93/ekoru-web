@@ -1,10 +1,10 @@
-import useAlert from "@/hooks/useAlert";
-import { useLazyQuery } from "@apollo/client";
-import { usePathname } from "next/navigation";
-import useCategoryStore from "../_store/categories";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useLazyQuery } from "@apollo/client";
 import { DepartmentCategory } from "@/types/product";
 import { GET_DEPARTMENT_CATEGORIES, GET_DEPARTMENT_CATEGORY } from "../_graphql/departmentCategories";
+import useAlert from "@/hooks/useAlert";
+import useCategoryStore from "../_store/categories";
 
 export default function useDepartmentCategories() {
   const pathname = usePathname();
@@ -17,7 +17,9 @@ export default function useDepartmentCategories() {
   const [DepartmentCategory, { loading: departmentCategoryLoading }] = useLazyQuery(GET_DEPARTMENT_CATEGORY);
 
   const isDepartmentCategoryPage = /^\/browse\/department\/\d+\/department-category\/?$/.test(pathname);
+  const departmentId = parseInt(pathname.split("/").pop() || "0");
 
+  // Selects a department category, or deselects it if already selected
   const selectDepartmentCategory = (departmentCategory: DepartmentCategory) => {
     if (selectedDepartmentCategory?.id === departmentCategory.id) {
       setSelectedDepartmentCategory(null);
@@ -25,7 +27,9 @@ export default function useDepartmentCategories() {
   };
 
   useEffect(() => {
-    fetchDepartmentCategories();
+    if (departmentId && isDepartmentCategoryPage) {
+      fetchDepartmentCategories();
+    }
   }, [isDepartmentCategoryPage]);
 
   const fetchDepartmentCategories = async () => {

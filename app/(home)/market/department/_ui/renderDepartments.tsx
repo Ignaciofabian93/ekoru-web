@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Department } from "@/types/product";
 import clsx from "clsx";
+import { ChevronRight } from "lucide-react";
+import { useRef } from "react";
+import { DepartmentSkeleton } from "../../_components/skeletons";
 
 type RenderDepartmentsProps = {
   departments: Department[] | null;
@@ -9,7 +12,7 @@ type RenderDepartmentsProps = {
   redirectToDepartment: (departmentId: number) => void;
 };
 
-export const RenderDepartments = ({
+const RenderDepartmentsRow = ({
   departments,
   selectedDepartment,
   handleDepartmentSelect,
@@ -71,5 +74,57 @@ export const RenderDepartments = ({
         );
       })}
     </>
+  );
+};
+
+type Props = {
+  departments: Department[] | null;
+  selectedDepartment: Department | null;
+  selectDepartment: (department: Department) => void;
+  redirectToDepartment: (departmentId: number) => void;
+  departmentsLoading?: boolean;
+};
+
+export const RenderDepartments = ({
+  departments,
+  selectedDepartment,
+  selectDepartment,
+  redirectToDepartment,
+  departmentsLoading,
+}: Props) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleDepartmentSelect = (dept: Department) => {
+    const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
+    selectDepartment(dept);
+    setTimeout(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft = scrollLeft;
+      }
+    }, 0);
+  };
+
+  return (
+    <section className="mb-8 mt-10">
+      <h2 className="text-xl font-semibold mb-4 text-main flex items-center gap-2">
+        <ChevronRight className="text-primary" size={20} />
+        Departamentos
+      </h2>
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto gap-6 pb-6 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
+      >
+        {departmentsLoading ? (
+          Array.from({ length: 10 }).map((_, i) => <DepartmentSkeleton key={i} />)
+        ) : (
+          <RenderDepartmentsRow
+            departments={departments}
+            selectedDepartment={selectedDepartment}
+            handleDepartmentSelect={handleDepartmentSelect}
+            redirectToDepartment={redirectToDepartment}
+          />
+        )}
+      </div>
+    </section>
   );
 };

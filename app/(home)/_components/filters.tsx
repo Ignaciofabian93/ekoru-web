@@ -16,11 +16,8 @@ type FilterProps = {
 };
 
 export default function ProductFilters({ products, onFilterChange }: FilterProps) {
-  console.log("Products:", products);
-
   // Extract unique brands, locations, and price range from products
   const brands = useMemo(() => Array.from(new Set(products.map((p) => p.brand).filter(Boolean))), [products]);
-  console.log("Brands:", brands);
   const locations = useMemo(
     () =>
       Array.from(
@@ -34,7 +31,6 @@ export default function ProductFilters({ products, onFilterChange }: FilterProps
       ),
     [products]
   );
-  console.log("Locations:", locations);
 
   const minProductPrice = useMemo(() => Math.min(...products.map((p) => p.price)), [products]);
   const maxProductPrice = useMemo(() => Math.max(...products.map((p) => p.price)), [products]);

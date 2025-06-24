@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { usePathname } from "next/navigation";
-import { Department } from "@/types/product";
+import { usePathname, useRouter } from "next/navigation";
+import { Department, Product } from "@/types/product";
 import { GET_DEPARTMENT, GET_DEPARTMENTS } from "../_graphql/departments";
 import useAlert from "@/hooks/useAlert";
 import useCategoryStore from "../_store/categories";
 
 export default function useDepartments() {
+  const router = useRouter();
   const pathname = usePathname();
   const { notifyError } = useAlert();
   const { departments, setDepartments, selectedDepartment, setSelectedDepartment } = useCategoryStore();
@@ -23,12 +24,43 @@ export default function useDepartments() {
     else setSelectedDepartment(department);
   };
 
+  function getProductsByDepartment(departments: Department[]) {
+    const productsByDepartment: Record<string, Product[]> = {};
+
+    departments.forEach((department) => {
+      const departmentName = department.departmentName;
+      department.departmentCategories.forEach((deptCategory) => {
+        deptCategory.productCategories.forEach((prodCategory) => {
+          prodCategory.products.forEach((product) => {
+            if (!productsByDepartment[departmentName]) {
+              productsByDepartment[departmentName] = [];
+            }
+            productsByDepartment[departmentName].push(product);
+          });
+        });
+      });
+    });
+
+    return productsByDepartment;
+  }
+
+  const productsByDepartment = getProductsByDepartment(departments);
+
+  const redirectToDepartment = (departmentId: number) => {
+    router.push(`/market/department/${departmentId}`);
+  };
+
+  console.log("isAllDepartmentsPage:", isAllDepartmentsPage);
+
+  console.log("isDepartmentPage:", isDepartmentPage);
+  console.log("departmentId:", departmentId);
+
   useEffect(() => {
     fetchDepartments();
   }, [isAllDepartmentsPage]);
 
   useEffect(() => {
-    if (isDepartmentPage && departmentId && !selectedDepartment) {
+    if (isDepartmentPage && departmentId) {
       fetchDepartment(departmentId);
     }
   }, [isDepartmentPage, departmentId]);
@@ -61,5 +93,13 @@ export default function useDepartments() {
     }
   };
 
-  return { departments, selectedDepartment, departmentLoading, departmentsLoading, selectDepartment };
+  return {
+    departments,
+    selectedDepartment,
+    departmentLoading,
+    departmentsLoading,
+    selectDepartment,
+    productsByDepartment,
+    redirectToDepartment,
+  };
 }

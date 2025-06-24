@@ -7,10 +7,12 @@ import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
 import ProductsListing from "../../../_components/productsListing";
 import useProductDisplay from "@/app/(home)/_hooks/useProductDisplay";
+import useDepartments from "../../_hooks/useDepartment";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
-  const { productsList, selectedDepartment } = useProductDisplay();
+  const { productsList } = useProductDisplay();
+  const { selectedDepartment } = useDepartments();
 
   return (
     <PageWrapper>
