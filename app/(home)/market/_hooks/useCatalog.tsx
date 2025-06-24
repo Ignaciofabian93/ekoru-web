@@ -7,6 +7,8 @@ import useAlert from "@/hooks/useAlert";
 export default function useMarketCatalog() {
   const { notifyError } = useAlert();
   const { catalog, setCatalog } = useCategoryStore();
+
+  // Lazy query to fetch the market catalog
   const [Departments, { loading: catalogLoading }] = useLazyQuery(GET_MARKET_CATALOG);
 
   useEffect(() => {

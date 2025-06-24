@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import Link from "next/link";
 
 export type DropdownItem = {
   label: string;
@@ -70,29 +71,37 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
             <li key={item.label} className="relative group">
               {item.children ? (
                 <AnimatePresence>
-                  <button
-                    className={clsx(
-                      "w-full text-left px-2 py-1 hover:bg-primary hover:text-white transition-colors ease-in-out duration-200 rounded flex items-center cursor-pointer",
-                      isOpen && "bg-primary text-white"
-                    )}
-                    type="button"
-                    tabIndex={0}
-                    onClick={() => {
-                      setOpenPath(
-                        (prev) =>
-                          isOpen
-                            ? prev.slice(0, level) // close this branch
-                            : [...prev.slice(0, level), idx] // open this branch
-                      );
-                    }}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={clsx("transition-transform duration-300 ml-2 inline w-4 h-4", {
-                        "rotate-180": isOpen,
-                      })}
-                    />
-                  </button>
+                  <div className="w-full flex items-center justify-between">
+                    <Link
+                      href={item.href || "#"}
+                      className={clsx(
+                        "w-full text-left px-2 py-1 hover:bg-primary hover:text-white transition-colors ease-in-out duration-200 rounded flex items-center cursor-pointer",
+                        isOpen && "bg-primary text-white"
+                      )}
+                      type="button"
+                      tabIndex={0}
+                    >
+                      {item.label}
+                    </Link>
+                    <div className="flex items-center justify-center text-primary-dark">
+                      <ChevronRight
+                        onClick={() => {
+                          setOpenPath(
+                            (prev) =>
+                              isOpen
+                                ? prev.slice(0, level) // close this branch
+                                : [...prev.slice(0, level), idx] // open this branch
+                          );
+                        }}
+                        className={clsx(
+                          "transition-transform duration-300 ml-2 inline w-5 h-5 cursor-pointer ease-in-out",
+                          {
+                            "rotate-180": isOpen,
+                          }
+                        )}
+                      />
+                    </div>
+                  </div>
                 </AnimatePresence>
               ) : (
                 <a

@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { Department, DepartmentCategory } from "@/types/product";
 import clsx from "clsx";
+import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
+import useDepartments from "../../_hooks/useDepartment";
+import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
+import { DepartmentSkeleton } from "../../_components/skeletons";
 
 type RenderDepartmentCategoriesProps = {
   selectedDepartment: Department | null;
@@ -8,7 +14,7 @@ type RenderDepartmentCategoriesProps = {
   handleDepartmentCategorySelect: (category: DepartmentCategory) => void;
   redirectToDepartmentCategory: (departmentId: number, categoryId: number) => void;
 };
-export const RenderDepartmentCategories = ({
+export const RenderDepartmentCategoriesRow = ({
   selectedDepartment,
   selectedDepartmentCategory,
   handleDepartmentCategorySelect,
@@ -71,5 +77,50 @@ export const RenderDepartmentCategories = ({
         );
       })}
     </>
+  );
+};
+
+export const RenderDepartmentCategories = () => {
+  const router = useRouter();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { selectedDepartment } = useDepartments();
+  const { selectedDepartmentCategory, selectDepartmentCategory } = useDepartmentCategories();
+
+  const redirectToDepartmentCategory = (departmentId: number) => {
+    router.push(`/market/department/${departmentId}`);
+  };
+
+  const handleDepartmentCategorySelect = (dept: DepartmentCategory) => {
+    const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
+    selectDepartmentCategory(dept);
+    setTimeout(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft = scrollLeft;
+      }
+    }, 0);
+  };
+
+  return (
+    <section className="mb-8 mt-10">
+      <h2 className="text-xl font-semibold mb-4 text-main flex items-center gap-2">
+        <ChevronRight className="text-primary" size={20} />
+        Categorías
+      </h2>
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto gap-6 pb-6 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
+      >
+        {false ? (
+          Array.from({ length: 10 }).map((_, i) => <DepartmentSkeleton key={i} />)
+        ) : (
+          <RenderDepartmentCategoriesRow
+            selectedDepartment={selectedDepartment}
+            selectedDepartmentCategory={selectedDepartmentCategory}
+            handleDepartmentCategorySelect={handleDepartmentCategorySelect}
+            redirectToDepartmentCategory={redirectToDepartmentCategory}
+          />
+        )}
+      </div>
+    </section>
   );
 };
