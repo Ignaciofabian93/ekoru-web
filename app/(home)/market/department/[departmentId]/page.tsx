@@ -12,7 +12,7 @@ import Banner from "@/components/banner/banner";
 import useDepartments from "../../_hooks/useDepartment";
 import Pagination from "@/components/pagination/pagination";
 import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
-import ProductsListing from "../_ui/productsListing";
+import ProductsListing from "../../../_components/productsListing";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
