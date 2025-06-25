@@ -7,9 +7,10 @@ type RenderProductsProps = {
   selectedProductCategory: ProductCategory | null;
 };
 
-export const RenderProducts = ({ selectedDepartmentCategory, selectedProductCategory }: RenderProductsProps) => {
-  console.log("Selected Department Category:", selectedDepartmentCategory);
-
+export const RenderProducts = ({
+  // selectedDepartmentCategory,
+  selectedProductCategory,
+}: RenderProductsProps) => {
   return (
     <>
       <div

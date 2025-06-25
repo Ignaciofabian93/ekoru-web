@@ -9,8 +9,8 @@ import Modal from "@/components/modal/modal";
 
 export type FilterProps = {
   brands: string[];
-  minPrice: number;
-  maxPrice: number;
+  minPrice: number | null;
+  maxPrice: number | null;
   locations: string[];
   badges: Badge[];
   selectedFilters: Filters;
@@ -27,7 +27,6 @@ export default function ProductFilters({
   badges,
 }: FilterProps) {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-
   // The filter content
   const filterContent = (
     <div className="bg-white rounded-lg shadow p-4 mb-4 md:mb-0">
@@ -35,9 +34,26 @@ export default function ProductFilters({
       <div className="mb-6">
         <label className="block text-sm font-medium mb-2">Marca</label>
         <div className="flex flex-col gap-1">
-          {brands.map((brand) => (
-            <SmallCheckBox id={brand} name={brand} key={brand} label={brand} onChange={() => {}} checked />
-          ))}
+          {brands.length ? (
+            brands.map((brand) => (
+              <SmallCheckBox
+                id={brand}
+                name={brand}
+                key={brand}
+                label={brand}
+                onChange={() => {
+                  const isSelected = selectedFilters.brands.includes(brand);
+                  const newBrands = isSelected
+                    ? selectedFilters.brands.filter((b) => b !== brand)
+                    : [...selectedFilters.brands, brand];
+                  onFilterChange({ ...selectedFilters, brands: newBrands });
+                }}
+                checked={selectedFilters.brands.includes(brand)}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500 text-sm">No hay marcas disponibles</p>
+          )}
         </div>
       </div>
       {/* Price filter */}
@@ -45,18 +61,24 @@ export default function ProductFilters({
         <label className="block text-sm font-medium">Precio</label>
         <div className="w-full flex items-center gap-2">
           <SmallInput
+            type="number"
             hasLabel
             labelText="Desde"
-            value={minPrice}
-            placeholder={minPrice.toString()}
-            onChange={() => {}}
+            value={selectedFilters.minPrice ?? ""}
+            placeholder={minPrice?.toString() || "Min"}
+            onChange={(e) => {
+              onFilterChange({ ...selectedFilters, minPrice: e.target.value ? Number(e.target.value) : null });
+            }}
           />
           <SmallInput
+            type="number"
             hasLabel
             labelText="Hasta"
-            value={maxPrice}
-            placeholder={maxPrice.toString()}
-            onChange={() => {}}
+            value={selectedFilters.maxPrice ?? ""}
+            placeholder={maxPrice?.toString() || "Max"}
+            onChange={(e) =>
+              onFilterChange({ ...selectedFilters, maxPrice: e.target.value ? Number(e.target.value) : null })
+            }
           />
         </div>
       </div>
@@ -73,20 +95,26 @@ export default function ProductFilters({
       {/* Badge filter */}
       <div className="mb-2">
         <label className="block text-sm font-medium mb-3">Etiquetas</label>
-        <div className="flex flex-col w-full items-start gap-2">
-          {badges.map((badge) => (
-            <div key={badge} className="flex items-center w-full">
-              <BadgeTag
-                type={badge as Badge}
-                selected={badges.includes(badge as Badge)}
-                // onClick={() =>
-                //   setBadges((prev) =>
-                //     prev.includes(badge as Badge) ? prev.filter((b) => b !== badge) : [...prev, badge as Badge]
-                //   )
-                // }
-              />
-            </div>
-          ))}
+        <div className="flex flex-col w-full items-start gap-3">
+          {badges.length ? (
+            badges.map((badge) => (
+              <div key={badge} className="flex items-center w-full">
+                <BadgeTag
+                  type={badge as Badge}
+                  selected={selectedFilters.badges.includes(badge as Badge)}
+                  onClick={() => {
+                    const isSelected = selectedFilters.badges.includes(badge);
+                    const newBadges = isSelected
+                      ? selectedFilters.badges.filter((b) => b !== badge)
+                      : [...selectedFilters.badges, badge];
+                    onFilterChange({ ...selectedFilters, badges: newBadges });
+                  }}
+                />
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 text-sm">No hay etiquetas disponibles</p>
+          )}
         </div>
       </div>
     </div>

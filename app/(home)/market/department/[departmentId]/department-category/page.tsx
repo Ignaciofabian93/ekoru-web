@@ -1,13 +1,11 @@
 "use client";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import BrowseHeader from "../../../_components/header";
-import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
+// import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
 
 // This page is for browsing department categories in a specific department.
 export default function BrowseDepartmentCategoriesPage() {
-  const { departmentCategories } = useDepartmentCategories();
-  console.log("Department Categories:", departmentCategories);
-
+  // const { departmentCategories } = useDepartmentCategories();
   return (
     <PageWrapper>
       <BrowseHeader />

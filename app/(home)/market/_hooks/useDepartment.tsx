@@ -157,27 +157,39 @@ export default function useDepartments() {
       ),
     [productsList]
   );
-  const minPrice = useMemo(() => Math.min(...productsList.map((p) => p.price)), [productsList]);
-  const maxPrice = useMemo(() => Math.max(...productsList.map((p) => p.price)), [productsList]);
+  const prices = useMemo(
+    () => productsList.map((p) => p.price).filter((price) => typeof price === "number" && !isNaN(price)),
+    [productsList]
+  );
+  const minPrice = useMemo(() => (prices.length ? Math.min(...prices) : null), [prices]);
+  const maxPrice = useMemo(() => (prices.length ? Math.max(...prices) : null), [prices]);
   const badges = useMemo(() => {
     const allBadges = productsList.flatMap((p) => p.badges || []);
     return Array.from(new Set(allBadges));
   }, [productsList]);
 
-  console.log("Filters:", {
-    brands,
-    locations,
-    minPrice,
-    maxPrice,
-    badges,
-  });
-
-  const handleSelectedFilters = (filters: Partial<Filters>) => {
+  const onFilterChange = (filters: Partial<Filters>) => {
     setSelectedFilters((prev) => ({
       ...prev,
       ...filters,
     }));
   };
+
+  const filteredProductList = useMemo(() => {
+    return productsList.filter((product) => {
+      const matchesBrand = selectedFilters.brands.length ? selectedFilters.brands.includes(product.brand) : true;
+      const matchesLocation = selectedFilters.location
+        ? selectedFilters.location === product.user?.county?.county + ", " + product.user?.city?.city
+        : true;
+      const matchesMinPrice = selectedFilters.minPrice !== null ? product.price >= selectedFilters.minPrice : true;
+      const matchesMaxPrice = selectedFilters.maxPrice !== null ? product.price <= selectedFilters.maxPrice : true;
+      const matchesBadges = selectedFilters.badges.length
+        ? selectedFilters.badges.some((badge) => product.badges?.includes(badge))
+        : true;
+
+      return matchesBrand && matchesLocation && matchesMinPrice && matchesMaxPrice && matchesBadges;
+    });
+  }, [productsList, selectedFilters]);
 
   return {
     departments,
@@ -187,7 +199,7 @@ export default function useDepartments() {
     selectDepartment,
     productsByDepartment,
     redirectToDepartment,
-    productsList,
+    filteredProductList,
     // Filtering props
     selectedFilters,
     brands,
@@ -195,6 +207,6 @@ export default function useDepartments() {
     minPrice,
     maxPrice,
     badges,
-    handleSelectedFilters,
+    onFilterChange,
   };
 }

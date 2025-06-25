@@ -14,11 +14,12 @@ export default function ProductsListing({
   minPrice,
   maxPrice,
   badges,
+  onFilterChange,
 }: ProductsList) {
   return (
     <div className="flex flex-col sm:flex-row items-start gap-6 w-full h-full mx-auto">
       <ProductFilters
-        onFilterChange={(filters) => console.log("Filters changed:", filters)}
+        onFilterChange={onFilterChange}
         brands={brands}
         minPrice={minPrice}
         maxPrice={maxPrice}

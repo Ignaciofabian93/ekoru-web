@@ -10,8 +10,17 @@ import useDepartments from "../../_hooks/useDepartment";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
-  const { selectedDepartment, productsList, brands, locations, minPrice, maxPrice, badges, selectedFilters } =
-    useDepartments();
+  const {
+    selectedDepartment,
+    brands,
+    locations,
+    minPrice,
+    maxPrice,
+    badges,
+    selectedFilters,
+    onFilterChange,
+    filteredProductList,
+  } = useDepartments();
 
   return (
     <PageWrapper>
@@ -24,14 +33,14 @@ export default function BrowseDepartmentResultsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <ProductsListing
-          products={productsList}
+          products={filteredProductList}
           selectedFilters={selectedFilters}
           brands={brands}
           locations={locations}
           minPrice={minPrice}
           maxPrice={maxPrice}
           badges={badges}
-          onFilterChange={() => {}}
+          onFilterChange={onFilterChange}
         />
       </ContentWrapper>
       <div className="w-full mt-20">

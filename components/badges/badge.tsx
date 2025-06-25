@@ -85,9 +85,16 @@ type BadgeProps = {
 
 const Badge: React.FC<BadgeProps> = ({ type, className, selected, onClick }) => (
   <span
-    className={clsx("inline-block px-3 py-1 rounded-full text-xs font-semibold", badgeStyles[type], className)}
+    className={clsx(
+      "inline-block px-3 py-1 rounded-full text-xs font-semibold cursor-pointer transition-all duration-200",
+      badgeStyles[type],
+      className,
+      {
+        "ring-[1.5px] ring-primary-light shadow-sm shadow-primary-dark scale-105": selected, // Modern eco highlight
+        "hover:ring-1 hover:ring-primary-light hover:scale-105": !!onClick, // Subtle hover for all
+      }
+    )}
     onClick={onClick}
-    style={{ cursor: onClick ? "pointer" : "default", opacity: selected ? 1 : 0.8 }}
     role={onClick ? "button" : undefined}
   >
     {badgeLabels[type]}
