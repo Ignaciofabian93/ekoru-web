@@ -17,10 +17,6 @@ export default function SmallInput({
   value,
   onChange,
   disabled,
-  errorMessage,
-  icon,
-  infoIcon = false,
-  infoText,
   hasLabel = false,
   labelText,
   ...props
