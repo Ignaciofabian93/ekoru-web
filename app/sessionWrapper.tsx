@@ -30,7 +30,7 @@ export default function SessionWrapper({ children, token }: { children: React.Re
         router.replace("/auth");
       }
     } catch (error) {
-      console.error(authError);
+      console.error(error, authError);
       toast.error("Sesión expirada. Redirigiendo...");
       setIsAuthenticated(false);
       router.replace("/auth");

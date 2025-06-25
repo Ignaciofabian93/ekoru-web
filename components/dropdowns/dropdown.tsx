@@ -32,7 +32,7 @@ export default function DropDown({ title, items, disabled }: DropdownProps) {
   }, [isOpened]);
 
   // Recursive render for nested items, showing only the branch from openPath
-  const renderItems = (items: DropdownItem[], level = 0, parentIds: number[] = []) => {
+  const renderItems = (items: DropdownItem[], level = 0) => {
     return (
       <ul
         className={clsx(

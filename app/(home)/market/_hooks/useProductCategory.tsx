@@ -2,9 +2,12 @@ import useAlert from "@/hooks/useAlert";
 import { useLazyQuery } from "@apollo/client";
 import { usePathname } from "next/navigation";
 import useCategoryStore from "../_store/categories";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ProductCategory } from "@/types/product";
-import { GET_PRODUCT_CATEGORIES, GET_PRODUCT_CATEGORY } from "../_graphql/productCategories";
+import {
+  GET_PRODUCT_CATEGORIES,
+  // GET_PRODUCT_CATEGORY
+} from "../_graphql/productCategories";
 
 export default function useProductCategories() {
   const pathname = usePathname();
@@ -13,7 +16,7 @@ export default function useProductCategories() {
     useCategoryStore();
 
   const [ProductCategories, { loading: productCategoriesLoading }] = useLazyQuery(GET_PRODUCT_CATEGORIES);
-  const [ProductCategory, { loading: productCategoryLoading }] = useLazyQuery(GET_PRODUCT_CATEGORY);
+  // const [ProductCategory, { loading: productCategoryLoading }] = useLazyQuery(GET_PRODUCT_CATEGORY);
 
   const isProductCategoryPage = /^\/browse\/department\/\d+\/department-category\/\d+\/product-category\/?$/.test(
     pathname
@@ -43,7 +46,7 @@ export default function useProductCategories() {
     productCategories,
     selectedProductCategory,
     productCategoriesLoading,
-    productCategoryLoading,
+    // productCategoryLoading,
     selectProductCategory,
   };
 }

@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { Star } from "lucide-react";
-
 type CardInfoProps = {
   seller: string;
   sellerImage: string;

@@ -44,9 +44,6 @@ export default function ProductCard({
   isRatingActivated = true,
   rating = 4.5,
   sales = 12,
-  onClick,
-  onEdit,
-  onDelete,
 }: ProductCard) {
   const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";

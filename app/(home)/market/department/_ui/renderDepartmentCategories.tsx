@@ -100,6 +100,8 @@ export const RenderDepartmentCategories = () => {
     }, 0);
   };
 
+  const isFalse = false;
+
   return (
     <section className="mb-8 mt-10">
       <h2 className="text-xl font-semibold mb-4 text-main flex items-center gap-2">
@@ -110,7 +112,7 @@ export const RenderDepartmentCategories = () => {
         ref={scrollRef}
         className="flex overflow-x-auto gap-6 pb-6 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
       >
-        {false ? (
+        {isFalse ? (
           Array.from({ length: 10 }).map((_, i) => <DepartmentSkeleton key={i} />)
         ) : (
           <RenderDepartmentCategoriesRow

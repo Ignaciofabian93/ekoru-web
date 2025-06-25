@@ -7,10 +7,10 @@ import { Product } from "@/types/product";
 type Scope = "MARKET" | "STORE";
 
 export default function useFeedMarket({ scope, exchange }: { scope: Scope; exchange: boolean }) {
-  const { notify, notifyError } = useAlert();
+  const { notifyError } = useAlert();
   const [products, setProducts] = useState<Product[]>([]);
 
-  const [Products, { error, loading }] = useLazyQuery(GET_FEED_PRODUCTS);
+  const [Products, { loading }] = useLazyQuery(GET_FEED_PRODUCTS);
 
   useEffect(() => {
     async function fetchProducts() {

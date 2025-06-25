@@ -27,7 +27,6 @@ export default function SmallSelect({
   labelText,
   hasLabel = false,
   disabled = false,
-  omitSpacing = false,
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");

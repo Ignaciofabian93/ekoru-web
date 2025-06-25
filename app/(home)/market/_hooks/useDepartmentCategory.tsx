@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useLazyQuery } from "@apollo/client";
 import { DepartmentCategory } from "@/types/product";
-import { GET_DEPARTMENT_CATEGORIES, GET_DEPARTMENT_CATEGORY } from "../_graphql/departmentCategories";
+import {
+  GET_DEPARTMENT_CATEGORIES,
+  // GET_DEPARTMENT_CATEGORY
+} from "../_graphql/departmentCategories";
 import useAlert from "@/hooks/useAlert";
 import useCategoryStore from "../_store/categories";
 
@@ -14,7 +17,7 @@ export default function useDepartmentCategories() {
 
   const [departmentCategoriesByDepartment, { loading: departmentCategoriesLoading }] =
     useLazyQuery(GET_DEPARTMENT_CATEGORIES);
-  const [DepartmentCategory, { loading: departmentCategoryLoading }] = useLazyQuery(GET_DEPARTMENT_CATEGORY);
+  // const [DepartmentCategory, { loading: departmentCategoryLoading }] = useLazyQuery(GET_DEPARTMENT_CATEGORY);
 
   const isDepartmentCategoryPage = /^\/browse\/department\/\d+\/department-category\/?$/.test(pathname);
   const departmentId = parseInt(pathname.split("/").pop() || "0");
@@ -50,7 +53,7 @@ export default function useDepartmentCategories() {
     departmentCategories,
     selectedDepartmentCategory,
     departmentCategoriesLoading,
-    departmentCategoryLoading,
+    // departmentCategoryLoading,
     selectDepartmentCategory,
   };
 }

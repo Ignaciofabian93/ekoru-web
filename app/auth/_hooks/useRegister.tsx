@@ -39,7 +39,7 @@ export default function useRegister({ handleCurrentView }: Props) {
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   // GraphQL Query & Submit
-  const [register, { error: authError, loading: authLoading }] = useMutation(REGISTER, {
+  const [register, { loading: authLoading }] = useMutation(REGISTER, {
     onError: (error) => {
       console.error("Error during registration:", error);
       notifyError("Error al registrar usuario");

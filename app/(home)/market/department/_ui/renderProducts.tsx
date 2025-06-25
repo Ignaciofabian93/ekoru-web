@@ -8,6 +8,8 @@ type RenderProductsProps = {
 };
 
 export const RenderProducts = ({ selectedDepartmentCategory, selectedProductCategory }: RenderProductsProps) => {
+  console.log("Selected Department Category:", selectedDepartmentCategory);
+
   return (
     <>
       <div

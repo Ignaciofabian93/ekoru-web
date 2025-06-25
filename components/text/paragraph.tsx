@@ -31,7 +31,7 @@ const Paragraph: React.FC<ParagraphProps> = ({
   rel,
   ...rest
 }) => {
-  const Tag = as as any;
+  const Tag = as === "a" ? "a" : as === "blockquote" ? "blockquote" : "p";
   const extraProps = as === "a" ? { href, target, rel } : {};
 
   return (

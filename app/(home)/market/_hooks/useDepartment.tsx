@@ -172,6 +172,13 @@ export default function useDepartments() {
     badges,
   });
 
+  const handleSelectedFilters = (filters: Partial<Filters>) => {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      ...filters,
+    }));
+  };
+
   return {
     departments,
     selectedDepartment,
@@ -188,5 +195,6 @@ export default function useDepartments() {
     minPrice,
     maxPrice,
     badges,
+    handleSelectedFilters,
   };
 }

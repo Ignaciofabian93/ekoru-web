@@ -1,5 +1,5 @@
 import Button from "@/components/buttons/button";
-import { RotateCw, Star } from "lucide-react";
+import { RotateCw } from "lucide-react";
 import Image from "next/image";
 import co2 from "@/assets/icons/co2.png";
 import drop from "@/assets/icons/drop.png";
@@ -21,8 +21,6 @@ export default function CardDetails({
   userProfileImage,
   userName,
   userLocation,
-  ratings,
-  description,
   onBack,
   estimatedCo2SavingsKG = 0,
   estimatedWasteSavingsKG = 0,
