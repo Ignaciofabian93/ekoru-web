@@ -1,4 +1,5 @@
 import React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PaginationProps {
   currentPage: number;
@@ -30,11 +31,11 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
     <div className="w-full flex items-center justify-center mt-4 relative">
       <nav className="flex space-x-2">
         <button
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+          className="px-2 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
           onClick={handlePrev}
           disabled={currentPage === 1}
         >
-          Anterior
+          <ChevronLeft className="inline" />
         </button>
         {getPageNumbers().map((page) => (
           <button
@@ -49,13 +50,13 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           </button>
         ))}
         <button
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+          className="px-2 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
           onClick={handleNext}
           disabled={currentPage === totalPages}
         >
-          Siguiente
+          <ChevronRight className="inline" />
         </button>
-        <span className="px-4 py-2 text-gray-700 absolute right-0">
+        <span className="hidden sm:flex px-4 py-2 text-gray-700 absolute right-0">
           Página {currentPage} de {totalPages}
         </span>
       </nav>

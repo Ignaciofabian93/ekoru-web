@@ -1,16 +1,31 @@
 import { Product } from "@/types/product";
-import ProductFilters from "./filters";
+import ProductFilters, { FilterProps } from "./filters";
 import ProductsGrid from "./productsGrid";
 
-type ProductsList = {
-  products?: Product[];
-  filters?: React.ReactNode;
+type ProductsList = FilterProps & {
+  products: Product[];
 };
 
-export default function ProductsListing({ products = [], filters }: ProductsList) {
+export default function ProductsListing({
+  products = [],
+  selectedFilters,
+  brands,
+  locations,
+  minPrice,
+  maxPrice,
+  badges,
+}: ProductsList) {
   return (
     <div className="flex flex-col sm:flex-row items-start gap-6 w-full h-full mx-auto">
-      <ProductFilters products={products} onFilterChange={(filters) => console.log("Filters changed:", filters)} />
+      <ProductFilters
+        onFilterChange={(filters) => console.log("Filters changed:", filters)}
+        brands={brands}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        locations={locations}
+        badges={badges}
+        selectedFilters={selectedFilters}
+      />
       <ProductsGrid products={products} />
     </div>
   );

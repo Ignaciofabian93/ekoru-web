@@ -6,13 +6,12 @@ import ContentWrapper from "../../_components/contentWrapper";
 import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
 import ProductsListing from "../../../_components/productsListing";
-import useProductDisplay from "@/app/(home)/_hooks/useProductDisplay";
 import useDepartments from "../../_hooks/useDepartment";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
-  const { productsList } = useProductDisplay();
-  const { selectedDepartment } = useDepartments();
+  const { selectedDepartment, productsList, brands, locations, minPrice, maxPrice, badges, selectedFilters } =
+    useDepartments();
 
   return (
     <PageWrapper>
@@ -24,7 +23,16 @@ export default function BrowseDepartmentResultsPage() {
         <RenderDepartmentCategories />
       </ContentWrapper>
       <ContentWrapper>
-        <ProductsListing products={productsList} />
+        <ProductsListing
+          products={productsList}
+          selectedFilters={selectedFilters}
+          brands={brands}
+          locations={locations}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          badges={badges}
+          onFilterChange={() => {}}
+        />
       </ContentWrapper>
       <div className="w-full mt-20">
         <Pagination currentPage={1} totalPages={20} onPageChange={() => {}} />
