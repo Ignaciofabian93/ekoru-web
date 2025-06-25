@@ -5,17 +5,12 @@ import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
 
 // This page is for browsing department categories in a specific department.
 export default function BrowseDepartmentCategoriesPage() {
-  const {
-    departmentCategories,
-    departmentCategoryLoading,
-    departmentCategoriesLoading,
-    selectedDepartmentCategory,
-    selectDepartmentCategory,
-  } = useDepartmentCategories();
+  const { departmentCategories } = useDepartmentCategories();
+  console.log("Department Categories:", departmentCategories);
+
   return (
     <PageWrapper>
       <BrowseHeader />
-
       <div className="flex flex-col items-center justify-center h-full">
         <h1 className="text-2xl font-bold mb-4">Categoria de departamentos, vista general</h1>
         <p className="text-gray-600">This is where the browse results will be displayed.</p>
