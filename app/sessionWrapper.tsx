@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/app/auth/_graphql/query";
-import { toast } from "react-toastify";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { RefreshToken } from "@/services/auth/rest-auth";
 import useSessionStore from "@/store/session";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
-import { RefreshToken } from "@/services/auth/rest-auth";
+import useAlert from "@/hooks/useAlert";
 
 export default function SessionWrapper({
   children,
@@ -23,18 +23,15 @@ export default function SessionWrapper({
   const [triedUserData, setTriedUserData] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
-  const notifyError = (error: string) => toast.error(error);
+  const { notifyError } = useAlert();
 
   const [GetMe, { error: authError, loading: authLoading }] = useLazyQuery(GET_PROFILE);
 
   const handleUserData = async () => {
     try {
       const { data: userData, error } = await GetMe();
-      console.log("token and refreshToken:", token, refreshToken);
-
-      console.log("User data:", userData, "Error:", error);
-
       if (userData) {
         handleSession(userData.me);
         setIsAuthenticated(true);
@@ -43,8 +40,6 @@ export default function SessionWrapper({
 
       // If 401, try refresh
       if (error && error.networkError && "statusCode" in error.networkError && error.networkError.statusCode === 401) {
-        console.log("me vine para aca");
-
         const refreshResponse = await RefreshToken();
         if (refreshResponse?.success) {
           const { data: refreshedData } = await GetMe();
@@ -53,8 +48,6 @@ export default function SessionWrapper({
           return true;
         }
       }
-      console.log("me vine para aca 2");
-
       // If still not authenticated, redirect to auth page
       setIsAuthenticated(false);
       notifyError("Error al intentar obtener los datos del usuario. Redirigiendo a la página de inicio de sesión.");
@@ -62,7 +55,7 @@ export default function SessionWrapper({
       return false;
     } catch (error) {
       console.error(error, authError);
-      toast.error("Sesión expirada. Redirigiendo...");
+      notifyError("Sesión expirada. Redirigiendo...");
       setIsAuthenticated(false);
       router.replace("/auth");
     } finally {
@@ -106,11 +99,6 @@ export default function SessionWrapper({
       setLoading(false);
     }
   }, [token, refreshToken, animationDone, data, triedUserData]);
-
-  useEffect(() => {
-    console.log("SessionWrapper cookies:", document.cookie);
-    console.log("SessionWrapper token prop:", token);
-  }, [token]);
 
   useEffect(() => {
     const fallback = setTimeout(() => {
