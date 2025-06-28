@@ -12,6 +12,7 @@ export default function ProductsGrid({ products }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 justify-items-center">
           {products.map((product) => (
             <ProductCard
+              id={product.id}
               key={product.id}
               title={product.name}
               description={product.description}
@@ -20,6 +21,7 @@ export default function ProductsGrid({ products }: Props) {
               location={`${product.user?.county.county}, ${product.user?.city.city}`}
               price={product.price}
               images={product.images}
+              likes={product.likes}
             />
           ))}
         </div>

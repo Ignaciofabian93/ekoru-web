@@ -57,3 +57,15 @@ export const ADD_PRODUCT = gql`
     }
   }
 `;
+
+export const LIKE_PRODUCT = gql`
+  mutation LikeProduct($id: ID!, $userId: ID!) {
+    likeProduct(id: $id, userId: $userId) {
+      id
+      likes {
+        id
+        userId
+      }
+    }
+  }
+`;

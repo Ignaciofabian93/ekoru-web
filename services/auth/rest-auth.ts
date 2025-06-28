@@ -9,7 +9,18 @@ export default async function Login({ email, password }: { email: string; passwo
     credentials: "include",
     body: JSON.stringify({ email, password }),
   };
-  const response = await fetch(REST_URL, options);
+  const response = await fetch(`${REST_URL}/auth`, options);
+  const data = await response.json();
+  return data;
+}
+
+// Refresh token handler
+export async function RefreshToken() {
+  const options: RequestInit = {
+    method: "POST",
+    credentials: "include",
+  };
+  const response = await fetch(`${REST_URL}/refresh`, options);
   const data = await response.json();
   return data;
 }

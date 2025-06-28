@@ -1,8 +1,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import { RotateCw, Share2, Heart } from "lucide-react";
+import useSessionStore from "@/store/session";
+import clsx from "clsx";
+import useLikeProduct from "@/hooks/useLikeProduct";
+import Spinner from "@/components/spinner/spinner";
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCT } from "@/graphql/products/query";
 
 type CardImageProps = {
+  id: number;
   images: string[];
   onFlip: () => void;
   isFavoriteActivated: boolean;
@@ -12,14 +19,21 @@ type CardImageProps = {
 };
 
 export default function CardImage({
+  id,
   images,
   onFlip,
   isFavoriteActivated,
   isSharedActivated,
-  onFavorite,
   onShare,
 }: CardImageProps) {
   const [current, setCurrent] = useState(0);
+  const { data } = useSessionStore();
+  const { likeProduct, likeLoading } = useLikeProduct();
+  const [animateHeart, setAnimateHeart] = useState(false);
+
+  // Fetch product data from Apollo cache/server
+  const { data: productData } = useQuery(GET_PRODUCT, { variables: { id }, fetchPolicy: "cache-first" });
+  const likes: { id: number; userId: string }[] = productData?.product.likes ?? [];
 
   return (
     <div className="w-full h-[50%] bg-white relative flex items-start">
@@ -71,10 +85,21 @@ export default function CardImage({
             className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
             onClick={(e) => {
               e.stopPropagation();
-              onFavorite?.();
+              setAnimateHeart(true);
+              likeProduct({ variables: { id, userId: data?.id } });
             }}
           >
-            <Heart className="w-5 h-5 text-primary" />
+            {likeLoading ? (
+              <Spinner />
+            ) : (
+              <Heart
+                onAnimationEnd={() => setAnimateHeart(false)}
+                className={clsx("w-5 h-5 text-primary", {
+                  "fill-primary": likes.some((like) => like.userId === data?.id),
+                  "animate-heart": animateHeart,
+                })}
+              />
+            )}
           </button>
         )}
         {isSharedActivated && (

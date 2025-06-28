@@ -6,6 +6,7 @@ import CardDetails from "./product/cardDetails";
 import clsx from "clsx";
 
 type ProductCard = {
+  id: number;
   title?: string;
   images?: string[]; // Change to array for carousel
   price?: number;
@@ -23,12 +24,14 @@ type ProductCard = {
   isRatingActivated?: boolean;
   rating?: number;
   sales?: number;
+  likes?: { id: number; userId: string }[];
   onClick?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
 };
 
 export default function ProductCard({
+  id,
   title,
   images = [],
   price,
@@ -55,6 +58,7 @@ export default function ProductCard({
         {/* Front Side */}
         <div className="card-flip-front rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3">
           <CardImage
+            id={id}
             images={carouselImages}
             onFlip={() => setFlipped(true)}
             isFavoriteActivated={isFavoriteActivated}

@@ -7,10 +7,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import useSessionStore from "@/store/session";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
+import { RefreshToken } from "@/services/auth/rest-auth";
 
-export default function SessionWrapper({ children, token }: { children: React.ReactNode; token: string | undefined }) {
+export default function SessionWrapper({
+  children,
+  token,
+  refreshToken,
+}: {
+  children: React.ReactNode;
+  token: string | undefined;
+  refreshToken: string | undefined;
+}) {
   const [loading, setLoading] = useState<boolean>(true);
   const [animationDone, setAnimationDone] = useState<boolean>(false);
+  const [triedUserData, setTriedUserData] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { handleSession, setIsAuthenticated, data } = useSessionStore();
@@ -20,15 +30,36 @@ export default function SessionWrapper({ children, token }: { children: React.Re
 
   const handleUserData = async () => {
     try {
-      const { data: userData } = await GetMe();
+      const { data: userData, error } = await GetMe();
+      console.log("token and refreshToken:", token, refreshToken);
+
+      console.log("User data:", userData, "Error:", error);
+
       if (userData) {
         handleSession(userData.me);
         setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-        notifyError("Error al intentar iniciar sesión.");
-        router.replace("/auth");
+        return true;
       }
+
+      // If 401, try refresh
+      if (error && error.networkError && "statusCode" in error.networkError && error.networkError.statusCode === 401) {
+        console.log("me vine para aca");
+
+        const refreshResponse = await RefreshToken();
+        if (refreshResponse?.success) {
+          const { data: refreshedData } = await GetMe();
+          handleSession(refreshedData.me);
+          setIsAuthenticated(true);
+          return true;
+        }
+      }
+      console.log("me vine para aca 2");
+
+      // If still not authenticated, redirect to auth page
+      setIsAuthenticated(false);
+      notifyError("Error al intentar obtener los datos del usuario. Redirigiendo a la página de inicio de sesión.");
+      router.replace("/auth");
+      return false;
     } catch (error) {
       console.error(error, authError);
       toast.error("Sesión expirada. Redirigiendo...");
@@ -40,19 +71,46 @@ export default function SessionWrapper({ children, token }: { children: React.Re
   };
 
   useEffect(() => {
-    if (!token && animationDone) {
+    // If no token but refreshToken exists, try to refresh
+    if (!token && refreshToken && animationDone) {
+      (async () => {
+        try {
+          const refreshResponse = await RefreshToken();
+          if (refreshResponse?.success) {
+            window.location.href = pathname; // Reload the page to apply the new token
+            return; // Prevent further execution
+          }
+        } catch (error) {
+          console.error("Error al intentar renovar el token:", error);
+        }
+        setIsAuthenticated(false);
+        setLoading(false);
+        router.replace("/auth");
+      })();
+      return; // Prevent further execution
+    }
+
+    // If neither token nor refreshToken, redirect
+    if (!token && !refreshToken && animationDone) {
       setIsAuthenticated(false);
       setLoading(false);
       router.replace("/auth");
       return;
     }
 
-    if (token && !data.id) {
+    // If token exists but no user data, fetch user (only once)
+    if (token && !data.id && !triedUserData) {
+      setTriedUserData(true);
       handleUserData();
     } else if (token && data.id) {
       setLoading(false);
     }
-  }, [token, animationDone, data]);
+  }, [token, refreshToken, animationDone, data, triedUserData]);
+
+  useEffect(() => {
+    console.log("SessionWrapper cookies:", document.cookie);
+    console.log("SessionWrapper token prop:", token);
+  }, [token]);
 
   useEffect(() => {
     const fallback = setTimeout(() => {
