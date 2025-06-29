@@ -13,6 +13,7 @@ export default function ProductResults() {
         <div className="w-full flex flex-wrap gap-4 items-center justify-center">
           {products.map((product) => (
             <ProductCard
+              id={product.id}
               key={product.id}
               seller={product.user?.name}
               sellerImage={product.user?.profileImage}

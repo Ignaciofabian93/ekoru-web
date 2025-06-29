@@ -14,6 +14,7 @@ export default function MyProducts() {
         <div className="w-full flex overflow-x-scroll no-scrollbar items-center justify-start gap-4 mt-4 px-1 py-4">
           {myProducts.map((product) => (
             <ProductCard
+              id={product.id}
               key={product.id}
               title={product.name}
               images={product.images}

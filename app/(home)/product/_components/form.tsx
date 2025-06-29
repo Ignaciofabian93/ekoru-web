@@ -220,6 +220,7 @@ export default function ProductForm() {
         <div className="w-full h-full flex flex-col items-center justify-center">
           <p className="font-semibold text-md leading-relaxed mb-2">*Así se verá tu producto en las búsquedas*</p>
           <ProductCard
+            id={product.id}
             title={product.name}
             price={product.price}
             seller={data.name.split(" ")[0]}
