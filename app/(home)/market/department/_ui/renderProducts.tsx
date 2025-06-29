@@ -34,6 +34,7 @@ export const RenderProducts = ({
               "
             >
               <ProductCard
+                id={prod.id}
                 seller={`${prod.user?.name} ${prod.user?.surnames}`}
                 sellerImage={prod.user?.profileImage}
                 location={`${prod.user?.county.county}, ${prod.user?.city.city}`}
