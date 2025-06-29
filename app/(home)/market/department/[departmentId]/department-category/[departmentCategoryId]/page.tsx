@@ -1,59 +1,42 @@
 "use client";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
+import ProductsListing from "@/app/(home)/_components/productsListing";
 import ContentWrapper from "@/app/(home)/market/_components/contentWrapper";
 import MarketHeader from "@/app/(home)/market/_components/header";
 import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
-import clsx from "clsx";
+import Banner from "@/components/banner/banner";
+import Pagination from "@/components/pagination/pagination";
+import { RenderProductCategories } from "../../../_ui/renderProductCategories";
 
 // This page is for browsing a specific department category in a specific department.
 export default function BrowseDepartmentCategoryPage() {
-  const { departmentCategories, selectedDepartmentCategory } = useDepartmentCategories();
+  const { filteredProductList, selectedFilters, brands, locations, maxPrice, minPrice, badges, onFilterChange } =
+    useDepartmentCategories();
+
   return (
     <PageWrapper>
       <MarketHeader />
       <ContentWrapper>
-        <h2 className="text-lg font-semibold mb-2 text-green-800">Departamentos</h2>
-        <div className="flex overflow-x-auto gap-4 pb-2">
-          {departmentCategories?.map((dept) => (
-            <button
-              key={dept.id}
-              className={clsx(
-                "min-w-[160px] px-6 py-4 rounded-xl shadow bg-white border-2 transition-all",
-                selectedDepartmentCategory?.id === dept.id
-                  ? "border-green-600 bg-green-50 text-green-900"
-                  : "border-transparent hover:border-green-300 hover:bg-green-50"
-              )}
-            >
-              <span className="font-medium">{dept.departmentCategoryName}</span>
-            </button>
-          ))}
-        </div>
+        <Banner title="" description="" />
       </ContentWrapper>
       <ContentWrapper>
-        {selectedDepartmentCategory && selectedDepartmentCategory.productCategories.length > 0 ? (
-          <>
-            <h3 className="text-md font-semibold mb-3 text-green-700">Categorías</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {selectedDepartmentCategory.productCategories.map((cat) => (
-                <div
-                  key={cat.id}
-                  className="bg-white rounded-lg shadow p-4 hover:bg-green-50 transition cursor-pointer"
-                >
-                  <span className="font-medium text-green-800">{cat.productCategoryName}</span>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="text-gray-500 text-center py-12">
-            <span>
-              {departmentCategories?.length
-                ? "Selecciona un departamento para ver sus categorías."
-                : "Cargando departamentos..."}
-            </span>
-          </div>
-        )}
+        <RenderProductCategories />
       </ContentWrapper>
+      <ContentWrapper>
+        <ProductsListing
+          products={filteredProductList}
+          selectedFilters={selectedFilters}
+          brands={brands}
+          locations={locations}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          badges={badges}
+          onFilterChange={onFilterChange}
+        />
+      </ContentWrapper>
+      <div className="w-full mt-20">
+        <Pagination currentPage={1} totalPages={20} onPageChange={() => {}} />
+      </div>
     </PageWrapper>
   );
 }

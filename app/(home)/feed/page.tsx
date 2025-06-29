@@ -13,7 +13,6 @@ const DynamicInfoSection = dynamic(() => import("./_components/infoSection"), {
 export default function FeedPage() {
   return (
     <PageWrapper>
-      {/* <Stories /> */}
       <Hero />
       <Banner
         title="¿hasta dónde llega tu impacto?"

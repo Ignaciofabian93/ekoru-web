@@ -20,13 +20,18 @@ export default function BrowseDepartmentResultsPage() {
     selectedFilters,
     onFilterChange,
     filteredProductList,
+    departmentLoading,
   } = useDepartments();
 
   return (
     <PageWrapper>
       <MarketHeader />
       <ContentWrapper>
-        <Banner title={selectedDepartment?.departmentName as string} description="Busca tus productos aquí" />
+        <Banner
+          isLoading={departmentLoading}
+          title={selectedDepartment?.departmentName as string}
+          description="Busca tus productos aquí"
+        />
       </ContentWrapper>
       <ContentWrapper>
         <RenderDepartmentCategories />

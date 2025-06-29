@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
-import Link from "next/link";
 
 export type DropdownItem = {
   label: string;
@@ -72,7 +71,7 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
               {item.children ? (
                 <AnimatePresence>
                   <div className="w-full flex items-center justify-between">
-                    <Link
+                    <a
                       href={item.href || "#"}
                       className={clsx(
                         "w-full text-left px-2 py-1 hover:bg-primary hover:text-white transition-colors ease-in-out duration-200 rounded flex items-center cursor-pointer",
@@ -82,7 +81,7 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
                       tabIndex={0}
                     >
                       {item.label}
-                    </Link>
+                    </a>
                     <div className="flex items-center justify-center text-primary-dark">
                       <ChevronRight
                         onClick={() => {

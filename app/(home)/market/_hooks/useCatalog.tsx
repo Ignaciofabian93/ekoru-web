@@ -9,7 +9,7 @@ export default function useMarketCatalog() {
   const { catalog, setCatalog } = useCategoryStore();
 
   // Lazy query to fetch the market catalog
-  const [Departments, { loading: catalogLoading }] = useLazyQuery(GET_MARKET_CATALOG);
+  const [MarketCatalog, { loading: catalogLoading }] = useLazyQuery(GET_MARKET_CATALOG);
 
   useEffect(() => {
     fetchCatalog();
@@ -17,9 +17,9 @@ export default function useMarketCatalog() {
 
   const fetchCatalog = async () => {
     try {
-      const { data } = await Departments();
-      if (data.departments) {
-        setCatalog(data.departments);
+      const { data } = await MarketCatalog();
+      if (data.marketCatalog) {
+        setCatalog(data.marketCatalog);
       } else {
         notifyError("No se encontraron departamentos en el catálogo");
       }

@@ -3,18 +3,9 @@ import { useLazyQuery } from "@apollo/client";
 import { usePathname, useRouter } from "next/navigation";
 import { Department, Product } from "@/types/product";
 import { GET_DEPARTMENT, GET_DEPARTMENTS } from "../_graphql/departments";
+import { Filters } from "../types/filters";
 import useAlert from "@/hooks/useAlert";
 import useCategoryStore from "../_store/categories";
-import { Badge } from "@/types/enums";
-
-export type Filters = {
-  brands: string[];
-  minPrice: number | null;
-  maxPrice: number | null;
-  rating: number | null;
-  location: string;
-  badges: Badge[];
-};
 
 export default function useDepartments() {
   const router = useRouter();

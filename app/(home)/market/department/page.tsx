@@ -23,6 +23,7 @@ export default function BrowseDepartmentsPage() {
       <MarketHeader />
       <ContentWrapper>
         <Banner
+          isLoading={departmentsLoading}
           title="Explora los departamentos"
           description="Encuentra tus productos dentro de tus categorías favoritas y dales una nueva vida"
         />
@@ -38,6 +39,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Automotriz"
           title="Potencia y estilo."
           subtitle="Siente la fuerza en cada viaje."
@@ -46,6 +48,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Bebés"
           title="Lo mejor para los más pequeños."
           subtitle="Cuida su mundo con amor."
@@ -54,6 +57,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Deportes y Outdoor"
           title="Energía circular."
           subtitle="Sigue tu ritmo sin dejar huella."
@@ -62,6 +66,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Electrohogar"
           title="Tecnología al servicio del hogar."
           subtitle="Haz de tu hogar un lugar más sustentable."
@@ -70,6 +75,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Entretención"
           title="Eco aventuras en marcha."
           subtitle="¡El planeta también quiere que te diviertas!"
@@ -78,6 +84,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Herramientas y Maquinaria"
           title="Potencia y precisión."
           subtitle="Las mejores herramientas para tus proyectos."
@@ -86,6 +93,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Muebles de hogar"
           title="Renueva con propósito."
           subtitle="Piezas únicas que vuelven a la vida."
@@ -94,6 +102,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Instrumentos Musicales"
           title="De segunda mano, de primera nota."
           subtitle="Deja que el pasado suene como nuevo."
@@ -102,6 +111,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Jardín y Terraza"
           title="Naturaleza en casa."
           subtitle="Crea tu oasis verde."
@@ -110,6 +120,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Mascotas"
           title="Sustentabilidad con cola."
           subtitle="Cuidemos el entorno de quienes más queremos."
@@ -118,6 +129,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Ropa, Calzado y Accesorios"
           title="Tu ropa, tu revolución verde."
           subtitle="Transforma tu clóset en un acto consciente."
@@ -126,6 +138,7 @@ export default function BrowseDepartmentsPage() {
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
+          departmentsLoading={departmentsLoading}
           sectionName="Tecnología"
           title="Innovación que transforma."
           subtitle="Comodidad y eficiencia que nos hace avanzar."
