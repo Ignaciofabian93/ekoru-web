@@ -19,6 +19,7 @@ export default function CategorySection({ products = [], sectionName, title, sub
             {products.map((product) => (
               <ProductCard
                 key={product.id}
+                id={product.id}
                 seller={
                   product.user?.name && product.user?.surnames
                     ? `${product.user?.name} ${product.user?.surnames}`
