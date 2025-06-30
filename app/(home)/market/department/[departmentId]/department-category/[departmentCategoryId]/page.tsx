@@ -6,21 +6,40 @@ import MarketHeader from "@/app/(home)/market/_components/header";
 import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
 import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
-import { RenderProductCategories } from "../../../_ui/renderProductCategories";
+import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
 
 // This page is for browsing a specific department category in a specific department.
 export default function BrowseDepartmentCategoryPage() {
-  const { filteredProductList, selectedFilters, brands, locations, maxPrice, minPrice, badges, onFilterChange } =
-    useDepartmentCategories();
+  const {
+    filteredProductList,
+    selectedFilters,
+    brands,
+    locations,
+    maxPrice,
+    minPrice,
+    badges,
+    onFilterChange,
+    selectedDepartmentCategory,
+  } = useDepartmentCategories();
 
   return (
     <PageWrapper>
       <MarketHeader />
       <ContentWrapper>
-        <Banner title="" description="" />
+        <Banner
+          title={selectedDepartmentCategory?.departmentCategoryName as string}
+          description="Encuentra todos tus favoritos aquí"
+        />
       </ContentWrapper>
       <ContentWrapper>
-        <RenderProductCategories />
+        <RenderCategories
+          moduleName="Subcategorías"
+          data={selectedDepartmentCategory ? selectedDepartmentCategory.productCategories : []}
+          isLoading={false}
+          redirect={() => {}}
+          selectObject={() => {}}
+          selectedObject={null}
+        />
       </ContentWrapper>
       <ContentWrapper>
         <ProductsListing

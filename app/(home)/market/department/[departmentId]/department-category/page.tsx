@@ -6,7 +6,8 @@ import Banner from "@/components/banner/banner";
 import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
 import ProductsListing from "@/app/(home)/_components/productsListing";
 import Pagination from "@/components/pagination/pagination";
-import { RenderDepartmentCategories } from "../../_ui/renderDepartmentCategories";
+import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
+import { DepartmentCategory } from "@/types/product";
 
 // This page is for browsing department categories in a specific department.
 export default function BrowseDepartmentCategoriesPage() {
@@ -20,6 +21,10 @@ export default function BrowseDepartmentCategoriesPage() {
     maxPrice,
     badges,
     onFilterChange,
+    departmentCategories,
+    selectedDepartmentCategory,
+    redirectToDepartmentCategorySelected,
+    selectDepartmentCategory,
   } = useDepartmentCategories();
 
   return (
@@ -33,7 +38,14 @@ export default function BrowseDepartmentCategoriesPage() {
         />
       </ContentWrapper>
       <ContentWrapper>
-        <RenderDepartmentCategories />
+        <RenderCategories
+          moduleName="Categorías"
+          data={departmentCategories}
+          isLoading={departmentCategoriesLoading}
+          redirect={(e) => redirectToDepartmentCategorySelected(e)}
+          selectedObject={selectedDepartmentCategory}
+          selectObject={(e) => selectDepartmentCategory(e as DepartmentCategory)}
+        />
       </ContentWrapper>
       <ContentWrapper>
         <ProductsListing

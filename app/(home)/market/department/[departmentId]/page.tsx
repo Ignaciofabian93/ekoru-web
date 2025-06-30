@@ -1,5 +1,4 @@
 "use client";
-import { RenderDepartmentCategories } from "../_ui/renderDepartmentCategories";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import MarketHeader from "../../_components/header";
 import ContentWrapper from "../../_components/contentWrapper";
@@ -7,6 +6,9 @@ import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
 import ProductsListing from "../../../_components/productsListing";
 import useDepartments from "../../_hooks/useDepartment";
+import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
+import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
+import { DepartmentCategory } from "@/types/product";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
@@ -22,6 +24,8 @@ export default function BrowseDepartmentResultsPage() {
     filteredProductList,
     departmentLoading,
   } = useDepartments();
+  const { selectedDepartmentCategory, selectDepartmentCategory, redirectToDepartmentCategorySelected } =
+    useDepartmentCategories();
 
   return (
     <PageWrapper>
@@ -34,7 +38,14 @@ export default function BrowseDepartmentResultsPage() {
         />
       </ContentWrapper>
       <ContentWrapper>
-        <RenderDepartmentCategories />
+        <RenderCategories
+          moduleName="Categorías"
+          data={selectedDepartment ? selectedDepartment.departmentCategories : []}
+          selectObject={(e) => selectDepartmentCategory(e as DepartmentCategory)}
+          selectedObject={selectedDepartmentCategory}
+          redirect={(e) => redirectToDepartmentCategorySelected(e)}
+          isLoading={departmentLoading}
+        />
       </ContentWrapper>
       <ContentWrapper>
         <ProductsListing

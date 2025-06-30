@@ -1,12 +1,13 @@
 "use client";
 import { DepartmentNames } from "@/constants/departments";
-import { RenderDepartments } from "./_ui/renderDepartments";
 import PageWrapper from "../../_components/pageWrapper";
 import MarketHeader from "../_components/header";
 import ContentWrapper from "../_components/contentWrapper";
 import useDepartments from "../_hooks/useDepartment";
 import Banner from "@/components/banner/banner";
 import CategorySection from "./_ui/categorySection";
+import { RenderCategories } from "../../_components/categoriesRow";
+import { Department } from "@/types/product";
 
 export default function BrowseDepartmentsPage() {
   const {
@@ -29,12 +30,13 @@ export default function BrowseDepartmentsPage() {
         />
       </ContentWrapper>
       <ContentWrapper>
-        <RenderDepartments
-          departments={departments}
-          selectedDepartment={selectedDepartment}
-          selectDepartment={selectDepartment}
-          redirectToDepartment={redirectToDepartment}
-          departmentsLoading={departmentsLoading}
+        <RenderCategories
+          moduleName="Departamentos"
+          data={departments}
+          selectObject={(e) => selectDepartment(e as Department)}
+          selectedObject={selectedDepartment}
+          redirect={(e) => redirectToDepartment(e)}
+          isLoading={departmentsLoading}
         />
       </ContentWrapper>
       <ContentWrapper>

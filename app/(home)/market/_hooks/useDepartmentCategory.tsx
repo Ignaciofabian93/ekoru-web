@@ -74,18 +74,20 @@ export default function useDepartmentCategories() {
     router.push(`/market/department/${departmentCategoryId}`);
   };
 
-  useEffect(() => {
-    console.log("Department Category Page:", isDepartmentCategoryPage);
-    console.log("Department ID:", departmentId);
+  const redirectToDepartmentCategorySelected = (departmentCategoryId: number) => {
+    router.push(`/market/department/${departmentId}/department-category/${departmentCategoryId}`);
+  };
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Fetching department categories and category details
+
+  useEffect(() => {
     if (departmentId && isDepartmentCategoryPage) {
       fetchDepartmentCategories();
     }
   }, [isDepartmentCategoryPage]);
 
   useEffect(() => {
-    console.log("Department Category ID:", departmentCategoryId);
-
     if (departmentCategoryId && isDepartmentCategoryPage) {
       fetchDepartmentCategory(departmentCategoryId);
     }
@@ -209,6 +211,7 @@ export default function useDepartmentCategories() {
     selectDepartmentCategory,
     redirectToDepartmentCategory,
     filteredProductList,
+    redirectToDepartmentCategorySelected,
     // Filtering props
     selectedFilters,
     brands,
