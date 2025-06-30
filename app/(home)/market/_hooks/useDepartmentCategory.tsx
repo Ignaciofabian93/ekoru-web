@@ -34,6 +34,7 @@ export default function useDepartmentCategories() {
   const [DepartmentCategory, { loading: departmentCategoryLoading }] = useLazyQuery(GET_DEPARTMENT_CATEGORY);
 
   const isDepartmentCategoryPage = /^\/market\/department\/\d+\/department-category\/?$/.test(pathname);
+  const isDepartmentCategoryIdPage = /^\/market\/department\/\d+\/department-category\/\d+\/?$/.test(pathname);
   const pathParts = pathname.split("/");
   const departmentIndex = pathParts.findIndex((part) => part === "department");
   const departmentId = departmentIndex !== -1 ? parseInt(pathParts[departmentIndex + 1] || "0") : 0;
@@ -78,6 +79,12 @@ export default function useDepartmentCategories() {
     router.push(`/market/department/${departmentId}/department-category/${departmentCategoryId}`);
   };
 
+  const redirectToProductCategorySelected = (productCategoryId: number) => {
+    router.push(
+      `/market/department/${departmentId}/department-category/${departmentCategoryId}/product-category/${productCategoryId}`
+    );
+  };
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Fetching department categories and category details
 
@@ -88,16 +95,14 @@ export default function useDepartmentCategories() {
   }, [isDepartmentCategoryPage]);
 
   useEffect(() => {
-    if (departmentCategoryId && isDepartmentCategoryPage) {
+    if (departmentCategoryId && isDepartmentCategoryIdPage) {
       fetchDepartmentCategory(departmentCategoryId);
     }
-  }, [isDepartmentCategoryPage, departmentCategoryId]);
+  }, [isDepartmentCategoryIdPage, departmentCategoryId]);
 
   const fetchDepartmentCategories = async () => {
     try {
       const { data } = await DepartmentCategoriesByDepartment({ variables: { id: 1 } });
-      console.log("Fetched Department Categories:", data);
-
       if (data.departmentCategoriesByDepartment) {
         setDepartmentCategories(data.departmentCategoriesByDepartment);
       } else {
@@ -112,8 +117,6 @@ export default function useDepartmentCategories() {
   const fetchDepartmentCategory = async (id: number) => {
     try {
       const { data } = await DepartmentCategory({ variables: { id } });
-      console.log("Fetched Department Category:", data);
-
       if (data.departmentCategory) {
         setSelectedDepartmentCategory(data.departmentCategory);
       } else {
@@ -212,6 +215,7 @@ export default function useDepartmentCategories() {
     redirectToDepartmentCategory,
     filteredProductList,
     redirectToDepartmentCategorySelected,
+    redirectToProductCategorySelected,
     // Filtering props
     selectedFilters,
     brands,

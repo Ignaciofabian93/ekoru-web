@@ -1,12 +1,14 @@
 "use client";
+import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
+import { ProductCategory } from "@/types/product";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import ProductsListing from "@/app/(home)/_components/productsListing";
 import ContentWrapper from "@/app/(home)/market/_components/contentWrapper";
 import MarketHeader from "@/app/(home)/market/_components/header";
 import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
+import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
-import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
 
 // This page is for browsing a specific department category in a specific department.
 export default function BrowseDepartmentCategoryPage() {
@@ -20,13 +22,17 @@ export default function BrowseDepartmentCategoryPage() {
     badges,
     onFilterChange,
     selectedDepartmentCategory,
+    departmentCategoryLoading,
+    redirectToProductCategorySelected,
   } = useDepartmentCategories();
+  const { selectProductCategory, selectedProductCategory } = useProductCategories();
 
   return (
     <PageWrapper>
       <MarketHeader />
       <ContentWrapper>
         <Banner
+          isLoading={departmentCategoryLoading}
           title={selectedDepartmentCategory?.departmentCategoryName as string}
           description="Encuentra todos tus favoritos aquí"
         />
@@ -35,10 +41,10 @@ export default function BrowseDepartmentCategoryPage() {
         <RenderCategories
           moduleName="Subcategorías"
           data={selectedDepartmentCategory ? selectedDepartmentCategory.productCategories : []}
-          isLoading={false}
-          redirect={() => {}}
-          selectObject={() => {}}
-          selectedObject={null}
+          isLoading={departmentCategoryLoading}
+          redirect={(e) => redirectToProductCategorySelected(e)}
+          selectObject={(e) => selectProductCategory(e as ProductCategory)}
+          selectedObject={selectedProductCategory}
         />
       </ContentWrapper>
       <ContentWrapper>

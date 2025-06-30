@@ -1,4 +1,6 @@
 "use client";
+import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
+import { DepartmentCategory } from "@/types/product";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import MarketHeader from "../../../_components/header";
 import ContentWrapper from "../../../_components/contentWrapper";
@@ -6,8 +8,6 @@ import Banner from "@/components/banner/banner";
 import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
 import ProductsListing from "@/app/(home)/_components/productsListing";
 import Pagination from "@/components/pagination/pagination";
-import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
-import { DepartmentCategory } from "@/types/product";
 
 // This page is for browsing department categories in a specific department.
 export default function BrowseDepartmentCategoriesPage() {

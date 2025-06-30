@@ -1,26 +1,53 @@
 import { gql } from "@apollo/client";
 
 export const GET_PRODUCT_CATEGORIES = gql`
-  query ProductCategories($take: Int, $skip: Int, $orderBy: OrderByInput) {
-    productCategories(take: $take, skip: $skip, orderBy: $orderBy) {
+  query ProductCategoriesByDepartmentCategory($id: ID!, $take: Int, $skip: Int, $orderBy: OrderByInput) {
+    productCategoriesByDepartmentCategory(id: $id, take: $take, skip: $skip, orderBy: $orderBy) {
       id
       productCategoryName
       keywords
-      materialImpactEstimateId
+      averageWeight
+      firstMaterialTypeId
+      firstMaterialTypeQuantity
+      secondMaterialTypeId
+      secondMaterialTypeQuantity
+      thirdMaterialTypeId
+      thirdMaterialTypeQuantity
+      fourthMaterialTypeId
+      fourthMaterialTypeQuantity
+      fifthMaterialTypeId
+      fifthMaterialTypeQuantity
       size
-      minWeight
-      maxWeight
       weightUnit
-      departmentCategoryId
-      materialImpactEstimate {
+      firstMaterialType {
         id
         materialType
-        minWeight
-        maxWeight
         estimatedCo2SavingsKG
         estimatedWaterSavingsLT
-        estimatedWasteSavingsKG
-        notes
+      }
+      secondMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
+      }
+      fifthMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
+      }
+      fourthMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
+      }
+      thirdMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
       }
       products {
         id
@@ -112,21 +139,48 @@ export const GET_PRODUCT_CATEGORY = gql`
       id
       productCategoryName
       keywords
-      materialImpactEstimateId
+      averageWeight
+      firstMaterialTypeId
+      firstMaterialTypeQuantity
+      secondMaterialTypeId
+      secondMaterialTypeQuantity
+      thirdMaterialTypeId
+      thirdMaterialTypeQuantity
+      fourthMaterialTypeId
+      fourthMaterialTypeQuantity
+      fifthMaterialTypeId
+      fifthMaterialTypeQuantity
       size
-      minWeight
-      maxWeight
       weightUnit
-      departmentCategoryId
-      materialImpactEstimate {
+      firstMaterialType {
         id
         materialType
-        minWeight
-        maxWeight
         estimatedCo2SavingsKG
         estimatedWaterSavingsLT
-        estimatedWasteSavingsKG
-        notes
+      }
+      secondMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
+      }
+      fifthMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
+      }
+      fourthMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
+      }
+      thirdMaterialType {
+        id
+        materialType
+        estimatedCo2SavingsKG
+        estimatedWaterSavingsLT
       }
       products {
         id

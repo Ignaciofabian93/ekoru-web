@@ -5,13 +5,23 @@ export const GET_DEPARTMENT_CATEGORIES = gql`
     departmentCategoriesByDepartment(id: $id, take: $take, skip: $skip, orderBy: $orderBy) {
       id
       departmentCategoryName
-      department {
-        id
-        departmentName
-      }
       productCategories {
         id
         productCategoryName
+        keywords
+        averageWeight
+        firstMaterialTypeId
+        firstMaterialTypeQuantity
+        secondMaterialTypeId
+        secondMaterialTypeQuantity
+        thirdMaterialTypeId
+        thirdMaterialTypeQuantity
+        fourthMaterialTypeId
+        fourthMaterialTypeQuantity
+        fifthMaterialTypeId
+        fifthMaterialTypeQuantity
+        size
+        weightUnit
         products {
           id
           sku
@@ -34,7 +44,6 @@ export const GET_DEPARTMENT_CATEGORIES = gql`
           badges
           createdAt
           updatedAt
-          userId
           user {
             id
             name
@@ -51,6 +60,28 @@ export const GET_DEPARTMENT_CATEGORIES = gql`
             points
             createdAt
             updatedAt
+            county {
+              id
+              county
+            }
+            city {
+              id
+              city
+            }
+            region {
+              id
+              region
+            }
+            country {
+              id
+              country
+            }
+            userCategory {
+              id
+              name
+              categoryDiscountAmount
+              pointsThreshold
+            }
           }
           comments {
             id
@@ -62,22 +93,36 @@ export const GET_DEPARTMENT_CATEGORIES = gql`
             userId
           }
         }
-        keywords
-        materialImpactEstimateId
-        materialImpactEstimate {
+        firstMaterialType {
           id
           materialType
-          minWeight
-          maxWeight
           estimatedCo2SavingsKG
           estimatedWaterSavingsLT
-          estimatedWasteSavingsKG
-          notes
         }
-        size
-        minWeight
-        maxWeight
-        weightUnit
+        secondMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fifthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fourthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        thirdMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
       }
     }
   }
@@ -88,13 +133,23 @@ export const GET_DEPARTMENT_CATEGORY = gql`
     departmentCategory(id: $id) {
       id
       departmentCategoryName
-      department {
-        id
-        departmentName
-      }
       productCategories {
         id
         productCategoryName
+        keywords
+        averageWeight
+        firstMaterialTypeId
+        firstMaterialTypeQuantity
+        secondMaterialTypeId
+        secondMaterialTypeQuantity
+        thirdMaterialTypeId
+        thirdMaterialTypeQuantity
+        fourthMaterialTypeId
+        fourthMaterialTypeQuantity
+        fifthMaterialTypeId
+        fifthMaterialTypeQuantity
+        size
+        weightUnit
         products {
           id
           sku
@@ -117,7 +172,6 @@ export const GET_DEPARTMENT_CATEGORY = gql`
           badges
           createdAt
           updatedAt
-          userId
           user {
             id
             name
@@ -134,6 +188,28 @@ export const GET_DEPARTMENT_CATEGORY = gql`
             points
             createdAt
             updatedAt
+            county {
+              id
+              county
+            }
+            city {
+              id
+              city
+            }
+            region {
+              id
+              region
+            }
+            country {
+              id
+              country
+            }
+            userCategory {
+              id
+              name
+              categoryDiscountAmount
+              pointsThreshold
+            }
           }
           comments {
             id
@@ -145,22 +221,36 @@ export const GET_DEPARTMENT_CATEGORY = gql`
             userId
           }
         }
-        keywords
-        materialImpactEstimateId
-        materialImpactEstimate {
+        firstMaterialType {
           id
           materialType
-          minWeight
-          maxWeight
           estimatedCo2SavingsKG
           estimatedWaterSavingsLT
-          estimatedWasteSavingsKG
-          notes
         }
-        size
-        minWeight
-        maxWeight
-        weightUnit
+        secondMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fifthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fourthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        thirdMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
       }
     }
   }

@@ -38,25 +38,28 @@ export type ProductCategory = {
   id: number;
   productCategoryName: string;
   departmentCategoryId: number;
-  departmentCategory: DepartmentCategory;
   keywords: string[];
-  materialImpactEstimateId: number;
-  size?: ProductSize;
-  minWeight?: number;
-  maxWeight?: number;
-  weightUnit?: WeightUnit;
+  size?: ProductSize | null;
+  weightUnit?: WeightUnit | null;
+  averageWeight?: number | null;
+  firstMaterialTypeId?: number | null;
+  firstMaterialTypeQuantity?: number | null;
+  secondMaterialTypeId?: number | null;
+  secondMaterialTypeQuantity?: number | null;
+  thirdMaterialTypeId?: number | null;
+  thirdMaterialTypeQuantity?: number | null;
+  fourthMaterialTypeId?: number | null;
+  fourthMaterialTypeQuantity?: number | null;
+  fifthMaterialTypeId?: number | null;
+  fifthMaterialTypeQuantity?: number | null;
   products: Product[];
 };
 
 export type MaterialImpactEstimate = {
   id: number;
   materialType: string;
-  minWeight: number;
-  maxWeight: number;
   estimatedCo2SavingsKG: number;
   estimatedWaterSavingsLT: number;
-  estimatedWasteSavingsKG: number;
-  notes: string;
 };
 
 export type DepartmentCategory = {

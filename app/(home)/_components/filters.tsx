@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { Badge } from "@/types/enums";
+import { Filters } from "../market/types/filters";
 import BadgeTag from "@/components/badges/badge";
 import SmallInput from "@/components/textInput/smallInput";
 import SmallCheckBox from "@/components/checkbox/smallCheckbox";
 import SmallSelect from "@/components/select/smallSelect";
-import { useState } from "react";
 import Modal from "@/components/modal/modal";
-import { Filters } from "../market/types/filters";
 
 export type FilterProps = {
   brands: string[];
