@@ -31,6 +31,8 @@ export default function useProductCategories() {
   const isProductCategoriesPage = /^\/market\/department\/\d+\/department-category\/\d+\/product-category\/?$/.test(
     pathname
   );
+  const isSelectedProductCategoryPage =
+    /^\/market\/department\/\d+\/department-category\/\d+\/product-category\/\d+\/?$/.test(pathname);
   // Example URL: /market/department/1/department-category/2/product-category/3
   const pathParts = pathname.split("/");
 
@@ -58,21 +60,6 @@ export default function useProductCategories() {
     } else setSelectedProductCategory(productCategory);
   };
 
-  // function getProductsByProductCategory(productCategories: ProductCategory[]) {
-  //   const productsByProductCategory: Record<string, Product[]> = {};
-
-  //   productCategories.forEach((category) => {
-  //     const productCategoryName = category.productCategoryName;
-  //     category.products.forEach((product) => {
-  //       productsByProductCategory[productCategoryName].push(product);
-  //     });
-  //   });
-
-  //   return productsByProductCategory;
-  // }
-
-  // const productsByProductCategory = getProductsByProductCategory(productCategories);
-
   const redirectToProductCategory = (departmentCategoryId: number) => {
     router.push(`/market/department/${departmentCategoryId}`);
   };
@@ -91,10 +78,10 @@ export default function useProductCategories() {
   }, [departmentCategoryId]);
 
   useEffect(() => {
-    if (productCategoryId && isProductCategoriesPage) {
+    if (productCategoryId && isSelectedProductCategoryPage) {
       fetchProductCategory(productCategoryId);
     }
-  }, [productCategoryId, isProductCategoriesPage]);
+  }, [productCategoryId, isSelectedProductCategoryPage]);
 
   const fetchProductCategories = async (id: number) => {
     try {
@@ -129,14 +116,13 @@ export default function useProductCategories() {
   function getProductsList() {
     const productsByProductCategory: Product[] = [];
     const products: Product[] = [];
-    console.log("selectedProductCategory:", selectedProductCategory);
 
     if (!selectedProductCategory) {
-      // selectedDepartmentCategory?.productCategories.forEach((cat) => {
-      //   cat.products.forEach((product) => {
-      //     productsByDepartmentCategory.push(product);
-      //   });
-      // });
+      productCategories.forEach((cat) => {
+        cat.products.forEach((product) => {
+          productsByProductCategory.push(product);
+        });
+      });
 
       return productsByProductCategory;
     } else {

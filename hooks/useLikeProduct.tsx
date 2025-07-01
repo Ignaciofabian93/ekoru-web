@@ -4,8 +4,6 @@ import { gql, useMutation } from "@apollo/client";
 export default function useLikeProduct() {
   const [likeProduct, { loading: likeLoading }] = useMutation(LIKE_PRODUCT, {
     optimisticResponse: (variables) => {
-      console.log("Optimistic response for liking product:", variables);
-
       return {
         likeProduct: {
           __typename: "ProductLike",
@@ -17,8 +15,6 @@ export default function useLikeProduct() {
     update(cache, { data: { likeProduct } }) {
       // Identify the product in the cache
       const productId = likeProduct.id; // The product's id
-      console.log("Updating cache for product ID:", productId);
-
       cache.modify({
         id: cache.identify({ __typename: "Product", id: productId }),
         fields: {
@@ -37,8 +33,6 @@ export default function useLikeProduct() {
                 }
               `,
             });
-            console.log("Adding new like to existing likes:", newLikeRef);
-
             return [...existingLikes, newLikeRef];
           },
         },

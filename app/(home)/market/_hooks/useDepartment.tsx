@@ -11,8 +11,15 @@ export default function useDepartments() {
   const router = useRouter();
   const pathname = usePathname();
   const { notifyError } = useAlert();
-  const { departments, setDepartments, selectedDepartment, setSelectedDepartment, selectedDepartmentCategory } =
-    useCategoryStore();
+  const {
+    departments,
+    setDepartments,
+    selectedDepartment,
+    setSelectedDepartment,
+    selectedDepartmentCategory,
+    setSelectedDepartmentCategory,
+    setSelectedProductCategory,
+  } = useCategoryStore();
 
   // Filtering props for selected department page
   const [selectedFilters, setSelectedFilters] = useState<Filters>({
@@ -60,6 +67,8 @@ export default function useDepartments() {
   const productsByDepartment = getProductsByDepartment(departments);
 
   const redirectToDepartment = (departmentId: number) => {
+    setSelectedDepartmentCategory(null);
+    setSelectedProductCategory(null);
     router.push(`/market/department/${departmentId}`);
   };
 

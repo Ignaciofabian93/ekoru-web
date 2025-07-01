@@ -17,6 +17,7 @@ export default function useDepartmentCategories() {
     setDepartmentCategories,
     setSelectedDepartmentCategory,
     selectedProductCategory,
+    setSelectedProductCategory,
   } = useCategoryStore();
 
   // Filtering props for selected department page
@@ -72,10 +73,12 @@ export default function useDepartmentCategories() {
   const productsByDepartmentCategory = getProductsByDepartmentCategory(departmentCategories);
 
   const redirectToDepartmentCategory = (departmentCategoryId: number) => {
+    setSelectedProductCategory(null);
     router.push(`/market/department/${departmentCategoryId}`);
   };
 
   const redirectToDepartmentCategorySelected = (departmentCategoryId: number) => {
+    setSelectedProductCategory(null);
     router.push(`/market/department/${departmentId}/department-category/${departmentCategoryId}`);
   };
 
