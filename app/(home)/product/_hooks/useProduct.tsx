@@ -200,6 +200,13 @@ export default function useProduct() {
     }
   };
 
+  const handleInterests = (fieldNumber: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const updatedInterests = [...product.interests];
+    updatedInterests[fieldNumber] = value;
+    setProduct((prev) => ({ ...prev, interests: updatedInterests }));
+  };
+
   const handleBadges = (selectedBadges: Badge[]) => {
     setProduct((prev) => ({ ...prev, badges: selectedBadges }));
   };
@@ -247,6 +254,9 @@ export default function useProduct() {
     }
   };
 
+  console.log("product: ", product);
+  console.log("product category: ", productCategory);
+
   return {
     departments,
     departmentCategories,
@@ -266,5 +276,6 @@ export default function useProduct() {
     handleBadges,
     data,
     handleImageRemove,
+    handleInterests,
   };
 }

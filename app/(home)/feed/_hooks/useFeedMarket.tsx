@@ -1,13 +1,13 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { GET_FEED_PRODUCTS } from "../_graphql/products";
-import useAlert from "@/hooks/useAlert";
+// import useAlert from "@/hooks/useAlert";
 import { Product } from "@/types/product";
 
 type Scope = "MARKET" | "STORE";
 
 export default function useFeedMarket({ scope, exchange }: { scope: Scope; exchange: boolean }) {
-  const { notifyError } = useAlert();
+  // const { notifyError } = useAlert();
   const [products, setProducts] = useState<Product[]>([]);
 
   const [Products, { loading }] = useLazyQuery(GET_FEED_PRODUCTS);
@@ -18,7 +18,7 @@ export default function useFeedMarket({ scope, exchange }: { scope: Scope; excha
       if (data) {
         setProducts(data.feedProducts);
       } else {
-        notifyError("No se encontraron productos");
+        console.log("No se encontraron productos");
       }
     }
 

@@ -40,7 +40,7 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
           )
         }
       />
-      <Button key={"signin"} text="Ingresar" type="submit" disabled={loading} />
+      <Button key={"signin"} text="Ingresar" type="submit" disabled={loading} isLoading={loading} />
       <span
         className="text-sm text-primary cursor-pointer text-center font-semibold mt-2"
         onClick={() => handleCurrentView("register")}

@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export default function ProductPageHeader() {
   return (
-    <div className={clsx("w-full", "flex flex-col items-center justify-between", "border-b border-gray-200", "gap-8")}>
-      <div className="relative w-full h-[400px] bg-accent overflow-hidden">
+    <div className={clsx("w-full", "flex flex-col items-center justify-between", "gap-8")}>
+      <div className="relative w-[95%] max-w-[1100px] h-[400px] overflow-hidden">
         {/* Blurred background image */}
         <Image
           src="/products_cover.jpg"
