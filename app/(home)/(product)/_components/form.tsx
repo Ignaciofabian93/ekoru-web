@@ -1,4 +1,7 @@
 "use client";
+import { useState } from "react";
+import { PRODUCT_COLORS } from "@/constants/colors";
+import { motion } from "framer-motion";
 import Select from "@/components/select/select";
 import TextInput from "@/components/textInput/input";
 import useProduct from "../_hooks/useProduct";
@@ -6,10 +9,8 @@ import Button from "@/components/buttons/button";
 import ImageUploader from "./imageUploader";
 import BadgeSelector from "@/components/badges/badgeSelector";
 import CheckBox from "@/components/checkbox/checkbox";
-import { useState } from "react";
 import Modal from "@/components/modal/modal";
 import ProductCard from "@/components/cards/productCard";
-import { PRODUCT_COLORS } from "@/constants/colors";
 
 export default function ProductForm() {
   const [previewProduct, setPreviewProduct] = useState<boolean>(false);
@@ -32,6 +33,8 @@ export default function ProductForm() {
     data,
     handleImageRemove,
     handleInterests,
+    productImpactCalculation,
+    totalWasteSavings,
   } = useProduct();
 
   return (
@@ -122,7 +125,12 @@ export default function ProductForm() {
             />
           </div>
           {product.isExchangeable && (
-            <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               <label className="font-semibold text-sm mb-1 block">Intereses de intercambio (al menos 3)</label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[0, 1, 2].map((idx) => (
@@ -136,7 +144,7 @@ export default function ProductForm() {
                   />
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <TextInput
@@ -257,9 +265,14 @@ export default function ProductForm() {
             />
           </div>
         </form>
-        <Modal title="Previsualización del producto" isOpen={previewProduct} close={() => setPreviewProduct(false)}>
+        <Modal
+          title="Previsualización del producto"
+          size="sm"
+          isOpen={previewProduct}
+          close={() => setPreviewProduct(false)}
+        >
           <div className="w-full h-full flex flex-col items-center justify-center">
-            <p className="font-semibold text-md leading-relaxed mb-2">*Así se verá tu producto en las búsquedas*</p>
+            <p className="font-semibold text-sm leading-relaxed mb-2">*Así se verá tu producto en las búsquedas*</p>
             <ProductCard
               id={product.id}
               title={product.name}
@@ -269,6 +282,15 @@ export default function ProductForm() {
               images={product.images}
               sellerImage={data.profileImage}
               description={product.description}
+              totalCo2Savings={productImpactCalculation.totalCo2Savings}
+              totalWaterSavings={productImpactCalculation.totalWaterSavings}
+              totalWasteSavings={totalWasteSavings}
+              badges={product.badges}
+              isButtonActivated={false}
+              isFavoriteActivated={false}
+              isSharedActivated={false}
+              interests={product.interests}
+              isExchangeable={product.isExchangeable}
             />
           </div>
         </Modal>

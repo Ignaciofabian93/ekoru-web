@@ -2,6 +2,13 @@ import { type Badge, type ProductSize, type WeightUnit } from "./enums";
 import { ProductComment, ProductLike } from "./product-interaction";
 import { User } from "./user";
 
+type MaterialType = {
+  id: string;
+  materialType: string;
+  estimatedCo2SavingsKG: number;
+  estimatedWaterSavingsLT: number;
+};
+
 export type Product = {
   __typename: "Product";
   id: number;
@@ -39,19 +46,24 @@ export type ProductCategory = {
   productCategoryName: string;
   departmentCategoryId: number;
   keywords: string[];
-  size?: ProductSize | null;
-  weightUnit?: WeightUnit | null;
-  averageWeight?: number | null;
-  firstMaterialTypeId?: number | null;
-  firstMaterialTypeQuantity?: number | null;
-  secondMaterialTypeId?: number | null;
-  secondMaterialTypeQuantity?: number | null;
-  thirdMaterialTypeId?: number | null;
-  thirdMaterialTypeQuantity?: number | null;
-  fourthMaterialTypeId?: number | null;
-  fourthMaterialTypeQuantity?: number | null;
-  fifthMaterialTypeId?: number | null;
-  fifthMaterialTypeQuantity?: number | null;
+  size: ProductSize;
+  weightUnit: WeightUnit;
+  averageWeight: number;
+  firstMaterialType: MaterialType | null;
+  secondMaterialType: MaterialType | null;
+  thirdMaterialType: MaterialType | null;
+  fourthMaterialType: MaterialType | null;
+  fifthMaterialType: MaterialType | null;
+  firstMaterialTypeId: number | null;
+  firstMaterialTypeQuantity: number | null;
+  secondMaterialTypeId: number | null;
+  secondMaterialTypeQuantity: number | null;
+  thirdMaterialTypeId: number | null;
+  thirdMaterialTypeQuantity: number | null;
+  fourthMaterialTypeId: number | null;
+  fourthMaterialTypeQuantity: number | null;
+  fifthMaterialTypeId: number | null;
+  fifthMaterialTypeQuantity: number | null;
   products: Product[];
 };
 

@@ -24,8 +24,8 @@ export default function SubNavigation() {
   }));
 
   const uploadProduct = () => {
-    if (pathname === "/product") return;
-    router.push("/product");
+    if (pathname === "/new") return;
+    router.push("/new");
   };
 
   return (

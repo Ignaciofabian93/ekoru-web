@@ -1,4 +1,3 @@
-import Button from "@/components/buttons/button";
 import { RotateCw } from "lucide-react";
 import Image from "next/image";
 import co2 from "@/assets/icons/co2.png";
@@ -9,11 +8,10 @@ type CardDetailsProps = {
   userProfileImage?: string;
   userName?: string;
   userLocation?: string;
-  ratings?: number;
   description?: string;
-  estimatedCo2SavingsKG?: number;
-  estimatedWasteSavingsKG?: number;
-  estimatedWaterSavingsLT?: number;
+  totalCo2Savings?: number;
+  totalWasteSavings?: number;
+  totalWaterSavings?: number;
   onBack: () => void;
 };
 
@@ -22,9 +20,9 @@ export default function CardDetails({
   userName,
   userLocation,
   onBack,
-  estimatedCo2SavingsKG = 0,
-  estimatedWasteSavingsKG = 0,
-  estimatedWaterSavingsLT = 0,
+  totalCo2Savings = 0,
+  totalWasteSavings = 0,
+  totalWaterSavings = 0,
 }: CardDetailsProps) {
   return (
     <div className="flex flex-col items-center card-gradient w-full h-full relative justify-between pb-3 px-4">
@@ -34,9 +32,9 @@ export default function CardDetails({
             e.stopPropagation();
             onBack();
           }}
-          className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
+          className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
         >
-          <RotateCw className="w-5 h-5 text-primary" />
+          <RotateCw className="w-4 h-4 text-primary" />
         </button>
       </div>
       <div className="flex flex-col items-center mt-8 mb-2">
@@ -44,47 +42,42 @@ export default function CardDetails({
           <Image
             src={userProfileImage}
             alt={userName || "Usuario"}
-            width={55}
-            height={55}
-            className="rounded-full mb-2 object-cover w-[80px] h-[80px] shadow-md"
+            width={45}
+            height={45}
+            className="rounded-full mb-2 object-cover w-[60px] h-[60px] shadow-md"
           />
         )}
-        {userName && <p className="font-semibold text-base">{userName}</p>}
-        {userLocation && <p className="text-sm text-gray-500">{userLocation}</p>}
-        {/* {typeof ratings === "number" && (
-          <div className="flex items-center gap-1 mt-1">
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-            <span className="text-xs font-semibold">{ratings}/5</span>
-          </div>
-        )} */}
+        {userName && <p className="font-semibold text-base line-clamp-2">{userName}</p>}
+        {userLocation && <p className="text-sm text-gray-500 line-clamp-2">{userLocation}</p>}
       </div>
-      <p className="text-gray-700 text-xs mb-2 text-center">
-        El impacto de tu compra se representa en las siguientes cifras:
-      </p>
       <div className="w-full">
+        <p className="text-gray-700 text-xs mb-2 text-center">
+          El impacto de tu compra se representa en las siguientes cifras:
+        </p>
         <div className="flex items-center justify-center gap-2 mb-2 text-primary-dark">
-          <div className="flex flex-col items-center w-[60px]">
-            <div className="flex items-center justify-center w-8 h-8">
-              <Image src={co2} alt="CO2 savings" width={24} height={24} className="object-contain" />
+          <div className="flex flex-col items-center w-[70px]">
+            <div className="flex items-center justify-center w-7 h-7">
+              <Image src={co2} alt="CO2 savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-sm font-semibold">-{estimatedCo2SavingsKG} kg</span>
+            <span className="text-xs font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
           </div>
-          <div className="flex flex-col items-center w-[60px]">
-            <div className="flex items-center justify-center w-8 h-8">
-              <Image src={drop} alt="Water savings" width={24} height={24} className="object-contain" />
+
+          <div className="flex flex-col items-center w-[70px]">
+            <div className="flex items-center justify-center w-7 h-7">
+              <Image src={drop} alt="Water savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-sm font-semibold">-{estimatedWaterSavingsLT} L</span>
+            <span className="text-xs font-semibold">-{totalWaterSavings} L</span>
           </div>
-          <div className="flex flex-col items-center w-[60px]">
-            <div className="flex items-center justify-center w-8 h-8">
-              <Image src={waste} alt="Waste savings" width={24} height={24} className="object-contain" />
+
+          <div className="flex flex-col items-center w-[70px]">
+            <div className="flex items-center justify-center w-7 h-7">
+              <Image src={waste} alt="Waste savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-sm font-semibold">-{estimatedWasteSavingsKG} kg</span>
+            <span className="text-xs font-semibold">-{totalWasteSavings} kg</span>
           </div>
         </div>
       </div>
       <span className="text-[12px] text-gray-500 text-center">*Los valores son aproximados*</span>
-      <Button text="¡Me interesa!" onClick={onBack} size="sm" />
     </div>
   );
 }
