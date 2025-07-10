@@ -29,8 +29,8 @@ export default function CardInfo({
       })}
     >
       <div className="w-full flex flex-col gap-0.5">
-        <p className="text-lg font-semibold truncate">{title}</p>
-        <p className="text-sm text-gray-600 line-clamp-2">{description}</p>
+        <p className="text-base font-semibold truncate">{title}</p>
+        <p className="text-xs text-gray-600 line-clamp-2">{description}</p>
       </div>
       {isExchangeable ? (
         <div className="w-full flex flex-col items-start mt-2 relative">
@@ -48,7 +48,7 @@ export default function CardInfo({
           </div>
         </div>
       ) : (
-        <p className="text-xl font-bold text-primary">${price?.toLocaleString()}</p>
+        <p className="text-lg font-bold text-primary">${price?.toLocaleString()}</p>
       )}
     </div>
   );

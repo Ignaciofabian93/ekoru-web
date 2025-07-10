@@ -7,6 +7,8 @@ import ProductCard from "@/components/cards/productCard";
 export default function MyProducts() {
   const { myProducts, data } = useProfile();
 
+  console.log("MyProducts component data:", myProducts);
+
   return (
     <div className={clsx("w-full min-h-[400px] flex flex-col items-center justify-start", "mx-auto px-4 mb-8")}>
       <SectionTitle title="Mis Productos" />

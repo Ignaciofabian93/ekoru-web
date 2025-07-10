@@ -2,40 +2,42 @@ import { gql } from "@apollo/client";
 
 export const ADD_PRODUCT = gql`
   mutation AddProduct(
-    $name: String!
-    $brand: String
     $sku: String
     $barcode: String
     $color: String
-    $badges: [String]
+    $brand: String
+    $name: String!
     $description: String!
     $price: Int!
+    $images: [String]
     $hasOffer: Boolean
     $offerPrice: Int
-    $isExchangeable: Boolean
-    $isActive: Boolean
     $stock: Int!
+    $isExchangeable: Boolean
+    $interests: [String]
+    $isActive: Boolean
+    $badges: [String]
     $productCategoryId: Int!
     $userId: String!
-    $images: [String]
   ) {
     addProduct(
-      name: $name
-      brand: $brand
       sku: $sku
       barcode: $barcode
       color: $color
-      badges: $badges
-      isExchangeable: $isExchangeable
-      isActive: $isActive
+      brand: $brand
+      name: $name
       description: $description
       price: $price
+      images: $images
       hasOffer: $hasOffer
       offerPrice: $offerPrice
       stock: $stock
+      isExchangeable: $isExchangeable
+      interests: $interests
+      isActive: $isActive
+      badges: $badges
       productCategoryId: $productCategoryId
       userId: $userId
-      images: $images
     ) {
       id
       name

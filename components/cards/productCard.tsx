@@ -52,8 +52,8 @@ export default function ProductCard({
   const carouselImages = images.length > 0 ? images.slice(0, 3) : [];
 
   return (
-    <div className={clsx("min-w-[220px] w-full max-w-[220px] h-auto pb-3")}>
-      <div className="card-flip-perspective h-[400px]">
+    <div className={clsx("min-w-[180px] w-full max-w-[180px] h-auto pb-3")}>
+      <div className="card-flip-perspective h-[350px]">
         <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""} h-full`}>
           {/* Front Side */}
           <div className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3">

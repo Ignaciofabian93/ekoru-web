@@ -58,7 +58,7 @@ export default function ProductForm() {
               onChange={selectDepartmentCategory}
               labelText="Categoría"
               hasLabel
-              disabled={!department.id}
+              disabled={!department.id || !departmentCategories.length}
             />
             <Select
               name="productCategory"
@@ -67,7 +67,7 @@ export default function ProductForm() {
               onChange={selectProductCategory}
               labelText="Tipo de producto"
               hasLabel
-              disabled={!departmentCategory.id}
+              disabled={!departmentCategory.id || !productCategories.length}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
