@@ -21,7 +21,6 @@ export default function ProductsGrid({ products }: Props) {
               location={`${product.user?.county.county}, ${product.user?.city.city}`}
               price={product.price}
               images={product.images}
-              likes={product.likes}
             />
           ))}
         </div>
