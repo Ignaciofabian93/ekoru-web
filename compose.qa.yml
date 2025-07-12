@@ -1,0 +1,19 @@
+services:
+  app_qa:
+    build:
+      context: .
+      dockerfile: Dockerfile.qa
+    restart: always
+    container_name: app_qa
+    ports:
+      - "3100:3000"
+    environment:
+      - NODE_ENV=qa
+    env_file:
+      - .env.qa
+    networks:
+      - ekoru-network
+
+networks:
+  ekoru-network:
+    external: true

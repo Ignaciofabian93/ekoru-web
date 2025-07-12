@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "deploy-qa": "./deploy.qa.bash",
+    "deploy-prod": "./deploy.prod.bash"
   },
   "dependencies": {
     "@apollo/client": "^3.13.0",
