@@ -4,8 +4,8 @@ export const ENVIRONMENT: Environment = (process.env.ENVIRONMENT as Environment)
 
 const gatewayUrls: Record<Environment, string> = {
   development: "http://localhost:4000",
-  qa: "https://gateway_qa.ekoru.cl",
-  production: "https://gateway_prod.ekoru.cl",
+  qa: "https://qa.gateway.ekoru.cl",
+  production: "https://gateway.ekoru.cl",
 };
 
 export const GRAPHQL_URL = `${gatewayUrls[ENVIRONMENT]}/graphql`;
