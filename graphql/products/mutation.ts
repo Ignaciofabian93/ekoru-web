@@ -16,7 +16,7 @@ export const ADD_PRODUCT = gql`
     $isExchangeable: Boolean
     $interests: [String]
     $isActive: Boolean
-    $badges: [String]
+    $badges: [Badge]
     $productCategoryId: Int!
     $userId: String!
   ) {
