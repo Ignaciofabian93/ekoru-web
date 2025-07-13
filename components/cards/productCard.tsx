@@ -56,7 +56,7 @@ export default function ProductCard({
       <div className="card-flip-perspective h-[350px]">
         <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""} h-full`}>
           {/* Front Side */}
-          <div className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3">
+          <div className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 z-20">
             <CardImage
               id={id}
               images={carouselImages}
@@ -77,7 +77,7 @@ export default function ProductCard({
             {!isExchangeable && <CardCTA isButtonActivated={isButtonActivated} />}
           </div>
           {/* Back Side */}
-          <div className="card-flip-back">
+          <div className="card-flip-back z-10">
             <CardDetails
               userProfileImage={sellerPreview}
               userName={seller || "Vendedor Anónimo"}
