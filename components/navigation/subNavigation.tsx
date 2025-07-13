@@ -45,8 +45,8 @@ export default function SubNavigation() {
         <NavDropDown title="Comunidad" items={[]} disabled />
         <NavDropDown title="Cultura" items={[]} disabled />
       </div>
-      <div className="flex items-center justify-center">
-        <Button text="Vender" onClick={uploadProduct} size="sm" />
+      <div className="flex items-center justify-center w-[20%]">
+        <Button text="Vender" onClick={uploadProduct} size="lg" />
       </div>
     </div>
   );

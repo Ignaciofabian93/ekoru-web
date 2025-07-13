@@ -17,16 +17,19 @@ export default function FeedPage() {
       <Banner
         title="¿hasta dónde llega tu impacto?"
         description="Pequeños retos, grandes cambios. ¡Empieza hoy a descubrirlos!"
+        variant="bordered"
       />
       <DynamicInfoSection />
       <Banner
         title="dale una segunda vida"
         description="¡Tu elección hace la diferencia! Reduce, reutiliza, impacta."
+        variant="ghosted"
       />
       <MarketMainProducts />
       <Banner
         title="tiendas con propósito"
-        description="Apoya marcar que respeten el planeta, las personas y tus valores."
+        description="Apoya marcas que respeten el planeta, las personas y tus valores."
+        variant="filled"
       />
       <StoreMainProducts />
     </PageWrapper>

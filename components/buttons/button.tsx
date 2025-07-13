@@ -18,7 +18,7 @@ export default function Button({
   ...rest
 }: Button) {
   className = clsx(
-    "min-w-[120px]",
+    "min-w-[100px] text-sm",
     "flex items-center justify-center",
     "rounded-full",
     "font-semibold",
@@ -30,8 +30,8 @@ export default function Button({
       "w-[80%] py-2": size === "lg",
       "w-[60%] py-2": size === "md",
       "w-[50%] py-1": size === "sm",
-      "h-[32px]": size === "sm" || size === "md",
-      "h-[42px]": size === "lg" || size === "full",
+      "h-[26px]": size === "sm" || size === "md",
+      "h-[34px]": size === "lg" || size === "full",
     },
     {
       "bg-primary text-main-inverted border-[1px] border-primary": variant === "primary",
