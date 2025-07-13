@@ -18,6 +18,8 @@ export default function CategorySection({
   subtitle,
   departmentsLoading = false,
 }: CategorySection) {
+  console.log("Rendering CategorySection with products:", products);
+
   return (
     <>
       {departmentsLoading ? (
@@ -32,17 +34,14 @@ export default function CategorySection({
                   <ProductCard
                     key={product.id}
                     id={product.id}
-                    seller={
-                      product.user?.name && product.user?.surnames
-                        ? `${product.user?.name} ${product.user?.surnames}`
-                        : product.user?.businessName
-                    }
+                    seller={product.user?.name || product.user?.businessName}
                     sellerImage={product.user?.profileImage}
                     location={`${product.user?.county.county}, ${product.user?.city.city}`}
                     title={product.name}
                     description={product.description}
                     price={product.price}
                     images={product.images}
+                    productCategory={product.productCategory}
                   />
                 ))}
               </div>

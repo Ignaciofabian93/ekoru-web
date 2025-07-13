@@ -134,12 +134,12 @@ export default function CardDetails({
             <span className="text-xs font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
           </div>
 
-          <div className="flex flex-col items-center w-[90px] cursor-pointer" onClick={handleWaterClick}>
+          <div className="flex flex-col items-center w-[96px] cursor-pointer" onClick={handleWaterClick}>
             <Info className="w-[14px] h-[14px]" />
             <div className="flex items-center justify-center w-9 h-8">
               <Image src={drop} alt="Water savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-xs font-semibold">-{totalWaterSavings} L</span>
+            <span className="text-xs font-semibold">-{totalWaterSavings.toFixed(1)} L</span>
           </div>
 
           <div className="flex flex-col items-center w-[90px] cursor-pointer" onClick={handleWasteClick}>
@@ -147,7 +147,7 @@ export default function CardDetails({
             <div className="flex items-center justify-center w-9 h-8">
               <Image src={waste} alt="Waste savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-xs font-semibold">-{totalWasteSavings} kg</span>
+            <span className="text-xs font-semibold">-{totalWasteSavings.toFixed(1)} kg</span>
           </div>
         </div>
       </div>

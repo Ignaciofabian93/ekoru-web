@@ -25,11 +25,15 @@ export default function MarketMainProducts() {
               <ProductCard
                 onClick={() => redirectToProduct(product.id)}
                 key={product.id}
-                {...product}
+                id={product.id}
                 images={product.images}
                 title={product.name}
+                seller={product.user?.name || product.user?.businessName}
                 sellerImage={product.user?.profileImage}
-                location={product.user?.city?.city}
+                location={`${product.user?.county.county}, ${product.user?.city.city}`}
+                description={product.description}
+                price={product.price}
+                productCategory={product.productCategory}
               />
             ))}
           </div>

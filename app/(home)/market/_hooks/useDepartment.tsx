@@ -55,7 +55,10 @@ export default function useDepartments() {
             if (!productsByDepartment[departmentName]) {
               productsByDepartment[departmentName] = [];
             }
-            productsByDepartment[departmentName].push(product);
+            productsByDepartment[departmentName].push({
+              ...product,
+              productCategory: prodCategory,
+            });
           });
         });
       });

@@ -25,6 +25,8 @@ export default function useFeedMarket({ scope, exchange }: { scope: Scope; excha
     fetchProducts();
   }, []);
 
+  console.log("products: ", products);
+
   return {
     products,
     loading,

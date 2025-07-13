@@ -25,6 +25,55 @@ export const GET_FEED_PRODUCTS = gql`
       createdAt
       updatedAt
       productCategoryId
+      productCategory {
+        id
+        productCategoryName
+        departmentCategoryId
+        keywords
+        averageWeight
+        firstMaterialTypeId
+        firstMaterialTypeQuantity
+        secondMaterialTypeId
+        secondMaterialTypeQuantity
+        thirdMaterialTypeId
+        thirdMaterialTypeQuantity
+        fourthMaterialTypeId
+        fourthMaterialTypeQuantity
+        fifthMaterialTypeId
+        fifthMaterialTypeQuantity
+        size
+        weightUnit
+        firstMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        secondMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        thirdMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fourthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fifthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+      }
       userId
       user {
         id

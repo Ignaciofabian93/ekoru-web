@@ -6,6 +6,8 @@ import CardDetails from "./product/cardDetails";
 import clsx from "clsx";
 import { Badge } from "@/types/enums";
 import BadgeLabel from "../badges/badge";
+import { ProductCategory } from "@/types/product";
+import { impactCalculator } from "@/utils/impactCalc";
 
 type ProductCard = {
   id: number;
@@ -25,6 +27,7 @@ type ProductCard = {
   isButtonActivated?: boolean;
   isExchangeable?: boolean;
   interests?: string[];
+  productCategory?: ProductCategory;
   onClick?: () => void;
 };
 
@@ -41,15 +44,30 @@ export default function ProductCard({
   isFavoriteActivated = true,
   isSharedActivated = true,
   isButtonActivated = true,
-  totalCo2Savings = 0,
-  totalWaterSavings = 0,
-  totalWasteSavings = 0,
   isExchangeable = false,
   interests = [],
+  productCategory,
 }: ProductCard) {
   const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";
   const carouselImages = images.length > 0 ? images.slice(0, 3) : [];
+
+  const productImpactCalculation =
+    productCategory &&
+    impactCalculator({
+      firstMaterialType: productCategory.firstMaterialType,
+      firstMaterialTypeQuantity: productCategory.firstMaterialTypeQuantity,
+      secondMaterialType: productCategory.secondMaterialType,
+      secondMaterialTypeQuantity: productCategory.secondMaterialTypeQuantity,
+      thirdMaterialType: productCategory.thirdMaterialType,
+      thirdMaterialTypeQuantity: productCategory.thirdMaterialTypeQuantity,
+      fourthMaterialType: productCategory.fourthMaterialType,
+      fourthMaterialTypeQuantity: productCategory.fourthMaterialTypeQuantity,
+      fifthMaterialType: productCategory.fifthMaterialType,
+      fifthMaterialTypeQuantity: productCategory.fifthMaterialTypeQuantity,
+    });
+
+  const totalWasteSavings = productCategory?.averageWeight ?? 0;
 
   return (
     <div className={clsx("min-w-[180px] w-full max-w-[180px] h-auto pb-3")}>
@@ -84,8 +102,8 @@ export default function ProductCard({
               userLocation={location || "Ubicación no disponible"}
               description={description}
               onBack={() => setFlipped(false)}
-              totalCo2Savings={totalCo2Savings}
-              totalWaterSavings={totalWaterSavings}
+              totalCo2Savings={productImpactCalculation?.totalCo2Savings}
+              totalWaterSavings={productImpactCalculation?.totalWaterSavings}
               totalWasteSavings={totalWasteSavings}
             />
           </div>

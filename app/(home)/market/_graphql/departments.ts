@@ -11,6 +11,20 @@ export const GET_DEPARTMENTS = gql`
         productCategories {
           id
           productCategoryName
+          keywords
+          averageWeight
+          firstMaterialTypeId
+          firstMaterialTypeQuantity
+          secondMaterialTypeId
+          secondMaterialTypeQuantity
+          thirdMaterialTypeId
+          thirdMaterialTypeQuantity
+          fourthMaterialTypeId
+          fourthMaterialTypeQuantity
+          fifthMaterialTypeId
+          fifthMaterialTypeQuantity
+          size
+          weightUnit
           products {
             id
             sku
@@ -99,6 +113,20 @@ export const GET_DEPARTMENT = gql`
         productCategories {
           id
           productCategoryName
+          keywords
+          averageWeight
+          firstMaterialTypeId
+          firstMaterialTypeQuantity
+          secondMaterialTypeId
+          secondMaterialTypeQuantity
+          thirdMaterialTypeId
+          thirdMaterialTypeQuantity
+          fourthMaterialTypeId
+          fourthMaterialTypeQuantity
+          fifthMaterialTypeId
+          fifthMaterialTypeQuantity
+          size
+          weightUnit
           products {
             id
             sku

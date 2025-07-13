@@ -13,11 +13,9 @@ export default function StoreMainProducts() {
   return (
     <section className="w-[94%] px-4 py-8 mb-8 relative mx-auto">
       <div className="flex items-center gap-2 mb-1 px-2">
-        <h2 className="text-xl font-semibold">Productos reciclados y de segunda mano</h2>
+        <h2 className="text-xl font-semibold">Productos innovadores que salvan el medio ambiente</h2>
       </div>
-      <p className="text-main text-sm mb-4 px-2">
-        Descubre productos únicos y ayuda al planeta. ¡Sube el tuyo o encuentra algo especial!
-      </p>
+      <p className="text-main text-sm mb-4 px-2">Busca tus productos favoritos mientras reduces tu huella.</p>
       {products.length ? (
         <div className="relative w-full">
           {/* Left fade */}
@@ -29,11 +27,15 @@ export default function StoreMainProducts() {
               <ProductCard
                 onClick={() => redirectToProduct(product.id)}
                 key={product.id}
-                {...product}
+                id={product.id}
                 images={product.images}
                 title={product.name}
                 sellerImage={product.user?.profileImage}
-                location={product.user?.city?.city}
+                seller={product.user?.name || product.user?.businessName}
+                description={product.description}
+                price={product.price}
+                productCategory={product.productCategory}
+                location={`${product.user?.county.county}, ${product.user?.city.city}`}
               />
             ))}
           </div>
