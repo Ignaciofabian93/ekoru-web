@@ -37,8 +37,12 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
   const renderItems = (items: DropdownItem[], level = 0, parentIds: number[] = []) => {
     // Determine the "View All" link for this level
     let viewAllHref = "#";
-    if (level === 0) {
-      viewAllHref = "/market/department";
+    if (level === 0 && items.length > 0 && items[0].href) {
+      // Extract the first segment (e.g., /market or /stores)
+      const match = items[0].href.match(/^\/(\w+)/);
+      if (match) {
+        viewAllHref = `/${match[1]}`;
+      }
     } else if (level === 1 && parentIds.length > 0) {
       viewAllHref = `/market/department/${parentIds[0]}/department-category`;
     } else if (level === 2 && parentIds.length > 1) {

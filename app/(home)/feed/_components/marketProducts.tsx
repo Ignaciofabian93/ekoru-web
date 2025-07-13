@@ -6,8 +6,6 @@ export default function MarketMainProducts() {
   const router = useRouter();
   const { products } = useFeedMarket({ scope: "MARKET", exchange: false });
 
-  console.log("MarketMainProducts - products:", products);
-
   const redirectToProduct = (productId: number) => {
     router.push(`/market/${productId}`);
   };

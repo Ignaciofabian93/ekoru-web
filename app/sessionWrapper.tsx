@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { RefreshToken } from "@/services/auth/rest-auth";
 import useSessionStore from "@/store/session";
-import logo from "@/assets/logo.png";
 import Image from "next/image";
 import useAlert from "@/hooks/useAlert";
 
@@ -117,7 +116,7 @@ export default function SessionWrapper({
             transition={{ duration: 2, ease: "easeInOut" }}
             onAnimationComplete={() => setAnimationDone(true)}
           >
-            <Image src={logo} alt="Logo Ekoru" priority width={4096} className="w-[40%] mx-auto" />
+            <Image src={"/branding/logo.webp"} alt="Logo EKORU" priority width={4096} className="w-[40%] mx-auto" />
           </motion.div>
         </AnimatePresence>
       </main>

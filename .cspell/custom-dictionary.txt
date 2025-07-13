@@ -1,6 +1,6 @@
 # Custom Dictionary Words
 clóset
-Ekoru
+EKORU
 esnext
 Reacondicionado
 Reciclador

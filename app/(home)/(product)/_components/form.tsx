@@ -48,7 +48,7 @@ export default function ProductForm() {
               value={department.id}
               options={departments.map((d) => ({ label: d.departmentName, value: d.id }))}
               onChange={selectDepartment}
-              labelText="Departamento"
+              labelText="Departamento *"
               hasLabel
             />
             <Select
@@ -56,7 +56,7 @@ export default function ProductForm() {
               value={departmentCategory.id}
               options={departmentCategories.map((d) => ({ label: d.departmentCategoryName, value: d.id }))}
               onChange={selectDepartmentCategory}
-              labelText="Categoría"
+              labelText="Categoría *"
               hasLabel
               disabled={!department.id || !departmentCategories.length}
             />
@@ -65,7 +65,7 @@ export default function ProductForm() {
               value={productCategory.id}
               options={productCategories.map((d) => ({ label: d.productCategoryName, value: d.id }))}
               onChange={selectProductCategory}
-              labelText="Tipo de producto"
+              labelText="Tipo de producto *"
               hasLabel
               disabled={!departmentCategory.id || !productCategories.length}
             />
@@ -84,20 +84,37 @@ export default function ProductForm() {
               name="name"
               placeholder="Producto"
               hasLabel
-              labelText="Nombre del producto"
+              labelText="Nombre del producto *"
               value={product.name}
               onChange={handleProduct}
-              disabled={!product.brand}
+              disabled={!productCategory.id}
             />
             <TextInput
+              type="number"
               name="price"
               placeholder="Precio"
               hasLabel
-              labelText="Precio"
+              labelText="Precio *"
               infoIcon
               infoText="Ingresa el precio sin puntos ni signos"
-              value={product.price}
+              value={product.price === 0 ? "" : product.price}
               onChange={handleProduct}
+              onFocus={(e) => {
+                if (product.price === 0) {
+                  handleProduct({
+                    ...e,
+                    target: { ...e.target, value: "" },
+                  });
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  handleProduct({
+                    ...e,
+                    target: { ...e.target, value: "0" },
+                  });
+                }
+              }}
               disabled={!product.name}
             />
           </div>
@@ -131,7 +148,7 @@ export default function ProductForm() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <label className="font-semibold text-sm mb-1 block">Intereses de intercambio (al menos 3)</label>
+              <label className="font-semibold text-sm mb-1 block">Intereses de intercambio (al menos 3) *</label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[0, 1, 2].map((idx) => (
                   <TextInput
@@ -148,14 +165,31 @@ export default function ProductForm() {
           )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <TextInput
+              type="number"
               name="offerPrice"
               placeholder="Precio de oferta"
               hasLabel
-              labelText="Precio de oferta (opcional)"
+              labelText="Precio de oferta"
               infoIcon
               infoText="Al ingresar precio oferta este será el precio principal mientras se muestra el precio original tachado"
               value={product.offerPrice}
               onChange={handleProduct}
+              onFocus={(e) => {
+                if (product.offerPrice === 0) {
+                  handleProduct({
+                    ...e,
+                    target: { ...e.target, value: "" },
+                  });
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  handleProduct({
+                    ...e,
+                    target: { ...e.target, value: "0" },
+                  });
+                }
+              }}
               disabled={!product.hasOffer}
             />
             <TextInput
@@ -163,10 +197,26 @@ export default function ProductForm() {
               name="stock"
               placeholder="Unidades"
               hasLabel
-              labelText="Unidades"
-              value={product.stock}
+              labelText="Unidades *"
+              value={product.stock === 0 ? "" : product.stock}
               onChange={handleProduct}
-              disabled={!product.name}
+              onFocus={(e) => {
+                if (product.stock === 0) {
+                  handleProduct({
+                    ...e,
+                    target: { ...e.target, value: "" },
+                  });
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  handleProduct({
+                    ...e,
+                    target: { ...e.target, value: "0" },
+                  });
+                }
+              }}
+              disabled={!product.price}
             />
             <Select
               name="color"
@@ -192,7 +242,7 @@ export default function ProductForm() {
                 name="sku"
                 placeholder="SKU"
                 hasLabel
-                labelText="SKU (opcional)"
+                labelText="SKU"
                 value={product.sku || ""}
                 onChange={handleProduct}
                 disabled={!product.name}
@@ -201,7 +251,7 @@ export default function ProductForm() {
                 name="barcode"
                 placeholder="Código de barras"
                 hasLabel
-                labelText="Código de barras (opcional)"
+                labelText="Código de barras"
                 value={product.barcode || ""}
                 onChange={handleProduct}
                 disabled={!product.name}
@@ -248,7 +298,7 @@ export default function ProductForm() {
           </div>
           <div className="flex items-center justify-center gap-4 mt-4">
             <Button
-              text="Previsualizar producto"
+              text="Previsualizar"
               onClick={() => setPreviewProduct(true)}
               type="button"
               variant="secondary"
@@ -256,7 +306,7 @@ export default function ProductForm() {
               className="w-1/2"
             />
             <Button
-              text="Guardar producto"
+              text="Guardar"
               onClick={handleSubmit}
               type="submit"
               variant="primary"

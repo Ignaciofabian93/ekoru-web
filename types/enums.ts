@@ -20,7 +20,6 @@ export type Badge =
   | "LIMITED_STOCK"
   | "SEASONAL"
   | "FREE_SHIPPING"
-  | "NEW"
   | "USED"
   | "SLIGHT_DAMAGE"
   | "WORN"

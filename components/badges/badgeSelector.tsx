@@ -26,7 +26,6 @@ const STORE_BADGES: BadgeType[] = [
 ];
 
 const MARKET_BADGES: BadgeType[] = [
-  "NEW",
   "USED",
   "SLIGHT_DAMAGE",
   "WORN",

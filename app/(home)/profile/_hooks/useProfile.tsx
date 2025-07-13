@@ -43,8 +43,6 @@ export default function useProfile() {
     const fetchProducts = async () => {
       try {
         const { data } = await GetProductsByOwner({ variables: { id: id } });
-        console.log("Fetched products:", data);
-
         setMyProducts(data.productsByOwner);
       } catch (error) {
         console.error("Error fetching products:", error);

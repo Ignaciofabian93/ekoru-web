@@ -233,7 +233,8 @@ export default function useProduct() {
     } else if (name === "hasOffer" || name === "isActive") {
       setProduct((prev) => ({ ...prev, [name]: checked }));
     } else if (name === "stock") {
-      const parsedValue = Number(e.target.value);
+      const value = e.target.value.replace(/^0+(?!$)/, "");
+      const parsedValue = value === "" ? 0 : Number(value);
       setProduct((prev) => ({ ...prev, [name]: parsedValue }));
     } else {
       setProduct((prev) => ({ ...prev, [name]: e.target.value }));
@@ -285,7 +286,7 @@ export default function useProduct() {
     e.preventDefault();
     const { name, description, price, stock, images } = product;
     if (!name || !description || !price || !stock || images.length === 0) {
-      notifyError("Todos los campos son obligatorios");
+      notifyError("Debe llenar todos los campos obligatorios y subir al menos una imagen");
     } else {
       await AddProduct({
         variables: {
@@ -310,9 +311,6 @@ export default function useProduct() {
       });
     }
   };
-
-  console.log("product: ", product);
-  console.log("product category: ", productCategory);
 
   const productImpactCalculation = impactCalculator({
     firstMaterialType: productCategory.firstMaterialType,

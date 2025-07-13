@@ -4,11 +4,13 @@ import NavDropDown, { DropdownItem } from "./navDropdown";
 import clsx from "clsx";
 import Button from "../buttons/button";
 import useMarketCatalog from "@/app/(home)/market/_hooks/useCatalog";
+import useStoreList from "@/app/(home)/stores/_hooks/useStores";
 
 export default function SubNavigation() {
   const router = useRouter();
   const pathname = usePathname();
   const { catalog, catalogLoading } = useMarketCatalog();
+  const { stores, storesLoading } = useStoreList();
 
   const marketTree: DropdownItem[] = catalog.map((dept) => ({
     label: dept.departmentName,
@@ -21,6 +23,11 @@ export default function SubNavigation() {
         href: `/market/department/${dept.id}/department-category/${cat.id}/product-category/${prodCat.id}`,
       })),
     })),
+  }));
+
+  const storesTree: DropdownItem[] = stores.map((store) => ({
+    label: store.businessName as string,
+    href: `/stores/${store.id}`,
   }));
 
   const uploadProduct = () => {
@@ -40,7 +47,7 @@ export default function SubNavigation() {
     >
       <div className={clsx("max-w-[1600px] mx-auto w-full h-full", "flex items-center justify-start gap-4", "py-4")}>
         <NavDropDown title="Mercado" items={marketTree} disabled={catalogLoading} />
-        <NavDropDown title="Tiendas" items={[]} disabled />
+        <NavDropDown title="Tiendas" items={storesTree} disabled={storesLoading} />
         <NavDropDown title="Servicios" items={[]} disabled />
         <NavDropDown title="Comunidad" items={[]} disabled />
         <NavDropDown title="Cultura" items={[]} disabled />

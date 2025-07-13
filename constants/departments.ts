@@ -1,6 +1,6 @@
 export const DepartmentNames = {
   AUTOMOTRIZ: "Automotriz",
-  BEBES: "Bebés",
+  BEBES: "Niños y bebés",
   DEPORTES: "Deportes y Outdoor",
   ELECTROHOGAR: "Electrohogar",
   ENTRETENCION: "Entretención",

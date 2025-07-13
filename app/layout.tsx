@@ -10,7 +10,7 @@ const cabin = Cabin({
 });
 
 export const metadata: Metadata = {
-  title: "Ekoru",
+  title: "EKORU",
   description: "Venta sustentable",
 };
 

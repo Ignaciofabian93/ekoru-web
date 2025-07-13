@@ -50,8 +50,8 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center">
           <div className="w-48 md:w-56 mb-4">
             <Image
-              src="/logo.png"
-              alt="Ekoru Logo"
+              src="/branding/logo.webp"
+              alt="EKORU Logo"
               width={4096}
               height={996}
               className="w-full h-auto object-contain"
@@ -84,7 +84,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <p className="text-center mt-6 text-sm font-semibold text-main">
-        &copy; 2025 Ekoru. Todos los derechos reservados.
+        &copy; 2025 EKORU. Todos los derechos reservados.
       </p>
     </footer>
   );
