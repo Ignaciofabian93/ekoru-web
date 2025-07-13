@@ -88,12 +88,13 @@ export default function RegisterForm({ handleCurrentView }: RegisterForm) {
           onChange={handleFormChange}
         />
       </div>
-      <Button text="Registrarse" type="submit" disabled={authLoading} className="mt-6" />
+      <Button text="Registrarse" type="submit" isLoading={authLoading} className="mt-6" />
       <Button
         text="Volver"
         type="button"
         variant="secondary"
         disabled={authLoading}
+        isLoading={false}
         className="mt-4"
         onClick={() => handleCurrentView("login")}
       />

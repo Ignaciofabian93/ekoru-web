@@ -43,7 +43,7 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("/background.png");
+  background-image: url("/branding/background.jpg");
   background-size: cover; /* or contain, or 100% 100% */
   background-repeat: no-repeat;
   background-position: center;
