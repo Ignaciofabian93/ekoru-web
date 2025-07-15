@@ -36,24 +36,26 @@ export default function SubNavigation() {
   };
 
   return (
-    <div
-      className={clsx(
-        "hidden md:flex w-full max-w-[1300px] h-[44px] py-2 pr-4 pl-2 mx-auto",
-        "bg-white text-sm font-normal",
-        "text-[16px]",
-        "transition-all ease-in-out duration-300",
-        "border-b border-primary"
-      )}
-    >
-      <div className={clsx("max-w-[1600px] mx-auto w-full h-full", "flex items-center justify-start gap-4", "py-4")}>
-        <NavDropDown title="Mercado" items={marketTree} disabled={catalogLoading} />
-        <NavDropDown title="Tiendas" items={storesTree} disabled={storesLoading} />
-        <NavDropDown title="Servicios" items={[]} disabled />
-        <NavDropDown title="Comunidad" items={[]} disabled />
-        <NavDropDown title="Cultura" items={[]} disabled />
-      </div>
-      <div className="flex items-center justify-center w-[20%]">
-        <Button text="Vender" onClick={uploadProduct} size="lg" />
+    <div className="w-full h-[44px] bg-white border-b border-primary">
+      <div
+        className={clsx(
+          "hidden md:flex w-full max-w-[1300px] h-[44px] py-2 pr-4 pl-2 mx-auto",
+          "bg-white text-sm font-normal",
+          "text-[16px]",
+          "transition-all ease-in-out duration-300",
+          "border-b border-primary"
+        )}
+      >
+        <div className={clsx("max-w-[1600px] mx-auto w-full h-full", "flex items-center justify-start gap-4", "py-4")}>
+          <NavDropDown title="Mercado" items={marketTree} disabled={catalogLoading} />
+          <NavDropDown title="Tiendas" items={storesTree} disabled={storesLoading} />
+          <NavDropDown title="Servicios" items={[]} disabled />
+          <NavDropDown title="Comunidad" items={[]} disabled />
+          <NavDropDown title="Cultura" items={[]} disabled />
+        </div>
+        <div className="flex items-center justify-center w-[20%]">
+          <Button text="Vender" onClick={uploadProduct} size="lg" />
+        </div>
       </div>
     </div>
   );

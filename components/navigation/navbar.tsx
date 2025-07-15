@@ -57,29 +57,31 @@ export default function Navbar() {
 
   return (
     <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary/30")}>
-      <nav
-        className={clsx(
-          "w-full h-[80px] max-w-[1300px] flex items-center justify-between px-4 md:px-8 gap-4 mx-auto border-b border-primary",
-          "text-white"
-        )}
-      >
-        {/* LEFT SIDE - MENU & LOGO */}
-        <div className="flex items-center justify-between">
-          <Menu onClick={handleSideNav} className="cursor-pointer md:hidden" color={colors.primary} size={30} />
-          <div
-            className="hidden md:flex w-[140px] h-[90%] items-center justify-center cursor-pointer"
-            onClick={brandClick}
-          >
-            <Image src={"/branding/logo.webp"} alt="Logo EKORU" width={4096} height={996} />
+      <div className="w-full h-[80px] border-b border-primary">
+        <nav
+          className={clsx(
+            "w-full h-[80px] max-w-[1300px] flex items-center justify-between px-4 md:px-8 gap-4 mx-auto",
+            "text-white"
+          )}
+        >
+          {/* LEFT SIDE - MENU & LOGO */}
+          <div className="flex items-center justify-between">
+            <Menu onClick={handleSideNav} className="cursor-pointer md:hidden" color={colors.primary} size={30} />
+            <div
+              className="hidden md:flex w-[140px] h-[90%] items-center justify-center cursor-pointer"
+              onClick={brandClick}
+            >
+              <Image src={"/branding/logo.webp"} alt="Logo EKORU" width={4096} height={996} />
+            </div>
           </div>
-        </div>
-        {/* SEARCH INPUT */}
-        <SearchModule />
-        {/* RIGHT SIDE - USER & CART */}
-        <div className="flex items-center justify-between gap-4">
-          <UserData />
-        </div>
-      </nav>
+          {/* SEARCH INPUT */}
+          <SearchModule />
+          {/* RIGHT SIDE - USER & CART */}
+          <div className="flex items-center justify-between gap-4">
+            <UserData />
+          </div>
+        </nav>
+      </div>
       <SubNavigation />
 
       {/* <SubNavigation /> */}

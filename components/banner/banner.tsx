@@ -4,7 +4,7 @@ type Banner = {
   title: string;
   description: string;
   isLoading?: boolean;
-  variant?: "bordered" | "filled" | "ghosted";
+  variant?: "bordered" | "filled" | "accented";
 };
 
 export default function Banner({ title, description, isLoading = false, variant = "bordered" }: Banner) {
@@ -15,7 +15,7 @@ export default function Banner({ title, description, isLoading = false, variant 
     {
       "border-[3px] border-primary bg-white": variant === "bordered",
       "bg-primary border-[3px] border-primary text-white": variant === "filled",
-      "bg-white border-[3px] border-gray-400 text-gray-600": variant === "ghosted",
+      "bg-secondary border-[3px] border-secondary text-main-inverted": variant === "accented",
     },
     "mx-auto my-4 py-2 px-2",
     "shadow-sm shadow-slate-950/25"
@@ -38,8 +38,7 @@ export default function Banner({ title, description, isLoading = false, variant 
         "rounded-full",
         {
           "bg-primary": variant === "bordered",
-          "bg-gray-600": variant === "ghosted",
-          "bg-white": variant === "filled",
+          "bg-white": variant === "filled" || variant === "accented",
         },
         "mx-2"
       )}

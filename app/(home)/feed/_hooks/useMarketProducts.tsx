@@ -6,7 +6,7 @@ import useAlert from "@/hooks/useAlert";
 
 type Scope = "MARKET" | "STORE";
 
-export default function useFeedMarket({ scope, exchange }: { scope: Scope; exchange: boolean }) {
+export default function useMarketProducts({ scope, exchange }: { scope: Scope; exchange: boolean }) {
   const { notifyError } = useAlert();
   const [products, setProducts] = useState<Product[]>([]);
 
