@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import Image, { StaticImageData } from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Carousel({ children }: { children: React.ReactNode }) {
   return (
@@ -14,10 +15,10 @@ Carousel.Wrapper = function ({ children }: { children: React.ReactNode }) {
 Carousel.LeftButton = function ({ onClick }: { onClick: () => void }) {
   return (
     <div
-      className="absolute top-1/2 left-4 transform -translate-y-1/2 z-[3] cursor-pointer flex items-center justify-center w-12 h-12 transition-all duration-300 hover:bg-white/35 rounded-full"
+      className="absolute top-1/2 left-2 transform -translate-y-1/2 z-[3] cursor-pointer flex items-center justify-center w-10 h-10 transition-all duration-300 bg-primary/55 rounded-full"
       onClick={onClick}
     >
-      {/* <CaretLeftIcon /> */}
+      <ChevronLeft className="text-white" />
     </div>
   );
 };
@@ -25,10 +26,10 @@ Carousel.LeftButton = function ({ onClick }: { onClick: () => void }) {
 Carousel.RightButton = function ({ onClick }: { onClick: () => void }) {
   return (
     <div
-      className="absolute top-1/2 right-4 transform -translate-y-1/2 z-[3] cursor-pointer flex items-center justify-center w-12 h-12 transition-all duration-300 hover:bg-white/35 rounded-full"
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 z-[3] cursor-pointer flex items-center justify-center w-10 h-10 transition-all duration-300 bg-primary/55 rounded-full"
       onClick={onClick}
     >
-      {/* <CaretRightIcon /> */}
+      <ChevronRight className="text-white" />
     </div>
   );
 };

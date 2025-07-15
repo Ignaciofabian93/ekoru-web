@@ -5,7 +5,7 @@ import co2 from "@/assets/icons/co2.png";
 import drop from "@/assets/icons/drop.png";
 import waste from "@/assets/icons/trash.png";
 import Button from "@/components/buttons/button";
-import useImpactDetails from "@/app/(home)/(product)/_hooks/useImpactDetails";
+import useImpactDetails from "@/app/(home)/product/_hooks/useImpactDetails";
 import clsx from "clsx";
 
 type CardDetailsProps = {
@@ -70,7 +70,7 @@ export default function CardDetails({
   };
 
   return (
-    <div className="flex flex-col items-center card-gradient w-full h-full relative justify-between pb-3 px-2">
+    <div className="flex flex-col items-center card-gradient w-full h-full relative justify-between pb-3">
       {/* Floating Cloud Message */}
       {isMessageVisible && (
         <div className={clsx("fixed left-1/2 top-[30%] z-50 -translate-x-1/2 w-[90%]", "pointer-events-auto")}>
@@ -122,7 +122,7 @@ export default function CardDetails({
         {userLocation && <p className="text-xs text-gray-500 line-clamp-2">{userLocation}</p>}
       </div>
       <div className="w-full">
-        <p className="text-gray-700 text-[10px] mb-4 text-center">
+        <p className="text-gray-700 text-[10px] mb-4 px-2 text-center">
           El impacto de tu compra se representa en las siguientes cifras:
         </p>
         <div className="flex items-center justify-center gap-2 mb-2 text-primary-dark">

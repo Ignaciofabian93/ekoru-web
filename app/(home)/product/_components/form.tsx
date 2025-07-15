@@ -4,7 +4,7 @@ import { PRODUCT_COLORS } from "@/constants/colors";
 import { motion } from "framer-motion";
 import Select from "@/components/select/select";
 import TextInput from "@/components/textInput/input";
-import useProduct from "../_hooks/useProduct";
+import useProduct from "../_hooks/useProductForm";
 import Button from "@/components/buttons/button";
 import ImageUploader from "./imageUploader";
 import BadgeSelector from "@/components/badges/badgeSelector";

@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { Badge } from "@/types/enums";
+import { ProductCategory } from "@/types/product";
+import { impactCalculator } from "@/utils/impactCalc";
+import BadgeLabel from "../badges/badge";
 import CardImage from "./product/cardImage";
 import CardInfo from "./product/cardInfo";
 import CardCTA from "./product/cardCta";
 import CardDetails from "./product/cardDetails";
 import clsx from "clsx";
-import { Badge } from "@/types/enums";
-import BadgeLabel from "../badges/badge";
-import { ProductCategory } from "@/types/product";
-import { impactCalculator } from "@/utils/impactCalc";
+import { useRouter } from "next/navigation";
 
 type ProductCard = {
   id: number;
@@ -28,7 +29,6 @@ type ProductCard = {
   isExchangeable?: boolean;
   interests?: string[];
   productCategory?: ProductCategory;
-  onClick?: () => void;
 };
 
 export default function ProductCard({
@@ -48,9 +48,14 @@ export default function ProductCard({
   interests = [],
   productCategory,
 }: ProductCard) {
+  const router = useRouter();
   const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";
   const carouselImages = images.length > 0 ? images.slice(0, 3) : [];
+
+  const redirectToProductDetails = () => {
+    router.push(`/product/${id}`);
+  };
 
   const productImpactCalculation =
     productCategory &&
@@ -74,7 +79,10 @@ export default function ProductCard({
       <div className="card-flip-perspective h-[350px]">
         <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""} h-full`}>
           {/* Front Side */}
-          <div className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 z-20">
+          <div
+            className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 z-20"
+            onClick={redirectToProductDetails}
+          >
             <CardImage
               id={id}
               images={carouselImages}

@@ -1,14 +1,8 @@
 import ProductCard from "@/components/cards/productCard";
 import useFeedMarket from "../_hooks/useFeedMarket";
-import { useRouter } from "next/navigation";
 
 export default function MarketMainProducts() {
-  const router = useRouter();
   const { products } = useFeedMarket({ scope: "MARKET", exchange: false });
-
-  const redirectToProduct = (productId: number) => {
-    router.push(`/market/${productId}`);
-  };
 
   return (
     <section className="w-[95%] py-8 mb-8 relative mx-auto">
@@ -23,7 +17,6 @@ export default function MarketMainProducts() {
           <div className="w-full flex overflow-x-auto gap-x-4 pb-4 scrollbar-thin scrollbar-thumb-green-200">
             {products.map((product) => (
               <ProductCard
-                onClick={() => redirectToProduct(product.id)}
                 key={product.id}
                 id={product.id}
                 images={product.images}

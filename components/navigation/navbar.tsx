@@ -5,11 +5,11 @@ import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, UserRo
 import { colors } from "@/constants/colors";
 import Image from "next/image";
 import clsx from "clsx";
-import Cart from "../cart/cart";
 import UserData from "./userData";
 import Button from "../buttons/button";
 import useSessionStore from "@/store/session";
 import SearchModule from "./searchModule";
+import SubNavigation from "./subNavigation";
 
 const SideArticle = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   className = clsx("w-full flex flex-col items-start justify-start", className);
@@ -56,10 +56,10 @@ export default function Navbar() {
   const handleSideNav = () => setIsSideNavOpened(!isSideNavOpened);
 
   return (
-    <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary")}>
+    <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary/30")}>
       <nav
         className={clsx(
-          "w-full h-[80px] max-w-[1300px] flex items-center justify-between px-4 md:px-8 gap-4 mx-auto",
+          "w-full h-[80px] max-w-[1300px] flex items-center justify-between px-4 md:px-8 gap-4 mx-auto border-b border-primary",
           "text-white"
         )}
       >
@@ -78,10 +78,9 @@ export default function Navbar() {
         {/* RIGHT SIDE - USER & CART */}
         <div className="flex items-center justify-between gap-4">
           <UserData />
-          <Cart />
-          {/* <LogOut onClick={handleLogout} className="cursor-pointer" /> */}
         </div>
       </nav>
+      <SubNavigation />
 
       {/* <SubNavigation /> */}
       {isSideNavOpened && (
@@ -124,7 +123,7 @@ export default function Navbar() {
               <CircleDollarSign />
               <p className="font-semibold">Mercado</p>
             </SideLink>
-            <SideLink onClick={() => router.push("/stores")} disabled>
+            <SideLink onClick={() => router.push("/stores")}>
               <Store />
               <p className="font-semibold">Tiendas</p>
             </SideLink>
@@ -148,7 +147,7 @@ export default function Navbar() {
           </SideArticle>
 
           <SideArticle className="h-1/12 mt-4">
-            <Button text="Vender" onClick={() => router.push("/new")} variant="primary" size="full" />
+            <Button text="Vender" onClick={() => router.push("/product/new")} variant="primary" size="full" />
           </SideArticle>
           <SideArticle className="h-1/12">
             <Button text="Cerrar sesión" onClick={handleLogout} variant="danger" size="full" />
