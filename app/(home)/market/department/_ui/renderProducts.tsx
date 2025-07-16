@@ -42,7 +42,6 @@ export const RenderProducts = ({
                 images={prod.images}
                 description={prod.description}
                 price={prod.price}
-                onClick={() => {}}
               />
             </motion.div>
           ))}
