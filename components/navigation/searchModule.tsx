@@ -1,4 +1,4 @@
-import useSearch from "@/hooks/useSearch";
+import useSearch from "@/app/(home)/search/_hooks/useSearch";
 import SearchInput from "../textInput/search";
 
 export default function SearchModule() {

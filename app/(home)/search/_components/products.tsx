@@ -1,6 +1,6 @@
 "use client";
 import ProductCard from "@/components/cards/productCard";
-import useSearch from "@/hooks/useSearch";
+import useSearch from "@/app/(home)/search/_hooks/useSearch";
 
 export default function ProductResults() {
   const { products } = useSearch();

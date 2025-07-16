@@ -132,9 +132,7 @@ export default function ProductFilters({
         </button>
       </div>
       {/* Desktop: Show sidebar */}
-      <section className="hidden sm:block w-full sm:w-[40%] md:w-[33.3%] lg:w-[25%] xl:w-[20%] h-full mb-4">
-        {filterContent}
-      </section>
+      <section className="hidden sm:block w-[230px] h-full mb-4">{filterContent}</section>
       {/* Mobile: Modal */}
       <Modal title="Filtros" close={() => setShowMobileFilters(false)} isOpen={showMobileFilters}>
         {filterContent}

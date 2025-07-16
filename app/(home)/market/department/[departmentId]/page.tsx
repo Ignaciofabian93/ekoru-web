@@ -3,7 +3,7 @@ import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
 import { DepartmentCategory } from "@/types/product";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import MarketHeader from "../../_components/header";
-import ContentWrapper from "../../_components/contentWrapper";
+import ContentWrapper from "../../../_components/contentWrapper";
 import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
 import ProductsListing from "../../../_components/productsListing";

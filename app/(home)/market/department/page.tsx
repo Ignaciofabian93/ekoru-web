@@ -4,7 +4,7 @@ import { Department } from "@/types/product";
 import { RenderCategories } from "../../_components/categoriesRow";
 import PageWrapper from "../../_components/pageWrapper";
 import MarketHeader from "../_components/header";
-import ContentWrapper from "../_components/contentWrapper";
+import ContentWrapper from "../../_components/contentWrapper";
 import useDepartments from "../_hooks/useDepartment";
 import Banner from "@/components/banner/banner";
 import CategorySection from "./_ui/categorySection";

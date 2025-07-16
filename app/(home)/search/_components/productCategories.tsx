@@ -1,5 +1,5 @@
 "use client";
-import useSearch from "@/hooks/useSearch";
+import useSearch from "@/app/(home)/search/_hooks/useSearch";
 
 export default function ProductCategoryResults() {
   const { productCategories, handleProductCategorySelect } = useSearch();

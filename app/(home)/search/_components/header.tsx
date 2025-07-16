@@ -7,7 +7,7 @@ export default function SearchHeader() {
     <section className="bg-white shadow-md flex flex-col items-center justify-start w-full">
       <div className="w-[98%] h-[450px] relative overflow-hidden mx-auto rounded-lg mt-2 shadow-lg">
         <Image
-          src={"/wallpaper.jpg"}
+          src={"/covers/search_cover.jpg"}
           alt="imagen de portada para resultados"
           width={800}
           height={400}

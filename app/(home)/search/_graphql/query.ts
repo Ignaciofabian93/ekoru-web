@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const SEARCH = gql`
-  query Search($query: String!) {
-    search(query: $query) {
+  query Search($search: String!) {
+    search(query: $search) {
       ... on Product {
         id
         sku
@@ -25,21 +25,25 @@ export const SEARCH = gql`
         badges
         createdAt
         updatedAt
-        productCategoryId
         userId
         productCategory {
           id
           productCategoryName
           departmentCategoryId
-          departmentCategory {
-            id
-            departmentCategoryName
-            departmentId
-            department {
-              id
-              departmentName
-            }
-          }
+          keywords
+          averageWeight
+          firstMaterialTypeId
+          firstMaterialTypeQuantity
+          secondMaterialTypeId
+          secondMaterialTypeQuantity
+          thirdMaterialTypeId
+          thirdMaterialTypeQuantity
+          fourthMaterialTypeId
+          fourthMaterialTypeQuantity
+          fifthMaterialTypeId
+          fifthMaterialTypeQuantity
+          size
+          weightUnit
         }
         user {
           id
@@ -80,13 +84,13 @@ export const SEARCH = gql`
             pointsThreshold
           }
         }
-        likes {
-          id
-          userId
-        }
         comments {
           id
           comment
+          userId
+        }
+        likes {
+          id
           userId
         }
       }
@@ -94,6 +98,20 @@ export const SEARCH = gql`
         id
         productCategoryName
         departmentCategoryId
+        keywords
+        averageWeight
+        firstMaterialTypeId
+        firstMaterialTypeQuantity
+        secondMaterialTypeId
+        secondMaterialTypeQuantity
+        thirdMaterialTypeId
+        thirdMaterialTypeQuantity
+        fourthMaterialTypeId
+        fourthMaterialTypeQuantity
+        fifthMaterialTypeId
+        fifthMaterialTypeQuantity
+        size
+        weightUnit
         products {
           id
           sku
@@ -116,30 +134,55 @@ export const SEARCH = gql`
           badges
           createdAt
           updatedAt
-          productCategoryId
           userId
-        }
-        departmentCategory {
-          id
-          departmentCategoryName
-          departmentId
-          department {
+          user {
             id
-            departmentName
+            name
+            surnames
+            email
+            businessName
+            profileImage
+            birthday
+            phone
+            address
+            isCompany
+            accountType
+            preferredContactMethod
+            points
+            createdAt
+            updatedAt
+            county {
+              id
+              county
+            }
+            city {
+              id
+              city
+            }
+            region {
+              id
+              region
+            }
+            country {
+              id
+              country
+            }
+            userCategory {
+              id
+              name
+              categoryDiscountAmount
+              pointsThreshold
+            }
           }
-        }
-      }
-      ... on Department {
-        id
-        departmentName
-      }
-      ... on DepartmentCategory {
-        id
-        departmentCategoryName
-        departmentId
-        department {
-          id
-          departmentName
+          comments {
+            id
+            comment
+            userId
+          }
+          likes {
+            id
+            userId
+          }
         }
       }
     }

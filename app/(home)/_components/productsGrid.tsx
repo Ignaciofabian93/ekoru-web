@@ -7,9 +7,10 @@ type Props = {
 
 export default function ProductsGrid({ products }: Props) {
   return (
-    <div className="w-full sm:w-[60%] lg:w-[75%] xl:w-[80%] mx-auto">
+    <div className="w-full mx-auto">
       {products && products.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 justify-items-center">
+        // <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 justify-items-center">
+        <div className="flex flex-wrap justify-start gap-2">
           {products.map((product) => (
             <ProductCard
               id={product.id}
@@ -23,6 +24,7 @@ export default function ProductsGrid({ products }: Props) {
               images={product.images}
               isExchangeable={product.isExchangeable}
               interests={product.interests}
+              productCategory={product.productCategory}
             />
           ))}
         </div>
