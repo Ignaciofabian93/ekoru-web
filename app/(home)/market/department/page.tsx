@@ -3,11 +3,12 @@ import { DepartmentNames } from "@/constants/departments";
 import { Department } from "@/types/product";
 import { RenderCategories } from "../../_components/categoriesRow";
 import PageWrapper from "../../_components/pageWrapper";
-import MarketHeader from "../_components/header";
 import ContentWrapper from "../../_components/contentWrapper";
 import useDepartments from "../_hooks/useDepartment";
 import Banner from "@/components/banner/banner";
 import CategorySection from "./_ui/categorySection";
+import PageHeader from "../../_components/pageHeader";
+import wallpaper from "@/assets/images/market.jpg";
 
 export default function BrowseDepartmentsPage() {
   const {
@@ -21,7 +22,11 @@ export default function BrowseDepartmentsPage() {
 
   return (
     <PageWrapper>
-      <MarketHeader />
+      <PageHeader
+        image={wallpaper}
+        alt="Portada de departamentos"
+        message="Encuentra los mejores productos en cada categoría"
+      />
       <ContentWrapper>
         <Banner
           isLoading={departmentsLoading}

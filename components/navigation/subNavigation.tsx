@@ -1,14 +1,10 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
 import NavDropDown, { DropdownItem } from "./navDropdown";
 import clsx from "clsx";
-import Button from "../buttons/button";
 import useMarketCatalog from "@/app/(home)/market/_hooks/useCatalog";
 import useStoreList from "@/app/(home)/stores/_hooks/useStores";
 
 export default function SubNavigation() {
-  const router = useRouter();
-  const pathname = usePathname();
   const { catalog, catalogLoading } = useMarketCatalog();
   const { stores, storesLoading } = useStoreList();
 
@@ -30,11 +26,6 @@ export default function SubNavigation() {
     href: `/stores/${store.id}`,
   }));
 
-  const uploadProduct = () => {
-    if (pathname === "/product/new") return;
-    router.push("/product/new");
-  };
-
   return (
     <div
       className={clsx(
@@ -51,9 +42,6 @@ export default function SubNavigation() {
         <NavDropDown title="Servicios" items={[]} disabled />
         <NavDropDown title="Comunidad" items={[]} disabled />
         <NavDropDown title="Cultura" items={[]} disabled />
-      </div>
-      <div className="flex items-center justify-center w-[20%]">
-        <Button text="Vender" onClick={uploadProduct} size="lg" />
       </div>
     </div>
   );

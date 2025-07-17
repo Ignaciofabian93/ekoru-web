@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, UserRoundPen } from "lucide-react";
 import { colors } from "@/constants/colors";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import UserData from "./userData";
 import Button from "../buttons/button";
 import useSessionStore from "@/store/session";
 import SearchModule from "./searchModule";
+import CTAButton from "../buttons/cta";
 
 const SideArticle = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   className = clsx("w-full flex flex-col items-start justify-start", className);
@@ -40,6 +41,7 @@ const SideLink = ({
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const { data } = useSessionStore();
   const [isSideNavOpened, setIsSideNavOpened] = useState<boolean>(false);
 
@@ -53,6 +55,11 @@ export default function Navbar() {
   };
 
   const handleSideNav = () => setIsSideNavOpened(!isSideNavOpened);
+
+  const uploadProduct = () => {
+    if (pathname === "/product/new") return;
+    router.push("/product/new");
+  };
 
   return (
     <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary/30")}>
@@ -76,8 +83,9 @@ export default function Navbar() {
           {/* SEARCH INPUT */}
           <SearchModule />
           {/* RIGHT SIDE - USER & CART */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-6">
             <UserData />
+            <CTAButton onClick={uploadProduct} />
           </div>
         </nav>
       </div>

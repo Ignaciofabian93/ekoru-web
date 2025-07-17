@@ -4,11 +4,12 @@ import { ProductCategory } from "@/types/product";
 import PageWrapper from "@/app/(home)/_components/pageWrapper";
 import ProductsListing from "@/app/(home)/_components/productsListing";
 import ContentWrapper from "@/app/(home)/_components/contentWrapper";
-import MarketHeader from "@/app/(home)/market/_components/header";
 import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
 import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/components/banner/banner";
 import Pagination from "@/components/pagination/pagination";
+import wallpaper from "@/assets/images/market.jpg";
+import PageHeader from "@/app/(home)/_components/pageHeader";
 
 // This page is for browsing a specific department category in a specific department.
 export default function BrowseDepartmentCategoryPage() {
@@ -29,7 +30,11 @@ export default function BrowseDepartmentCategoryPage() {
 
   return (
     <PageWrapper>
-      <MarketHeader />
+      <PageHeader
+        image={wallpaper}
+        alt="Portada de categoría"
+        message={selectedDepartmentCategory?.departmentCategoryName as string}
+      />
       <ContentWrapper>
         <Banner
           isLoading={departmentCategoryLoading}

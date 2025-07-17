@@ -35,9 +35,9 @@ export default function UserData() {
   }, [open]);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative flex flex-col items-center" ref={dropdownRef}>
       <button
-        className="rounded-full overflow-hidden border-2 cursor-pointer border-primary w-[40px] h-[40px] flex items-center justify-center focus:outline-none"
+        className="rounded-full overflow-hidden border-[1px] cursor-pointer border-white w-[40px] h-[40px] flex items-center justify-center focus:outline-none hover:brightness-125 transition-all duration-200 ease-in-out"
         onClick={() => setOpen((v) => !v)}
         aria-label="Abrir menú de usuario"
         type="button"
@@ -50,6 +50,7 @@ export default function UserData() {
           className="object-cover w-full h-full"
         />
       </button>
+      <span className="absolute -bottom-4 text-xs text-center font-semibold">Perfil</span>
       <AnimatePresence>
         {open && (
           <motion.div
