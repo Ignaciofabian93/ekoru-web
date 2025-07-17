@@ -116,7 +116,14 @@ export default function SessionWrapper({
             transition={{ duration: 2, ease: "easeInOut" }}
             onAnimationComplete={() => setAnimationDone(true)}
           >
-            <Image src={"/branding/logo.webp"} alt="Logo EKORU" priority width={4096} className="w-[40%] mx-auto" />
+            <Image
+              src={"/branding/logo.webp"}
+              alt="Logo EKORU"
+              priority
+              width={4096}
+              height={2048}
+              className="w-[40%] mx-auto"
+            />
           </motion.div>
         </AnimatePresence>
       </main>

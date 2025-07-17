@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ekoru Web
+
+A modern, scalable web application built with Next.js, TypeScript, Apollo Client, and modular architecture. This project is designed for maintainability, performance, and ease of development.
+
+## Features
+
+- Modular folder structure for features and shared components
+- TypeScript for type safety
+- Apollo Client for GraphQL data fetching
+- Custom hooks and stores for state management
+- Reusable UI components
+- Environment-based configuration
+- Docker support for production and QA
+
+## Project Structure
+
+```
+app/                # Main application logic, feature-based folders
+components/         # Shared UI components
+config/             # Environment and variable configuration
+constants/          # Shared constants
+graphql/            # GraphQL queries and mutations
+hooks/              # Custom React hooks
+lib/                # Library and setup files
+public/             # Static assets
+services/           # API and business logic
+store/              # State management
+types/              # TypeScript types
+utils/              # Utility functions
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js >= 18.x
+- npm or yarn
+- Docker (optional, for containerized deployment)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Testing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Linting
 
-## Learn More
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Building for Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Docker
 
-## Deploy on Vercel
+- Use `Dockerfile` for local builds
+- Use `Dockerfile.prod` and `compose.prod.yml` for production
+- Use `Dockerfile.qa` and `compose.qa.yml` for QA
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Configure your environment variables in `.env.local` for local development.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Create a Pull Request
+
+## License
+
+MIT
+
+---
+
+For more details, see the inline documentation and comments throughout the codebase.

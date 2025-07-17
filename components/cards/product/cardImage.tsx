@@ -36,7 +36,10 @@ export default function CardImage({
   const likes: { id: number; userId: string }[] = productData?.product.likes ?? [];
 
   return (
-    <div className="relative w-full max-w-[180px] max-h-[180px] bg-gray-100" style={{ aspectRatio: "1 / 1" }}>
+    <div
+      className="relative w-full max-w-[164px] max-h-[164px] bg-gray-100"
+      style={{ aspectRatio: "1 / 1", height: "164px" }}
+    >
       {/* Flip Button */}
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
         <button
@@ -51,15 +54,15 @@ export default function CardImage({
       </div>
 
       {/* Image Container */}
-      <div className="relative w-full h-full overflow-hidden">
+      <div className="relative w-full h-full overflow-hidden" style={{ height: "164px" }}>
         {images.length > 0 ? (
           <>
             <Image
               src={images[current]}
               alt="product"
-              width={150}
-              height={150}
-              className="w-full object-cover"
+              width={164}
+              height={164}
+              className="w-full h-full object-cover"
               priority
             />
             {images.length > 1 && (

@@ -70,7 +70,7 @@ export default function CardDetails({
   };
 
   return (
-    <div className="flex flex-col items-center card-gradient w-full h-full relative justify-between pb-3">
+    <div className="max-w-[164px] w-full h-full relative flex flex-col justify-between pb-3 card-gradient items-center">
       {/* Floating Cloud Message */}
       {isMessageVisible && (
         <div className={clsx("fixed left-1/2 top-[30%] z-50 -translate-x-1/2 w-[90%]", "pointer-events-auto")}>
@@ -108,51 +108,57 @@ export default function CardDetails({
           <RotateCw className="w-4 h-4 text-primary" />
         </button>
       </div>
-      <div className="flex flex-col items-center mt-5 mb-2">
+      <div className="flex flex-col items-center mt-7 mb-3 w-full px-2">
         {userProfileImage && (
           <Image
             src={userProfileImage}
             alt={userName || "Usuario"}
             width={45}
             height={45}
-            className="rounded-full mb-2 object-cover w-[60px] h-[60px] shadow-md"
+            className="rounded-full mb-2 object-cover w-[45px] h-[45px] shadow-md"
           />
         )}
-        {userName && <p className="font-semibold text-sm line-clamp-2">{userName}</p>}
-        {userLocation && <p className="text-xs text-gray-500 line-clamp-2">{userLocation}</p>}
+        {userName && (
+          <p className="font-semibold text-[13px] text-center leading-tight mb-1 line-clamp-1">{userName}</p>
+        )}
+        {userLocation && (
+          <p className="text-[11px] text-gray-500 text-center leading-tight line-clamp-2">{userLocation}</p>
+        )}
       </div>
-      <div className="w-full">
-        <p className="text-gray-700 text-[10px] mb-4 px-2 text-center">
+      <div className="w-full px-2">
+        <p className="text-gray-700 text-[11px] mb-3 text-center">
           El impacto de tu compra se representa en las siguientes cifras:
         </p>
-        <div className="flex items-center justify-center gap-2 mb-2 text-primary-dark">
-          <div className="flex flex-col items-center w-[90px] cursor-pointer" onClick={handleCo2Click}>
-            <Info className="w-[14px] h-[14px]" />
-            <div className="flex items-center justify-center w-9 h-8">
-              <Image src={co2} alt="CO2 savings" width={27} height={27} className="object-contain" />
+        <div className="flex items-center justify-between gap-2 mb-2 text-primary-dark w-full">
+          <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleCo2Click}>
+            <Info className="w-[14px] h-[14px] mb-1" />
+            <div className="flex items-center justify-center w-9 h-8 mb-1">
+              <Image src={co2} alt="CO2 savings" width={24} height={24} className="object-contain" />
             </div>
-            <span className="text-xs font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
+            <span className="text-[11px] font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
           </div>
 
-          <div className="flex flex-col items-center w-[96px] cursor-pointer" onClick={handleWaterClick}>
-            <Info className="w-[14px] h-[14px]" />
-            <div className="flex items-center justify-center w-9 h-8">
+          <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleWaterClick}>
+            <Info className="w-[14px] h-[14px] mb-1" />
+            <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={drop} alt="Water savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-xs font-semibold">-{totalWaterSavings.toFixed(1)} L</span>
+            <span className="text-[11px] font-semibold">-{totalWaterSavings.toFixed(1)} L</span>
           </div>
 
-          <div className="flex flex-col items-center w-[90px] cursor-pointer" onClick={handleWasteClick}>
-            <Info className="w-[14px] h-[14px]" />
-            <div className="flex items-center justify-center w-9 h-8">
+          <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleWasteClick}>
+            <Info className="w-[14px] h-[14px] mb-1" />
+            <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={waste} alt="Waste savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-xs font-semibold">-{totalWasteSavings.toFixed(1)} kg</span>
+            <span className="text-[11px] font-semibold">-{totalWasteSavings.toFixed(1)} kg</span>
           </div>
         </div>
       </div>
-      <span className="text-[8px] text-gray-500 text-center">*Los valores son aproximados*</span>
-      <Button text="¡Me interesa!" size="lg" onClick={() => {}} />
+      <span className="text-[9px] text-gray-500 text-center mb-2">*Los valores son aproximados*</span>
+      <div className="w-full flex justify-center px-2">
+        <Button text="¡Me interesa!" size="lg" onClick={() => {}} />
+      </div>
     </div>
   );
 }

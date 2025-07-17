@@ -36,10 +36,10 @@ export default function SubNavigation() {
   };
 
   return (
-    <div className="w-full h-[44px] bg-white border-b border-primary">
+    <div className="hidden md:flex w-full h-[44px] bg-white border-b border-primary">
       <div
         className={clsx(
-          "hidden md:flex w-full max-w-[1300px] h-[44px] py-2 pr-4 pl-2 mx-auto",
+          "flex w-full max-w-[1300px] h-[44px] py-2 pr-4 pl-2 mx-auto",
           "bg-white text-sm font-normal",
           "text-[16px]",
           "transition-all ease-in-out duration-300",
