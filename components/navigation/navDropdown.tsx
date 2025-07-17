@@ -52,7 +52,7 @@ export default function NavDropDown({ title, items, disabled }: DropdownProps) {
     return (
       <ul
         className={clsx(
-          "bg-white shadow-lg px-4 py-2 flex flex-col gap-2 z-50 min-w-[280px]",
+          "bg-white shadow-lg px-4 py-2 flex flex-col gap-2 z-50 min-w-[250px]",
           level === 0 ? "absolute left-0 top-0 rounded-b-lg" : "absolute left-full top-0"
         )}
       >

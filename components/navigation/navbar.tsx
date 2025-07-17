@@ -9,7 +9,6 @@ import UserData from "./userData";
 import Button from "../buttons/button";
 import useSessionStore from "@/store/session";
 import SearchModule from "./searchModule";
-import SubNavigation from "./subNavigation";
 
 const SideArticle = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   className = clsx("w-full flex flex-col items-start justify-start", className);
@@ -82,7 +81,6 @@ export default function Navbar() {
           </div>
         </nav>
       </div>
-      <SubNavigation />
 
       {/* <SubNavigation /> */}
       {isSideNavOpened && (
