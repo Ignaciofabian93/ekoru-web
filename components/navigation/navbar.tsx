@@ -74,7 +74,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             <Menu onClick={handleSideNav} className="cursor-pointer md:hidden" color={colors.primary} size={30} />
             <div
-              className="hidden md:flex w-[140px] h-[90%] items-center justify-center cursor-pointer"
+              className="hidden md:flex w-[120px] h-[90%] items-center justify-center cursor-pointer"
               onClick={brandClick}
             >
               <Image src={"/branding/logo.webp"} alt="Logo EKORU" width={4096} height={996} />
@@ -83,7 +83,7 @@ export default function Navbar() {
           {/* SEARCH INPUT */}
           <SearchModule />
           {/* RIGHT SIDE - USER & CART */}
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex items-center justify-between gap-4">
             <UserData />
             <CTAButton onClick={uploadProduct} />
           </div>

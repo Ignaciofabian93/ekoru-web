@@ -30,7 +30,7 @@ export default function SearchInput({ value, onChange, submit, loading }: Search
             value={value}
             onChange={onChange}
             className={clsx(
-              "w-full h-12 px-6 pr-10 rounded-full",
+              "w-full h-12 px-5 pr-10 rounded-full",
               "bg-white border outline-none",
               "placeholder:text-primary placeholder:italic placeholder:opacity-80",
               "text-primary text-base font-medium",
@@ -38,7 +38,7 @@ export default function SearchInput({ value, onChange, submit, loading }: Search
             )}
           />
           {/* Right-side Icon */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-primary">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-primary">
             {loading ? (
               <motion.span
                 animate={{ rotate: 360 }}
