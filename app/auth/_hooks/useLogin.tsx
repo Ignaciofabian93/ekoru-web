@@ -4,7 +4,7 @@ import { validateEmail } from "@/utils/regexValidations";
 import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/app/auth/_graphql/query";
 import useAlert from "@/hooks/useAlert";
-import useSessionStore from "@/store/session";
+import useSessionStore from "@/app/auth/_store/session";
 import Login from "@/services/auth/rest-auth";
 
 type Form = {

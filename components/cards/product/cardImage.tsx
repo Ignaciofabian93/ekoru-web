@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { RotateCw, Share2, Heart } from "lucide-react";
-import useSessionStore from "@/store/session";
+import useSessionStore from "@/app/auth/_store/session";
 import clsx from "clsx";
 import useLikeProduct from "@/hooks/useLikeProduct";
 import Spinner from "@/components/spinner/spinner";

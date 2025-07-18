@@ -4,7 +4,7 @@ import { GET_PROFILE } from "@/app/auth/_graphql/query";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { RefreshToken } from "@/services/auth/rest-auth";
-import useSessionStore from "@/store/session";
+import useSessionStore from "@/app/auth/_store/session";
 import Image from "next/image";
 import useAlert from "@/hooks/useAlert";
 

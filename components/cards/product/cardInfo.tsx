@@ -43,7 +43,7 @@ export default function CardInfo({
                 </span>
               ))}
           </div>
-          <div className="flex items-center absolute bottom-5 right-1 px-3">
+          <div className="flex items-center absolute bottom-12 right-0">
             <ExchangeButton onClick={() => (isButtonActivated ? null : null)} />
           </div>
         </div>

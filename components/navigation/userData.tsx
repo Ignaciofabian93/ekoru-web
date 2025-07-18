@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import useSessionStore from "@/store/session";
+import useSessionStore from "@/app/auth/_store/session";
 import Image from "next/image";
 import Button from "../buttons/button";
 

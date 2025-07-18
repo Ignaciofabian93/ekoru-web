@@ -75,7 +75,7 @@ export default function ProductCard({
   const totalWasteSavings = productCategory?.averageWeight ?? 0;
 
   return (
-    <div className={clsx("min-w-[164px] w-full max-w-[164px] h-auto pb-3")}>
+    <div className={clsx("min-w-[164px] w-full max-w-[164px] h-auto pb-3 mx-1")}>
       <div className="card-flip-perspective h-[350px]">
         <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""} h-full`}>
           {/* Front Side */}

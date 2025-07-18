@@ -7,7 +7,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import UserData from "./userData";
 import Button from "../buttons/button";
-import useSessionStore from "@/store/session";
+import useSessionStore from "@/app/auth/_store/session";
 import SearchModule from "./searchModule";
 import CTAButton from "../buttons/cta";
 
