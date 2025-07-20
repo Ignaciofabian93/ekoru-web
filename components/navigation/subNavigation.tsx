@@ -1,14 +1,13 @@
 "use client";
 import NavDropDown, { DropdownItem } from "./navDropdown";
 import clsx from "clsx";
-import useMarketCatalog from "@/app/(home)/market/_hooks/useCatalog";
-import useStoreList from "@/app/(home)/stores/_hooks/useStores";
+import useMenu from "@/hooks/useMenu";
+import Tooltip from "../tooltip/tooltip";
 
 export default function SubNavigation() {
-  const { catalog, catalogLoading } = useMarketCatalog();
-  const { stores, storesLoading } = useStoreList();
+  const { market, stores, marketLoading, storesLoading } = useMenu();
 
-  const marketTree: DropdownItem[] = catalog.map((dept) => ({
+  const marketTree: DropdownItem[] = market.map((dept) => ({
     label: dept.departmentName,
     href: `/market/department/${dept.id}`,
     children: dept.departmentCategories.map((cat) => ({
@@ -36,12 +35,24 @@ export default function SubNavigation() {
         "border-b border-primary"
       )}
     >
-      <div className={clsx("max-w-[1600px] mx-auto w-full h-full", "flex items-center justify-start gap-4", "py-4")}>
-        <NavDropDown title="Mercado" items={marketTree} disabled={catalogLoading} />
+      <div
+        className={clsx(
+          "max-w-[1600px] mx-auto w-full h-full",
+          "flex items-center justify-start gap-4",
+          "py-4"
+        )}
+      >
+        <NavDropDown title="Mercado" items={marketTree} disabled={marketLoading} />
         <NavDropDown title="Tiendas" items={storesTree} disabled={storesLoading} />
-        <NavDropDown title="Servicios" items={[]} disabled />
-        <NavDropDown title="Comunidad" items={[]} disabled />
-        <NavDropDown title="Cultura" items={[]} disabled />
+        <Tooltip message="Próximamente" placement="bottom">
+          <NavDropDown title="Servicios" items={[]} disabled />
+        </Tooltip>
+        <Tooltip message="Próximamente" placement="bottom">
+          <NavDropDown title="Comunidad" items={[]} disabled />
+        </Tooltip>
+        <Tooltip message="Próximamente" placement="bottom">
+          <NavDropDown title="Cultura" items={[]} disabled />
+        </Tooltip>
       </div>
     </div>
   );
