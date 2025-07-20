@@ -45,8 +45,17 @@ export default function CardInfo({
                 </span>
               ))}
           </div>
-          <div className="flex items-center absolute bottom-12 right-0 z-50">
-            <ExchangeButton onClick={() => (isButtonActivated ? showModal() : null)} />
+          <div className="flex items-center absolute bottom-12 right-1 z-50">
+            <ExchangeButton
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isButtonActivated) {
+                  showModal();
+                } else {
+                  return null;
+                }
+              }}
+            />
           </div>
         </div>
       ) : (

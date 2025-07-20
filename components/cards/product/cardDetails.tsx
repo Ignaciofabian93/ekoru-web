@@ -73,7 +73,9 @@ export default function CardDetails({
     <div className="max-w-[164px] w-full h-full relative flex flex-col justify-between pb-3 card-gradient items-center">
       {/* Floating Cloud Message */}
       {isMessageVisible && (
-        <div className={clsx("fixed left-1/2 top-[30%] z-50 -translate-x-1/2 w-[90%]", "pointer-events-auto")}>
+        <div
+          className={clsx("fixed left-1/2 top-[30%] z-50 -translate-x-1/2 w-[90%]", "pointer-events-auto")}
+        >
           <div
             className={clsx(
               "relative bg-white shadow-lg px-6 py-4 rounded-3xl border border-gray-200 flex flex-col items-center transition-all duration-200",
@@ -125,8 +127,8 @@ export default function CardDetails({
           <p className="text-[11px] text-gray-500 text-center leading-tight line-clamp-2">{userLocation}</p>
         )}
       </div>
-      <div className="w-full px-2">
-        <p className="text-gray-700 text-[11px] mb-3 text-center">
+      <div className="w-full">
+        <p className="text-gray-700 text-[11px] mb-3 text-center px-2">
           El impacto de tu compra se representa en las siguientes cifras:
         </p>
         <div className="flex items-center justify-between gap-2 mb-2 text-primary-dark w-full">
@@ -135,7 +137,7 @@ export default function CardDetails({
             <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={co2} alt="CO2 savings" width={24} height={24} className="object-contain" />
             </div>
-            <span className="text-[11px] font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
+            <span className="text-[10px] font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
           </div>
 
           <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleWaterClick}>
@@ -143,7 +145,7 @@ export default function CardDetails({
             <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={drop} alt="Water savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-[11px] font-semibold">-{totalWaterSavings.toFixed(1)} L</span>
+            <span className="text-[10px] font-semibold">-{totalWaterSavings.toFixed(1)} L</span>
           </div>
 
           <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleWasteClick}>
@@ -151,7 +153,7 @@ export default function CardDetails({
             <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={waste} alt="Waste savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-[11px] font-semibold">-{totalWasteSavings.toFixed(1)} kg</span>
+            <span className="text-[10px] font-semibold">-{totalWasteSavings.toFixed(1)} kg</span>
           </div>
         </div>
       </div>

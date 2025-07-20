@@ -71,7 +71,7 @@ const badgeLabels: Record<BadgeType, string> = {
   CRUELTY_FREE: "Libre de Crueldad",
   DELIVERED_TO_HOME: "Entregado a Domicilio",
   IN_HOUSE_PICKUP: "Recogida en Casa",
-  IN_MID_POINT_PICKUP: "Recogida en Punto Medio",
+  IN_MID_POINT_PICKUP: "Recogida Punto Medio",
 };
 
 type BadgeProps = {

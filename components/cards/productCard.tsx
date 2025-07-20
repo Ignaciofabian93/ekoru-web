@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Badge } from "@/types/enums";
 import { ProductCategory } from "@/types/product";
 import { impactCalculator } from "@/utils/impactCalc";
+import { useRouter } from "next/navigation";
 import BadgeLabel from "../badges/badge";
 import CardImage from "./product/cardImage";
 import CardInfo from "./product/cardInfo";
 import CardCTA from "./product/cardCta";
 import CardDetails from "./product/cardDetails";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
 
 type ProductCard = {
   id: number;
@@ -81,7 +81,7 @@ export default function ProductCard({
           {/* Front Side */}
           <div
             className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 z-20"
-            // onClick={redirectToProductDetails}
+            onClick={redirectToProductDetails}
           >
             <CardImage
               id={id}
