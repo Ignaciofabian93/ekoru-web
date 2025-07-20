@@ -25,8 +25,6 @@ export default function useMarketProducts({ scope, exchange }: { scope: Scope; e
     fetchProducts();
   }, []);
 
-  console.log("products: ", products);
-
   return {
     products,
     loading,

@@ -10,7 +10,7 @@ import {
   GET_PRODUCT_CATEGORIES_BY_DEPARTMENT_CATEGORY,
 } from "../_graphql/categories";
 import useAlert from "@/hooks/useAlert";
-import useSessionStore from "@/app/auth/_store/session";
+import useSessionStore from "@/store/session";
 
 export default function useProduct() {
   const [departments, setDepartments] = useState<Department[]>([]);

@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
 import SectionTitle from "./title";
-import useSessionStore from "@/app/auth/_store/session";
+import useSessionStore from "@/store/session";
 
 const Row = ({ field, value }: { field: string; value: string }) => {
   return (

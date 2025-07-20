@@ -21,7 +21,7 @@ export default function SearchInput({ value, onChange, submit, loading }: Search
   };
 
   return (
-    <form onSubmit={submit} className="w-full max-w-[800px]">
+    <form onSubmit={submit} className="w-full max-w-[600px]">
       <div className={clsx("relative flex flex-col gap-1 w-full")}>
         <div className="w-full relative">
           <input
@@ -30,7 +30,7 @@ export default function SearchInput({ value, onChange, submit, loading }: Search
             value={value}
             onChange={onChange}
             className={clsx(
-              "w-full h-12 px-5 pr-10 rounded-full",
+              "w-full h-[40px] px-5 pr-10 rounded-full",
               "bg-white border outline-none",
               "placeholder:text-primary placeholder:italic placeholder:opacity-80",
               "text-primary text-base font-medium",

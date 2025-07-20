@@ -18,8 +18,6 @@ export default function CategorySection({
   subtitle,
   departmentsLoading = false,
 }: CategorySection) {
-  console.log("Rendering CategorySection with products:", products);
-
   return (
     <>
       {departmentsLoading ? (

@@ -5,7 +5,7 @@ import { UPDATE_USER } from "@/graphql/user/mutations";
 import { City, Country, Region, County } from "@/types/location";
 import { GET_PRODUCTS_BY_OWNER } from "@/graphql/products/query";
 import { type Product } from "@/types/product";
-import useSessionStore, { UserData } from "@/app/auth/_store/session";
+import useSessionStore, { UserData } from "@/store/session";
 import useAlert from "@/hooks/useAlert";
 
 export default function useProfile() {

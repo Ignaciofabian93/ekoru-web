@@ -81,7 +81,7 @@ export default function ProductCard({
           {/* Front Side */}
           <div
             className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 z-20"
-            onClick={redirectToProductDetails}
+            // onClick={redirectToProductDetails}
           >
             <CardImage
               id={id}
@@ -99,6 +99,7 @@ export default function ProductCard({
               price={price || 0}
               isExchangeable={isExchangeable}
               interests={interests}
+              isButtonActivated={isButtonActivated}
             />
             {!isExchangeable && <CardCTA isButtonActivated={isButtonActivated} />}
           </div>

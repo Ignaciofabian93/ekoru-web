@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Pencil, Mail, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "@/components/modal/modal";
-import useSessionStore from "@/app/auth/_store/session";
+import useSessionStore from "@/store/session";
 import clsx from "clsx";
 import Image from "next/image";
 import ProfileForm from "./form";

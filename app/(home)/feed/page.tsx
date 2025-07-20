@@ -6,6 +6,9 @@ import useStoreProducts from "./_hooks/useStoreProducts";
 import useMarketProducts from "./_hooks/useMarketProducts";
 import useExchangeableProducts from "./_hooks/useExchangeableProducts";
 import FeedProducts from "./_components/productListing";
+import Modal from "@/components/modal/modal";
+import useTransactionStore from "../transaction/_store/transaction";
+import useMyProducts from "../profile/_hooks/useMyProducts";
 
 export default function FeedPage() {
   const { products: storeProducts, loading: storeLoading } = useStoreProducts({ scope: "STORE", exchange: false });
@@ -14,6 +17,8 @@ export default function FeedPage() {
     scope: "MARKET",
     exchange: true,
   });
+  const { isModalOpened, closeModal } = useTransactionStore();
+  const { myProducts } = useMyProducts();
 
   return (
     <PageWrapper>
@@ -51,6 +56,19 @@ export default function FeedPage() {
         products={exchangeableProducts}
         isLoading={exchangeableLoading}
       />
+      <Modal isOpen={isModalOpened} close={closeModal} title="Intercambiar Producto" size="md">
+        <h2>Intercambiar Producto</h2>
+        <p>Selecciona un producto para intercambiar.</p>
+        {myProducts.length > 0 ? (
+          <ul>
+            {myProducts.map((product) => (
+              <li key={product.id}>{product.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No tienes productos para intercambiar.</p>
+        )}
+      </Modal>
     </PageWrapper>
   );
 }

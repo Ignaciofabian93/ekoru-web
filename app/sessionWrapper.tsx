@@ -4,7 +4,7 @@ import { GET_PROFILE } from "@/app/auth/_graphql/query";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { RefreshToken } from "@/services/auth/rest-auth";
-import useSessionStore from "@/app/auth/_store/session";
+import useSessionStore from "@/store/session";
 import Image from "next/image";
 import useAlert from "@/hooks/useAlert";
 
@@ -23,7 +23,7 @@ export default function SessionWrapper({
   const router = useRouter();
   const pathname = usePathname();
 
-  const { handleSession, setIsAuthenticated, data } = useSessionStore();
+  const { handleSession, data } = useSessionStore();
   const { notifyError } = useAlert();
 
   const [GetMe, { error: authError, loading: authLoading }] = useLazyQuery(GET_PROFILE);
@@ -33,7 +33,6 @@ export default function SessionWrapper({
       const { data: userData, error } = await GetMe();
       if (userData) {
         handleSession(userData.me);
-        setIsAuthenticated(true);
         return true;
       }
 
@@ -43,19 +42,16 @@ export default function SessionWrapper({
         if (refreshResponse?.success) {
           const { data: refreshedData } = await GetMe();
           handleSession(refreshedData.me);
-          setIsAuthenticated(true);
           return true;
         }
       }
       // If still not authenticated, redirect to auth page
-      setIsAuthenticated(false);
       notifyError("Error al intentar obtener los datos del usuario. Redirigiendo a la página de inicio de sesión.");
       router.replace("/auth");
       return false;
     } catch (error) {
       console.error(error, authError);
       notifyError("Sesión expirada. Redirigiendo...");
-      setIsAuthenticated(false);
       router.replace("/auth");
     } finally {
       setLoading(false);
@@ -75,7 +71,6 @@ export default function SessionWrapper({
         } catch (error) {
           console.error("Error al intentar renovar el token:", error);
         }
-        setIsAuthenticated(false);
         setLoading(false);
         router.replace("/auth");
       })();
@@ -84,7 +79,6 @@ export default function SessionWrapper({
 
     // If neither token nor refreshToken, redirect
     if (!token && !refreshToken && animationDone) {
-      setIsAuthenticated(false);
       setLoading(false);
       router.replace("/auth");
       return;

@@ -25,8 +25,6 @@ export default function useExchangeableProducts({ scope, exchange }: { scope: Sc
     fetchProducts();
   }, []);
 
-  console.log("products: ", products);
-
   return {
     products,
     loading,

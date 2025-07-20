@@ -1,8 +1,8 @@
-import { REGISTER } from "@/app/auth/_graphql/mutations";
-import useAlert from "@/hooks/useAlert";
-import { validateEmail, validateNameLength, validatePassword } from "@/utils/regexValidations";
-import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { REGISTER } from "@/app/auth/_graphql/mutations";
+import { validateEmail, validateNameLength, validatePassword } from "@/utils/regexValidations";
+import useAlert from "@/hooks/useAlert";
 
 type Form = {
   name: string;

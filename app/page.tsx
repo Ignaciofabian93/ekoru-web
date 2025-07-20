@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import useSessionStore from "@/app/auth/_store/session";
+import useSessionStore from "@/store/session";
 
 export default function InitApp() {
   const router = useRouter();

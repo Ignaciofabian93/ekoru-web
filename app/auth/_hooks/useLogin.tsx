@@ -4,7 +4,7 @@ import { validateEmail } from "@/utils/regexValidations";
 import { useLazyQuery } from "@apollo/client";
 import { GET_PROFILE } from "@/app/auth/_graphql/query";
 import useAlert from "@/hooks/useAlert";
-import useSessionStore from "@/app/auth/_store/session";
+import useSessionStore from "@/store/session";
 import Login from "@/services/auth/rest-auth";
 
 type Form = {
@@ -83,7 +83,7 @@ export default function useLogin() {
         notify(`Bienvenido(a) ${data.me.name}`);
         setTimeout(() => {
           router.replace("/feed");
-        }, 3000);
+        }, 2500);
       }
     } else {
       notifyError("Error al intentar iniciar sesión.");

@@ -1,3 +1,4 @@
+import useTransactionStore from "@/app/(home)/transaction/_store/transaction";
 import ExchangeButton from "@/components/buttons/exchangeButton";
 import clsx from "clsx";
 
@@ -21,6 +22,7 @@ export default function CardInfo({
   interests,
   isButtonActivated,
 }: CardInfoProps) {
+  const { showModal } = useTransactionStore();
   return (
     <div
       className={clsx("relative w-full flex flex-col items-center justify-between px-3 pt-2", {
@@ -43,8 +45,8 @@ export default function CardInfo({
                 </span>
               ))}
           </div>
-          <div className="flex items-center absolute bottom-12 right-0">
-            <ExchangeButton onClick={() => (isButtonActivated ? null : null)} />
+          <div className="flex items-center absolute bottom-12 right-0 z-50">
+            <ExchangeButton onClick={() => (isButtonActivated ? showModal() : null)} />
           </div>
         </div>
       ) : (

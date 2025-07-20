@@ -6,7 +6,7 @@ export type User = {
   surnames?: string;
   email: string;
   businessName?: string;
-  password: string;
+  password?: string;
   profileImage?: string;
   birthday: string;
   phone: string;
