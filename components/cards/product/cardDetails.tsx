@@ -132,28 +132,43 @@ export default function CardDetails({
           El impacto de tu compra se representa en las siguientes cifras:
         </p>
         <div className="flex items-center justify-between gap-2 mb-2 text-primary-dark w-full">
-          <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleCo2Click}>
+          <div
+            className="flex flex-col items-center w-[48px] cursor-pointer relative"
+            onClick={handleCo2Click}
+          >
             <Info className="w-[14px] h-[14px] mb-1" />
             <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={co2} alt="CO2 savings" width={24} height={24} className="object-contain" />
             </div>
-            <span className="text-[10px] font-semibold">-{totalCo2Savings.toFixed(1)} kg</span>
+            <span className="text-[10px] font-semibold absolute -bottom-2">
+              {totalCo2Savings.toFixed(1)} kg
+            </span>
           </div>
 
-          <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleWaterClick}>
+          <div
+            className="flex flex-col items-center w-[48px] cursor-pointer relative"
+            onClick={handleWaterClick}
+          >
             <Info className="w-[14px] h-[14px] mb-1" />
             <div className="flex items-center justify-center w-9 h-8 mb-1">
-              <Image src={drop} alt="Water savings" width={22} height={22} className="object-contain" />
+              <Image src={drop} alt="Water savings" width={18} height={18} className="object-contain" />
             </div>
-            <span className="text-[10px] font-semibold">-{totalWaterSavings.toFixed(1)} L</span>
+            <span className="text-[10px] font-semibold absolute -bottom-2">
+              {totalWaterSavings.toFixed(1)} L
+            </span>
           </div>
 
-          <div className="flex flex-col items-center w-[48px] cursor-pointer" onClick={handleWasteClick}>
+          <div
+            className="flex flex-col items-center w-[48px] cursor-pointer relative"
+            onClick={handleWasteClick}
+          >
             <Info className="w-[14px] h-[14px] mb-1" />
             <div className="flex items-center justify-center w-9 h-8 mb-1">
               <Image src={waste} alt="Waste savings" width={22} height={22} className="object-contain" />
             </div>
-            <span className="text-[10px] font-semibold">-{totalWasteSavings.toFixed(1)} kg</span>
+            <span className="text-[10px] font-semibold absolute -bottom-2">
+              {totalWasteSavings.toFixed(1)} kg
+            </span>
           </div>
         </div>
       </div>
