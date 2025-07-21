@@ -148,7 +148,9 @@ export default function ProductForm() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <label className="font-semibold text-sm mb-1 block">Intereses de intercambio (al menos 3) *</label>
+              <label className="font-semibold text-sm mb-1 block">
+                Intereses de intercambio (al menos 3) *
+              </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[0, 1, 2].map((idx) => (
                   <TextInput
@@ -322,15 +324,17 @@ export default function ProductForm() {
           close={() => setPreviewProduct(false)}
         >
           <div className="w-full h-full flex flex-col items-center justify-center">
-            <p className="font-semibold text-sm leading-relaxed mb-2">*Así se verá tu producto en las búsquedas*</p>
+            <p className="font-semibold text-sm leading-relaxed mb-2">
+              *Así se verá tu producto en las búsquedas*
+            </p>
             <ProductCard
               id={product.id}
               title={product.name}
               price={product.price}
-              seller={data.name.split(" ")[0]}
-              location={`${data.address}, ${data.county.county}`}
+              seller={data?.name?.split(" ")[0]}
+              location={`${data?.address}, ${data?.county?.county}`}
               images={product.images}
-              sellerImage={data.profileImage}
+              sellerImage={data?.profileImage}
               description={product.description}
               totalCo2Savings={productImpactCalculation.totalCo2Savings}
               totalWaterSavings={productImpactCalculation.totalWaterSavings}
