@@ -5,13 +5,14 @@ import { UPDATE_USER } from "@/graphql/user/mutations";
 import { City, Country, Region, County } from "@/types/location";
 import { GET_PRODUCTS_BY_OWNER } from "@/graphql/products/query";
 import { type Product } from "@/types/product";
-import useSessionStore, { UserData } from "@/store/session";
+import useSessionStore from "@/store/session";
 import useAlert from "@/hooks/useAlert";
+import { User } from "@/types/user";
 
 export default function useProfile() {
   const { handleSession, data, toggleEdit } = useSessionStore();
   const { notify, notifyError } = useAlert();
-  const [formData, setFormData] = useState<UserData>(data);
+  const [formData, setFormData] = useState<User>(data);
   const [countries, setCountries] = useState<Country[]>([]);
   const [regions, setRegions] = useState<Region[]>([]);
   const [cities, setCities] = useState<City[]>([]);
