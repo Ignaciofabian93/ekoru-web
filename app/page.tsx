@@ -5,10 +5,10 @@ import useSessionStore from "@/store/session";
 
 export default function InitApp() {
   const router = useRouter();
-  const { isAuthenticated, data } = useSessionStore();
+  const { data } = useSessionStore();
 
   useEffect(() => {
-    const nextPath = isAuthenticated ? "/feed" : "/auth";
+    const nextPath = data?.id ? "/feed" : "/auth";
 
     const delay = 1000;
     const timeout = setTimeout(() => {
@@ -16,7 +16,7 @@ export default function InitApp() {
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [isAuthenticated, data]);
+  }, [data]);
 
   return null;
 }
