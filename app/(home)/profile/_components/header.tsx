@@ -53,7 +53,14 @@ export default function ProfileHeader() {
     );
     return (
       <div className={containerClass} onClick={toggleExpandImage}>
-        <Image src={image} alt="perfil" className="w-full h-full object-cover" width={90} height={90} priority />
+        <Image
+          src={image}
+          alt="perfil"
+          className="w-full h-full object-cover"
+          width={90}
+          height={90}
+          priority
+        />
       </div>
     );
   };
@@ -65,12 +72,12 @@ export default function ProfileHeader() {
     return (
       <div className={containerClass}>
         <span className="text-2xl font-semibold">
-          {data.name.split(" ")[0]} {data?.surnames.split(" ")[0]}
+          {data?.name?.split(" ")[0]} {data?.surnames?.split(" ")[0]}
         </span>
         <span className="text-lg font-semibold mb-1">
-          {data.address || "Sin dirección"}, {data?.county?.county || ""}, {data?.city?.city || ""}
+          {data?.address || "Sin dirección"}, {data?.county?.county || ""}, {data?.city?.city || ""}
         </span>
-        {data.preferredContactMethod === "EMAIL" && (
+        {data?.preferredContactMethod === "EMAIL" && (
           <div className={contactContainerClass}>
             <span className={contactClass}>
               <Mail size={16} className="text-primary" />
@@ -82,23 +89,23 @@ export default function ProfileHeader() {
           <div className={contactContainerClass}>
             <span className={contactClass}>
               <Phone size={16} className="text-primary" />
-              {contactMethods[data.preferredContactMethod]}
+              {contactMethods[data?.preferredContactMethod]}
             </span>
           </div>
         )}
-        {data.preferredContactMethod === "ALL" && (
+        {data?.preferredContactMethod === "ALL" && (
           <div className={contactContainerClass}>
             <span className={contactClass}>
-              <Mail size={16} className="text-primary" /> {data.email}
+              <Mail size={16} className="text-primary" /> {data?.email}
             </span>
             <span className={contactClass}>
-              <Phone size={16} className="text-primary" /> +56{data.phone}
+              <Phone size={16} className="text-primary" /> +56{data?.phone}
             </span>
           </div>
         )}
         <div className="w-full flex items-center justify-center gap-2 mt-2">
           <span className="text-base font-semibold">Puntos: </span>
-          <span className="text-lg font-semibold text-primary">{data.points}</span>
+          <span className="text-lg font-semibold text-primary">{data?.points}</span>
         </div>
       </div>
     );
