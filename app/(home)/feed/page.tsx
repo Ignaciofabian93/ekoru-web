@@ -8,17 +8,23 @@ import useExchangeableProducts from "./_hooks/useExchangeableProducts";
 import FeedProducts from "./_components/productListing";
 import Modal from "@/components/modal/modal";
 import useTransactionStore from "../transaction/_store/transaction";
-import useMyProducts from "../profile/_hooks/useMyProducts";
+import useMyProductsStore from "@/store/myProducts";
 
 export default function FeedPage() {
-  const { products: storeProducts, loading: storeLoading } = useStoreProducts({ scope: "STORE", exchange: false });
-  const { products: marketProducts, loading: marketLoading } = useMarketProducts({ scope: "MARKET", exchange: false });
+  const { products: storeProducts, loading: storeLoading } = useStoreProducts({
+    scope: "STORE",
+    exchange: false,
+  });
+  const { products: marketProducts, loading: marketLoading } = useMarketProducts({
+    scope: "MARKET",
+    exchange: false,
+  });
   const { products: exchangeableProducts, loading: exchangeableLoading } = useExchangeableProducts({
     scope: "MARKET",
     exchange: true,
   });
   const { isModalOpened, closeModal } = useTransactionStore();
-  const { myProducts } = useMyProducts();
+  const { myProducts } = useMyProductsStore();
 
   return (
     <PageWrapper>
@@ -59,12 +65,66 @@ export default function FeedPage() {
       <Modal isOpen={isModalOpened} close={closeModal} title="Intercambiar Producto" size="md">
         <h2>Intercambiar Producto</h2>
         <p>Selecciona un producto para intercambiar.</p>
-        {myProducts.length > 0 ? (
-          <ul>
+        {myProducts?.length > 0 ? (
+          <div
+            style={{
+              display: "flex",
+              overflowX: "auto",
+              gap: "1rem",
+              padding: "1rem 0",
+              scrollbarWidth: "thin",
+              scrollbarColor: "#ccc #f5f5f5",
+            }}
+          >
             {myProducts.map((product) => (
-              <li key={product.id}>{product.name}</li>
+              <div
+                key={product.id}
+                style={{
+                  minWidth: 160,
+                  background: "#fff",
+                  borderRadius: 12,
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "1rem",
+                  transition: "box-shadow 0.2s",
+                  cursor: "pointer",
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.15)")}
+                onMouseOut={(e) => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)")}
+              >
+                <img
+                  src={
+                    product.images && product.images.length > 0 ? product.images[0] : "/products_cover.jpg"
+                  }
+                  alt={product.name}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    objectFit: "cover",
+                    borderRadius: 8,
+                    marginBottom: 12,
+                    background: "#f5f5f5",
+                  }}
+                />
+                <span
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 16,
+                    textAlign: "center",
+                    color: "#222",
+                    maxWidth: 120,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {product.name}
+                </span>
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No tienes productos para intercambiar.</p>
         )}

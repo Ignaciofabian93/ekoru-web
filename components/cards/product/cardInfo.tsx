@@ -1,5 +1,7 @@
 import useTransactionStore from "@/app/(home)/transaction/_store/transaction";
 import ExchangeButton from "@/components/buttons/exchangeButton";
+import useMyProducts from "@/hooks/useMyProducts";
+import useSessionStore from "@/store/session";
 import clsx from "clsx";
 
 type CardInfoProps = {
@@ -23,6 +25,8 @@ export default function CardInfo({
   isButtonActivated,
 }: CardInfoProps) {
   const { showModal } = useTransactionStore();
+  const { data } = useSessionStore();
+  const { MyProducts } = useMyProducts();
   return (
     <div
       className={clsx("relative w-full flex flex-col items-center justify-between px-3 pt-2", {
@@ -51,6 +55,7 @@ export default function CardInfo({
                 e.stopPropagation();
                 if (isButtonActivated) {
                   showModal();
+                  MyProducts({ variables: { userId: data?.id } });
                 } else {
                   return null;
                 }

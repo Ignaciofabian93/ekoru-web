@@ -29,6 +29,7 @@ type ProductCard = {
   isExchangeable?: boolean;
   interests?: string[];
   productCategory?: ProductCategory;
+  onExchangeClick?: () => void;
 };
 
 export default function ProductCard({
