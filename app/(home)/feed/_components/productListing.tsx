@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Product } from "@/types/product";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ProductCard from "@/components/cards/productCard";
+import ProductCard from "@/components/cards/product/productCard";
 import ProductsSkeleton from "../../_components/productsSkeleton";
 
 type Props = {
@@ -33,7 +33,7 @@ export default function FeedProducts({ title, description, products, isLoading =
       <p className="text-main text-sm mb-4 px-2">{description}</p>
       {isLoading ? (
         <div className="relative w-full">
-          <div className="w-full flex overflow-x-auto gap-x-4 pb-4 scrollbar-thin scrollbar-thumb-green-200">
+          <div className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar">
             <ProductsSkeleton />
           </div>
         </div>

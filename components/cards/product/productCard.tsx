@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Badge } from "@/types/enums";
 import { ProductCategory } from "@/types/product";
 import { impactCalculator } from "@/utils/impactCalc";
-import { useRouter } from "next/navigation";
-import BadgeLabel from "../badges/badge";
-import CardImage from "./product/cardImage";
-import CardInfo from "./product/cardInfo";
-import CardCTA from "./product/cardCta";
-import CardDetails from "./product/cardDetails";
+import BadgeLabel from "../../badges/badge";
+import CardImage from "./cardImage";
+import CardInfo from "./cardInfo";
+import CardCTA from "./cardCta";
+import CardDetails from "./cardDetails";
 import clsx from "clsx";
 
 type ProductCard = {
@@ -19,16 +18,16 @@ type ProductCard = {
   sellerImage?: string;
   location?: string;
   description?: string;
-  badges?: Badge[];
-  isSharedActivated?: boolean;
-  isFavoriteActivated?: boolean;
-  totalCo2Savings?: number;
-  totalWaterSavings?: number;
-  totalWasteSavings?: number;
-  isButtonActivated?: boolean;
-  isExchangeable?: boolean;
-  interests?: string[];
   productCategory?: ProductCategory;
+  badges?: Badge[];
+  interests?: string[];
+  isExchangeable?: boolean;
+  totalWasteSavings?: number;
+  // Activate or deactivate features
+  isSharedEnabled?: boolean;
+  isFavoriteEnabled?: boolean;
+  isSelectionButtonEnabled?: boolean;
+  // Callbacks
   onExchangeClick?: () => void;
 };
 
@@ -41,22 +40,17 @@ export default function ProductCard({
   location,
   badges = [],
   description,
-  sellerImage,
-  isFavoriteActivated = true,
-  isSharedActivated = true,
-  isButtonActivated = true,
-  isExchangeable = false,
   interests = [],
+  sellerImage,
   productCategory,
+  isExchangeable = false,
+  isFavoriteEnabled = true,
+  isSharedEnabled = true,
+  isSelectionButtonEnabled = false,
 }: ProductCard) {
-  const router = useRouter();
   const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";
   const carouselImages = images.length > 0 ? images.slice(0, 3) : [];
-
-  const redirectToProductDetails = () => {
-    router.push(`/product/${id}`);
-  };
 
   const productImpactCalculation =
     productCategory &&
@@ -81,15 +75,19 @@ export default function ProductCard({
         <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""} h-full`}>
           {/* Front Side */}
           <div
-            className="card-flip-front h-full rounded-2xl bg-white shadow-lg shadow-black/20 overflow-hidden relative flex flex-col justify-between pb-3 z-20"
-            onClick={redirectToProductDetails}
+            className={clsx(
+              "card-flip-front h-full",
+              "rounded-2xl bg-white shadow-md hover:shadow-lg shadow-gray-800/50",
+              "overflow-hidden relative flex flex-col justify-between pb-3 z-20",
+              "transition-shadow duration-300 ease-in-out"
+            )}
           >
             <CardImage
               id={id}
               images={carouselImages}
               onFlip={() => setFlipped(true)}
-              isFavoriteActivated={isFavoriteActivated}
-              isSharedActivated={isSharedActivated}
+              isFavoriteEnabled={isFavoriteEnabled}
+              isSharedEnabled={isSharedEnabled}
             />
             <CardInfo
               seller={seller || ""}
@@ -100,9 +98,10 @@ export default function ProductCard({
               price={price || 0}
               isExchangeable={isExchangeable}
               interests={interests}
-              isButtonActivated={isButtonActivated}
+              isSelectionButtonEnabled={isSelectionButtonEnabled}
             />
-            {!isExchangeable && <CardCTA isButtonActivated={isButtonActivated} />}
+            {!isExchangeable && <CardCTA productId={id} />}
+            {isSelectionButtonEnabled && <CardCTA productId={id} isSelectionButtonEnabled />}
           </div>
           {/* Back Side */}
           <div className="card-flip-back z-10">
@@ -115,6 +114,7 @@ export default function ProductCard({
               totalCo2Savings={productImpactCalculation?.totalCo2Savings}
               totalWaterSavings={productImpactCalculation?.totalWaterSavings}
               totalWasteSavings={totalWasteSavings}
+              isSelectionButtonEnabled={isSelectionButtonEnabled}
             />
           </div>
         </div>

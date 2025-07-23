@@ -12,8 +12,8 @@ type CardImageProps = {
   id: number;
   images: string[];
   onFlip: () => void;
-  isFavoriteActivated: boolean;
-  isSharedActivated: boolean;
+  isFavoriteEnabled: boolean;
+  isSharedEnabled: boolean;
   onFavorite?: () => void;
   onShare?: () => void;
 };
@@ -22,8 +22,8 @@ export default function CardImage({
   id,
   images,
   onFlip,
-  isFavoriteActivated,
-  isSharedActivated,
+  isFavoriteEnabled,
+  isSharedEnabled,
   onShare,
 }: CardImageProps) {
   const [current, setCurrent] = useState(0);
@@ -88,38 +88,42 @@ export default function CardImage({
 
       {/* Action Buttons */}
       <div className="absolute bottom-3 right-3 flex flex-col gap-2 z-10">
-        <button
-          className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
-          onClick={(e) => {
-            if (!isFavoriteActivated) return;
-            e.stopPropagation();
-            setAnimateHeart(true);
-            likeProduct({ variables: { id, userId: data?.id } });
-          }}
-        >
-          {likeLoading ? (
-            <Spinner />
-          ) : (
-            <Heart
-              onAnimationEnd={() => setAnimateHeart(false)}
-              className={clsx("w-4 h-4 text-primary", {
-                "fill-primary": likes.some((like) => like.userId === data?.id),
-                "animate-heart": animateHeart,
-              })}
-            />
-          )}
-        </button>
+        {isFavoriteEnabled && (
+          <button
+            className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
+            onClick={(e) => {
+              if (!isFavoriteEnabled) return;
+              e.stopPropagation();
+              setAnimateHeart(true);
+              likeProduct({ variables: { id, userId: data?.id } });
+            }}
+          >
+            {likeLoading ? (
+              <Spinner />
+            ) : (
+              <Heart
+                onAnimationEnd={() => setAnimateHeart(false)}
+                className={clsx("w-4 h-4 text-primary", {
+                  "fill-primary": likes.some((like) => like.userId === data?.id),
+                  "animate-heart": animateHeart,
+                })}
+              />
+            )}
+          </button>
+        )}
 
-        <button
-          className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
-          onClick={(e) => {
-            if (!isSharedActivated) return;
-            e.stopPropagation();
-            onShare?.();
-          }}
-        >
-          <Share2 className="w-4 h-4 text-primary" />
-        </button>
+        {isSharedEnabled && (
+          <button
+            className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 transition"
+            onClick={(e) => {
+              if (!isSharedEnabled) return;
+              e.stopPropagation();
+              onShare?.();
+            }}
+          >
+            <Share2 className="w-4 h-4 text-primary" />
+          </button>
+        )}
       </div>
     </div>
   );

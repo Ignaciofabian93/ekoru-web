@@ -11,28 +11,28 @@ type Modal = {
   size?: "sm" | "md" | "lg";
 };
 
-export default function Modal({ title, children, close, isOpen = true, size = "lg" }: Modal) {
+export default function Modal({ title, children, close, isOpen = true, className }: Modal) {
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className={clsx("fixed inset-0 z-[9999]", "flex items-center justify-center", "bg-black/50 backdrop-blur-sm")}
+          className={clsx(
+            "fixed inset-0 z-[9999]",
+            "flex items-center justify-center",
+            "bg-black/50 backdrop-blur-sm"
+          )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.article
             className={clsx(
-              {
-                "sm:w-[90%] sm:max-w-[500px]": size === "sm",
-                "md:w-[90%] md:max-w-[700px]": size === "md",
-                "lg:w-[90%] lg:max-w-[900px]": size === "lg",
-              },
-              "max-h-[95%]",
+              "max-h-[95%] w-[90%] md:w-[70%]",
               "bg-white border border-primary shadow-xl rounded-[20px]",
               "px-6 py-5",
               "flex flex-col justify-between overflow-y-auto no-scrollbar",
-              "transform transition-all duration-300"
+              "transform transition-all duration-300",
+              className
             )}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

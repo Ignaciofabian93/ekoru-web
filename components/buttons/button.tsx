@@ -25,6 +25,7 @@ export default function Button({
     "cursor-pointer",
     "disabled:opacity-50",
     "disabled:cursor-not-allowed",
+    "hover:brightness-110 transition-all duration-200",
     {
       "w-full py-2": size === "full",
       "w-[80%] py-2": size === "lg",

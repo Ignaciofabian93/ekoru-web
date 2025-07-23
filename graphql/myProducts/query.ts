@@ -43,6 +43,36 @@ export const GET_MY_PRODUCTS = gql`
         fifthMaterialTypeQuantity
         size
         weightUnit
+        fifthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fourthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        thirdMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        secondMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        firstMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
       }
       user {
         id

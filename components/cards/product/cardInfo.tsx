@@ -13,7 +13,7 @@ type CardInfoProps = {
   price: number;
   isExchangeable?: boolean;
   interests?: string[];
-  isButtonActivated?: boolean;
+  isSelectionButtonEnabled?: boolean;
 };
 
 export default function CardInfo({
@@ -22,23 +22,24 @@ export default function CardInfo({
   price,
   isExchangeable,
   interests,
-  isButtonActivated,
+  isSelectionButtonEnabled = false,
 }: CardInfoProps) {
-  const { showModal } = useTransactionStore();
   const { data } = useSessionStore();
+  const { showModal } = useTransactionStore();
   const { MyProducts } = useMyProducts();
   return (
     <div
       className={clsx("relative w-full flex flex-col items-center justify-between px-3 pt-2", {
         "h-[110px]": !isExchangeable,
         "h-[200px]": isExchangeable,
+        "pb-2": isExchangeable && isSelectionButtonEnabled,
       })}
     >
       <div className="w-full flex flex-col gap-0.5">
         <p className="text-base font-semibold truncate">{title}</p>
         <p className="text-xs text-gray-600 line-clamp-2">{description}</p>
       </div>
-      {isExchangeable ? (
+      {isExchangeable && !isSelectionButtonEnabled && (
         <div className="w-full flex flex-col items-start mt-2 relative">
           <span className="text-sm font-semibold text-primary-dark">Intereses</span>
           <div className="flex flex-col items-start">
@@ -53,9 +54,9 @@ export default function CardInfo({
             <ExchangeButton
               onClick={(e) => {
                 e.stopPropagation();
-                if (isButtonActivated) {
+                if (!isSelectionButtonEnabled) {
                   showModal();
-                  MyProducts({ variables: { userId: data?.id } });
+                  MyProducts({ variables: { userId: data.id } });
                 } else {
                   return null;
                 }
@@ -63,7 +64,16 @@ export default function CardInfo({
             />
           </div>
         </div>
-      ) : (
+      )}
+      {isExchangeable && isSelectionButtonEnabled && (
+        <div className="w-full flex flex-col items-start">
+          <span className="text-sm font-semibold text-primary-dark">Intereses:</span>
+          <div className="text-[10px] text-gray-600 mt-1 w-full">
+            <span className="text-pretty">{interests?.join(", ")}</span>
+          </div>
+        </div>
+      )}
+      {!isSelectionButtonEnabled && !isExchangeable && (
         <p className="text-lg font-bold text-primary">${price?.toLocaleString()}</p>
       )}
     </div>

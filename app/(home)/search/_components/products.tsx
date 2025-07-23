@@ -1,5 +1,5 @@
 "use client";
-import ProductCard from "@/components/cards/productCard";
+import ProductCard from "@/components/cards/product/productCard";
 import useSearch from "@/app/(home)/search/_hooks/useSearch";
 
 export default function ProductResults() {

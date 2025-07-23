@@ -1,13 +1,34 @@
+import { useRouter } from "next/navigation";
 import Button from "@/components/buttons/button";
 
 type CardCTAProps = {
-  isButtonActivated: boolean;
+  productId?: number;
+  isSelectionButtonEnabled?: boolean;
 };
 
-export default function CardCTA({ isButtonActivated }: CardCTAProps) {
+export default function CardCTA({ isSelectionButtonEnabled, productId }: CardCTAProps) {
+  const router = useRouter();
+
+  const redirectToProductDetails = () => {
+    router.push(`/product/${productId}`);
+  };
+
+  const isProductSelectedForExchange = () => {};
+
   return (
     <div className="px-4 w-full h-[40px] flex items-center justify-center mt-2">
-      <Button text="¡Me interesa!" size="lg" onClick={() => (isButtonActivated ? null : null)} />
+      <Button
+        text={isSelectionButtonEnabled ? "Seleccionar" : "¡Me interesa!"}
+        size="lg"
+        onClick={() => {
+          if (isSelectionButtonEnabled) {
+            isProductSelectedForExchange();
+          }
+          if (!isSelectionButtonEnabled) {
+            redirectToProductDetails();
+          }
+        }}
+      />
     </div>
   );
 }

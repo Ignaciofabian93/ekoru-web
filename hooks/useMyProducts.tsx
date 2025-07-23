@@ -5,7 +5,7 @@ import useMyProductsStore from "@/store/myProducts";
 import { useEffect } from "react";
 
 export default function useMyProducts() {
-  const { setMyProducts } = useMyProductsStore();
+  const { setMyProducts, setMyProductsLoading } = useMyProductsStore();
   const [MyProducts, { data, loading: myProductsLoading, error: myProductsError, refetch }] = useLazyQuery(
     GET_MY_PRODUCTS,
     {
@@ -18,6 +18,11 @@ export default function useMyProducts() {
       setMyProducts(data.myProducts as Product[]);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (myProductsLoading) setMyProductsLoading(true);
+    else setMyProductsLoading(false);
+  }, [myProductsLoading]);
 
   return {
     MyProducts,

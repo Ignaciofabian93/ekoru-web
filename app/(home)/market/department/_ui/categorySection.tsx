@@ -1,4 +1,4 @@
-import ProductCard from "@/components/cards/productCard";
+import ProductCard from "@/components/cards/product/productCard";
 import SectionTitle from "@/components/section/sectionTitle";
 import { Product } from "@/types/product";
 import { CategorySectionSkeleton } from "../../_components/skeletons";

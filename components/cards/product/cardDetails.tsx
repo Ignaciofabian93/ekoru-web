@@ -16,6 +16,7 @@ type CardDetailsProps = {
   totalCo2Savings?: number;
   totalWasteSavings?: number;
   totalWaterSavings?: number;
+  isSelectionButtonEnabled?: boolean;
   onBack: () => void;
 };
 
@@ -33,6 +34,7 @@ export default function CardDetails({
   totalCo2Savings = 0,
   totalWasteSavings = 0,
   totalWaterSavings = 0,
+  isSelectionButtonEnabled = false,
 }: CardDetailsProps) {
   const [impactMessage, setImpactMessage] = useState<string>("");
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
@@ -174,7 +176,11 @@ export default function CardDetails({
       </div>
       <span className="text-[9px] text-gray-500 text-center mb-2">*Los valores son aproximados*</span>
       <div className="w-full flex justify-center px-2">
-        <Button text="¡Me interesa!" size="lg" onClick={() => {}} />
+        <Button
+          text={isSelectionButtonEnabled ? "Seleccionar" : "¡Me interesa!"}
+          size="lg"
+          onClick={() => {}}
+        />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import clsx from "clsx";
 import SectionTitle from "./title";
 import useProfile from "../_hooks/useProfile";
-import ProductCard from "@/components/cards/productCard";
+import ProductCard from "@/components/cards/product/productCard";
 
 export default function MyProducts() {
   const { myProducts, data } = useProfile();

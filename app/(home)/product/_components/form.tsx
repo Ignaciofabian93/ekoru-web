@@ -10,7 +10,7 @@ import ImageUploader from "./imageUploader";
 import BadgeSelector from "@/components/badges/badgeSelector";
 import CheckBox from "@/components/checkbox/checkbox";
 import Modal from "@/components/modal/modal";
-import ProductCard from "@/components/cards/productCard";
+import ProductCard from "@/components/cards/product/productCard";
 
 export default function ProductForm() {
   const [previewProduct, setPreviewProduct] = useState<boolean>(false);
