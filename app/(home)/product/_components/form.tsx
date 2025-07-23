@@ -33,7 +33,6 @@ export default function ProductForm() {
     data,
     handleImageRemove,
     handleInterests,
-    productImpactCalculation,
     totalWasteSavings,
   } = useProduct();
 
@@ -336,13 +335,11 @@ export default function ProductForm() {
               images={product.images}
               sellerImage={data?.profileImage}
               description={product.description}
-              totalCo2Savings={productImpactCalculation.totalCo2Savings}
-              totalWaterSavings={productImpactCalculation.totalWaterSavings}
               totalWasteSavings={totalWasteSavings}
               badges={product.badges}
-              isButtonActivated={false}
-              isFavoriteActivated={false}
-              isSharedActivated={false}
+              isSelectionButtonEnabled={false}
+              isFavoriteEnabled={false}
+              isSharedEnabled={false}
               interests={product.interests}
               isExchangeable={product.isExchangeable}
             />
