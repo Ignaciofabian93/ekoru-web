@@ -8,6 +8,7 @@ export const GET_PROFILE = gql`
       surnames
       email
       profileImage
+      coverImage
       birthday
       businessName
       address

@@ -16,6 +16,7 @@ const useSessionStore = create<SessionStore>((set) => ({
     password: "",
     businessName: "",
     profileImage: "",
+    coverImage: "",
     birthday: "",
     email: "",
     isCompany: false,
