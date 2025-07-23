@@ -1,17 +1,19 @@
 "use client";
 import { useState } from "react";
-import { Pencil, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "@/components/modal/modal";
 import useSessionStore from "@/store/session";
 import clsx from "clsx";
 import Image from "next/image";
 import ProfileForm from "./form";
+import Button from "@/components/buttons/button";
 
 export default function ProfileHeader() {
   const { data, edit, toggleEdit } = useSessionStore();
   const [expandImage, setExpandImage] = useState<boolean>(false);
   const image = data?.profileImage || "/brandIcon.webp";
+  const coverImage = data?.coverImage || null;
 
   const toggleExpandImage = () => setExpandImage(!expandImage);
 
@@ -31,7 +33,7 @@ export default function ProfileHeader() {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="w-[260px] h-[260px] md:w-[320px] md:h-[320px] lg:w-[450px] lg:h-[450px] rounded-full overflow-hidden relative shadow-xl border-4 border-white"
+            className="w-[220px] h-[220px] md:w-[260px] md:h-[260px] lg:w-[320px] lg:h-[320px] rounded-full overflow-hidden relative shadow-xl border-4 border-white"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
@@ -44,100 +46,95 @@ export default function ProfileHeader() {
     );
   };
 
-  const ProfileImage = () => {
-    const containerClass = clsx(
-      "w-[90%] max-w-[250px] h-full max-h-[250px] flex items-center justify-center",
-      "rounded-full overflow-hidden cursor-pointer",
-      "mb-4",
-      "transition-all duration-300 ease-in-out"
-    );
-    return (
-      <div className={containerClass} onClick={toggleExpandImage}>
-        <Image
-          src={image}
-          alt="perfil"
-          className="w-full h-full object-cover"
-          width={90}
-          height={90}
-          priority
-        />
-      </div>
-    );
-  };
-
-  const UserResume = () => {
-    const containerClass = clsx("w-full flex flex-col items-center justify-start", "px-4 py-2");
-    const contactContainerClass = clsx("w-full flex flex-col items-center justify-center");
-    const contactClass = clsx("text-base font-semibold flex items-center gap-2");
-    return (
-      <div className={containerClass}>
-        <span className="text-2xl font-semibold">
-          {data?.name?.split(" ")[0]} {data?.surnames?.split(" ")[0]}
-        </span>
-        <span className="text-lg font-semibold mb-1">
-          {data?.address || "Sin dirección"}, {data?.county?.county || ""}, {data?.city?.city || ""}
-        </span>
-        {data?.preferredContactMethod === "EMAIL" && (
-          <div className={contactContainerClass}>
-            <span className={contactClass}>
-              <Mail size={16} className="text-primary" />
-              {contactMethods[data.preferredContactMethod]}
-            </span>
-          </div>
-        )}
-        {data.preferredContactMethod === "WHATSAPP" && (
-          <div className={contactContainerClass}>
-            <span className={contactClass}>
-              <Phone size={16} className="text-primary" />
-              {contactMethods[data?.preferredContactMethod]}
-            </span>
-          </div>
-        )}
-        {data?.preferredContactMethod === "ALL" && (
-          <div className={contactContainerClass}>
-            <span className={contactClass}>
-              <Mail size={16} className="text-primary" /> {data?.email}
-            </span>
-            <span className={contactClass}>
-              <Phone size={16} className="text-primary" /> +56{data?.phone}
-            </span>
-          </div>
-        )}
-        <div className="w-full flex items-center justify-center gap-2 mt-2">
-          <span className="text-base font-semibold">Puntos: </span>
-          <span className="text-lg font-semibold text-primary">{data?.points}</span>
-        </div>
-      </div>
-    );
-  };
-
-  const AccountEdit = () => {
-    const containerClass = clsx("w-full flex items-center justify-center gap-4");
-    const actionClass = clsx("flex items-center mt-2");
-    const textClass = clsx("text-base font-semibold text-primary cursor-pointer mr-2");
-    return (
-      <div className={containerClass}>
-        <div className={actionClass} onClick={toggleEdit}>
-          <span className={textClass}>Editar perfil</span>
-          <Pencil size={16} className="text-primary" />
-        </div>
-        <div className={actionClass} onClick={() => {}}>
-          <span className={textClass}>Editar suscripción</span>
-          <Pencil size={16} className="text-primary" />
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className={clsx("relative w-full flex flex-col items-center justify-start", "px-4 py-2 mt-4 mb-8")}>
-      <div className="w-full max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-start md:justify-center gap-2">
-        <ProfileImage />
-        <div className="flex flex-col items-center justify-start">
-          <UserResume />
-          <AccountEdit />
+    <div className={clsx("relative w-full flex flex-col items-center justify-start p-0 mb-8")}>
+      {/* Cover Image Section */}
+      <div
+        className={clsx(
+          "w-[95%] h-[180px] md:h-[240px] lg:h-[300px] relative flex items-center justify-center mb-8 mt-4",
+          "rounded-[11px] overflow-hidden",
+          coverImage ? "bg-transparent" : "bg-gradient-to-r from-primary/30 to-secondary/30"
+        )}
+      >
+        <div className="absolute top-4 right-4 z-10 w-[120px]">
+          <Button text="Editar portada" variant="secondary" size="full" />
+        </div>
+        {coverImage ? (
+          <Image src={coverImage} alt="cover" fill className="object-cover w-full h-full" priority />
+        ) : (
+          <div className="w-full h-full" />
+        )}
+      </div>
+      {/* Profile Card overlays the cover */}
+      <div
+        className={clsx(
+          "w-full max-w-[900px] mx-auto -mt-20 z-10 relative",
+          "bg-white rounded-2xl shadow-xl flex flex-col md:flex-row items-center px-6 py-8 gap-6"
+        )}
+        style={{ minHeight: "220px" }}
+      >
+        {/* Profile Image - centered left, smaller, no dark classes */}
+        <div className="flex-shrink-0 flex items-center justify-center md:justify-start w-full md:w-auto md:mr-8">
+          <div
+            className={clsx(
+              "w-[90px] h-[90px] md:w-[120px] md:h-[120px] lg:w-[180px] lg:h-[180px]",
+              "rounded-full overflow-hidden border-4 border-white shadow-lg cursor-pointer bg-neutral-200"
+            )}
+            onClick={toggleExpandImage}
+          >
+            <Image
+              src={image}
+              alt="perfil"
+              className="object-cover w-full h-full"
+              width={140}
+              height={140}
+              priority
+            />
+          </div>
+        </div>
+        {/* User Info and Actions */}
+        <div className="flex flex-col items-center md:items-start flex-1 gap-2">
+          {/* Name and location */}
+          <span className="text-2xl font-bold text-primary mb-1">
+            {data?.name?.split(" ")[0]} {data?.surnames?.split(" ")[0]}
+          </span>
+          <span className="text-base font-medium text-main mb-1">
+            {data?.address || "Sin dirección"}
+            {data?.county?.county ? `, ${data.county.county}` : ""}
+            {data?.city?.city ? `, ${data.city.city}` : ""}
+          </span>
+          {/* Contact */}
+          <div className="flex flex-col md:flex-row items-center gap-2">
+            {data?.preferredContactMethod === "EMAIL" && (
+              <span className="flex items-center gap-2 text-base font-semibold">
+                <Mail size={16} className="text-primary" />
+                {contactMethods[data.preferredContactMethod]}
+              </span>
+            )}
+            {data?.preferredContactMethod === "WHATSAPP" && (
+              <span className="flex items-center gap-2 text-base font-semibold">
+                <Phone size={16} className="text-primary" />
+                {contactMethods[data?.preferredContactMethod]}
+              </span>
+            )}
+            {data?.preferredContactMethod === "ALL" && (
+              <>
+                <span className="flex items-center gap-2 text-base font-semibold">
+                  <Mail size={16} className="text-primary" /> {data?.email}
+                </span>
+                <span className="flex items-center gap-2 text-base font-semibold">
+                  <Phone size={16} className="text-primary" /> +56{data?.phone}
+                </span>
+              </>
+            )}
+          </div>
+          {/* Actions */}
+          <div className="flex items-center gap-4 mt-4 w-[140px]">
+            <Button text="Editar perfil" variant="primary" onClick={toggleEdit} size="full" />
+          </div>
         </div>
       </div>
+      {/* Modal and Expanded Image */}
       {edit && (
         <Modal title="Editar Perfil" close={toggleEdit}>
           <ProfileForm />

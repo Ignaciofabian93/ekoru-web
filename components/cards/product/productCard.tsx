@@ -27,6 +27,7 @@ type ProductCard = {
   isSharedEnabled?: boolean;
   isFavoriteEnabled?: boolean;
   isSelectionButtonEnabled?: boolean;
+  isCTAClickEnabled?: boolean;
   // Callbacks
   onExchangeClick?: () => void;
 };
@@ -47,6 +48,7 @@ export default function ProductCard({
   isFavoriteEnabled = true,
   isSharedEnabled = true,
   isSelectionButtonEnabled = false,
+  isCTAClickEnabled = true,
 }: ProductCard) {
   const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";
@@ -99,9 +101,12 @@ export default function ProductCard({
               isExchangeable={isExchangeable}
               interests={interests}
               isSelectionButtonEnabled={isSelectionButtonEnabled}
+              isCTAClickEnabled={isCTAClickEnabled}
             />
-            {!isExchangeable && <CardCTA productId={id} />}
-            {isSelectionButtonEnabled && <CardCTA productId={id} isSelectionButtonEnabled />}
+            {!isExchangeable && <CardCTA isCTAClickEnabled={isCTAClickEnabled} productId={id} />}
+            {isSelectionButtonEnabled && (
+              <CardCTA isCTAClickEnabled={isCTAClickEnabled} productId={id} isSelectionButtonEnabled />
+            )}
           </div>
           {/* Back Side */}
           <div className="card-flip-back z-10">
@@ -115,6 +120,8 @@ export default function ProductCard({
               totalWaterSavings={productImpactCalculation?.totalWaterSavings}
               totalWasteSavings={totalWasteSavings}
               isSelectionButtonEnabled={isSelectionButtonEnabled}
+              isExchangeable={isExchangeable}
+              isCTAClickEnabled={isCTAClickEnabled}
             />
           </div>
         </div>

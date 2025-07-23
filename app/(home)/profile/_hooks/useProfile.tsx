@@ -1,31 +1,29 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
-import { UPDATE_USER } from "@/graphql/user/mutations";
 import { City, Country, Region, County } from "@/types/location";
-import { GET_PRODUCTS_BY_OWNER } from "@/graphql/products/query";
-import { type Product } from "@/types/product";
+import { User } from "@/types/user";
+import { GET_MY_PRODUCTS } from "@/graphql/myProducts/query";
+import { UPDATE_USER } from "../_graphql/mutations";
 import useSessionStore from "@/store/session";
 import useAlert from "@/hooks/useAlert";
-import { User } from "@/types/user";
+import { Product } from "@/types/product";
 
 export default function useProfile() {
   const { handleSession, data, toggleEdit } = useSessionStore();
   const { notify, notifyError } = useAlert();
   const [formData, setFormData] = useState<User>(data);
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [regions, setRegions] = useState<Region[]>([]);
-  const [cities, setCities] = useState<City[]>([]);
-  const [counties, setCounties] = useState<County[]>([]);
 
-  const [myProducts, setMyProducts] = useState<Product[]>([]);
+  const [GetCountries, { data: countries, loading: countriesLoading, error: countriesError }] =
+    useLazyQuery(GET_COUNTRIES);
+  const [GetRegions, { data: regions, loading: regionsLoading, error: regionsError }] =
+    useLazyQuery(GET_REGIONS);
+  const [GetCities, { data: cities, loading: citiesLoading, error: citiesError }] = useLazyQuery(GET_CITIES);
+  const [GetCounties, { data: counties, loading: countiesLoading, error: countiesError }] =
+    useLazyQuery(GET_COUNTIES);
 
-  const [GetCountries] = useLazyQuery(GET_COUNTRIES);
-  const [GetRegions] = useLazyQuery(GET_REGIONS);
-  const [GetCities] = useLazyQuery(GET_CITIES);
-  const [GetCounties] = useLazyQuery(GET_COUNTIES);
-
-  const [GetProductsByOwner] = useLazyQuery(GET_PRODUCTS_BY_OWNER);
+  const [MyProducts, { data: products, loading: myProductsLoading, refetch: refetchMyProducts }] =
+    useLazyQuery(GET_MY_PRODUCTS);
 
   // Update user data
   const [UpdateProfile, { loading: updateLoading }] = useMutation(UPDATE_USER, {
@@ -40,72 +38,32 @@ export default function useProfile() {
   // /////////////////////////////////////////////////////////////////////////////////////////
   // Get user products
   useEffect(() => {
-    const { id } = data;
-    const fetchProducts = async () => {
-      try {
-        const { data } = await GetProductsByOwner({ variables: { id: id } });
-        setMyProducts(data.productsByOwner);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
-  }, [data.id]);
+    MyProducts({ variables: { userId: data.id } });
+  }, [data.id, MyProducts]);
 
   // /////////////////////////////////////////////////////////////////////////////////////////
   // Geological information
   useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const { data } = await GetCountries();
-        setCountries(data.countries);
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
-
-    fetchCountries();
+    GetCountries();
   }, []);
 
   useEffect(() => {
-    const fetchRegions = async () => {
-      try {
-        const { data } = await GetRegions({ variables: { countryId: formData.country.id } });
-        setRegions(data.regions);
-      } catch (error) {
-        console.error("Error fetching regions:", error);
-      }
-    };
-
-    if (formData.country.id) fetchRegions();
+    GetRegions({ variables: { countryId: formData.country.id } });
   }, [formData.country.id]);
 
   useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const { data } = await GetCities({ variables: { regionId: formData.region.id } });
-        setCities(data.cities);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-      }
-    };
-
-    if (formData.region.id) fetchCities();
+    GetCities({ variables: { regionId: formData.region.id } });
   }, [formData.region.id]);
 
   useEffect(() => {
-    const fetchCounties = async () => {
-      try {
-        const { data } = await GetCounties({ variables: { cityId: formData.city.id } });
-        setCounties(data.counties);
-      } catch (error) {
-        console.error("Error fetching counties:", error);
-      }
-    };
-
-    if (formData.city.id) fetchCounties();
+    GetCounties({ variables: { cityId: formData.city.id } });
   }, [formData.city.id]);
+
+  useEffect(() => {
+    if (countriesError || regionsError || citiesError || countiesError) {
+      notifyError("Error al cargar información geográfica");
+    }
+  }, [countriesError, regionsError, citiesError, countiesError]);
 
   // //////////////////////////////////////////////////////////////////////////////////////////
   // Handle form data
@@ -125,7 +83,7 @@ export default function useProfile() {
   };
 
   const handleCountry = (value: string | number) => {
-    const country = countries.find((country) => country.id === value);
+    const country = countries.find((country: Country) => country.id === value);
     if (country) {
       setFormData((prev) => ({
         ...prev,
@@ -138,7 +96,7 @@ export default function useProfile() {
   };
 
   const handleRegion = (value: string | number) => {
-    const region = regions.find((region) => region.id === value);
+    const region = regions.find((region: Region) => region.id === value);
     if (region) {
       setFormData((prev) => ({
         ...prev,
@@ -150,7 +108,7 @@ export default function useProfile() {
   };
 
   const handleCity = (value: string | number) => {
-    const city = cities.find((city) => city.id === value);
+    const city = cities.find((city: City) => city.id === value);
     if (city) {
       setFormData((prev) => ({
         ...prev,
@@ -161,7 +119,7 @@ export default function useProfile() {
   };
 
   const handleCounty = (value: string | number) => {
-    const county = counties.find((county) => county.id === value);
+    const county = counties.find((county: County) => county.id === value);
     if (county) {
       setFormData((prev) => ({
         ...prev,
@@ -224,17 +182,25 @@ export default function useProfile() {
     formData,
     handleProfileImage,
     handleSubmit,
-    countries,
-    regions,
-    cities,
-    counties,
+    countries: (countries?.countries as Country[]) || [],
+    regions: (regions?.regions as Region[]) || [],
+    cities: (cities?.cities as City[]) || [],
+    counties: (counties?.counties as County[]) || [],
     handleCity,
     handleCountry,
     handleCounty,
     handleRegion,
     updateLoading,
-    myProducts,
+    myProducts: (products?.myProducts as Product[]) || [],
     data,
     handleContactMethod,
+    countriesLoading,
+    regionsLoading,
+    citiesLoading,
+    countiesLoading,
+    myProductsLoading,
+    refetchMyProducts: () => {
+      refetchMyProducts({ variables: { userId: data.id } });
+    },
   };
 }

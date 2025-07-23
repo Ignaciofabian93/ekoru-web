@@ -4,9 +4,14 @@ import Button from "@/components/buttons/button";
 type CardCTAProps = {
   productId?: number;
   isSelectionButtonEnabled?: boolean;
+  isCTAClickEnabled?: boolean;
 };
 
-export default function CardCTA({ isSelectionButtonEnabled, productId }: CardCTAProps) {
+export default function CardCTA({
+  isSelectionButtonEnabled,
+  productId,
+  isCTAClickEnabled = true,
+}: CardCTAProps) {
   const router = useRouter();
 
   const redirectToProductDetails = () => {
@@ -18,6 +23,7 @@ export default function CardCTA({ isSelectionButtonEnabled, productId }: CardCTA
   return (
     <div className="px-4 w-full h-[40px] flex items-center justify-center mt-2">
       <Button
+        disabled={!isCTAClickEnabled}
         text={isSelectionButtonEnabled ? "Seleccionar" : "¡Me interesa!"}
         size="lg"
         onClick={() => {

@@ -15,6 +15,7 @@ export default function Button({
   variant = "primary",
   size = "full",
   isLoading = false,
+  disabled = false,
   ...rest
 }: Button) {
   className = clsx(
@@ -25,7 +26,7 @@ export default function Button({
     "cursor-pointer",
     "disabled:opacity-50",
     "disabled:cursor-not-allowed",
-    "hover:brightness-110 transition-all duration-200",
+    "transition-all duration-200",
     {
       "w-full py-2": size === "full",
       "w-[80%] py-2": size === "lg",
@@ -33,6 +34,7 @@ export default function Button({
       "w-[50%] py-1": size === "sm",
       "h-[26px]": size === "sm" || size === "md",
       "h-[34px]": size === "lg" || size === "full",
+      "hover:brightness-110": !disabled,
     },
     {
       "bg-primary text-main-inverted border-[1px] border-primary": variant === "primary",
@@ -42,7 +44,7 @@ export default function Button({
     className
   );
   return (
-    <button onClick={onClick} className={className} {...rest}>
+    <button onClick={onClick} className={className} disabled={disabled} {...rest}>
       {isLoading ? <Spinner size={size} color={variant === "primary" ? "white" : "primary"} /> : text}
     </button>
   );

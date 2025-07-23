@@ -14,6 +14,7 @@ type CardInfoProps = {
   isExchangeable?: boolean;
   interests?: string[];
   isSelectionButtonEnabled?: boolean;
+  isCTAClickEnabled?: boolean;
 };
 
 export default function CardInfo({
@@ -23,6 +24,7 @@ export default function CardInfo({
   isExchangeable,
   interests,
   isSelectionButtonEnabled = false,
+  isCTAClickEnabled = true,
 }: CardInfoProps) {
   const { data } = useSessionStore();
   const { showModal } = useTransactionStore();
@@ -52,6 +54,7 @@ export default function CardInfo({
           </div>
           <div className="flex items-center absolute bottom-12 right-1 z-50">
             <ExchangeButton
+              disabled={!isCTAClickEnabled}
               onClick={(e) => {
                 e.stopPropagation();
                 if (!isSelectionButtonEnabled) {

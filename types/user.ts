@@ -8,6 +8,7 @@ export type User = {
   businessName?: string;
   password?: string;
   profileImage?: string;
+  coverImage?: string;
   birthday: string;
   phone: string;
   address: string;

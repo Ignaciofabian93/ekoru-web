@@ -17,6 +17,8 @@ type CardDetailsProps = {
   totalWasteSavings?: number;
   totalWaterSavings?: number;
   isSelectionButtonEnabled?: boolean;
+  isExchangeable?: boolean;
+  isCTAClickEnabled?: boolean;
   onBack: () => void;
 };
 
@@ -35,6 +37,8 @@ export default function CardDetails({
   totalWasteSavings = 0,
   totalWaterSavings = 0,
   isSelectionButtonEnabled = false,
+  isExchangeable = false,
+  isCTAClickEnabled = true,
 }: CardDetailsProps) {
   const [impactMessage, setImpactMessage] = useState<string>("");
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
@@ -177,7 +181,10 @@ export default function CardDetails({
       <span className="text-[9px] text-gray-500 text-center mb-2">*Los valores son aproximados*</span>
       <div className="w-full flex justify-center px-2">
         <Button
-          text={isSelectionButtonEnabled ? "Seleccionar" : "¡Me interesa!"}
+          disabled={!isCTAClickEnabled}
+          text={
+            isSelectionButtonEnabled ? "¡Seleccionar!" : isExchangeable ? "¡Intercambiar!" : "¡Me interesa!"
+          }
           size="lg"
           onClick={() => {}}
         />
