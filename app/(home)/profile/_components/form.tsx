@@ -12,11 +12,13 @@ import { compressImage } from "@/utils/imageCompressor";
 
 export default function ProfileForm() {
   const galleryInputRef = useRef<HTMLInputElement>(null);
+  const coverGalleryInputRef = useRef<HTMLInputElement>(null);
   const {
     formData,
     handleFormData,
     handleDate,
     handleProfileImage,
+    handleCoverImage,
     handleSubmit,
     counties,
     countries,
@@ -29,7 +31,9 @@ export default function ProfileForm() {
     updateLoading,
     handleContactMethod,
   } = useProfile();
-  const [previewImage, setPreviewImage] = useState<string>(formData.profileImage || "/brandIcon.webp");
+  const [previewImage, setPreviewImage] = useState<string>(
+    formData.profileImage || "/branding/brandIcon.webp"
+  );
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -40,28 +44,88 @@ export default function ProfileForm() {
     }
   };
 
+  const handleCoverImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64Image = await compressImage(file);
+      handleCoverImage(base64Image);
+    }
+  };
+
   const openFilePicker = () => {
     galleryInputRef.current?.click();
   };
 
-  const ProfileImage = () => {
+  const openCoverFilePicker = () => {
+    coverGalleryInputRef.current?.click();
+  };
+
+  const CoverImage = () => {
     return (
-      <div className="w-full flex flex-col items-center justify-center mb-8">
-        <div className={clsx("w-[100px] h-[100px] rounded-full overflow-hidden", "bg-white", "mb-4")}>
-          <Image src={previewImage} alt="perfil" className="w-full h-full object-cover" width={100} height={100} />
+      <div className="w-full flex flex-col items-start justify-start mb-8">
+        <p>Foto de portada</p>
+        <div
+          className={clsx(
+            "w-full h-[180px] rounded-[11px] overflow-hidden",
+            "bg-white",
+            "mb-4",
+            "shadow-md shadow-gray-950/10"
+          )}
+        >
+          <Image
+            src={formData.coverImage || "/branding/brandIcon.webp"}
+            alt="portada"
+            className="w-full h-full object-cover"
+            width={100}
+            height={100}
+          />
         </div>
-        <div className="px-4 py-1 border-[2px] border-primary bg-white rounded-[11px] shadow-md shadow-slate-950/10 cursor-pointer">
-          <span onClick={openFilePicker}>Cambiar foto</span>
-          <input ref={galleryInputRef} type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+        <div className="px-4 py-1 mx-auto border-[2px] border-primary bg-white rounded-[11px] shadow-md shadow-slate-950/10 cursor-pointer">
+          <span onClick={openCoverFilePicker}>Cambiar foto</span>
+          <input
+            ref={coverGalleryInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleCoverImageChange}
+            className="hidden"
+          />
         </div>
       </div>
     );
   };
 
-  const rowClassname = "w-full flex flex-col lg:flex-row lg:gap-4 transition-all duration-300 ease-in-out";
+  const ProfileImage = () => {
+    return (
+      <div className="w-full flex flex-col items-center justify-center mb-8">
+        <p className="w-full text-left">Foto de perfil</p>
+        <div className={clsx("w-[180px] h-[180px] rounded-full overflow-hidden", "bg-white", "mb-4")}>
+          <Image
+            src={previewImage}
+            alt="perfil"
+            className="w-full h-full object-cover"
+            width={100}
+            height={100}
+          />
+        </div>
+        <div className="px-4 py-1 border-[2px] border-primary bg-white rounded-[11px] shadow-md shadow-slate-950/10 cursor-pointer">
+          <span onClick={openFilePicker}>Cambiar foto</span>
+          <input
+            ref={galleryInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const rowClassname = "w-full flex flex-col md:flex-row md:gap-6 gap-2 md:items-end mb-4";
 
   return (
-    <div className="w-full min-h-fit h-full flex flex-col items-start justify-start">
+    <div className="w-full max-w-2xl mx-auto min-h-fit h-full flex flex-col items-center justify-start bg-white/90 rounded-xl px-3 sm:px-6 py-8">
+      <CoverImage />
       <ProfileImage />
       <form className="w-full" onSubmit={handleSubmit}>
         {/* NAMES */}
@@ -142,7 +206,7 @@ export default function ProfileForm() {
             options={regions.map((r) => ({ label: r.region, value: r.id }))}
             value={formData.region.id}
             onChange={handleRegion}
-            labelText="Region"
+            labelText="Región"
             hasLabel
           />
         </div>
@@ -179,11 +243,18 @@ export default function ProfileForm() {
             hasLabel
             labelText="Dirección"
           />
-          <DateInput hasLabel labelText="Fecha de nacimiento" value={formData.birthday} onChange={handleDate} />
+          <DateInput
+            hasLabel
+            labelText="Fecha de nacimiento"
+            value={formData.birthday}
+            onChange={handleDate}
+          />
         </div>
-        <div className={"w-full flex flex-col transition-all duration-300 ease-in-out"}>
-          <p className="text-left font-semibold">Método de contacto preferido</p>
-          <div className="">
+        <div className="w-full flex flex-col gap-2 mb-4">
+          <p className="text-left font-semibold text-primary text-[16px] mb-1">
+            Método de contacto preferido
+          </p>
+          <div className="flex flex-row gap-4 flex-wrap">
             <CheckBox
               id="whatsApp"
               label="WhatsApp"

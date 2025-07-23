@@ -82,6 +82,10 @@ export default function useProfile() {
     setFormData((prev) => ({ ...prev, profileImage: base64Image }));
   };
 
+  const handleCoverImage = (base64Image: string) => {
+    setFormData((prev) => ({ ...prev, coverImage: base64Image }));
+  };
+
   const handleCountry = (value: string | number) => {
     const country = countries.find((country: Country) => country.id === value);
     if (country) {
@@ -144,6 +148,7 @@ export default function useProfile() {
       surnames,
       email,
       profileImage,
+      coverImage,
       birthday,
       address,
       city,
@@ -162,6 +167,7 @@ export default function useProfile() {
         surnames,
         email,
         profileImage,
+        coverImage,
         birthday,
         address,
         cityId: Number(city.id),
@@ -181,6 +187,7 @@ export default function useProfile() {
     handleDate,
     formData,
     handleProfileImage,
+    handleCoverImage,
     handleSubmit,
     countries: (countries?.countries as Country[]) || [],
     regions: (regions?.regions as Region[]) || [],

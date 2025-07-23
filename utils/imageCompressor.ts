@@ -1,4 +1,4 @@
-export const compressImage = (file: File, maxWidth = 300, quality = 0.8): Promise<string> => {
+export const compressImage = (file: File, maxWidth = 500, quality = 0.92): Promise<string> => {
   return new Promise((resolve, reject) => {
     const img = new window.Image();
     const reader = new FileReader();
@@ -13,7 +13,7 @@ export const compressImage = (file: File, maxWidth = 300, quality = 0.8): Promis
       const ctx = canvas.getContext("2d");
       if (!ctx) return reject("No canvas context");
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL("image/jpeg", quality);
+      const dataUrl = canvas.toDataURL("image/webp", quality);
       resolve(dataUrl);
     };
     img.onerror = reject;

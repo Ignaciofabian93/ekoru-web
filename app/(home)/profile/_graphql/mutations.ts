@@ -7,6 +7,7 @@ export const UPDATE_USER = gql`
     $surnames: String
     $email: String
     $profileImage: String
+    $coverImage: String
     $birthday: String
     $businessName: String
     $address: String
@@ -25,6 +26,7 @@ export const UPDATE_USER = gql`
       surnames: $surnames
       email: $email
       profileImage: $profileImage
+      coverImage: $coverImage
       birthday: $birthday
       businessName: $businessName
       address: $address
@@ -42,6 +44,7 @@ export const UPDATE_USER = gql`
       surnames
       email
       profileImage
+      coverImage
       birthday
       businessName
       address

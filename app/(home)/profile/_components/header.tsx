@@ -51,14 +51,11 @@ export default function ProfileHeader() {
       {/* Cover Image Section */}
       <div
         className={clsx(
-          "w-[95%] h-[180px] md:h-[240px] lg:h-[300px] relative flex items-center justify-center mb-8 mt-4",
+          "w-[95%] min-h-[250px] h-full max-h-[400px] relative flex items-center justify-center mb-8 mt-4",
           "rounded-[11px] overflow-hidden",
           coverImage ? "bg-transparent" : "bg-gradient-to-r from-primary/30 to-secondary/30"
         )}
       >
-        <div className="absolute top-4 right-4 z-10 w-[120px]">
-          <Button text="Editar portada" variant="secondary" size="full" />
-        </div>
         {coverImage ? (
           <Image src={coverImage} alt="cover" fill className="object-cover w-full h-full" priority />
         ) : (
@@ -68,16 +65,15 @@ export default function ProfileHeader() {
       {/* Profile Card overlays the cover */}
       <div
         className={clsx(
-          "w-full max-w-[900px] mx-auto -mt-20 z-10 relative",
+          "w-[80%] max-w-[900px] mx-auto -mt-14 z-10 relative",
           "bg-white rounded-2xl shadow-xl flex flex-col md:flex-row items-center px-6 py-8 gap-6"
         )}
-        style={{ minHeight: "220px" }}
       >
         {/* Profile Image - centered left, smaller, no dark classes */}
         <div className="flex-shrink-0 flex items-center justify-center md:justify-start w-full md:w-auto md:mr-8">
           <div
             className={clsx(
-              "w-[90px] h-[90px] md:w-[120px] md:h-[120px] lg:w-[180px] lg:h-[180px]",
+              "w-[180px] h-[180px]",
               "rounded-full overflow-hidden border-4 border-white shadow-lg cursor-pointer bg-neutral-200"
             )}
             onClick={toggleExpandImage}
@@ -86,8 +82,8 @@ export default function ProfileHeader() {
               src={image}
               alt="perfil"
               className="object-cover w-full h-full"
-              width={140}
-              height={140}
+              width={280}
+              height={280}
               priority
             />
           </div>
