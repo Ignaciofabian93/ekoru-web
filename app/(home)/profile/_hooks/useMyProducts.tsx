@@ -1,12 +1,12 @@
 import { useLazyQuery } from "@apollo/client";
 import useProfileStore from "../_store/profile";
-import { MY_PRODUCTS } from "../_graphql/myProducts";
 import { useEffect } from "react";
+import { GET_MY_PRODUCTS } from "@/graphql/myProducts/query";
 
 export default function useMyProducts() {
   const { myProducts, setMyProducts, user } = useProfileStore();
 
-  const [ProductsByOwner, { loading: loadingProducts }] = useLazyQuery(MY_PRODUCTS);
+  const [ProductsByOwner, { loading: loadingProducts }] = useLazyQuery(GET_MY_PRODUCTS);
 
   useEffect(() => {
     if (user?.id) {
