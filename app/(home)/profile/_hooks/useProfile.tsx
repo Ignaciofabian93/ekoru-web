@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geo/query";
+import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geolocalization/query";
 import { City, Country, Region, County } from "@/types/location";
 import { User } from "@/types/user";
 import { GET_MY_PRODUCTS } from "@/graphql/myProducts/query";
