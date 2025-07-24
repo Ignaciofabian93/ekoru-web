@@ -64,7 +64,7 @@ export default function MyProducts() {
     <section
       className={clsx(
         "w-[95%] min-h-[400px] flex flex-col relative items-center justify-start",
-        "mx-auto px-4 mb-8"
+        "mx-auto mb-8"
       )}
     >
       <div className="w-full flex items-center justify-end">
@@ -90,7 +90,7 @@ export default function MyProducts() {
             </button>
             <div
               ref={scrollRef}
-              className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar md:no-scrollbar items-center justify-start mt-4 px-1 py-4"
+              className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar md:no-scrollbar mt-4 py-4"
               style={{ scrollBehavior: "smooth" }}
             >
               {myProducts.map((product) => (
