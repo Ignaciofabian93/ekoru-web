@@ -34,32 +34,7 @@ export default function useProduct() {
     departmentId: 0,
     department: {} as Department,
   });
-  const [productCategory, setProductCategory] = useState<ProductCategory>({
-    __typename: "ProductCategory",
-    id: 0,
-    productCategoryName: "",
-    departmentCategoryId: 0,
-    keywords: [],
-    size: "M",
-    weightUnit: "KG",
-    firstMaterialType: null,
-    firstMaterialTypeId: null,
-    firstMaterialTypeQuantity: null,
-    secondMaterialType: null,
-    secondMaterialTypeId: null,
-    secondMaterialTypeQuantity: null,
-    thirdMaterialType: null,
-    thirdMaterialTypeId: null,
-    thirdMaterialTypeQuantity: null,
-    fourthMaterialType: null,
-    fourthMaterialTypeId: null,
-    fourthMaterialTypeQuantity: null,
-    fifthMaterialType: null,
-    fifthMaterialTypeId: null,
-    fifthMaterialTypeQuantity: null,
-    averageWeight: 0,
-    products: [],
-  });
+  const [productCategory, setProductCategory] = useState<ProductCategory>({} as ProductCategory);
   const [product, setProduct] = useState<Product>({
     __typename: "Product",
     id: 0,
@@ -137,32 +112,7 @@ export default function useProduct() {
         department: {} as Department,
       });
       setProductCategories([]);
-      setProductCategory({
-        __typename: "ProductCategory",
-        id: 0,
-        productCategoryName: "",
-        departmentCategoryId: 0,
-        keywords: [],
-        size: "M",
-        weightUnit: "KG",
-        firstMaterialType: null,
-        firstMaterialTypeId: null,
-        firstMaterialTypeQuantity: null,
-        secondMaterialType: null,
-        secondMaterialTypeId: null,
-        secondMaterialTypeQuantity: null,
-        thirdMaterialType: null,
-        thirdMaterialTypeId: null,
-        thirdMaterialTypeQuantity: null,
-        fourthMaterialType: null,
-        fourthMaterialTypeId: null,
-        fourthMaterialTypeQuantity: null,
-        fifthMaterialType: null,
-        fifthMaterialTypeId: null,
-        fifthMaterialTypeQuantity: null,
-        averageWeight: 0,
-        products: [],
-      });
+      setProductCategory({} as ProductCategory);
     },
   });
 
@@ -189,7 +139,9 @@ export default function useProduct() {
   useEffect(() => {
     if (departmentCategory.id) {
       const fetchProductCategoriesByDepartmentCategory = async () => {
-        const { data } = await ProductCategoriesByDepartmentCategory({ variables: { id: departmentCategory.id } });
+        const { data } = await ProductCategoriesByDepartmentCategory({
+          variables: { id: departmentCategory.id },
+        });
         setProductCategories(data.productCategoriesByDepartmentCategory);
       };
 
@@ -208,7 +160,9 @@ export default function useProduct() {
   };
 
   const selectDepartmentCategory = (id: string | number) => {
-    const departmentCategory = departmentCategories.find((departmentCategory) => departmentCategory.id === id);
+    const departmentCategory = departmentCategories.find(
+      (departmentCategory) => departmentCategory.id === id
+    );
     if (departmentCategory) {
       setDepartmentCategory(departmentCategory);
     }
