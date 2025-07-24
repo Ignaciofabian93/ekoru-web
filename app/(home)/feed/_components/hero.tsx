@@ -116,7 +116,7 @@ export default function Hero() {
             <div
               className={clsx(
                 "bg-white/70 rounded-xl px-6 py-4 md:px-10 md:py-6 shadow-lg max-w-[80%] md:max-w-[60%] text-center border-2 border-white",
-                "text-main font-semibold text-xl tracking-[0.01em]",
+                "text-main font-semibold text-md tracking-[0.01em]",
                 "backdrop-blur-xs"
               )}
             >
