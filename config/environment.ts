@@ -1,6 +1,12 @@
 type Environment = "development" | "qa" | "production";
 
-export const ENVIRONMENT: Environment = (process.env.ENVIRONMENT as Environment) || "development";
+// Remove quotes from env values if present (Docker sometimes passes them as strings)
+function cleanEnv(env: string | undefined): Environment {
+  if (!env) return "development";
+  return env.replace(/['"]/g, "") as Environment;
+}
+
+export const ENVIRONMENT: Environment = cleanEnv(process.env.ENVIRONMENT) || "development";
 console.log(`Current environment: ${ENVIRONMENT}`);
 
 const gatewayUrls: Record<Environment, string> = {
