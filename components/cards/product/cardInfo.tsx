@@ -11,6 +11,8 @@ type CardInfoProps = {
   title: string;
   description: string;
   price: number;
+  hasOffer?: boolean;
+  offerPrice?: number;
   isExchangeable?: boolean;
   interests?: string[];
   isSelectionButtonEnabled?: boolean;
@@ -25,14 +27,34 @@ export default function CardInfo({
   interests,
   isSelectionButtonEnabled = false,
   isCTAClickEnabled = true,
+  hasOffer = false,
+  offerPrice = 0,
 }: CardInfoProps) {
   const { data } = useSessionStore();
   const { showModal } = useTransactionStore();
   const { MyProducts } = useMyProducts();
+
+  const RenderPrice = () => {
+    if (hasOffer) {
+      return (
+        <div className="flex flex-col items-center gap-1 w-full">
+          <div className="flex items-start">
+            <span className="bg-red-100 text-red-600 text-[10px] mr-2 font-bold px-2 py-0.2 rounded-full self-start">
+              Oferta
+            </span>
+            <span className="text-xs font-medium text-gray-400 line-through">${price?.toLocaleString()}</span>
+          </div>
+          <span className="text-lg font-bold text-primary">${offerPrice?.toLocaleString()}</span>
+        </div>
+      );
+    }
+    return <p className="text-lg font-bold text-primary">${price?.toLocaleString()}</p>;
+  };
+
   return (
     <div
       className={clsx("relative w-full flex flex-col items-center justify-between px-3 pt-2", {
-        "h-[110px]": !isExchangeable,
+        "h-[140px]": !isExchangeable,
         "h-[200px]": isExchangeable,
         "pb-2": isExchangeable && isSelectionButtonEnabled,
       })}
@@ -76,9 +98,7 @@ export default function CardInfo({
           </div>
         </div>
       )}
-      {!isSelectionButtonEnabled && !isExchangeable && (
-        <p className="text-lg font-bold text-primary">${price?.toLocaleString()}</p>
-      )}
+      {!isSelectionButtonEnabled && !isExchangeable && <RenderPrice />}
     </div>
   );
 }

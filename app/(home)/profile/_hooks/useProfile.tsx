@@ -206,8 +206,6 @@ export default function useProfile() {
     citiesLoading,
     countiesLoading,
     myProductsLoading,
-    refetchMyProducts: () => {
-      refetchMyProducts({ variables: { userId: data.id } });
-    },
+    refetchMyProducts: () => refetchMyProducts({ userId: data.id }),
   };
 }

@@ -1,46 +1,89 @@
 "use client";
 import { useState } from "react";
 import { PRODUCT_COLORS } from "@/constants/colors";
+import { Department, DepartmentCategory, Product, ProductCategory } from "@/types/product";
 import { motion } from "framer-motion";
+import { Badge } from "@/types/enums";
+import { User } from "@/types/user";
 import Select from "@/components/select/select";
 import TextInput from "@/components/textInput/input";
-import useProduct from "../_hooks/useProductForm";
 import Button from "@/components/buttons/button";
-import ImageUploader from "../../../../components/imageUploader/imageUploader";
 import BadgeSelector from "@/components/badges/badgeSelector";
 import CheckBox from "@/components/checkbox/checkbox";
 import Modal from "@/components/modal/modal";
 import ProductCard from "@/components/cards/product/productCard";
+import ImageUploader from "@/components/imageUploader/imageUploader";
 
-export default function ProductForm() {
+interface ProductFormProps {
+  isEditing: boolean;
+  onSuccess: () => void;
+  submitAction: (e: React.FormEvent) => void;
+  product: Product;
+  handleUpdateProduct: (e: React.FormEvent) => Promise<void>;
+  handleAddProduct: (e: React.FormEvent) => Promise<void>;
+  departments: Department[];
+  departmentCategories: DepartmentCategory[];
+  productCategories: ProductCategory[];
+  department: Department;
+  departmentCategory: DepartmentCategory;
+  productCategory: ProductCategory;
+  selectDepartment: (value: string | number) => void;
+  selectDepartmentCategory: (value: string | number) => void;
+  selectProductCategory: (value: string | number) => void;
+  handleProduct: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInterests: (fieldNumber: number, e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBadges: (selectedBadges: Badge[]) => void;
+  data: User;
+  newProductLoading: boolean;
+  handleImageUpload: (image: string | null) => void;
+  handleImageRemove: (image: string) => void;
+  departmentsLoading: boolean;
+  departmentCategoriesLoading: boolean;
+  productCategoriesLoading: boolean;
+}
+
+export default function ProductForm({
+  data,
+  newProductLoading,
+  handleImageUpload,
+  handleImageRemove,
+  isEditing,
+  onSuccess,
+  product,
+  handleProduct,
+  handleInterests,
+  handleBadges,
+  handleUpdateProduct,
+  handleAddProduct,
+  departments,
+  departmentCategories,
+  productCategories,
+  department,
+  departmentCategory,
+  productCategory,
+  selectDepartment,
+  selectDepartmentCategory,
+  selectProductCategory,
+  departmentsLoading,
+  departmentCategoriesLoading,
+  productCategoriesLoading,
+}: ProductFormProps) {
   const [previewProduct, setPreviewProduct] = useState<boolean>(false);
-  const {
-    departments,
-    department,
-    selectDepartment,
-    departmentCategories,
-    departmentCategory,
-    selectDepartmentCategory,
-    productCategories,
-    productCategory,
-    selectProductCategory,
-    handleProduct,
-    product,
-    handleImageUpload,
-    handleSubmit,
-    ProductLoading,
-    handleBadges,
-    data,
-    handleImageRemove,
-    handleInterests,
-    totalWasteSavings,
-  } = useProduct();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isEditing) {
+      await handleUpdateProduct(e);
+    } else {
+      await handleAddProduct(e);
+    }
+    onSuccess();
+  };
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-[800px] bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-        <form className="w-full h-full space-y-8">
-          <h2 className="text-2xl font-bold text-primary mb-4">Publicar producto</h2>
+      <div className="w-full max-w-[800px] bg-white rounded-2xl p-8">
+        <form className="w-full h-full space-y-8" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Select
               name="department"
@@ -49,6 +92,7 @@ export default function ProductForm() {
               onChange={selectDepartment}
               labelText="Departamento *"
               hasLabel
+              disabled={departmentsLoading || !departments.length}
             />
             <Select
               name="departmentCategory"
@@ -57,7 +101,7 @@ export default function ProductForm() {
               onChange={selectDepartmentCategory}
               labelText="Categoría *"
               hasLabel
-              disabled={!department.id || !departmentCategories.length}
+              disabled={!department.id || departmentCategoriesLoading || !departmentCategories.length}
             />
             <Select
               name="productCategory"
@@ -66,7 +110,7 @@ export default function ProductForm() {
               onChange={selectProductCategory}
               labelText="Tipo de producto *"
               hasLabel
-              disabled={!departmentCategory.id || !productCategories.length}
+              disabled={productCategoriesLoading || !departmentCategory.id || !productCategories.length}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -303,15 +347,13 @@ export default function ProductForm() {
               onClick={() => setPreviewProduct(true)}
               type="button"
               variant="secondary"
-              isLoading={ProductLoading}
               className="w-1/2"
             />
             <Button
               text="Guardar"
-              onClick={handleSubmit}
               type="submit"
               variant="primary"
-              isLoading={ProductLoading}
+              isLoading={newProductLoading}
               className="w-1/2"
             />
           </div>
@@ -335,13 +377,14 @@ export default function ProductForm() {
               images={product.images}
               sellerImage={data?.profileImage}
               description={product.description}
-              totalWasteSavings={totalWasteSavings}
               badges={product.badges}
               isSelectionButtonEnabled={false}
               isFavoriteEnabled={false}
               isSharedEnabled={false}
               interests={product.interests}
               isExchangeable={product.isExchangeable}
+              productCategory={product.productCategory}
+              isCTAClickEnabled={false}
             />
           </div>
         </Modal>

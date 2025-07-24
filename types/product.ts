@@ -45,6 +45,7 @@ export type ProductCategory = {
   id: number;
   productCategoryName: string;
   departmentCategoryId: number;
+  departmentCategory: DepartmentCategory;
   keywords: string[];
   size: ProductSize;
   weightUnit: WeightUnit;

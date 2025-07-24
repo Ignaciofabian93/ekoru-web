@@ -9,6 +9,8 @@ type ProfileStore = {
   setLoadingProducts: (loading: boolean) => void;
   myProducts: Product[];
   setMyProducts: (products: Product[]) => void;
+  selectedProduct?: Product | null;
+  setSelectedProduct?: (product: Product | null) => void;
 };
 
 const useProfileStore = create<ProfileStore>((set) => ({

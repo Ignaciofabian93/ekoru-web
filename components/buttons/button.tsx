@@ -32,8 +32,8 @@ export default function Button({
       "w-[80%] py-2": size === "lg",
       "w-[60%] py-2": size === "md",
       "w-[50%] py-1": size === "sm",
-      "h-[26px]": size === "sm" || size === "md",
-      "h-[34px]": size === "lg" || size === "full",
+      "h-[34px]": size === "sm" || size === "md",
+      "h-[40px]": size === "lg" || size === "full",
       "hover:brightness-110": !disabled,
     },
     {

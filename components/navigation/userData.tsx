@@ -73,10 +73,14 @@ export default function UserData() {
             <span className="text-sm text-main">
               {data.county.county || ""}, {data.city.city || ""}
             </span>
-            <span className="text-sm text-main">{data.userCategory?.name ?? "Reciclador amateur"}</span>
-            <span className="text-sm text-main">Puntos: {data.points}</span>
             <span className="text-sm text-main">Notificaciones</span>
-            <Button text="Cerrar sesión" onClick={handleLogout} variant="danger" size="sm" className="mt-4 w-full" />
+            <Button
+              text="Cerrar sesión"
+              onClick={handleLogout}
+              variant="danger"
+              size="sm"
+              className="mt-4 w-full"
+            />
           </motion.div>
         )}
       </AnimatePresence>

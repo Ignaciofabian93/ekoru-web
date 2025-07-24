@@ -23,6 +23,8 @@ type ProductCard = {
   interests?: string[];
   isExchangeable?: boolean;
   totalWasteSavings?: number;
+  hasOffer?: boolean;
+  offerPrice?: number;
   // Activate or deactivate features
   isSharedEnabled?: boolean;
   isFavoriteEnabled?: boolean;
@@ -49,6 +51,8 @@ export default function ProductCard({
   isSharedEnabled = true,
   isSelectionButtonEnabled = false,
   isCTAClickEnabled = true,
+  hasOffer = false,
+  offerPrice = 0,
 }: ProductCard) {
   const [flipped, setFlipped] = useState(false);
   const sellerPreview = sellerImage || "/brandIcon.webp";
@@ -102,6 +106,8 @@ export default function ProductCard({
               interests={interests}
               isSelectionButtonEnabled={isSelectionButtonEnabled}
               isCTAClickEnabled={isCTAClickEnabled}
+              hasOffer={hasOffer}
+              offerPrice={offerPrice}
             />
             {!isExchangeable && <CardCTA isCTAClickEnabled={isCTAClickEnabled} productId={id} />}
             {isSelectionButtonEnabled && (
@@ -128,7 +134,7 @@ export default function ProductCard({
       </div>
       {/* Badges Section */}
       {badges.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-2 items-center justify-center">
+        <div className="flex flex-col gap-2 mt-2 items-center justify-center">
           {badges.map((b) => (
             <BadgeLabel key={b} type={b} />
           ))}

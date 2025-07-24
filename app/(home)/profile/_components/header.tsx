@@ -51,7 +51,7 @@ export default function ProfileHeader() {
       {/* Cover Image Section */}
       <div
         className={clsx(
-          "w-[95%] min-h-[250px] h-full max-h-[400px] relative flex items-center justify-center mb-8 mt-4",
+          "w-[95%] min-h-[300px] h-full max-h-[400px] relative flex items-center justify-center mb-8 mt-4",
           "rounded-[11px] overflow-hidden",
           coverImage ? "bg-transparent" : "bg-gradient-to-r from-primary/30 to-secondary/30"
         )}
@@ -65,7 +65,7 @@ export default function ProfileHeader() {
       {/* Profile Card overlays the cover */}
       <div
         className={clsx(
-          "w-[80%] max-w-[900px] mx-auto -mt-14 z-10 relative",
+          "w-[80%] max-w-[740px] mx-auto -mt-14 z-10 relative",
           "bg-white rounded-2xl shadow-xl flex flex-col md:flex-row items-center px-6 py-8 gap-6"
         )}
       >

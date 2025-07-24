@@ -9,7 +9,6 @@ import {
   User,
   // Star
 } from "lucide-react";
-import Banner from "@/components/banner/banner";
 
 const InfoRow = ({ icon, field, value }: { icon?: React.ReactNode; field: string; value: string }) => (
   <div className={clsx("w-full flex flex-col items-start gap-0 md:gap-1 py-2 border-b border-slate-200")}>
@@ -35,11 +34,6 @@ export default function PersonalInformation() {
     <div
       className={clsx("w-full min-h-[400px] flex flex-col items-center justify-start", "mx-auto px-3 mb-8")}
     >
-      <Banner
-        title="Información Personal"
-        description="Aquí puedes ver y editar los detalles de tu perfil."
-        variant="bordered"
-      />
       <div
         className={clsx(
           "w-full max-w-[900px] flex flex-col md:flex-row md:justify-between mt-6 gap-0 md:gap-8",
