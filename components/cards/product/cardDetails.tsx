@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { RotateCw, Info } from "lucide-react";
 import Image from "next/image";
 import co2 from "@/assets/icons/co2.png";
@@ -9,6 +10,7 @@ import useImpactDetails from "@/app/(home)/product/_hooks/useImpactDetails";
 import clsx from "clsx";
 
 type CardDetailsProps = {
+  userId?: string;
   userProfileImage?: string;
   userName?: string;
   userLocation?: string;
@@ -29,6 +31,7 @@ function getRandomMessage(obj: Record<string, string>) {
 }
 
 export default function CardDetails({
+  userId,
   userProfileImage,
   userName,
   userLocation,
@@ -40,6 +43,7 @@ export default function CardDetails({
   isExchangeable = false,
   isCTAClickEnabled = true,
 }: CardDetailsProps) {
+  const router = useRouter();
   const [impactMessage, setImpactMessage] = useState<string>("");
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
   const [animate, setAnimate] = useState<boolean>(false);
@@ -116,7 +120,10 @@ export default function CardDetails({
           <RotateCw className="w-4 h-4 text-primary" />
         </button>
       </div>
-      <div className="flex flex-col items-center mt-7 mb-3 w-full px-2">
+      <button
+        className="flex flex-col items-center mt-7 mb-3 w-full px-2 cursor-pointer"
+        onClick={() => (userId ? router.push(`/user/${userId}`) : null)}
+      >
         {userProfileImage && (
           <Image
             src={userProfileImage}
@@ -132,7 +139,7 @@ export default function CardDetails({
         {userLocation && (
           <p className="text-[11px] text-gray-500 text-center leading-tight line-clamp-2">{userLocation}</p>
         )}
-      </div>
+      </button>
       <div className="w-full">
         <p className="text-gray-700 text-[11px] mb-3 text-center px-2">
           El impacto de tu compra se representa en las siguientes cifras:

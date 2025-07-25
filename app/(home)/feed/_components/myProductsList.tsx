@@ -82,6 +82,7 @@ export default function MyProductsList({ products }: { products: Product[] }) {
               <ProductCard
                 key={product.id}
                 id={product.id}
+                userId={product.user?.id || ""}
                 images={
                   product.images && product.images.length > 0 ? product.images : ["/products_cover.jpg"]
                 }

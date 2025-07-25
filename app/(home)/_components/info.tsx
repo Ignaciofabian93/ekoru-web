@@ -1,14 +1,18 @@
 "use client";
 import clsx from "clsx";
-import useSessionStore from "@/store/session";
 import {
   Mail,
   Phone,
   Calendar,
   MapPin,
-  User,
+  UserRound,
   // Star
 } from "lucide-react";
+import { User } from "@/types/user";
+
+type Props = {
+  user: User;
+};
 
 const InfoRow = ({ icon, field, value }: { icon?: React.ReactNode; field: string; value: string }) => (
   <div className={clsx("w-full flex flex-col items-start gap-0 md:gap-1 py-2 border-b border-slate-200")}>
@@ -22,8 +26,7 @@ const InfoRow = ({ icon, field, value }: { icon?: React.ReactNode; field: string
   </div>
 );
 
-export default function PersonalInformation() {
-  const { data } = useSessionStore();
+export default function PersonalInformation({ user }: Props) {
   // const accountTypes: { [key: string]: string } = {
   //   FREE: "Gratis",
   //   PLUS: "Plus",
@@ -41,25 +44,25 @@ export default function PersonalInformation() {
         )}
       >
         <div className="w-full flex flex-col gap-1 mb-4 md:mb-0">
-          <InfoRow icon={<Calendar size={18} />} field="Fecha de nacimiento" value={data.birthday || "-"} />
-          <InfoRow icon={<Mail size={18} />} field="Email" value={data.email || "-"} />
+          <InfoRow icon={<Calendar size={18} />} field="Fecha de nacimiento" value={user.birthday || "-"} />
+          <InfoRow icon={<Mail size={18} />} field="Email" value={user.email || "-"} />
           <InfoRow
             icon={<Phone size={18} />}
             field="Teléfono"
-            value={data.phone ? `+56${data.phone}` : "-"}
+            value={user.phone ? `+56${user.phone}` : "-"}
           />
         </div>
         <div className="w-full flex flex-col gap-1">
           <InfoRow
             icon={<MapPin size={18} />}
             field="Dirección"
-            value={[data.address, data.county?.county, data.city?.city].filter(Boolean).join(", ") || "-"}
+            value={[user.address, user.county?.county, user.city?.city].filter(Boolean).join(", ") || "-"}
           />
-          {data.createdAt && (
+          {user.createdAt && (
             <InfoRow
-              icon={<User size={18} />}
+              icon={<UserRound size={18} />}
               field="Miembro desde"
-              value={new Date(data.createdAt).toLocaleDateString()}
+              value={new Date(user.createdAt).toLocaleDateString()}
             />
           )}
         </div>

@@ -328,6 +328,7 @@ export default function ProductForm() {
             </p>
             <ProductCard
               id={product.id}
+              userId={data?.id || ""}
               title={product.name}
               price={product.price}
               seller={data?.name?.split(" ")[0]}

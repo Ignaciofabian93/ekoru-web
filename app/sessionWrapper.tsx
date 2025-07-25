@@ -45,7 +45,7 @@ export default function SessionWrapper({
       ) {
         const refreshResponse = await RefreshToken();
         if (refreshResponse?.success) {
-          const { data: refreshedData } = await GetMe({ variables: { id: refreshResponse.userId } });
+          const { data: refreshedData } = await GetMe();
           handleSession(refreshedData.me);
           return true;
         }

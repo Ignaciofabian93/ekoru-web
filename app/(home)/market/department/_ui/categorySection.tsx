@@ -32,6 +32,7 @@ export default function CategorySection({
                   <ProductCard
                     key={product.id}
                     id={product.id}
+                    userId={product.user?.id || ""}
                     seller={product.user?.name || product.user?.businessName}
                     sellerImage={product.user?.profileImage}
                     location={`${product.user?.county.county}, ${product.user?.city.city}`}

@@ -9,7 +9,7 @@ import SmallButton from "@/components/buttons/smallButton";
 import useProfileProducts from "../_hooks/useProfileProducts";
 import Button from "@/components/buttons/button";
 import Modal from "@/components/modal/modal";
-import ProductForm from "./productForm";
+import ProductForm from "../../_components/productForm";
 import clsx from "clsx";
 
 export default function MyProducts() {
@@ -117,6 +117,7 @@ export default function MyProducts() {
                   </div>
                   <ProductCard
                     id={product.id}
+                    userId={product.user?.id || ""}
                     key={product.id}
                     title={product.name}
                     images={product.images}

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { compressImage } from "@/utils/imageCompressor";
 import Button from "@/components/buttons/button";
 import TextInput from "@/components/textInput/input";
 import clsx from "clsx";
@@ -8,7 +9,6 @@ import Select from "@/components/select/select";
 import DateInput from "@/components/datepicker/datepicker";
 import PhoneInput from "@/components/textInput/phone";
 import CheckBox from "@/components/checkbox/checkbox";
-import { compressImage } from "@/utils/imageCompressor";
 
 export default function ProfileForm() {
   const galleryInputRef = useRef<HTMLInputElement>(null);

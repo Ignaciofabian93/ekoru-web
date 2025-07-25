@@ -14,6 +14,7 @@ export default function ProductsGrid({ products }: Props) {
           {products.map((product) => (
             <ProductCard
               id={product.id}
+              userId={product.user?.id || ""}
               key={product.id}
               title={product.name}
               description={product.description}

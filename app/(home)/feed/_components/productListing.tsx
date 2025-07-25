@@ -58,6 +58,7 @@ export default function FeedProducts({ title, description, products, isLoading =
                 <ProductCard
                   key={product.id}
                   id={product.id}
+                  userId={product.user?.id || ""}
                   images={product.images}
                   title={product.name}
                   sellerImage={product.user?.profileImage}

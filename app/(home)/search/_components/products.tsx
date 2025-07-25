@@ -14,6 +14,7 @@ export default function ProductResults() {
           {products.map((product) => (
             <ProductCard
               id={product.id}
+              userId={product.user?.id || ""}
               key={product.id}
               seller={product.user?.name}
               sellerImage={product.user?.profileImage}

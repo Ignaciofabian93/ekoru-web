@@ -73,7 +73,7 @@ export default function useLogin() {
 
     const response = await Login({ email, password });
     if (response.token) {
-      const { data } = await GetMe({ variables: { id: response.userId } });
+      const { data } = await GetMe();
       if (authError) {
         notifyError("Error al intentar iniciar sesión.");
         return;

@@ -3,23 +3,31 @@ import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "@/components/modal/modal";
-import useSessionStore from "@/store/session";
 import clsx from "clsx";
 import Image from "next/image";
-import ProfileForm from "./form";
 import Button from "@/components/buttons/button";
+import ProfileForm from "../profile/_components/form";
+import { User } from "@/types/user";
+import useSessionStore from "@/store/session";
 
-export default function ProfileHeader() {
-  const { data, edit, toggleEdit } = useSessionStore();
+type Props = {
+  user: User;
+  edit?: boolean;
+  toggleEdit?: () => void;
+};
+
+export default function ProfileHeader({ user, edit, toggleEdit }: Props) {
+  const { data } = useSessionStore();
+
   const [expandImage, setExpandImage] = useState<boolean>(false);
-  const image = data?.profileImage || "/brandIcon.webp";
-  const coverImage = data?.coverImage || null;
+  const image = user?.profileImage || "/brandIcon.webp";
+  const coverImage = user?.coverImage || null;
 
   const toggleExpandImage = () => setExpandImage(!expandImage);
 
   const contactMethods = {
-    EMAIL: data.email,
-    WHATSAPP: data.phone,
+    EMAIL: user.email,
+    WHATSAPP: user.phone,
   };
 
   const ExpandedImageView = () => {
@@ -92,42 +100,44 @@ export default function ProfileHeader() {
         <div className="flex flex-col items-center md:items-start flex-1 gap-2">
           {/* Name and location */}
           <span className="text-2xl font-bold text-primary mb-1">
-            {data?.name?.split(" ")[0]} {data?.surnames?.split(" ")[0]}
+            {user?.name?.split(" ")[0]} {user?.surnames?.split(" ")[0]}
           </span>
           <span className="text-base font-medium text-main mb-1">
-            {data?.address || "Sin dirección"}
-            {data?.county?.county ? `, ${data.county.county}` : ""}
-            {data?.city?.city ? `, ${data.city.city}` : ""}
+            {user?.address || "Sin dirección"}
+            {user?.county?.county ? `, ${user.county.county}` : ""}
+            {user?.city?.city ? `, ${user.city.city}` : ""}
           </span>
           {/* Contact */}
           <div className="flex flex-col md:flex-row items-center gap-2">
-            {data?.preferredContactMethod === "EMAIL" && (
+            {user?.preferredContactMethod === "EMAIL" && (
               <span className="flex items-center gap-2 text-base font-semibold">
                 <Mail size={16} className="text-primary" />
-                {contactMethods[data.preferredContactMethod]}
+                {contactMethods[user.preferredContactMethod]}
               </span>
             )}
-            {data?.preferredContactMethod === "WHATSAPP" && (
+            {user?.preferredContactMethod === "WHATSAPP" && (
               <span className="flex items-center gap-2 text-base font-semibold">
                 <Phone size={16} className="text-primary" />
-                {contactMethods[data?.preferredContactMethod]}
+                {contactMethods[user?.preferredContactMethod]}
               </span>
             )}
-            {data?.preferredContactMethod === "ALL" && (
+            {user?.preferredContactMethod === "ALL" && (
               <>
                 <span className="flex items-center gap-2 text-base font-semibold">
-                  <Mail size={16} className="text-primary" /> {data?.email}
+                  <Mail size={16} className="text-primary" /> {user?.email}
                 </span>
                 <span className="flex items-center gap-2 text-base font-semibold">
-                  <Phone size={16} className="text-primary" /> +56{data?.phone}
+                  <Phone size={16} className="text-primary" /> +56{user?.phone}
                 </span>
               </>
             )}
           </div>
           {/* Actions */}
-          <div className="flex items-center gap-4 mt-4 w-[140px]">
-            <Button text="Editar perfil" variant="primary" onClick={toggleEdit} size="full" />
-          </div>
+          {data.id === user.id && (
+            <div className="flex items-center gap-4 mt-4 w-[140px]">
+              <Button text="Editar perfil" variant="primary" onClick={toggleEdit} size="full" />
+            </div>
+          )}
         </div>
       </div>
       {/* Modal and Expanded Image */}

@@ -11,6 +11,7 @@ import clsx from "clsx";
 
 type ProductCard = {
   id: number;
+  userId?: string;
   title?: string;
   images?: string[];
   price?: number;
@@ -30,12 +31,11 @@ type ProductCard = {
   isFavoriteEnabled?: boolean;
   isSelectionButtonEnabled?: boolean;
   isCTAClickEnabled?: boolean;
-  // Callbacks
-  onExchangeClick?: () => void;
 };
 
 export default function ProductCard({
   id,
+  userId,
   title,
   images = [],
   price,
@@ -117,6 +117,7 @@ export default function ProductCard({
           {/* Back Side */}
           <div className="card-flip-back z-10">
             <CardDetails
+              userId={userId}
               userProfileImage={sellerPreview}
               userName={seller || "Vendedor Anónimo"}
               userLocation={location || "Ubicación no disponible"}
