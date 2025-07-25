@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { GET_PROFILE } from "@/app/auth/_graphql/query";
+import { GET_PROFILE } from "@/graphql/session/query";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { RefreshToken } from "@/services/auth/rest-auth";
@@ -37,16 +37,23 @@ export default function SessionWrapper({
       }
 
       // If 401, try refresh
-      if (error && error.networkError && "statusCode" in error.networkError && error.networkError.statusCode === 401) {
+      if (
+        error &&
+        error.networkError &&
+        "statusCode" in error.networkError &&
+        error.networkError.statusCode === 401
+      ) {
         const refreshResponse = await RefreshToken();
         if (refreshResponse?.success) {
-          const { data: refreshedData } = await GetMe();
+          const { data: refreshedData } = await GetMe({ variables: { id: refreshResponse.userId } });
           handleSession(refreshedData.me);
           return true;
         }
       }
       // If still not authenticated, redirect to auth page
-      notifyError("Error al intentar obtener los datos del usuario. Redirigiendo a la página de inicio de sesión.");
+      notifyError(
+        "Error al intentar obtener los datos del usuario. Redirigiendo a la página de inicio de sesión."
+      );
       router.replace("/auth");
       return false;
     } catch (error) {

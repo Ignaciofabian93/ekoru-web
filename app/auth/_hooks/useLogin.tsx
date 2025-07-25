@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { validateEmail } from "@/utils/regexValidations";
 import { useLazyQuery } from "@apollo/client";
-import { GET_PROFILE } from "@/app/auth/_graphql/query";
+import { GET_PROFILE } from "@/graphql/session/query";
 import useAlert from "@/hooks/useAlert";
 import useSessionStore from "@/store/session";
 import Login from "@/services/auth/rest-auth";
@@ -73,7 +73,7 @@ export default function useLogin() {
 
     const response = await Login({ email, password });
     if (response.token) {
-      const { data } = await GetMe();
+      const { data } = await GetMe({ variables: { id: response.userId } });
       if (authError) {
         notifyError("Error al intentar iniciar sesión.");
         return;

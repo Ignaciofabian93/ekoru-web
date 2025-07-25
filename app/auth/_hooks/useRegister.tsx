@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { REGISTER } from "@/app/auth/_graphql/mutations";
+import { REGISTER } from "@/graphql/session/mutations";
 import { validateEmail, validateNameLength, validatePassword } from "@/utils/regexValidations";
 import useAlert from "@/hooks/useAlert";
 
@@ -55,11 +55,18 @@ export default function useRegister({ handleCurrentView }: Props) {
   });
 
   // Fields validations
-  const validateFields = (email: string, password: string, name: string, surnames: string, businessName: string) => {
+  const validateFields = (
+    email: string,
+    password: string,
+    name: string,
+    surnames: string,
+    businessName: string
+  ) => {
     const newErrors: typeof errors = {};
 
     if (!form.isCompany && !name) newErrors.name = "El nombre es requerido";
-    else if (!form.isCompany && !validateNameLength(name)) newErrors.name = "Debe tener entre 2 y 50 caracteres";
+    else if (!form.isCompany && !validateNameLength(name))
+      newErrors.name = "Debe tener entre 2 y 50 caracteres";
 
     if (!form.isCompany && !surnames) newErrors.surnames = "El/Los apellido(s) son requeridos";
     else if (!form.isCompany && !validateNameLength(surnames))
@@ -77,7 +84,9 @@ export default function useRegister({ handleCurrentView }: Props) {
   };
 
   // Inputs handler
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, type, value } = e.target;
     if (type === "checkbox") setForm({ ...form, isCompany: e.target.checked });
     else setForm({ ...form, [name]: value });
@@ -109,7 +118,13 @@ export default function useRegister({ handleCurrentView }: Props) {
     e.preventDefault();
     const { name, surnames, email, password, businessName, isCompany } = form;
 
-    if ((!isCompany && !name) || (!isCompany && !surnames) || !email || !password || (isCompany && !businessName)) {
+    if (
+      (!isCompany && !name) ||
+      (!isCompany && !surnames) ||
+      !email ||
+      !password ||
+      (isCompany && !businessName)
+    ) {
       notifyError("Todos los campos son obligatorios");
       return;
     }
