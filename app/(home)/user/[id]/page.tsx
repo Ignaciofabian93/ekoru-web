@@ -4,7 +4,7 @@ import ProfileHeader from "../../_components/header";
 import PageWrapper from "../../_components/pageWrapper";
 import PersonalInformation from "../../_components/info";
 import useUser from "../_hooks/useUser";
-import MyProducts from "../../profile/_components/myproducts";
+import ProfileProducts from "../../_components/profileProducts";
 
 export default function UserPage() {
   const { user, userLoading } = useUser();
@@ -34,8 +34,11 @@ export default function UserPage() {
         variant="bordered"
       />
       <PersonalInformation user={user} />
-      <Banner title="Mis Productos" description="Aquí puedes ver y gestionar tus productos." />
-      <MyProducts />
+      <Banner
+        title={`Productos de ${user?.name || user?.businessName}`}
+        description="Aquí puedes ver sus productos y encontrar lo que buscas."
+      />
+      <ProfileProducts />
     </PageWrapper>
   );
 }
