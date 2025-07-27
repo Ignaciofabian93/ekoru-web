@@ -60,6 +60,7 @@ export default function ProfileHeader({ user, edit, toggleEdit }: Props) {
   const address = user.address || "Sin dirección";
   const county = user.county?.county || "";
   const city = user.city?.city || "";
+  const phoneNumber = user.phone ? `+56 ${user.phone}` : "Sin teléfono";
 
   return (
     <div className={clsx("relative w-full flex flex-col items-center justify-start p-0 mb-8")}>
@@ -130,7 +131,7 @@ export default function ProfileHeader({ user, edit, toggleEdit }: Props) {
                   <Mail size={16} className="text-primary" /> {user?.email}
                 </span>
                 <span className="flex items-center gap-2 text-base font-semibold">
-                  <Phone size={16} className="text-primary" /> +56{user?.phone}
+                  <Phone size={16} className="text-primary" /> {phoneNumber}
                 </span>
               </>
             )}

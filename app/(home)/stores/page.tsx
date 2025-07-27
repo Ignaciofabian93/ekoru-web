@@ -1,14 +1,14 @@
 "use client";
+import { useRouter } from "next/navigation";
 import PageHeader from "../_components/pageHeader";
 import PageWrapper from "../_components/pageWrapper";
 import wallpaper from "@/assets/images/stores.jpg";
-import useStoreList from "./_hooks/useStores";
 import StoreCard from "@/components/cards/storeCard/storeCard";
-import { useRouter } from "next/navigation";
+import useStores from "./_hooks/useStores";
 
 export default function StoresPage() {
   const router = useRouter();
-  const { stores, storesLoading } = useStoreList();
+  const { stores, storesLoading } = useStores();
 
   const redirectToStore = (storeId: string) => {
     router.push(`/stores/${storeId}`);

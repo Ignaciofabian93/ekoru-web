@@ -1,7 +1,6 @@
 type Environment = "development" | "qa" | "production";
 
 export const ENVIRONMENT: Environment = (process.env.ENVIRONMENT as Environment) || "development";
-console.log(`Current environment: ${ENVIRONMENT}`);
 
 const gatewayUrls: Record<Environment, string> = {
   development: "http://localhost:4000",
