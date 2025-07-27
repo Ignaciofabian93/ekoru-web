@@ -54,6 +54,13 @@ export default function ProfileHeader({ user, edit, toggleEdit }: Props) {
     );
   };
 
+  const profileName = user.isCompany
+    ? user.businessName
+    : `${user.name?.split(" ")[0]} ${user.surnames?.split(" ")[0]}`;
+  const address = user.address || "Sin dirección";
+  const county = user.county?.county || "";
+  const city = user.city?.city || "";
+
   return (
     <div className={clsx("relative w-full flex flex-col items-center justify-start p-0 mb-8")}>
       {/* Cover Image Section */}
@@ -99,13 +106,9 @@ export default function ProfileHeader({ user, edit, toggleEdit }: Props) {
         {/* User Info and Actions */}
         <div className="flex flex-col items-center md:items-start flex-1 gap-2">
           {/* Name and location */}
-          <span className="text-2xl font-bold text-primary mb-1">
-            {user?.name?.split(" ")[0]} {user?.surnames?.split(" ")[0]}
-          </span>
+          <span className="text-2xl font-bold text-primary mb-1">{profileName}</span>
           <span className="text-base font-medium text-main mb-1">
-            {user?.address || "Sin dirección"}
-            {user?.county?.county ? `, ${user.county.county}` : ""}
-            {user?.city?.city ? `, ${user.city.city}` : ""}
+            {address}, {county}, {city}
           </span>
           {/* Contact */}
           <div className="flex flex-col md:flex-row items-center gap-2">
