@@ -1,24 +1,35 @@
 "use client";
-import { DepartmentNames } from "@/constants/departments";
-import { Department } from "@/types/product";
-import { RenderCategories } from "../../_ui/categoriesRow";
+import { Departments } from "@/constants/departments";
+import { ChevronRight } from "lucide-react";
 import PageWrapper from "../../_ui/pageWrapper";
-import ContentWrapper from "../../_ui/contentWrapper";
-import useDepartments from "../_hooks/useDepartment";
+import ContentWrapper from "../../_ui/catalog/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import CategorySection from "./_ui/categorySection";
 import PageHeader from "../../_ui/catalog/pageHeader";
 import wallpaper from "@/assets/images/market.jpg";
+import useProductsByDepartment from "../_hooks/useProductsByDepartment";
+import RenderCircularOptions from "../../_ui/catalog/renderCircularOptions";
 
 export default function BrowseDepartmentsPage() {
-  const {
-    departments,
-    selectedDepartment,
-    departmentsLoading,
-    selectDepartment,
-    productsByDepartment,
-    redirectToDepartment,
-  } = useDepartments();
+  // Fetch products for each department
+  const automotriz = useProductsByDepartment({ id: Departments.AUTOMOTRIZ.id });
+  const bebes = useProductsByDepartment({ id: Departments.BEBES.id });
+  const deportes = useProductsByDepartment({ id: Departments.DEPORTES.id });
+  const electrohogar = useProductsByDepartment({ id: Departments.ELECTROHOGAR.id });
+  const entretencion = useProductsByDepartment({ id: Departments.ENTRETENCION.id });
+  const herramientas = useProductsByDepartment({ id: Departments.HERRAMIENTAS.id });
+  const hogar = useProductsByDepartment({ id: Departments.HOGAR.id });
+  const instrumentos = useProductsByDepartment({ id: Departments.INSTRUMENTOSMUSICALES.id });
+  const jardin = useProductsByDepartment({ id: Departments.JARDIN.id });
+  const mascotas = useProductsByDepartment({ id: Departments.MASCOTAS.id });
+  const ropa = useProductsByDepartment({ id: Departments.ROPA.id });
+  const tecnologia = useProductsByDepartment({ id: Departments.TECNOLOGIA.id });
+
+  const circularOptionsData = Object.values(Departments).map((dept) => ({
+    id: dept.id,
+    name: dept.name,
+    href: dept.href,
+  }));
 
   return (
     <PageWrapper>
@@ -29,127 +40,124 @@ export default function BrowseDepartmentsPage() {
       />
       <ContentWrapper>
         <Banner
-          isLoading={departmentsLoading}
           title="Explora los departamentos"
           description="Encuentra tus productos dentro de tus categorías favoritas y dales una nueva vida"
+          variant="accented"
         />
       </ContentWrapper>
       <ContentWrapper>
-        <RenderCategories
-          moduleName="Departamentos"
-          data={departments}
-          selectObject={(e) => selectDepartment(e as Department)}
-          selectedObject={selectedDepartment}
-          redirect={(e) => redirectToDepartment(e)}
-          isLoading={departmentsLoading}
-        />
+        <div className="flex items-center gap-2 mb-4">
+          <ChevronRight className="text-primary" size={20} />
+          <span className="text-xl font-semibold text-main">Departamentos</span>
+        </div>
+        <RenderCircularOptions data={circularOptionsData} />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={automotriz.productsLoading}
           sectionName="Automotriz"
           title="Potencia y estilo."
           subtitle="Siente la fuerza en cada viaje."
-          products={productsByDepartment[DepartmentNames.AUTOMOTRIZ]}
+          products={automotriz?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={bebes.productsLoading}
           sectionName="Bebés"
           title="Lo mejor para los más pequeños."
           subtitle="Cuida su mundo con amor."
-          products={productsByDepartment[DepartmentNames.BEBES]}
+          products={bebes?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={deportes.productsLoading}
           sectionName="Deportes y Outdoor"
           title="Energía circular."
           subtitle="Sigue tu ritmo sin dejar huella."
-          products={productsByDepartment[DepartmentNames.DEPORTES]}
+          products={deportes?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={electrohogar.productsLoading}
           sectionName="Electrohogar"
           title="Tecnología al servicio del hogar."
           subtitle="Haz de tu hogar un lugar más sustentable."
-          products={productsByDepartment[DepartmentNames.ELECTROHOGAR]}
+          products={electrohogar?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={entretencion.productsLoading}
           sectionName="Entretención"
           title="Eco aventuras en marcha."
           subtitle="¡El planeta también quiere que te diviertas!"
-          products={productsByDepartment[DepartmentNames.ENTRETENCION]}
+          products={entretencion?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={herramientas.productsLoading}
           sectionName="Herramientas y Maquinaria"
           title="Potencia y precisión."
           subtitle="Las mejores herramientas para tus proyectos."
-          products={productsByDepartment[DepartmentNames.HERRAMIENTAS]}
+          products={herramientas?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={hogar.productsLoading}
           sectionName="Muebles de hogar"
           title="Renueva con propósito."
           subtitle="Piezas únicas que vuelven a la vida."
-          products={productsByDepartment[DepartmentNames.HOGAR]}
+          products={hogar?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={instrumentos.productsLoading}
           sectionName="Instrumentos Musicales"
           title="De segunda mano, de primera nota."
           subtitle="Deja que el pasado suene como nuevo."
-          products={productsByDepartment[DepartmentNames.INSTRUMENTOSMUSICALES]}
+          products={instrumentos?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={jardin.productsLoading}
           sectionName="Jardín y Terraza"
           title="Naturaleza en casa."
           subtitle="Crea tu oasis verde."
-          products={productsByDepartment[DepartmentNames.JARDIN]}
+          products={jardin?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={mascotas.productsLoading}
           sectionName="Mascotas"
           title="Sustentabilidad con cola."
           subtitle="Cuidemos el entorno de quienes más queremos."
-          products={productsByDepartment[DepartmentNames.MASCOTAS]}
+          products={mascotas?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={ropa.productsLoading}
           sectionName="Ropa, Calzado y Accesorios"
           title="Tu ropa, tu revolución verde."
           subtitle="Transforma tu clóset en un acto consciente."
-          products={productsByDepartment[DepartmentNames.ROPA]}
+          products={ropa?.products}
         />
       </ContentWrapper>
       <ContentWrapper>
         <CategorySection
-          departmentsLoading={departmentsLoading}
+          productsLoading={tecnologia.productsLoading}
           sectionName="Tecnología"
           title="Innovación que transforma."
           subtitle="Comodidad y eficiencia que nos hace avanzar."
-          products={productsByDepartment[DepartmentNames.TECNOLOGIA]}
+          products={tecnologia?.products}
         />
       </ContentWrapper>
     </PageWrapper>

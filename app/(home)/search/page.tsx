@@ -1,5 +1,5 @@
 "use client";
-import ContentWrapper from "../_ui/contentWrapper";
+import ContentWrapper from "../_ui/catalog/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import PageWrapper from "../_ui/pageWrapper";
 import Pagination from "@/ui/pagination/pagination";

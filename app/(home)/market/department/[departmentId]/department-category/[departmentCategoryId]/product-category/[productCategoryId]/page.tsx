@@ -1,6 +1,6 @@
 "use client";
 import PageWrapper from "@/app/(home)/_ui/pageWrapper";
-import ContentWrapper from "@/app/(home)/_ui/contentWrapper";
+import ContentWrapper from "@/app/(home)/_ui/catalog/contentWrapper";
 import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/ui/banner/banner";
 import Pagination from "@/ui/pagination/pagination";

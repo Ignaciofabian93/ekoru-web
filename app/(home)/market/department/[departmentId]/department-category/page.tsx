@@ -2,7 +2,7 @@
 import { RenderCategories } from "@/app/(home)/_ui/categoriesRow";
 import { DepartmentCategory } from "@/types/product";
 import PageWrapper from "@/app/(home)/_ui/pageWrapper";
-import ContentWrapper from "../../../../_ui/contentWrapper";
+import ContentWrapper from "../../../../_ui/catalog/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
 import Pagination from "@/ui/pagination/pagination";

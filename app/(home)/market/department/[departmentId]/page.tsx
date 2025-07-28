@@ -2,10 +2,9 @@
 import { RenderCategories } from "@/app/(home)/_ui/categoriesRow";
 import { DepartmentCategory } from "@/types/product";
 import PageWrapper from "@/app/(home)/_ui/pageWrapper";
-import ContentWrapper from "../../../_ui/contentWrapper";
+import ContentWrapper from "../../../_ui/catalog/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import Pagination from "@/ui/pagination/pagination";
-import useDepartments from "../../_hooks/useDepartment";
 import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/catalog/pageHeader";
@@ -13,18 +12,6 @@ import ProductsListing from "@/app/(home)/_ui/product/productsListing";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {
-  const {
-    selectedDepartment,
-    brands,
-    locations,
-    minPrice,
-    maxPrice,
-    badges,
-    selectedFilters,
-    onFilterChange,
-    filteredProductList,
-    departmentLoading,
-  } = useDepartments();
   const { selectedDepartmentCategory, selectDepartmentCategory, redirectToDepartmentCategorySelected } =
     useDepartmentCategories();
 
