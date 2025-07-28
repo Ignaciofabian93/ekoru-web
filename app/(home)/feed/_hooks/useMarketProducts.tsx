@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
-import { GET_FEED_PRODUCTS } from "../_graphql/products";
+import { GET_FEED_PRODUCTS } from "../_graphql/feedProducts";
 import { Product } from "@/types/product";
 import { usePathname } from "next/navigation";
 import useAlert from "@/hooks/useAlert";
@@ -8,7 +8,13 @@ import useSessionStore from "@/store/session";
 
 type Scope = "MARKET" | "STORE";
 
-export default function useMarketProducts({ scope, exchange }: { scope: Scope; exchange: boolean }) {
+export default function useMarketProducts({
+  scope,
+  isExchangeable,
+}: {
+  scope: Scope;
+  isExchangeable: boolean;
+}) {
   const pathname = usePathname();
   const { data } = useSessionStore();
   const { notifyError } = useAlert();
@@ -17,8 +23,8 @@ export default function useMarketProducts({ scope, exchange }: { scope: Scope; e
   });
 
   useEffect(() => {
-    fetchProducts({ variables: { userId: data.id, take: 10, scope, exchange } });
-  }, [fetchProducts, scope, exchange]);
+    fetchProducts({ variables: { userId: data.id, take: 10, scope, isExchangeable } });
+  }, [fetchProducts, scope, isExchangeable]);
 
   useEffect(() => {
     if (error) {
@@ -27,12 +33,12 @@ export default function useMarketProducts({ scope, exchange }: { scope: Scope; e
   }, [error]);
 
   useEffect(() => {
-    refetch({ userId: data.id, take: 10, scope, exchange });
-  }, [pathname, refetch, scope, exchange]);
+    refetch({ userId: data.id, take: 10, scope, isExchangeable });
+  }, [pathname, refetch, scope, isExchangeable]);
 
   return {
     products: (products?.feedProducts as Product[]) || [],
     loading,
-    refetch: () => refetch({ userId: data.id, take: 10, scope, exchange }),
+    refetch: () => refetch({ userId: data.id, take: 10, scope, isExchangeable }),
   };
 }

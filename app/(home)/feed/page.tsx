@@ -1,28 +1,28 @@
 "use client";
 import PageWrapper from "../_ui/pageWrapper";
-import Hero from "./_components/hero";
+import Hero from "./_ui/hero";
 import Banner from "../../../ui/banner/banner";
 import useStoreProducts from "./_hooks/useStoreProducts";
 import useMarketProducts from "./_hooks/useMarketProducts";
 import useExchangeableProducts from "./_hooks/useExchangeableProducts";
-import FeedProducts from "./_components/productListing";
+import FeedProducts from "./_ui/productListing";
 import Modal from "@/ui/modal/modal";
 import useTransactionStore from "../transaction/_store/transaction";
 import useMyProductsStore from "@/store/myProducts";
-import MyProductsList from "./_components/myProductsList";
+import MyProductsList from "./_ui/myProductsList";
 
 export default function FeedPage() {
   const { products: storeProducts, loading: storeLoading } = useStoreProducts({
     scope: "STORE",
-    exchange: false,
+    isExchangeable: false,
   });
   const { products: marketProducts, loading: marketLoading } = useMarketProducts({
     scope: "MARKET",
-    exchange: false,
+    isExchangeable: false,
   });
   const { products: exchangeableProducts, loading: exchangeableLoading } = useExchangeableProducts({
     scope: "MARKET",
-    exchange: true,
+    isExchangeable: true,
   });
   const { isModalOpened, closeModal } = useTransactionStore();
   const { myProducts } = useMyProductsStore();
