@@ -1,4 +1,4 @@
-import Banner from "@/components/banner/banner";
+import Banner from "@/ui/banner/banner";
 import clsx from "clsx";
 import Image from "next/image";
 

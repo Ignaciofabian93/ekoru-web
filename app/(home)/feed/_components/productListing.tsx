@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { Product } from "@/types/product";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ProductCard from "@/components/cards/product/productCard";
-import ProductsSkeleton from "../../_components/productsSkeleton";
+import ProductCard from "@/ui/cards/product/productCard";
+import ProductsSkeleton from "../../_ui/productsSkeleton";
 
 type Props = {
   title: string;

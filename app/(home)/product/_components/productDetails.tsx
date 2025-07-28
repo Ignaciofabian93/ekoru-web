@@ -1,5 +1,5 @@
-import Badge from "@/components/badges/badge";
-import Carousel from "@/components/carousel/carousel";
+import Badge from "@/ui/badges/badge";
+import Carousel from "@/ui/carousel/carousel";
 import { useState } from "react";
 import { Product } from "@/types/product";
 
@@ -36,7 +36,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 />
                 <Carousel.LeftButton onClick={handlePrev} />
                 <Carousel.RightButton onClick={handleNext} />
-                <Carousel.Dots totalImages={totalImages} currentIndex={currentIndex} selectImage={selectImage} />
+                <Carousel.Dots
+                  totalImages={totalImages}
+                  currentIndex={currentIndex}
+                  selectImage={selectImage}
+                />
               </Carousel.Wrapper>
             </Carousel>
           ) : (
@@ -46,7 +50,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           )}
         </div>
         {product.hasOffer && (
-          <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold mb-2">¡Oferta!</span>
+          <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold mb-2">
+            ¡Oferta!
+          </span>
         )}
       </div>
       {/* Detalles del producto */}
@@ -54,7 +60,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-2 text-center md:text-left">
           {product.name}
         </h1>
-        <p className="text-base md:text-lg text-gray-700 mb-4 text-center md:text-left">{product.description}</p>
+        <p className="text-base md:text-lg text-gray-700 mb-4 text-center md:text-left">
+          {product.description}
+        </p>
         <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-4">
           <span className="text-xl md:text-2xl font-bold text-green-600">
             {product.hasOffer ? (
@@ -105,7 +113,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             </li>
             <li>
               Peso promedio:{" "}
-              <span className="font-semibold text-gray-800">{product.productCategory?.averageWeight ?? 0} kg</span>
+              <span className="font-semibold text-gray-800">
+                {product.productCategory?.averageWeight ?? 0} kg
+              </span>
             </li>
           </ul>
         </div>
@@ -115,7 +125,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             <span className="font-semibold text-gray-800">Intereses:</span>
             <div className="flex gap-2 flex-wrap mt-1 justify-center md:justify-start">
               {product.interests.map((interest, idx) => (
-                <span key={idx} className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">
+                <span
+                  key={idx}
+                  className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium"
+                >
                   {interest}
                 </span>
               ))}

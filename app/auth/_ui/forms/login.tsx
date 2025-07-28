@@ -1,8 +1,8 @@
 "use client";
 import { Eye, EyeOff } from "lucide-react";
 import { colors } from "@/constants/colors";
-import Button from "@/components/buttons/button";
-import TextInput from "@/components/textInput/input";
+import Button from "@/ui/buttons/button";
+import TextInput from "@/ui/textInput/input";
 import useLogin from "@/app/auth/_hooks/useLogin";
 
 type LoginForm = {
@@ -10,8 +10,15 @@ type LoginForm = {
 };
 
 export default function LoginForm({ handleCurrentView }: LoginForm) {
-  const { form, errors, isPasswordVisible, loading, handleFormChange, togglePasswordVisibility, handleSubmit } =
-    useLogin();
+  const {
+    form,
+    errors,
+    isPasswordVisible,
+    loading,
+    handleFormChange,
+    togglePasswordVisibility,
+    handleSubmit,
+  } = useLogin();
 
   return (
     <form onSubmit={handleSubmit} className="w-full flex flex-col items-center justify-center md:w-[80%]">
@@ -40,7 +47,14 @@ export default function LoginForm({ handleCurrentView }: LoginForm) {
           )
         }
       />
-      <Button key={"signin"} text="Ingresar" type="submit" disabled={loading} isLoading={loading} size="full" />
+      <Button
+        key={"signin"}
+        text="Ingresar"
+        type="submit"
+        disabled={loading}
+        isLoading={loading}
+        size="full"
+      />
       <span
         className="text-sm text-primary cursor-pointer text-center font-semibold mt-2"
         onClick={() => handleCurrentView("register")}

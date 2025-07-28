@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Carousel from "@/components/carousel/carousel";
+import Carousel from "@/ui/carousel/carousel";
 import image1 from "@/assets/images/exchange.jpg";
 import image2 from "@/assets/images/market.jpg";
 import image3 from "@/assets/images/stores.jpg";

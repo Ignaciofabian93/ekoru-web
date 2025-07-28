@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { DepartmentCategory, ProductCategory } from "@/types/product";
-import ProductCard from "@/components/cards/product/productCard";
+import ProductCard from "@/ui/cards/product/productCard";
 
 type RenderProductsProps = {
   selectedDepartmentCategory: DepartmentCategory | null;

@@ -1,9 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
-import PageHeader from "../_components/pageHeader";
-import PageWrapper from "../_components/pageWrapper";
+import PageHeader from "../_ui/pageHeader";
+import PageWrapper from "../_ui/pageWrapper";
 import wallpaper from "@/assets/images/stores.jpg";
-import StoreCard from "@/components/cards/storeCard/storeCard";
+import StoreCard from "@/ui/cards/storeCard/storeCard";
 import useStores from "./_hooks/useStores";
 
 export default function StoresPage() {

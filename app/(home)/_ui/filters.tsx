@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Badge } from "@/types/enums";
 import { Filters } from "../market/types/filters";
-import BadgeTag from "@/components/badges/badge";
-import SmallInput from "@/components/textInput/smallInput";
-import SmallCheckBox from "@/components/checkbox/smallCheckbox";
-import SmallSelect from "@/components/select/smallSelect";
-import Modal from "@/components/modal/modal";
+import BadgeTag from "@/ui/badges/badge";
+import SmallInput from "@/ui/textInput/smallInput";
+import SmallCheckBox from "@/ui/checkbox/smallCheckbox";
+import SmallSelect from "@/ui/select/smallSelect";
+import Modal from "@/ui/modal/modal";
 
 export type FilterProps = {
   brands: string[];
@@ -67,7 +67,10 @@ export default function ProductFilters({
             value={selectedFilters.minPrice ?? ""}
             placeholder={minPrice?.toString() || "Min"}
             onChange={(e) => {
-              onFilterChange({ ...selectedFilters, minPrice: e.target.value ? Number(e.target.value) : null });
+              onFilterChange({
+                ...selectedFilters,
+                minPrice: e.target.value ? Number(e.target.value) : null,
+              });
             }}
           />
           <SmallInput

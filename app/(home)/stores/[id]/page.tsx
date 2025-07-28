@@ -1,9 +1,9 @@
 "use client";
-import Banner from "@/components/banner/banner";
-import ProfileHeader from "../../_components/header";
-import PageWrapper from "../../_components/pageWrapper";
-import PersonalInformation from "../../_components/info";
-import ProfileProducts from "../../_components/profileProducts";
+import Banner from "@/ui/banner/banner";
+import ProfileHeader from "../../_ui/header";
+import PageWrapper from "../../_ui/pageWrapper";
+import PersonalInformation from "../../_ui/info";
+import ProfileProducts from "../../_ui/profileProducts";
 import useUser from "../../user/_hooks/useUser";
 
 export default function UserPage() {

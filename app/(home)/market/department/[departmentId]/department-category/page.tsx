@@ -1,14 +1,14 @@
 "use client";
-import { RenderCategories } from "@/app/(home)/_components/categoriesRow";
+import { RenderCategories } from "@/app/(home)/_ui/categoriesRow";
 import { DepartmentCategory } from "@/types/product";
-import PageWrapper from "@/app/(home)/_components/pageWrapper";
-import ContentWrapper from "../../../../_components/contentWrapper";
-import Banner from "@/components/banner/banner";
+import PageWrapper from "@/app/(home)/_ui/pageWrapper";
+import ContentWrapper from "../../../../_ui/contentWrapper";
+import Banner from "@/ui/banner/banner";
 import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
-import ProductsListing from "@/app/(home)/_components/productsListing";
-import Pagination from "@/components/pagination/pagination";
+import ProductsListing from "@/app/(home)/_ui/productsListing";
+import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
-import PageHeader from "@/app/(home)/_components/pageHeader";
+import PageHeader from "@/app/(home)/_ui/pageHeader";
 
 // This page is for browsing department categories in a specific department.
 export default function BrowseDepartmentCategoriesPage() {

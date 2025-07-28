@@ -1,6 +1,6 @@
-import Footer from "@/components/footer/footer";
-import Navbar from "@/components/navigation/navbar";
-import SubNavigation from "@/components/navigation/subNavigation";
+import Footer from "@/ui/footer/footer";
+import Navbar from "@/ui/navigation/navbar";
+import SubNavigation from "@/ui/navigation/subNavigation";
 
 export default function PageWrapper({ children }: { children: React.ReactNode }) {
   return (

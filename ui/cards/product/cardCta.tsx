@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import Button from "@/components/buttons/button";
+import Button from "@/ui/buttons/button";
 
 type CardCTAProps = {
   productId?: number;

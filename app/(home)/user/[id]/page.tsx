@@ -1,10 +1,10 @@
 "use client";
-import Banner from "@/components/banner/banner";
-import ProfileHeader from "../../_components/header";
-import PageWrapper from "../../_components/pageWrapper";
-import PersonalInformation from "../../_components/info";
+import Banner from "@/ui/banner/banner";
+import ProfileHeader from "../../_ui/header";
+import PageWrapper from "../../_ui/pageWrapper";
+import PersonalInformation from "../../_ui/info";
 import useUser from "../_hooks/useUser";
-import ProfileProducts from "../../_components/profileProducts";
+import ProfileProducts from "../../_ui/profileProducts";
 
 export default function UserPage() {
   const { user, userLoading } = useUser();

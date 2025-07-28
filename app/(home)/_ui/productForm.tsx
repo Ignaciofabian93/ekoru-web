@@ -5,14 +5,14 @@ import { Department, DepartmentCategory, Product, ProductCategory } from "@/type
 import { motion } from "framer-motion";
 import { Badge } from "@/types/enums";
 import { User } from "@/types/user";
-import Select from "@/components/select/select";
-import TextInput from "@/components/textInput/input";
-import Button from "@/components/buttons/button";
-import BadgeSelector from "@/components/badges/badgeSelector";
-import CheckBox from "@/components/checkbox/checkbox";
-import Modal from "@/components/modal/modal";
-import ProductCard from "@/components/cards/product/productCard";
-import ImageUploader from "@/components/imageUploader/imageUploader";
+import Select from "@/ui/select/select";
+import TextInput from "@/ui/textInput/input";
+import Button from "@/ui/buttons/button";
+import BadgeSelector from "@/ui/badges/badgeSelector";
+import CheckBox from "@/ui/checkbox/checkbox";
+import Modal from "@/ui/modal/modal";
+import ProductCard from "@/ui/cards/product/productCard";
+import ImageUploader from "@/ui/imageUploader/imageUploader";
 
 interface ProductFormProps {
   isEditing: boolean;

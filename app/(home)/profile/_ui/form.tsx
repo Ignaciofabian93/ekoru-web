@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 import { compressImage } from "@/utils/imageCompressor";
-import Button from "@/components/buttons/button";
-import TextInput from "@/components/textInput/input";
+import Button from "@/ui/buttons/button";
+import TextInput from "@/ui/textInput/input";
 import clsx from "clsx";
 import Image from "next/image";
 import useProfile from "../_hooks/useProfile";
-import Select from "@/components/select/select";
-import DateInput from "@/components/datepicker/datepicker";
-import PhoneInput from "@/components/textInput/phone";
-import CheckBox from "@/components/checkbox/checkbox";
+import Select from "@/ui/select/select";
+import DateInput from "@/ui/datepicker/datepicker";
+import PhoneInput from "@/ui/textInput/phone";
+import CheckBox from "@/ui/checkbox/checkbox";
 
 export default function ProfileForm() {
   const galleryInputRef = useRef<HTMLInputElement>(null);

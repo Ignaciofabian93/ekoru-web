@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import PageWrapper from "../../_components/pageWrapper";
+import PageWrapper from "../../_ui/pageWrapper";
 import ProductDetails from "../_components/productDetails";
 import useProduct from "../_hooks/useProduct";
 

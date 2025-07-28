@@ -1,12 +1,12 @@
 "use client";
-import PageWrapper from "../_components/pageWrapper";
+import PageWrapper from "../_ui/pageWrapper";
 import Hero from "./_components/hero";
-import Banner from "../../../components/banner/banner";
+import Banner from "../../../ui/banner/banner";
 import useStoreProducts from "./_hooks/useStoreProducts";
 import useMarketProducts from "./_hooks/useMarketProducts";
 import useExchangeableProducts from "./_hooks/useExchangeableProducts";
 import FeedProducts from "./_components/productListing";
-import Modal from "@/components/modal/modal";
+import Modal from "@/ui/modal/modal";
 import useTransactionStore from "../transaction/_store/transaction";
 import useMyProductsStore from "@/store/myProducts";
 import MyProductsList from "./_components/myProductsList";

@@ -3,13 +3,13 @@ import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Pencil, Trash } from "lucide-react";
 import useProfile from "../_hooks/useProfile";
-import ProductCard from "@/components/cards/product/productCard";
-import ProductsSkeleton from "../../_components/productsSkeleton";
-import SmallButton from "@/components/buttons/smallButton";
+import ProductCard from "@/ui/cards/product/productCard";
+import ProductsSkeleton from "../../_ui/productsSkeleton";
+import SmallButton from "@/ui/buttons/smallButton";
 import useProfileProducts from "../_hooks/useProfileProducts";
-import Button from "@/components/buttons/button";
-import Modal from "@/components/modal/modal";
-import ProductForm from "../../_components/productForm";
+import Button from "@/ui/buttons/button";
+import Modal from "@/ui/modal/modal";
+import ProductForm from "../../_ui/productForm";
 import clsx from "clsx";
 
 export default function MyProducts() {

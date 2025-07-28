@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ProductCard from "@/components/cards/product/productCard";
+import ProductCard from "@/ui/cards/product/productCard";
 import clsx from "clsx";
 import useUser from "../user/_hooks/useUser";
 import ProductsSkeleton from "./productsSkeleton";

@@ -5,7 +5,7 @@ import Image from "next/image";
 import co2 from "@/assets/icons/co2.png";
 import drop from "@/assets/icons/drop.png";
 import waste from "@/assets/icons/trash.png";
-import Button from "@/components/buttons/button";
+import Button from "@/ui/buttons/button";
 import useImpactDetails from "@/app/(home)/product/_hooks/useImpactDetails";
 import clsx from "clsx";
 

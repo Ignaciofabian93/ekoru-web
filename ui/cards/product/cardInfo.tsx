@@ -1,5 +1,5 @@
 import useTransactionStore from "@/app/(home)/transaction/_store/transaction";
-import ExchangeButton from "@/components/buttons/exchangeButton";
+import ExchangeButton from "@/ui/buttons/exchangeButton";
 import useMyProducts from "@/hooks/useMyProducts";
 import useSessionStore from "@/store/session";
 import clsx from "clsx";

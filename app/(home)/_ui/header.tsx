@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Modal from "@/components/modal/modal";
+import Modal from "@/ui/modal/modal";
 import clsx from "clsx";
 import Image from "next/image";
-import Button from "@/components/buttons/button";
-import ProfileForm from "../profile/_components/form";
+import Button from "@/ui/buttons/button";
+import ProfileForm from "../profile/_ui/form";
 import { User } from "@/types/user";
 import useSessionStore from "@/store/session";
 

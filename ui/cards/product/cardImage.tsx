@@ -4,7 +4,7 @@ import { RotateCw, Share2, Heart } from "lucide-react";
 import useSessionStore from "@/store/session";
 import clsx from "clsx";
 import useLikeProduct from "@/hooks/useLikeProduct";
-import Spinner from "@/components/spinner/spinner";
+import Spinner from "@/ui/spinner/spinner";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCT } from "@/graphql/products/query";
 

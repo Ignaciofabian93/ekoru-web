@@ -1,9 +1,9 @@
 "use client";
 import { colors } from "@/constants/colors";
 import { Eye, EyeOff } from "lucide-react";
-import TextInput from "@/components/textInput/input";
-import Button from "@/components/buttons/button";
-import CheckBox from "@/components/checkbox/checkbox";
+import TextInput from "@/ui/textInput/input";
+import Button from "@/ui/buttons/button";
+import CheckBox from "@/ui/checkbox/checkbox";
 import useRegister from "../../_hooks/useRegister";
 
 type RegisterForm = {
@@ -11,8 +11,15 @@ type RegisterForm = {
 };
 
 export default function RegisterForm({ handleCurrentView }: RegisterForm) {
-  const { form, errors, isPasswordVisible, authLoading, handleFormChange, togglePasswordVisibility, handleSubmit } =
-    useRegister({ handleCurrentView });
+  const {
+    form,
+    errors,
+    isPasswordVisible,
+    authLoading,
+    handleFormChange,
+    togglePasswordVisibility,
+    handleSubmit,
+  } = useRegister({ handleCurrentView });
 
   return (
     <form onSubmit={handleSubmit} className="w-full h-full pb-8 md:pb-0">

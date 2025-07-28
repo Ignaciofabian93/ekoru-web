@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { Product } from "@/types/product";
 import clsx from "clsx";
-import ProductCard from "@/components/cards/product/productCard";
+import ProductCard from "@/ui/cards/product/productCard";
 import useMyProductsStore from "@/store/myProducts";
-import Spinner from "@/components/spinner/spinner";
+import Spinner from "@/ui/spinner/spinner";
 
 export default function MyProductsList({ products }: { products: Product[] }) {
   const { myProductsLoading } = useMyProductsStore();

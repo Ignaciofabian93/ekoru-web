@@ -1,4 +1,4 @@
-import PageWrapper from "../_components/pageWrapper";
+import PageWrapper from "../_ui/pageWrapper";
 
 export default function ServicesPage() {
   return (

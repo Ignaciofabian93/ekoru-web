@@ -1,10 +1,10 @@
 "use client";
-import Banner from "@/components/banner/banner";
-import PageWrapper from "../_components/pageWrapper";
-import PersonalInformation from "../_components/info";
-import ProfileHeader from "../_components/header";
+import Banner from "@/ui/banner/banner";
+import PageWrapper from "../_ui/pageWrapper";
+import PersonalInformation from "../_ui/info";
+import ProfileHeader from "../_ui/header";
 import useSessionStore from "@/store/session";
-import MyProducts from "./_components/myproducts";
+import MyProducts from "./_ui/myproducts";
 
 export default function ProfilePage() {
   const { data, edit, toggleEdit } = useSessionStore();
