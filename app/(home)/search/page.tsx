@@ -2,11 +2,11 @@
 import ContentWrapper from "../_ui/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import PageWrapper from "../_ui/pageWrapper";
-import ProductsListing from "../_ui/productsListing";
 import Pagination from "@/ui/pagination/pagination";
 import useSearch from "./_hooks/useSearch";
 import PageHeader from "../_ui/pageHeader";
 import wallpaper from "@/assets/images/community.jpg";
+import ProductsListing from "../_ui/product/productsListing";
 
 export default function SearchResultsPage() {
   const {

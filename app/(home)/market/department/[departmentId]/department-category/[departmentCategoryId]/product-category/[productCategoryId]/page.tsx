@@ -1,12 +1,12 @@
 "use client";
 import PageWrapper from "@/app/(home)/_ui/pageWrapper";
-import ProductsListing from "@/app/(home)/_ui/productsListing";
 import ContentWrapper from "@/app/(home)/_ui/contentWrapper";
 import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/ui/banner/banner";
 import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/pageHeader";
+import ProductsListing from "@/app/(home)/_ui/product/productsListing";
 
 // This page is used to display the results of browsing a specific product category
 export default function BrowseProductCategoryResultsPage() {

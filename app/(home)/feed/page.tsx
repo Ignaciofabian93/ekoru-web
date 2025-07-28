@@ -25,6 +25,9 @@ export default function FeedPage() {
     isExchangeable: true,
   });
   const { isModalOpened, closeModal } = useTransactionStore();
+
+  // Products for exchange modal
+  // These products are loaded from card exchange button
   const { myProducts } = useMyProductsStore();
 
   return (

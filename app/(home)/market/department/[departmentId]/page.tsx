@@ -5,11 +5,11 @@ import PageWrapper from "@/app/(home)/_ui/pageWrapper";
 import ContentWrapper from "../../../_ui/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import Pagination from "@/ui/pagination/pagination";
-import ProductsListing from "../../../_ui/productsListing";
 import useDepartments from "../../_hooks/useDepartment";
 import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/pageHeader";
+import ProductsListing from "@/app/(home)/_ui/product/productsListing";
 
 // This page is for displaying the results of browsing a specific department.
 export default function BrowseDepartmentResultsPage() {

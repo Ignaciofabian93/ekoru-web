@@ -19,7 +19,7 @@ export default function useStoreProducts({
   const { data } = useSessionStore();
   const { notifyError } = useAlert();
   const [fetchProducts, { data: products, loading, error, refetch }] = useLazyQuery(GET_FEED_PRODUCTS, {
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
 
   useEffect(() => {

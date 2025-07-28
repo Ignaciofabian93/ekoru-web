@@ -5,10 +5,10 @@ import PageWrapper from "@/app/(home)/_ui/pageWrapper";
 import ContentWrapper from "../../../../_ui/contentWrapper";
 import Banner from "@/ui/banner/banner";
 import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
-import ProductsListing from "@/app/(home)/_ui/productsListing";
 import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/pageHeader";
+import ProductsListing from "@/app/(home)/_ui/product/productsListing";
 
 // This page is for browsing department categories in a specific department.
 export default function BrowseDepartmentCategoriesPage() {

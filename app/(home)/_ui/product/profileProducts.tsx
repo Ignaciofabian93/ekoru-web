@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "@/ui/cards/product/productCard";
 import clsx from "clsx";
 import useUser from "../user/_hooks/useUser";
-import ProductsSkeleton from "./productsSkeleton";
+import ProductsSkeleton from "./product/productsSkeleton";
 
 export default function ProfileProducts() {
   const { myProducts, myProductsLoading } = useUser();

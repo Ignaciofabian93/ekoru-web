@@ -3,8 +3,8 @@ import Banner from "@/ui/banner/banner";
 import ProfileHeader from "../../_ui/header";
 import PageWrapper from "../../_ui/pageWrapper";
 import PersonalInformation from "../../_ui/info";
-import ProfileProducts from "../../_ui/profileProducts";
 import useUser from "../../user/_hooks/useUser";
+import ProfileProducts from "../../_ui/product/profileProducts";
 
 export default function UserPage() {
   const { user, userLoading } = useUser();

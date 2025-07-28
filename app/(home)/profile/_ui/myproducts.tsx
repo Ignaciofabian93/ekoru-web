@@ -4,12 +4,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Pencil, Trash } from "lucide-react";
 import useProfile from "../_hooks/useProfile";
 import ProductCard from "@/ui/cards/product/productCard";
-import ProductsSkeleton from "../../_ui/productsSkeleton";
+import ProductsSkeleton from "../../_ui/product/productsSkeleton";
 import SmallButton from "@/ui/buttons/smallButton";
 import useProfileProducts from "../_hooks/useProfileProducts";
 import Button from "@/ui/buttons/button";
 import Modal from "@/ui/modal/modal";
-import ProductForm from "../../_ui/productForm";
+import ProductForm from "../../_ui/product/productForm";
 import clsx from "clsx";
 
 export default function MyProducts() {
