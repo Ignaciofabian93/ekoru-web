@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import PageHeader from "../_ui/pageHeader";
+import PageHeader from "../_ui/catalog/pageHeader";
 import PageWrapper from "../_ui/pageWrapper";
 import wallpaper from "@/assets/images/stores.jpg";
 import StoreCard from "@/ui/cards/storeCard/storeCard";

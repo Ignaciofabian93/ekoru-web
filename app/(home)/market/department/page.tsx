@@ -7,7 +7,7 @@ import ContentWrapper from "../../_ui/contentWrapper";
 import useDepartments from "../_hooks/useDepartment";
 import Banner from "@/ui/banner/banner";
 import CategorySection from "./_ui/categorySection";
-import PageHeader from "../../_ui/pageHeader";
+import PageHeader from "../../_ui/catalog/pageHeader";
 import wallpaper from "@/assets/images/market.jpg";
 
 export default function BrowseDepartmentsPage() {

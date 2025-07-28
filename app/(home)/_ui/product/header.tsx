@@ -6,7 +6,7 @@ import Modal from "@/ui/modal/modal";
 import clsx from "clsx";
 import Image from "next/image";
 import Button from "@/ui/buttons/button";
-import ProfileForm from "../profile/_ui/form";
+import ProfileForm from "../../profile/_ui/form";
 import { User } from "@/types/user";
 import useSessionStore from "@/store/session";
 

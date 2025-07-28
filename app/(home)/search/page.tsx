@@ -4,7 +4,7 @@ import Banner from "@/ui/banner/banner";
 import PageWrapper from "../_ui/pageWrapper";
 import Pagination from "@/ui/pagination/pagination";
 import useSearch from "./_hooks/useSearch";
-import PageHeader from "../_ui/pageHeader";
+import PageHeader from "../_ui/catalog/pageHeader";
 import wallpaper from "@/assets/images/community.jpg";
 import ProductsListing from "../_ui/product/productsListing";
 

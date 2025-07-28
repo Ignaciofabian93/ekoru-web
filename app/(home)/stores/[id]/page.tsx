@@ -1,6 +1,6 @@
 "use client";
 import Banner from "@/ui/banner/banner";
-import ProfileHeader from "../../_ui/header";
+import ProfileHeader from "../../_ui/product/header";
 import PageWrapper from "../../_ui/pageWrapper";
 import PersonalInformation from "../../_ui/info";
 import useUser from "../../user/_hooks/useUser";

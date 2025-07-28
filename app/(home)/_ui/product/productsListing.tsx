@@ -1,5 +1,5 @@
 import { Product } from "@/types/product";
-import ProductFilters, { FilterProps } from "./filters";
+import ProductFilters, { FilterProps } from "../filters";
 import ProductsGrid from "./productsGrid";
 
 type ProductsList = FilterProps & {

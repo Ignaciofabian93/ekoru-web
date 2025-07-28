@@ -7,7 +7,7 @@ import Banner from "@/ui/banner/banner";
 import useDepartmentCategories from "../../../_hooks/useDepartmentCategory";
 import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
-import PageHeader from "@/app/(home)/_ui/pageHeader";
+import PageHeader from "@/app/(home)/_ui/catalog/pageHeader";
 import ProductsListing from "@/app/(home)/_ui/product/productsListing";
 
 // This page is for browsing department categories in a specific department.
