@@ -18,7 +18,7 @@ export default function ProductScrolling({ children }: { children: React.ReactNo
     <div className="relative w-full">
       {/* Left/Right buttons only for web (hidden on mobile) */}
       <button
-        className="hidden md:flex absolute -left-4 top-[45%] -translate-y-1/2 z-10 bg-primary/50 rounded-full p-2 shadow hover:bg-primary/90 transition-all duration-200 ease-in-out"
+        className="hidden md:flex absolute -left-4 top-[35%] -translate-y-1/2 z-10 bg-primary/50 rounded-full p-2 shadow hover:bg-primary/90 transition-all duration-200 ease-in-out"
         onClick={() => scroll("left")}
         aria-label="Scroll left"
         type="button"
@@ -27,13 +27,13 @@ export default function ProductScrolling({ children }: { children: React.ReactNo
       </button>
       <div
         ref={scrollRef}
-        className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar md:no-scrollbar"
+        className="w-full flex overflow-x-auto gap-x-4 no-scrollbar md:no-scrollbar"
         style={{ scrollBehavior: "smooth" }}
       >
         {children}
       </div>
       <button
-        className="hidden md:flex absolute -right-4 top-[45%] -translate-y-1/2 z-10 bg-primary/50 rounded-full p-2 shadow hover:bg-primary/90 transition-all duration-200 ease-in-out"
+        className="hidden md:flex absolute -right-4 top-[35%] -translate-y-1/2 z-10 bg-primary/50 rounded-full p-2 shadow hover:bg-primary/90 transition-all duration-200 ease-in-out"
         onClick={() => scroll("right")}
         aria-label="Scroll right"
         type="button"

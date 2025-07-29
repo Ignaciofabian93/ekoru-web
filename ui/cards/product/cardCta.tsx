@@ -21,11 +21,13 @@ export default function CardCTA({
   const isProductSelectedForExchange = () => {};
 
   return (
-    <div className="px-4 w-full h-[40px] flex items-center justify-center mt-2">
+    <div className="px-2 w-full h-[36px] flex items-center justify-center mt-1">
+      {" "}
+      {/* Adjusted height and spacing */}
       <Button
         disabled={!isCTAClickEnabled}
         text={isSelectionButtonEnabled ? "Seleccionar" : "¡Me interesa!"}
-        size="lg"
+        size="md" // Adjusted button size
         onClick={() => {
           if (isSelectionButtonEnabled) {
             isProductSelectedForExchange();

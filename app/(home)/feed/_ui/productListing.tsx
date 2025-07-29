@@ -41,7 +41,6 @@ export default function FeedProducts({ title, description, products, isLoading =
                 location={`${product.user?.county.county}, ${product.user?.city.city}`}
                 isExchangeable={product.isExchangeable}
                 interests={product.interests}
-                badges={product.badges}
               />
             ))}
           </ProductScrolling>

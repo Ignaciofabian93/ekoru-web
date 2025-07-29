@@ -76,15 +76,21 @@ export default function ProductCard({
   const totalWasteSavings = productCategory?.averageWeight ?? 0;
 
   return (
-    <div className={clsx("min-w-[164px] w-full max-w-[164px] h-auto pb-3 mx-1")}>
-      <div className="card-flip-perspective h-[350px]">
+    <div className={clsx("min-w-[164px] w-full max-w-[164px] h-[300px] pb-3 mx-1")}>
+      {" "}
+      {/* Adjusted height to 300px */}
+      <div className="card-flip-perspective h-full">
+        {" "}
+        {/* Ensure full height usage */}
         <div className={`card-flip-inner ${flipped ? "card-flip-flipped" : ""} h-full`}>
+          {" "}
+          {/* Maintain height consistency */}
           {/* Front Side */}
           <div
             className={clsx(
               "card-flip-front h-full",
               "rounded-2xl bg-white shadow-md hover:shadow-lg shadow-gray-800/50",
-              "overflow-hidden relative flex flex-col justify-between pb-3 z-20",
+              "overflow-hidden relative flex flex-col justify-between pb-2 z-20", // Adjusted padding
               "transition-shadow duration-300 ease-in-out"
             )}
           >
