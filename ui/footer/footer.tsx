@@ -8,42 +8,19 @@ const IconLink = ({ children, url }: { children: React.ReactNode; url: string })
   </Link>
 );
 
-const LawLink = ({ lawName, url }: { lawName: string; url: string }) => (
-  <Link href={url} target="_blank" rel="noopener noreferrer">
-    <p className="text-main text-sm font-semibold my-2 hover:text-primary transition-colors ease-in-out duration-300">
-      {lawName}
-    </p>
-  </Link>
-);
-
 export default function Footer() {
   return (
-    <footer className="w-full footer-gradient px-4 py-10 mt-8 text-main">
-      <div className="w-full max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-center md:text-left">
+    <footer className="w-full footer-gradient px-4 py-8 mt-8 text-main">
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-center md:text-left">
         {/* Legal Section */}
         <div>
-          <h3 className="text-lg font-semibold mb-1">Artículos y Leyes</h3>
-          <p className="text-sm mb-4 font-medium">Biblioteca del Congreso Nacional</p>
-          <div className="max-h-60 overflow-y-auto pr-2">
-            <LawLink url="https://www.bcn.cl/leychile/navegar?idNorma=30667" lawName="Ley 19300" />
-            <LawLink
-              url="https://www.bcn.cl/leychile/navegar?idNorma=1010459&idVersion=2023-09-06&idParte=8848208"
-              lawName="Ley 20417"
-            />
-            <LawLink
-              url="https://www.bcn.cl/leychile/navegar?idNorma=1090894&idParte=9705129&idVersion=2016-06-01"
-              lawName="Ley 20920"
-            />
-            <LawLink
-              url="https://www.bcn.cl/leychile/navegar?idNorma=1177286&idParte=10341102&idVersion=2022-06-13"
-              lawName="Ley 21455"
-            />
-            <LawLink url="https://www.bcn.cl/leychile/navegar?idNorma=1121380&buscar=21100" lawName="Ley 21100" />
-            <LawLink
-              url="https://www.bcn.cl/leychile/navegar?idNorma=1163603&idVersion=2024-08-12&idParte=10259809"
-              lawName="Ley 21368"
-            />
-          </div>
+          <h3 className="text-lg font-semibold mb-1">Infórmate más en nuestro sitio web</h3>
+          <Link
+            href="https://www.ekoru.cl"
+            className="text-base font-semibold block mb-4 hover:text-primary transition-colors"
+          >
+            https://www.ekoru.cl
+          </Link>
         </div>
 
         {/* Logo Section */}
@@ -58,7 +35,9 @@ export default function Footer() {
               priority
             />
           </div>
-          <p className="text-sm text-main italic">Juntos por un futuro más sostenible</p>
+          <p className="text-sm text-main italic">
+            Lo cotidiano <span className="text-primary font-bold uppercase">cambia el mundo</span>
+          </p>
         </div>
 
         {/* Contact & Social */}
@@ -73,10 +52,18 @@ export default function Footer() {
           <p className="text-main text-sm font-semibold mb-2">Síguenos en nuestras redes sociales:</p>
           <div className="flex justify-center md:justify-start gap-4">
             <IconLink url="https://www.instagram.com/ekoru_chile?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-              <InstagramIcon width={36} height={36} className="hover:scale-125 transition-transform duration-300" />
+              <InstagramIcon
+                width={36}
+                height={36}
+                className="hover:scale-125 transition-transform duration-300"
+              />
             </IconLink>
             <IconLink url="https://www.linkedin.com/company/ekoru-chile/">
-              <LinkedinIcon width={36} height={36} className="hover:scale-125 transition-transform duration-300" />
+              <LinkedinIcon
+                width={36}
+                height={36}
+                className="hover:scale-125 transition-transform duration-300"
+              />
             </IconLink>
           </div>
         </div>

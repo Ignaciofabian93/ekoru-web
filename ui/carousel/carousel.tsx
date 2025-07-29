@@ -4,7 +4,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Carousel({ children }: { children: React.ReactNode }) {
   return (
-    <section className="w-full h-full flex items-center justify-between relative overflow-hidden">{children}</section>
+    <section className="w-full h-full flex items-center justify-between relative overflow-hidden">
+      {children}
+    </section>
   );
 }
 
@@ -47,7 +49,7 @@ Carousel.NextImage = function ({
 }) {
   return (
     <Image
-      className="absolute top-0 left-0 w-full h-[120%] z-[1] object-cover"
+      className="absolute top-0 left-0 w-full h-[100%] z-[1] object-contain"
       src={src}
       alt={alt}
       width={width}
@@ -83,7 +85,7 @@ Carousel.CurrentImage = function ({
       className={`absolute top-0 left-0 w-full h-full z-[2] transition-transform duration-500 ease-in-out ${slideClass}`}
     >
       <Image
-        className="absolute top-0 left-0 w-full h-[120%] object-cover z-[9] transition-all duration-500 ease-in-out"
+        className="absolute top-0 left-0 w-full h-[100%] object-contain z-[9] transition-all duration-500 ease-in-out"
         src={src}
         alt={alt}
         width={width}

@@ -26,7 +26,7 @@ export default function CategorySection({
         {productsLoading ? (
           <ProductsSkeleton />
         ) : (
-          products.length > 0 && (
+          products?.length > 0 && (
             <ProductScrolling>
               {products.map((product) => (
                 <ProductCard

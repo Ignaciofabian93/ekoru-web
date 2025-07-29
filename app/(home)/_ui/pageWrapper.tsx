@@ -8,7 +8,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
       <Navbar />
       <div className="w-full h-full mt-[80px]">
         <SubNavigation />
-        <div className="w-full max-w-[1300px] h-fit mx-auto">{children}</div>
+        <div className="w-full h-fit mx-auto">{children}</div>
         <Footer />
       </div>
     </main>

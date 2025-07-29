@@ -142,7 +142,7 @@ export default function CardDetails({
       </button>
       <div className="w-full">
         <p className="text-gray-700 text-[11px] mb-3 text-center px-2">
-          El impacto de tu compra se representa en las siguientes cifras:
+          Esto es lo que ahorras al no comprar un producto nuevo:
         </p>
         <div className="flex items-center justify-between gap-2 mb-2 text-primary-dark w-full">
           <div

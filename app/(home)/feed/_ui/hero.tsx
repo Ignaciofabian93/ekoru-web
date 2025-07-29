@@ -92,8 +92,8 @@ export default function Hero() {
   return (
     <div
       className={clsx(
-        "w-[95%] max-w-[1000px] h-[450px] md:h-[500px] mx-auto overflow-hidden rounded-lg shadow-lg",
-        "mb-8 mt-4 relative"
+        "w-full h-[450px] md:h-[500px] bg-gradient-to-r from-primary-light/50 via-primary to-secondary/50 mx-auto overflow-hidden shadow-lg",
+        "mb-8 relative"
       )}
     >
       <Carousel>

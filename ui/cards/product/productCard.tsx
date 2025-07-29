@@ -134,7 +134,7 @@ export default function ProductCard({
         </div>
       </div>
       {/* Badges Section */}
-      {badges.length > 0 && (
+      {badges?.length > 0 && (
         <div className="flex flex-col gap-2 mt-2 items-center justify-center">
           {badges.map((b) => (
             <BadgeLabel key={b} type={b} />

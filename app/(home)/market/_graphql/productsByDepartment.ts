@@ -43,6 +43,10 @@ export const PRODUCTS_BY_DEPARTMENT = gql`
         fifthMaterialTypeQuantity
         size
         weightUnit
+        departmentCategory {
+          id
+          departmentCategoryName
+        }
         fifthMaterialType {
           id
           materialType

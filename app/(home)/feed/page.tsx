@@ -10,6 +10,7 @@ import Modal from "@/ui/modal/modal";
 import useTransactionStore from "../transaction/_store/transaction";
 import useMyProductsStore from "@/store/myProducts";
 import MyProductsList from "./_ui/myProductsList";
+import ContentWrapper from "../_ui/contentWrapper";
 
 export default function FeedPage() {
   const { products: storeProducts, loading: storeLoading } = useStoreProducts({
@@ -33,39 +34,41 @@ export default function FeedPage() {
   return (
     <PageWrapper>
       <Hero />
-      <Banner
-        title="tiendas con propósito"
-        description="Apoya marcas que respeten el planeta, las personas y tus valores."
-        variant="filled"
-      />
-      <FeedProducts
-        title="Productos innovadores que salvan el medio ambiente"
-        description="Busca tus productos favoritos mientras reduces tu huella."
-        products={storeProducts}
-        isLoading={storeLoading}
-      />
-      <Banner
-        title="dale una segunda vida"
-        description="¡Tu elección hace la diferencia! Reduce, reutiliza, impacta."
-        variant="accented"
-      />
-      <FeedProducts
-        title="Productos reciclados y de segunda mano"
-        description="Descubre productos únicos y ayuda al planeta. ¡Sube el tuyo o encuentra algo especial!"
-        products={marketProducts}
-        isLoading={marketLoading}
-      />
-      <Banner
-        title="¿hasta dónde llega tu impacto?"
-        description="Pequeños retos, grandes cambios. ¡Empieza hoy a descubrirlos!"
-        variant="bordered"
-      />
-      <FeedProducts
-        title="Productos intercambiables"
-        description="Explora productos que puedes intercambiar. ¡Haz tu parte por un mundo más sostenible!"
-        products={exchangeableProducts}
-        isLoading={exchangeableLoading}
-      />
+      <ContentWrapper>
+        <Banner
+          title="tiendas con propósito"
+          description="Apoya marcas que respeten el planeta, las personas y tus valores."
+          variant="filled"
+        />
+        <FeedProducts
+          title="Productos innovadores que salvan el medio ambiente"
+          description="Busca tus productos favoritos mientras reduces tu huella."
+          products={storeProducts}
+          isLoading={storeLoading}
+        />
+        <Banner
+          title="dale una segunda vida"
+          description="¡Tu elección hace la diferencia! Reduce, reutiliza, impacta."
+          variant="accented"
+        />
+        <FeedProducts
+          title="Productos reciclados y de segunda mano"
+          description="Descubre productos únicos y ayuda al planeta. ¡Sube el tuyo o encuentra algo especial!"
+          products={marketProducts}
+          isLoading={marketLoading}
+        />
+        <Banner
+          title="¿hasta dónde llega tu impacto?"
+          description="Pequeños retos, grandes cambios. ¡Empieza hoy a descubrirlos!"
+          variant="bordered"
+        />
+        <FeedProducts
+          title="Productos intercambiables"
+          description="Explora productos que puedes intercambiar. ¡Haz tu parte por un mundo más sostenible!"
+          products={exchangeableProducts}
+          isLoading={exchangeableLoading}
+        />
+      </ContentWrapper>
       <Modal isOpen={isModalOpened} close={closeModal} title="Intercambiar Producto" size="md">
         <MyProductsList products={myProducts} />
       </Modal>
