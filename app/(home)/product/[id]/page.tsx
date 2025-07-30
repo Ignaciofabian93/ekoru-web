@@ -9,7 +9,14 @@ export default function ProductPage() {
   const { id } = useParams();
   const { product, productLoading } = useProduct({ id: Number(id) });
 
-  if (productLoading) return <PageWrapper>Loading...</PageWrapper>;
+  if (productLoading)
+    return (
+      <PageWrapper>
+        <ContentWrapper>
+          <p>Cargando detalles del producto...</p>
+        </ContentWrapper>
+      </PageWrapper>
+    );
 
   return (
     <PageWrapper>
