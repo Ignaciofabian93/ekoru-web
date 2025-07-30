@@ -1,34 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { GET_PRODUCT_BY_ID } from "../_graphql/product";
-import useAlert from "@/hooks/useAlert";
 import { Product } from "@/types/product";
+import useAlert from "@/hooks/useAlert";
 
 export default function useProduct({ id }: { id: number }) {
   const { notifyError } = useAlert();
-  const [product, setProduct] = useState<Product>({} as Product);
 
-  const [Product, { loading: productLoading }] = useLazyQuery(GET_PRODUCT_BY_ID);
+  const [Product, { data: productData, loading: productLoading, error: productError }] =
+    useLazyQuery(GET_PRODUCT_BY_ID);
 
   useEffect(() => {
     if (id) {
-      fetchProduct();
+      Product({ variables: { id } });
     }
   }, [id]);
 
-  const fetchProduct = async () => {
-    try {
-      const { data } = await Product({ variables: { id } });
-      if (!data.product) {
-        notifyError("Producto no encontrado");
-        return;
-      }
-      setProduct(data.product);
-    } catch (error) {
-      console.error("Error fetching product:", error);
+  useEffect(() => {
+    if (productError) {
       notifyError("Error al cargar el producto");
     }
-  };
+  }, [productError]);
 
-  return { product, productLoading };
+  return { product: productData?.product as Product, productLoading };
 }

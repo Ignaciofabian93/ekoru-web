@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import PageWrapper from "../../_ui/pageWrapper";
 import ProductDetails from "../_components/productDetails";
 import useProduct from "../_hooks/useProduct";
+import ContentWrapper from "../../_ui/contentWrapper";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -12,7 +13,9 @@ export default function ProductPage() {
 
   return (
     <PageWrapper>
-      <ProductDetails product={product} />
+      <ContentWrapper>
+        <ProductDetails product={product} />
+      </ContentWrapper>
     </PageWrapper>
   );
 }

@@ -29,7 +29,6 @@ export const GET_PRODUCT_BY_ID = gql`
       productCategory {
         id
         productCategoryName
-        departmentCategoryId
         keywords
         averageWeight
         firstMaterialTypeId
@@ -44,6 +43,44 @@ export const GET_PRODUCT_BY_ID = gql`
         fifthMaterialTypeQuantity
         size
         weightUnit
+        fifthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        fourthMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        thirdMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        secondMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        firstMaterialType {
+          id
+          materialType
+          estimatedCo2SavingsKG
+          estimatedWaterSavingsLT
+        }
+        departmentCategory {
+          id
+          departmentCategoryName
+          department {
+            id
+            departmentName
+          }
+        }
       }
       user {
         id
