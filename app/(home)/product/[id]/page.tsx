@@ -1,14 +1,30 @@
 "use client";
 import { useParams } from "next/navigation";
+import { BreadCrumbSkeleton, ProductImagesSkeleton, ProductInfoSkeleton } from "../../_ui/product/skeletons";
 import PageWrapper from "../../_ui/pageWrapper";
 import ProductDetails from "../_ui/productDetails";
 import useProduct from "../_hooks/useProduct";
 import ContentWrapper from "../../_ui/contentWrapper";
-import { BreadCrumbSkeleton, ProductImagesSkeleton, ProductInfoSkeleton } from "../../_ui/product/skeletons";
+import RelatedProducts from "../../_ui/product/relatedProducts";
 
 export default function ProductPage() {
   const { id } = useParams();
-  const { product, productLoading } = useProduct({ id: Number(id) });
+  const {
+    product,
+    productLoading,
+    productsByDepartment,
+    productsByDepartmentCategory,
+    productsByProductCategory,
+    productsByDepartmentCategoryLoading,
+    productsByDepartmentLoading,
+    productsByProductCategoryLoading,
+  } = useProduct({ id: Number(id) });
+
+  console.log("product", product);
+
+  console.log("products by product category", productsByProductCategory);
+  console.log("products by department category", productsByDepartmentCategory);
+  console.log("products by department", productsByDepartment);
 
   if (productLoading)
     return (
@@ -29,6 +45,17 @@ export default function ProductPage() {
     <PageWrapper>
       <ContentWrapper>
         <ProductDetails product={product} />
+        <RelatedProducts
+          productsByProductCategory={productsByProductCategory}
+          productsByDepartmentCategory={productsByDepartmentCategory}
+          productsByDepartment={productsByDepartment}
+          productsByProductCategoryLoading={productsByProductCategoryLoading}
+          productsByDepartmentCategoryLoading={productsByDepartmentCategoryLoading}
+          productsByDepartmentLoading={productsByDepartmentLoading}
+          productCategoryName={product?.productCategory?.productCategoryName || ""}
+          departmentCategoryName={product?.productCategory?.departmentCategory?.departmentCategoryName || ""}
+          departmentName={product?.productCategory?.departmentCategory?.department?.departmentName || ""}
+        />
       </ContentWrapper>
     </PageWrapper>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Badge } from "@/types/enums";
 import { ProductCategory } from "@/types/product";
 import { impactCalculator } from "@/utils/impactCalc";
-import BadgeLabel from "../../badges/badge";
+// import BadgeLabel from "../../badges/badge";
 import CardImage from "./cardImage";
 import CardInfo from "./cardInfo";
 import CardCTA from "./cardCta";
@@ -41,7 +41,7 @@ export default function ProductCard({
   price,
   seller,
   location,
-  badges = [],
+  // badges = [],
   description,
   interests = [],
   sellerImage,
@@ -140,13 +140,13 @@ export default function ProductCard({
         </div>
       </div>
       {/* Badges Section */}
-      {badges?.length > 0 && (
+      {/* {badges?.length > 0 && (
         <div className="flex flex-col gap-2 mt-2 items-center justify-center">
           {badges.map((b) => (
             <BadgeLabel key={b} type={b} />
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 }
