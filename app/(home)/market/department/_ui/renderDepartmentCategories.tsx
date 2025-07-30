@@ -2,11 +2,10 @@ import { motion } from "framer-motion";
 import { Department, DepartmentCategory } from "@/types/product";
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import useDepartments from "../../_hooks/useDepartment";
-import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
-import { DepartmentSkeleton } from "../../_components/skeletons";
+// import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
+// import { DepartmentSkeleton } from "../../_components/skeletons";
 
 type RenderDepartmentCategoriesProps = {
   selectedDepartment: Department | null;
@@ -20,7 +19,9 @@ export const RenderDepartmentCategoriesRow = ({
   handleDepartmentCategorySelect,
   redirectToDepartmentCategory,
 }: RenderDepartmentCategoriesProps) => {
-  const departmentCategoryNameClass = clsx("font-semibold text-md text-center w-full mb-4 text-primary-dark clamp-2");
+  const departmentCategoryNameClass = clsx(
+    "font-semibold text-md text-center w-full mb-4 text-primary-dark clamp-2"
+  );
   const seeMoreClass = clsx(
     "absolute bottom-6 font-semibold w-full text-xs underline hover:brightness-125 cursor-pointer text-primary-dark"
   );
@@ -81,24 +82,24 @@ export const RenderDepartmentCategoriesRow = ({
 };
 
 export const RenderDepartmentCategories = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { selectedDepartment, departmentLoading } = useDepartments();
-  const { selectedDepartmentCategory, selectDepartmentCategory } = useDepartmentCategories();
+  // const { selectedDepartment, departmentLoading } = useDepartments();
+  // const { selectedDepartmentCategory, selectDepartmentCategory } = useDepartmentCategories();
 
-  const redirectToDepartmentCategory = (departmentId: number, categoryId: number) => {
-    router.push(`/market/department/${departmentId}/department-category/${categoryId}`);
-  };
+  // const redirectToDepartmentCategory = (departmentId: number, categoryId: number) => {
+  //   router.push(`/market/department/${departmentId}/department-category/${categoryId}`);
+  // };
 
-  const handleDepartmentCategorySelect = (dept: DepartmentCategory) => {
-    const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
-    selectDepartmentCategory(dept);
-    setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft = scrollLeft;
-      }
-    }, 0);
-  };
+  // const handleDepartmentCategorySelect = (dept: DepartmentCategory) => {
+  //   const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
+  //   selectDepartmentCategory(dept);
+  //   setTimeout(() => {
+  //     if (scrollRef.current) {
+  //       scrollRef.current.scrollLeft = scrollLeft;
+  //     }
+  //   }, 0);
+  // };
 
   return (
     <section className="mb-8 mt-10">
@@ -110,7 +111,7 @@ export const RenderDepartmentCategories = () => {
         ref={scrollRef}
         className="flex overflow-x-auto gap-6 pb-6 px-2 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent"
       >
-        {departmentLoading ? (
+        {/* {departmentLoading ? (
           Array.from({ length: 10 }).map((_, i) => <DepartmentSkeleton key={i} />)
         ) : (
           <RenderDepartmentCategoriesRow
@@ -119,7 +120,7 @@ export const RenderDepartmentCategories = () => {
             handleDepartmentCategorySelect={handleDepartmentCategorySelect}
             redirectToDepartmentCategory={redirectToDepartmentCategory}
           />
-        )}
+        )} */}
       </div>
     </section>
   );
