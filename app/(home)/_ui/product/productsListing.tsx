@@ -17,7 +17,7 @@ export default function ProductsListing({
   onFilterChange,
 }: ProductsList) {
   return (
-    <div className="flex flex-col sm:flex-row items-start gap-6 w-full h-full mx-auto">
+    <div className="flex flex-col md:flex-row items-start gap-6 w-full h-full mx-auto">
       <ProductFilters
         onFilterChange={onFilterChange}
         brands={brands}

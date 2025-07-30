@@ -9,8 +9,8 @@ export default function ProductsGrid({ products }: Props) {
   return (
     <div className="w-full mx-auto">
       {products && products.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 justify-items-center">
-          {/* // <div className="flex flex-wrap justify-center gap-2"> */}
+        // <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 justify-items-center">
+        <div className="flex flex-wrap justify-around gap-2">
           {products.map((product) => (
             <ProductCard
               id={product.id}

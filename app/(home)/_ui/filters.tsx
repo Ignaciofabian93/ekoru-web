@@ -59,7 +59,7 @@ export default function ProductFilters({
       {/* Price filter */}
       <div className="mb-4">
         <label className="block text-sm font-medium">Precio</label>
-        <div className="w-full flex items-center gap-2">
+        <div className="w-full flex flex-col items-start">
           <SmallInput
             type="number"
             hasLabel
@@ -80,7 +80,10 @@ export default function ProductFilters({
             value={selectedFilters.maxPrice ?? ""}
             placeholder={maxPrice?.toString() || "Max"}
             onChange={(e) =>
-              onFilterChange({ ...selectedFilters, maxPrice: e.target.value ? Number(e.target.value) : null })
+              onFilterChange({
+                ...selectedFilters,
+                maxPrice: e.target.value ? Number(e.target.value) : null,
+              })
             }
           />
         </div>
@@ -90,7 +93,9 @@ export default function ProductFilters({
           name="location"
           options={locations.map((loc) => ({ label: loc, value: loc }))}
           value={selectedFilters.location}
-          onChange={(value) => onFilterChange({ ...selectedFilters, location: value as string })}
+          onChange={(value) =>
+            onFilterChange({ ...selectedFilters, location: value as string })
+          }
           hasLabel
           labelText="Ubicación"
         />
@@ -126,7 +131,7 @@ export default function ProductFilters({
   return (
     <>
       {/* Mobile: Show button */}
-      <div className="flex items-center justify-center w-full sm:hidden mb-4">
+      <div className="flex items-center justify-center w-full md:hidden mb-4">
         <button
           className="w-[80%] text-center px-4 py-2 text-primary-dark border-2 border-primary-light rounded-lg bg-white shadow-md shadow-black/10"
           onClick={() => setShowMobileFilters(true)}
@@ -135,9 +140,13 @@ export default function ProductFilters({
         </button>
       </div>
       {/* Desktop: Show sidebar */}
-      <section className="hidden sm:block w-[230px] h-full mb-4">{filterContent}</section>
+      <section className="hidden md:block w-[230px] h-full mb-4">{filterContent}</section>
       {/* Mobile: Modal */}
-      <Modal title="Filtros" close={() => setShowMobileFilters(false)} isOpen={showMobileFilters}>
+      <Modal
+        title="Filtros"
+        close={() => setShowMobileFilters(false)}
+        isOpen={showMobileFilters}
+      >
         {filterContent}
       </Modal>
     </>
