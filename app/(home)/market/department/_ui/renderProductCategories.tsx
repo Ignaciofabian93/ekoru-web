@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import useDepartmentCategories from "../../_hooks/useDepartmentCategory";
 import useProductCategories from "../../_hooks/useProductCategory";
-import { DepartmentSkeleton } from "../../_components/skeletons";
+import { DepartmentSkeleton } from "../../_ui/skeletons";
 
 type RenderProductCategoriesRowProps = {
   selectedDepartmentCategory: DepartmentCategory | null;
@@ -93,7 +93,11 @@ export const RenderProductCategories = () => {
   const { selectedDepartmentCategory, departmentCategoryLoading } = useDepartmentCategories();
   const { selectedProductCategory, selectProductCategory } = useProductCategories();
 
-  const redirectToProductCategory = (departmentId: number, departmentCategoryId: number, productCategoryId: number) => {
+  const redirectToProductCategory = (
+    departmentId: number,
+    departmentCategoryId: number,
+    productCategoryId: number
+  ) => {
     router.push(
       `/browse/department/${departmentId}/department-category/${departmentCategoryId}/product-category/${productCategoryId}`
     );

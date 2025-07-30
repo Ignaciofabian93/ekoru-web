@@ -34,16 +34,18 @@ export default function RelatedProducts({
   return (
     <section className="w-[95%] mt-8 mb-8 relative mx-auto backdrop-blur-sm">
       <h2 className="text-xl font-semibold mb-4">Productos relacionados</h2>
-      <Wrapper>
-        {productsByProductCategoryLoading ? (
+      {productsByProductCategoryLoading ? (
+        <Wrapper>
           <div className="relative w-full">
             <div className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar">
               <ProductsSkeleton />
             </div>
           </div>
-        ) : (
-          productsByProductCategory &&
-          productsByProductCategory.length > 0 && (
+        </Wrapper>
+      ) : (
+        productsByProductCategory &&
+        productsByProductCategory.length > 0 && (
+          <Wrapper>
             <div>
               <h3 className="text-lg font-semibold mb-4">{productCategoryName}</h3>
               <ProductScrolling>
@@ -52,19 +54,21 @@ export default function RelatedProducts({
                 ))}
               </ProductScrolling>
             </div>
-          )
-        )}
-      </Wrapper>
-      <Wrapper>
-        {productsByDepartmentCategoryLoading ? (
+          </Wrapper>
+        )
+      )}
+      {productsByDepartmentCategoryLoading ? (
+        <Wrapper>
           <div className="relative w-full">
             <div className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar">
               <ProductsSkeleton />
             </div>
           </div>
-        ) : (
-          productsByDepartmentCategory &&
-          productsByDepartmentCategory.length > 0 && (
+        </Wrapper>
+      ) : (
+        productsByDepartmentCategory &&
+        productsByDepartmentCategory.length > 0 && (
+          <Wrapper>
             <div>
               <h3 className="text-lg font-semibold mb-4">{departmentCategoryName}</h3>
               <ProductScrolling>
@@ -73,19 +77,21 @@ export default function RelatedProducts({
                 ))}
               </ProductScrolling>
             </div>
-          )
-        )}
-      </Wrapper>
-      <Wrapper>
-        {productsByDepartmentLoading ? (
+          </Wrapper>
+        )
+      )}
+      {productsByDepartmentLoading ? (
+        <Wrapper>
           <div className="relative w-full">
             <div className="w-full flex overflow-x-auto gap-x-4 pb-4 no-scrollbar">
               <ProductsSkeleton />
             </div>
           </div>
-        ) : (
-          productsByDepartment &&
-          productsByDepartment.length > 0 && (
+        </Wrapper>
+      ) : (
+        productsByDepartment &&
+        productsByDepartment.length > 0 && (
+          <Wrapper>
             <div>
               <h3 className="text-lg font-semibold mb-4">{departmentName}</h3>
               <ProductScrolling>
@@ -94,9 +100,9 @@ export default function RelatedProducts({
                 ))}
               </ProductScrolling>
             </div>
-          )
-        )}
-      </Wrapper>
+          </Wrapper>
+        )
+      )}
     </section>
   );
 }

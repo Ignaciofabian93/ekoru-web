@@ -19,7 +19,9 @@ export default function BrowseDepartmentsPage() {
   const entretencion = useProductsByDepartment({ id: Departments.ENTRETENCION.id });
   const herramientas = useProductsByDepartment({ id: Departments.HERRAMIENTAS.id });
   const hogar = useProductsByDepartment({ id: Departments.HOGAR.id });
-  const instrumentos = useProductsByDepartment({ id: Departments.INSTRUMENTOSMUSICALES.id });
+  const instrumentos = useProductsByDepartment({
+    id: Departments.INSTRUMENTOSMUSICALES.id,
+  });
   const jardin = useProductsByDepartment({ id: Departments.JARDIN.id });
   const mascotas = useProductsByDepartment({ id: Departments.MASCOTAS.id });
   const ropa = useProductsByDepartment({ id: Departments.ROPA.id });
@@ -46,7 +48,7 @@ export default function BrowseDepartmentsPage() {
         />
       </ContentWrapper>
       <ContentWrapper>
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-2 mb-6">
           <ChevronRight className="text-primary" size={20} />
           <span className="text-xl font-semibold text-main">Departamentos</span>
         </div>

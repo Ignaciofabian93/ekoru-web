@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Department, DepartmentCategory, ProductCategory } from "@/types/product";
 import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
-import { DepartmentSkeleton } from "../market/_components/skeletons";
+import { DepartmentSkeleton } from "../market/_ui/skeletons";
 import clsx from "clsx";
 
 type RenderRowProps = {
@@ -93,7 +93,14 @@ type Props = {
   isLoading: boolean;
 };
 
-export const RenderCategories = ({ moduleName, data, selectedObject, selectObject, redirect, isLoading }: Props) => {
+export const RenderCategories = ({
+  moduleName,
+  data,
+  selectedObject,
+  selectObject,
+  redirect,
+  isLoading,
+}: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleObjectSelect = (obj: Department | DepartmentCategory | ProductCategory) => {

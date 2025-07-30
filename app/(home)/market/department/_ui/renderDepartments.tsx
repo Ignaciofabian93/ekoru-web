@@ -3,7 +3,7 @@ import { Department } from "@/types/product";
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
-import { DepartmentSkeleton } from "../../_components/skeletons";
+import { DepartmentSkeleton } from "../../_ui/skeletons";
 
 type RenderDepartmentsProps = {
   departments: Department[] | null;

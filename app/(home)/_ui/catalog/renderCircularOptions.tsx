@@ -19,13 +19,15 @@ export default function RenderCircularOptions({ data }: CircularOptionsProps) {
               "bg-gradient-to-br from-lime-200 via-primary to-secondary",
               "relative rounded-full shadow-md shadow-gray-800/60",
               "flex flex-col items-center justify-center",
-              "p-4",
+              "p-4 mb-4",
               "transition-all duration-300 ease-in-out",
               "cursor-pointer",
               "hover:shadow-lg"
             )}
           >
-            <span className="text-center text-main-inverted font-semibold text-lg">{item.name}</span>
+            <span className="text-center text-main-inverted font-semibold text-lg">
+              {item.name}
+            </span>
           </Link>
         ))}
       </ProductScrolling>
