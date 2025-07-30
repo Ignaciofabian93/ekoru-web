@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Product } from "@/types/product";
+import { impactCalculator } from "@/utils/impactCalc";
 import Badge from "@/ui/badges/badge";
 import Carousel from "@/ui/carousel/carousel";
-import { impactCalculator } from "@/utils/impactCalc";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "@/ui/buttons/button";
@@ -58,7 +58,7 @@ export default function ProductDetails({ product }: { product?: Product }) {
   const BreadCrumb = () => {
     if (isStore) {
       return (
-        <div className="text-sm text-gray-500 mb-4">
+        <div className="text-sm text-gray-500 mb-4 flex gap-2 flex-wrap">
           <Link href={`/store/${product.user?.id}`}>
             Ver mas productos de <span className="font-bold">{product.user?.businessName}</span>
           </Link>
@@ -66,20 +66,26 @@ export default function ProductDetails({ product }: { product?: Product }) {
       );
     } else {
       return (
-        <div className="text-sm text-gray-500 mb-4 flex gap-2">
+        <div className="text-sm text-gray-500 mb-4 flex gap-2 flex-wrap">
           <Link href={"/"} className="hover:underline">
             Inicio
           </Link>
           &gt;
-          <Link href={`/market/${breadCrumb.department.id}`} className="hover:underline">
+          <Link href={`/market/department/${breadCrumb.department.id}`} className="hover:underline">
             {breadCrumb.department.name}
           </Link>
           &gt;
-          <Link href={`/market/${breadCrumb.departmentCategory.id}`} className="hover:underline">
+          <Link
+            href={`/market/department/${breadCrumb.department.id}/departmentCategory/${breadCrumb.departmentCategory.id}`}
+            className="hover:underline"
+          >
             {breadCrumb.departmentCategory.name}
           </Link>
           &gt;
-          <Link href={`/market/${breadCrumb.productCategory.id}`} className="hover:underline">
+          <Link
+            href={`/market/department/${breadCrumb.department.id}/departmentCategory/${breadCrumb.departmentCategory.id}/productCategory/${breadCrumb.productCategory.id}`}
+            className="hover:underline"
+          >
             {breadCrumb.productCategory.name}
           </Link>
         </div>
@@ -175,19 +181,19 @@ export default function ProductDetails({ product }: { product?: Product }) {
       </div>
 
       {/* Environmental Impact */}
-      <div className="mt-8 p-6">
+      <div className="mt-8">
         <h2 className="text-lg font-bold text-main mb-4">Impacto ambiental estimado</h2>
         <ul className="text-sm space-y-2">
           <li className="flex items-center text-main gap-2 font-semibold">
             CO₂ ahorrado:{" "}
             <span className="font-semibold text-primary">
-              {productImpactCalculation ? productImpactCalculation.totalCo2Savings : 0} kg
+              {productImpactCalculation ? productImpactCalculation.totalCo2Savings.toFixed(1) : 0} kg
             </span>
           </li>
           <li className="flex items-center text-main gap-2 font-semibold">
             Agua ahorrada:{" "}
             <span className="font-semibold text-primary">
-              {productImpactCalculation ? productImpactCalculation.totalWaterSavings : 0} lt
+              {productImpactCalculation ? productImpactCalculation.totalWaterSavings.toFixed(1) : 0} lt
             </span>
           </li>
           <li className="flex items-center text-main gap-2 font-semibold">
