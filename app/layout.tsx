@@ -12,6 +12,9 @@ const cabin = Cabin({
 export const metadata: Metadata = {
   title: "EKORU",
   description: "Venta sustentable",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -21,11 +24,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/branding/brandIcon.png" />
+        <meta name="theme-color" content="#ffffff" />
+      </head>
       {/* <head>
         <script crossOrigin="anonymous" src="//unpkg.com/react-scan/dist/auto.global.js" />
       </head> */}
       <body className={`${cabin.variable} antialiased`}>
-        <ToastContainer theme="light" autoClose={2500} pauseOnHover position="top-center" closeOnClick />
+        <ToastContainer
+          theme="light"
+          autoClose={2500}
+          pauseOnHover
+          position="top-center"
+          closeOnClick
+        />
         <AppWrapper>{children}</AppWrapper>
       </body>
     </html>
