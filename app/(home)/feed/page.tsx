@@ -6,11 +6,13 @@ import useStoreProducts from "./_hooks/useStoreProducts";
 import useMarketProducts from "./_hooks/useMarketProducts";
 import useExchangeableProducts from "./_hooks/useExchangeableProducts";
 import FeedProducts from "./_ui/productListing";
+import FeedStores from "./_ui/storeListing";
 import Modal from "@/ui/modal/modal";
 import useTransactionStore from "../transaction/_store/transaction";
 import useMyProductsStore from "@/store/myProducts";
 import MyProductsList from "./_ui/myProductsList";
 import ContentWrapper from "../_ui/contentWrapper";
+import useStores from "../stores/_hooks/useStores";
 
 export default function FeedPage() {
   const { products: storeProducts, loading: storeLoading } = useStoreProducts({
@@ -21,10 +23,12 @@ export default function FeedPage() {
     scope: "MARKET",
     isExchangeable: false,
   });
-  const { products: exchangeableProducts, loading: exchangeableLoading } = useExchangeableProducts({
-    scope: "MARKET",
-    isExchangeable: true,
-  });
+  const { products: exchangeableProducts, loading: exchangeableLoading } =
+    useExchangeableProducts({
+      scope: "MARKET",
+      isExchangeable: true,
+    });
+  const { stores, storesLoading } = useStores();
   const { isModalOpened, closeModal } = useTransactionStore();
 
   // Products for exchange modal
@@ -39,6 +43,17 @@ export default function FeedPage() {
           title="tiendas con propósito"
           description="Apoya marcas que respeten el planeta, las personas y tus valores."
           variant="filled"
+        />
+        <FeedStores
+          title="Tiendas sustentables destacadas"
+          description="Conoce las tiendas que están haciendo la diferencia por el medio ambiente."
+          stores={stores}
+          isLoading={storesLoading}
+        />
+        <Banner
+          title="Productos destacados"
+          description="Explora productos que marcan la diferencia."
+          variant="bordered"
         />
         <FeedProducts
           title="Productos innovadores que salvan el medio ambiente"
@@ -69,7 +84,12 @@ export default function FeedPage() {
           isLoading={exchangeableLoading}
         />
       </ContentWrapper>
-      <Modal isOpen={isModalOpened} close={closeModal} title="Intercambiar Producto" size="md">
+      <Modal
+        isOpen={isModalOpened}
+        close={closeModal}
+        title="Intercambiar Producto"
+        size="md"
+      >
         <MyProductsList products={myProducts} />
       </Modal>
     </PageWrapper>
