@@ -54,7 +54,8 @@ export default function MyProducts() {
       const { scrollLeft, clientWidth } = scrollRef.current;
       const scrollAmount = clientWidth * 0.8;
       scrollRef.current.scrollTo({
-        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        left:
+          direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
         behavior: "smooth",
       });
     }
@@ -68,7 +69,7 @@ export default function MyProducts() {
       )}
     >
       <div className="w-full flex items-center justify-end">
-        <Button text="Subir producto" onClick={openForm} size="md" className="w-[200px]" />
+        <Button text="Agregar" onClick={openForm} size="md" className="w-[140px]" />
       </div>
       {myProductsLoading ? (
         <div className="relative w-full">
@@ -193,14 +194,20 @@ export default function MyProducts() {
           }}
         />
       </Modal>
-      <Modal title="Confirmar eliminación" isOpen={isDeleting} close={closeConfirmModal} size="sm">
+      <Modal
+        title="Confirmar eliminación"
+        isOpen={isDeleting}
+        close={closeConfirmModal}
+        size="sm"
+      >
         <div className="flex flex-col items-center rounded-md">
           <div className="flex items-center gap-2 mb-3">
             <Trash className="text-red-500 w-6 h-6" />
             <span className="text-red-700 font-semibold text-lg">¡Atención!</span>
           </div>
           <p className="text-center text-red-600 font-medium mb-4">
-            ¿Estás seguro de que deseas eliminar <span className="font-bold">{product.name}</span>?
+            ¿Estás seguro de que deseas eliminar{" "}
+            <span className="font-bold">{product.name}</span>?
             <br />
             Esta acción no se puede deshacer.
           </p>

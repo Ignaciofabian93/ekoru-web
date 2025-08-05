@@ -1,7 +1,16 @@
 "use client";
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Menu, Store, CircleDollarSign, Briefcase, BookText, Users, Home, UserRoundPen } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  Menu,
+  Store,
+  CircleDollarSign,
+  Briefcase,
+  BookText,
+  Users,
+  Home,
+  UserRoundPen,
+} from "lucide-react";
 import { colors } from "@/constants/colors";
 import Image from "next/image";
 import clsx from "clsx";
@@ -9,9 +18,14 @@ import UserData from "./userData";
 import Button from "../buttons/button";
 import useSessionStore from "@/store/session";
 import SearchModule from "./searchModule";
-import CTAButton from "../buttons/cta";
 
-const SideArticle = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+const SideArticle = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   className = clsx("w-full flex flex-col items-start justify-start", className);
   return <article className={className}>{children}</article>;
 };
@@ -41,7 +55,6 @@ const SideLink = ({
 
 export default function Navbar() {
   const router = useRouter();
-  const pathname = usePathname();
   const { data } = useSessionStore();
   const [isSideNavOpened, setIsSideNavOpened] = useState<boolean>(false);
 
@@ -56,13 +69,14 @@ export default function Navbar() {
 
   const handleSideNav = () => setIsSideNavOpened(!isSideNavOpened);
 
-  const uploadProduct = () => {
-    if (pathname === "/product/new") return;
-    router.push("/product/new");
-  };
-
   return (
-    <header className={clsx("w-full", "fixed top-0 left-0 z-[99]", "navbar-gradient shadow-sm shadow-primary/30")}>
+    <header
+      className={clsx(
+        "w-full",
+        "fixed top-0 left-0 z-[99]",
+        "navbar-gradient shadow-sm shadow-primary/30"
+      )}
+    >
       <div className="w-full h-[80px] border-b border-primary">
         <nav
           className={clsx(
@@ -72,12 +86,22 @@ export default function Navbar() {
         >
           {/* LEFT SIDE - MENU & LOGO */}
           <div className="flex items-center justify-between">
-            <Menu onClick={handleSideNav} className="cursor-pointer md:hidden" color={colors.primary} size={30} />
+            <Menu
+              onClick={handleSideNav}
+              className="cursor-pointer md:hidden"
+              color={colors.primary}
+              size={30}
+            />
             <div
               className="hidden md:flex w-[120px] h-[90%] items-center justify-center cursor-pointer"
               onClick={brandClick}
             >
-              <Image src={"/branding/logo.webp"} alt="Logo EKORU" width={4096} height={996} />
+              <Image
+                src={"/branding/logo.webp"}
+                alt="Logo EKORU"
+                width={4096}
+                height={996}
+              />
             </div>
           </div>
           {/* SEARCH INPUT */}
@@ -85,7 +109,6 @@ export default function Navbar() {
           {/* RIGHT SIDE - USER & CART */}
           <div className="flex items-center justify-between gap-4">
             <UserData />
-            <CTAButton onClick={uploadProduct} />
           </div>
         </nav>
       </div>
@@ -109,10 +132,25 @@ export default function Navbar() {
           "overflow-y-auto"
         )}
       >
-        <div className={clsx("w-full h-full", "px-4 py-6", "flex flex-col items-start justify-between", "gap-4")}>
+        <div
+          className={clsx(
+            "w-full h-full",
+            "px-4 py-6",
+            "flex flex-col items-start justify-between",
+            "gap-4"
+          )}
+        >
           <div className="flex items-center justify-center w-full h-1/12 mb-4">
-            <div className="w-[80%] flex items-center justify-center cursor-pointer" onClick={brandClick}>
-              <Image src={"/branding/logo.webp"} alt="Logo EKORU" width={4096} height={996} />
+            <div
+              className="w-[80%] flex items-center justify-center cursor-pointer"
+              onClick={brandClick}
+            >
+              <Image
+                src={"/branding/logo.webp"}
+                alt="Logo EKORU"
+                width={4096}
+                height={996}
+              />
             </div>
           </div>
           <SideArticle className="h-2/12">
@@ -155,10 +193,20 @@ export default function Navbar() {
           </SideArticle>
 
           <SideArticle className="h-1/12 mt-4">
-            <Button text="Vender" onClick={() => router.push("/product/new")} variant="primary" size="full" />
+            <Button
+              text="Vender"
+              onClick={() => router.push("/product/new")}
+              variant="primary"
+              size="full"
+            />
           </SideArticle>
           <SideArticle className="h-1/12">
-            <Button text="Cerrar sesión" onClick={handleLogout} variant="danger" size="full" />
+            <Button
+              text="Cerrar sesión"
+              onClick={handleLogout}
+              variant="danger"
+              size="full"
+            />
           </SideArticle>
         </div>
       </aside>

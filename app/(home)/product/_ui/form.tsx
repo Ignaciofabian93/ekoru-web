@@ -38,9 +38,8 @@ export default function ProductForm() {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-[800px] bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+      <div className="w-full max-w-[800px] bg-white">
         <form className="w-full h-full space-y-8">
-          <h2 className="text-2xl font-bold text-primary mb-4">Publicar producto</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Select
               name="department"
@@ -53,7 +52,10 @@ export default function ProductForm() {
             <Select
               name="departmentCategory"
               value={departmentCategory.id}
-              options={departmentCategories.map((d) => ({ label: d.departmentCategoryName, value: d.id }))}
+              options={departmentCategories.map((d) => ({
+                label: d.departmentCategoryName,
+                value: d.id,
+              }))}
               onChange={selectDepartmentCategory}
               labelText="Categoría *"
               hasLabel
@@ -62,7 +64,10 @@ export default function ProductForm() {
             <Select
               name="productCategory"
               value={productCategory.id}
-              options={productCategories.map((d) => ({ label: d.productCategoryName, value: d.id }))}
+              options={productCategories.map((d) => ({
+                label: d.productCategoryName,
+                value: d.id,
+              }))}
               onChange={selectProductCategory}
               labelText="Tipo de producto *"
               hasLabel
@@ -275,10 +280,16 @@ export default function ProductForm() {
             <p className="leading-relaxed font-semibold text-md mb-2">
               Selecciona hasta 3 etiquetas para resaltar tu producto
             </p>
-            <BadgeSelector value={product.badges} onChange={handleBadges} isCompany={data.isCompany} />
+            <BadgeSelector
+              value={product.badges}
+              onChange={handleBadges}
+              isCompany={data.isCompany}
+            />
           </div>
           <div>
-            <p className="text-md font-semibold leading-relaxed mb-2">Sube imágenes de tu producto</p>
+            <p className="text-md font-semibold leading-relaxed mb-2">
+              Sube imágenes de tu producto
+            </p>
             <div className="w-full min-h-[180px] flex items-center justify-evenly gap-2 overflow-x-auto no-scrollbar bg-lime-50 rounded-lg p-4">
               <ImageUploader
                 handleImage={handleImageUpload}

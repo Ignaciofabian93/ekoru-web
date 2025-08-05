@@ -1,38 +1,26 @@
 "use client";
 import { useEffect, useState } from "react";
 import Carousel from "@/ui/carousel/carousel";
-import image1 from "@/assets/images/exchange.jpg";
-import image2 from "@/assets/images/market.jpg";
-import image3 from "@/assets/images/stores.jpg";
-import image4 from "@/assets/images/benefits.jpg";
-import image5 from "@/assets/images/challenges.jpg";
-import image6 from "@/assets/images/community.jpg";
+import image1 from "../assets/img1.jpg";
+import image2 from "../assets/img2.jpg";
+import image3 from "../assets/img3.jpg";
 import clsx from "clsx";
 
 const slides = [
   {
     image: image1,
-    message: "Intercambia productos ecológicos y genera un impacto positivo con cada compra.",
+    message:
+      "Intercambia productos ecológicos y genera un impacto positivo con cada compra.",
   },
   {
     image: image2,
-    message: "Descubre un mercado dedicado a la sostenibilidad y las compras conscientes.",
+    message:
+      "Descubre un mercado dedicado a la sostenibilidad y las compras conscientes.",
   },
   {
     image: image3,
-    message: "Apoya tiendas ecológicas locales y únete a una comunidad que cuida el planeta.",
-  },
-  {
-    image: image4,
-    message: "Disfruta de beneficios exclusivos mientras reduces tu huella de carbono.",
-  },
-  {
-    image: image5,
-    message: "Acepta nuevos desafíos y ayúdanos a construir juntos un futuro más verde.",
-  },
-  {
-    image: image6,
-    message: "Conéctate con personas afines y haz crecer el movimiento ecológico!",
+    message:
+      "Apoya tiendas ecológicas locales y únete a una comunidad que cuida el planeta.",
   },
 ];
 
@@ -92,14 +80,19 @@ export default function Hero() {
   return (
     <div
       className={clsx(
-        "w-full h-[450px] md:h-[500px] bg-gradient-to-r from-primary-light/50 via-primary to-secondary/50 mx-auto overflow-hidden shadow-lg",
+        "w-full h-[400px] bg-gradient-to-r from-primary-light/50 via-primary to-secondary/50 mx-auto overflow-hidden shadow-lg",
         "mb-8 relative"
       )}
     >
       <Carousel>
         <Carousel.LeftButton onClick={handlePrev} />
         <Carousel.Wrapper>
-          <Carousel.NextImage src={slides[nextImageIndex].image} alt="next-img" width={4896} height={3264} />
+          <Carousel.NextImage
+            src={slides[nextImageIndex].image}
+            alt="next-img"
+            width={4896}
+            height={3264}
+          />
           <Carousel.CurrentImage
             src={slides[currentImageIndex].image}
             alt="current-img"
@@ -109,7 +102,7 @@ export default function Hero() {
             direction={direction}
           />
           {/* Message overlay */}
-          <div
+          {/* <div
             className="absolute z-10 left-0 right-0 bottom-8 flex justify-center items-end pointer-events-none"
             style={{ height: "100%" }}
           >
@@ -122,7 +115,7 @@ export default function Hero() {
             >
               {slides[currentImageIndex].message}
             </div>
-          </div>
+          </div> */}
           <Carousel.Dots
             totalImages={slides.length}
             currentIndex={currentImageIndex}
