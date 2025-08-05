@@ -1,73 +1,97 @@
 import Image from "next/image";
+import { Store } from "lucide-react";
+import clsx from "clsx";
 
 interface StoreCardProps {
   name: string;
-  description: string; // Short tagline or description
   brandLogo: string; // URL or import for the logo
   coverImage?: string; // Optional cover image
   location?: string; // Optional location or city
-  productPreviewImages?: string[]; // Optional preview of product images
+  email?: string; // Optional email
+  phone?: string; // Optional phone number
   onClick: () => void; // Function to handle click events
 }
 
 export default function StoreCard({
   name,
-  description,
   brandLogo,
   coverImage,
   location,
-  productPreviewImages = [],
+  email,
+  phone,
   onClick,
 }: StoreCardProps) {
   return (
-    <button
-      onClick={onClick}
-      className="store-card group w-80 rounded-2xl overflow-hidden shadow-lg p-0 border-0 bg-white cursor-pointer transition-transform hover:-translate-y-1 focus:ring-2 focus:ring-primary-500"
-    >
-      <div
-        className={`h-32 flex items-center justify-center relative ${
-          coverImage ? "" : "bg-gradient-to-br from-cyan-100 to-pink-100"
-        }`}
-        style={
-          coverImage
-            ? {
-                backgroundImage: `url(${coverImage})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-              }
-            : {}
-        }
-      >
-        <div className="absolute left-5 -bottom-8 bg-white rounded-full shadow-md p-1">
-          <Image
-            src={brandLogo}
-            alt={name + " logo"}
-            width={64}
-            height={64}
-            className="rounded-full object-cover bg-white"
-          />
-        </div>
-      </div>
-      <div className="pt-12 pb-5 px-5 bg-white">
-        <p className="font-bold text-lg text-gray-900 m-0">{name}</p>
-        {location && <p className="text-teal-500 text-xs mt-1 font-medium">{location}</p>}
-        <p className="text-gray-600 text-sm mt-2 min-h-[36px]">{description}</p>
-        {productPreviewImages.length > 0 && (
-          <div className="flex gap-2 mt-4">
-            {productPreviewImages.slice(0, 3).map((img, idx) => (
-              <Image
-                key={idx}
-                src={img}
-                alt={`Producto ${idx + 1}`}
-                width={40}
-                height={40}
-                className="rounded-lg object-cover border border-gray-100"
-              />
-            ))}
-          </div>
+    <div className={clsx("min-w-[164px] w-full max-w-[164px] h-[300px] pb-3 mx-1")}>
+      <button
+        onClick={onClick}
+        className={clsx(
+          "w-full h-full",
+          "rounded-2xl bg-white shadow-md hover:shadow-lg shadow-gray-800/50",
+          "overflow-hidden relative flex flex-col justify-between pb-2",
+          "transition-shadow duration-300 ease-in-out",
+          "cursor-pointer p-0 border-0"
         )}
-      </div>
-    </button>
+      >
+        {/* Store Image Section */}
+        <div
+          className="relative w-full bg-gray-100"
+          style={{ aspectRatio: "1 / 1", height: "140px" }}
+        >
+          {/* Store Badge */}
+          <div className="absolute top-2 left-2 z-10">
+            <div className="bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow-sm">
+              <Store size={14} className="text-teal-600" />
+            </div>
+          </div>
+
+          {/* Cover Image or Gradient Background */}
+          <div
+            className={`h-full w-full flex items-center justify-center ${
+              coverImage ? "" : "bg-gradient-to-br from-cyan-100 to-pink-100"
+            }`}
+            style={
+              coverImage
+                ? {
+                    backgroundImage: `url(${coverImage})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                  }
+                : {}
+            }
+          >
+            {/* Brand Logo Overlay */}
+            <div className="absolute bottom-2 right-2 bg-white/90 w-[40px] h-[40px] flex items-center justify-center overflow-hidden backdrop-blur-sm rounded-full p-1 shadow-sm">
+              <Image
+                src={brandLogo}
+                alt={name + " logo"}
+                width={24}
+                height={24}
+                className="rounded-full w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Store Info Section */}
+        <div className="flex-1 flex flex-col justify-between p-3">
+          <div className="space-y-1">
+            <h3 className="font-semibold text-sm text-gray-900 leading-tight line-clamp-2">
+              {name}
+            </h3>
+            {location && (
+              <p className="text-main text-xs font-medium truncate">{location}</p>
+            )}
+
+            {/* Contact Information */}
+            <div className="space-y-0.5 mt-4">
+              {email && <p className="text-gray-500 text-xs truncate">{email}</p>}
+              {phone && <p className="text-gray-500 text-xs truncate">{phone}</p>}
+            </div>
+          </div>
+        </div>
+      </button>
+    </div>
   );
 }
