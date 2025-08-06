@@ -20,7 +20,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
         <SubNavigation />
         <div className="w-full h-fit mx-auto relative">
           {children}
-          <div className="fixed bottom-8 right-4 w-[120px] shadow-lg shadow-slate-800/50 rounded-full border-2 border-white">
+          <div className="fixed bottom-8 right-4 z-[9999] w-[120px] shadow-lg shadow-slate-800/50 rounded-full border-2 border-white">
             <Button text="Subir Producto" variant="primary" onClick={openForm} />
           </div>
           <Modal title={"Añadir producto"} isOpen={showForm} close={closeForm} size="lg">

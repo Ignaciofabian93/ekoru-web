@@ -15,7 +15,8 @@ export default function ProfileProducts() {
       const { scrollLeft, clientWidth } = scrollRef.current;
       const scrollAmount = clientWidth * 0.8;
       scrollRef.current.scrollTo({
-        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        left:
+          direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
         behavior: "smooth",
       });
     }
@@ -73,7 +74,7 @@ export default function ProfileProducts() {
                     sellerImage={product.user?.profileImage}
                     description={product.description}
                     location={`${product.user?.county?.county}, ${product.user?.city?.city}`}
-                    isCTAClickEnabled={false}
+                    isCTAClickEnabled={true}
                   />
                 </div>
               ))}

@@ -1,6 +1,10 @@
 "use client";
 import { useParams } from "next/navigation";
-import { BreadCrumbSkeleton, ProductImagesSkeleton, ProductInfoSkeleton } from "../../_ui/product/skeletons";
+import {
+  BreadCrumbSkeleton,
+  ProductImagesSkeleton,
+  ProductInfoSkeleton,
+} from "../../_ui/product/skeletons";
 import PageWrapper from "../../_ui/pageWrapper";
 import ProductDetails from "../_ui/productDetails";
 import useProduct from "../_hooks/useProduct";
@@ -19,12 +23,6 @@ export default function ProductPage() {
     productsByDepartmentLoading,
     productsByProductCategoryLoading,
   } = useProduct({ id: Number(id) });
-
-  console.log("product", product);
-
-  console.log("products by product category", productsByProductCategory);
-  console.log("products by department category", productsByDepartmentCategory);
-  console.log("products by department", productsByDepartment);
 
   if (productLoading)
     return (
@@ -53,8 +51,12 @@ export default function ProductPage() {
           productsByDepartmentCategoryLoading={productsByDepartmentCategoryLoading}
           productsByDepartmentLoading={productsByDepartmentLoading}
           productCategoryName={product?.productCategory?.productCategoryName || ""}
-          departmentCategoryName={product?.productCategory?.departmentCategory?.departmentCategoryName || ""}
-          departmentName={product?.productCategory?.departmentCategory?.department?.departmentName || ""}
+          departmentCategoryName={
+            product?.productCategory?.departmentCategory?.departmentCategoryName || ""
+          }
+          departmentName={
+            product?.productCategory?.departmentCategory?.department?.departmentName || ""
+          }
         />
       </ContentWrapper>
     </PageWrapper>

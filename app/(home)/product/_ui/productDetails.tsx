@@ -59,8 +59,9 @@ export default function ProductDetails({ product }: { product?: Product }) {
     if (isStore) {
       return (
         <div className="text-sm text-gray-500 mb-4 flex gap-2 flex-wrap">
-          <Link href={`/store/${product.user?.id}`}>
-            Ver mas productos de <span className="font-bold">{product.user?.businessName}</span>
+          <Link href={`/stores/${product.user?.id}`}>
+            Ver mas productos de{" "}
+            <span className="font-bold">{product.user?.businessName}</span>
           </Link>
         </div>
       );
@@ -71,7 +72,10 @@ export default function ProductDetails({ product }: { product?: Product }) {
             Inicio
           </Link>
           &gt;
-          <Link href={`/market/department/${breadCrumb.department.id}`} className="hover:underline">
+          <Link
+            href={`/market/department/${breadCrumb.department.id}`}
+            className="hover:underline"
+          >
             {breadCrumb.department.name}
           </Link>
           &gt;
@@ -140,15 +144,19 @@ export default function ProductDetails({ product }: { product?: Product }) {
             <span className="text-4xl font-bold text-primary">
               {product.hasOffer ? (
                 <>
-                  <span className="line-through text-gray-400 mr-2">${product.price?.toLocaleString()}</span>$
-                  {product.offerPrice?.toLocaleString()}
+                  <span className="line-through text-gray-400 mr-2">
+                    ${product.price?.toLocaleString()}
+                  </span>
+                  ${product.offerPrice?.toLocaleString()}
                 </>
               ) : (
                 <>${product.price?.toLocaleString()}</>
               )}
             </span>
             {product.hasOffer && (
-              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">¡Oferta!</span>
+              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                ¡Oferta!
+              </span>
             )}
           </div>
 
@@ -161,11 +169,12 @@ export default function ProductDetails({ product }: { product?: Product }) {
           {/* Seller Info */}
           <div className="text-sm text-gray-700">
             <p>
-              <strong>Vendedor:</strong> {product?.user?.name || product?.user?.businessName}
+              <strong>Vendedor:</strong>{" "}
+              {product?.user?.name || product?.user?.businessName}
             </p>
             <p>
-              <strong>Ubicación:</strong> {product?.user?.address}, {product?.user?.county.county},{" "}
-              {product?.user?.city.city}
+              <strong>Ubicación:</strong> {product?.user?.address},{" "}
+              {product?.user?.county.county}, {product?.user?.city.city}
             </p>
           </div>
 
@@ -177,6 +186,11 @@ export default function ProductDetails({ product }: { product?: Product }) {
               ))}
             </div>
           )}
+          <div className="text-sm text-gray-700">
+            <p>
+              <strong>Descripción:</strong> {product?.description}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -187,13 +201,19 @@ export default function ProductDetails({ product }: { product?: Product }) {
           <li className="flex items-center text-main gap-2 font-semibold">
             CO₂ ahorrado:{" "}
             <span className="font-semibold text-primary">
-              {productImpactCalculation ? productImpactCalculation.totalCo2Savings.toFixed(1) : 0} kg
+              {productImpactCalculation
+                ? productImpactCalculation.totalCo2Savings.toFixed(1)
+                : 0}{" "}
+              kg
             </span>
           </li>
           <li className="flex items-center text-main gap-2 font-semibold">
             Agua ahorrada:{" "}
             <span className="font-semibold text-primary">
-              {productImpactCalculation ? productImpactCalculation.totalWaterSavings.toFixed(1) : 0} lt
+              {productImpactCalculation
+                ? productImpactCalculation.totalWaterSavings.toFixed(1)
+                : 0}{" "}
+              lt
             </span>
           </li>
           <li className="flex items-center text-main gap-2 font-semibold">
@@ -211,7 +231,10 @@ export default function ProductDetails({ product }: { product?: Product }) {
           <h2 className="text-lg font-bold text-gray-700 mb-4">Intereses</h2>
           <div className="flex gap-2 flex-wrap">
             {product.interests.map((interest, idx) => (
-              <span key={idx} className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-sm font-medium">
+              <span
+                key={idx}
+                className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-sm font-medium"
+              >
                 {interest}
               </span>
             ))}
