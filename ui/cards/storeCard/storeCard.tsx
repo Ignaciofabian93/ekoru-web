@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Store } from "lucide-react";
 import clsx from "clsx";
+import Button from "@/ui/buttons/button";
 
 interface StoreCardProps {
   name: string;
@@ -24,7 +25,6 @@ export default function StoreCard({
   return (
     <div className={clsx("min-w-[164px] w-full max-w-[164px] h-[300px] pb-3 mx-1")}>
       <button
-        onClick={onClick}
         className={clsx(
           "w-full h-full",
           "rounded-2xl bg-white shadow-md hover:shadow-lg shadow-gray-800/50",
@@ -75,7 +75,7 @@ export default function StoreCard({
         </div>
 
         {/* Store Info Section */}
-        <div className="flex-1 flex flex-col justify-between p-3">
+        <div className="flex-1 flex flex-col justify-between">
           <div className="space-y-1">
             <h3 className="font-semibold text-sm text-gray-900 leading-tight line-clamp-2">
               {name}
@@ -90,6 +90,9 @@ export default function StoreCard({
               {phone && <p className="text-gray-500 text-xs truncate">{phone}</p>}
             </div>
           </div>
+        </div>
+        <div className="mt-2 flex justify-center items-center">
+          <Button text="Ver tienda" onClick={onClick} size="sm" />
         </div>
       </button>
     </div>
