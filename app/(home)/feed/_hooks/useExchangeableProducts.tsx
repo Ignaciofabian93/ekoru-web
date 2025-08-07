@@ -18,9 +18,12 @@ export default function useExchangeableProducts({
   const pathname = usePathname();
   const { data } = useSessionStore();
   const { notifyError } = useAlert();
-  const [fetchProducts, { data: products, loading, error, refetch }] = useLazyQuery(GET_FEED_PRODUCTS, {
-    fetchPolicy: "cache-and-network",
-  });
+  const [fetchProducts, { data: products, loading, error, refetch }] = useLazyQuery(
+    GET_FEED_PRODUCTS,
+    {
+      fetchPolicy: "network-only",
+    }
+  );
 
   useEffect(() => {
     fetchProducts({ variables: { userId: data.id, take: 10, scope, isExchangeable } });
