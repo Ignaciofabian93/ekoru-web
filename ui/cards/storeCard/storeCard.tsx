@@ -18,8 +18,6 @@ export default function StoreCard({
   brandLogo,
   coverImage,
   location,
-  email,
-  phone,
   onClick,
 }: StoreCardProps) {
   return (
@@ -83,12 +81,6 @@ export default function StoreCard({
             {location && (
               <p className="text-main text-xs font-medium truncate">{location}</p>
             )}
-
-            {/* Contact Information */}
-            <div className="space-y-0.5 mt-4">
-              {email && <p className="text-gray-500 text-xs truncate">{email}</p>}
-              {phone && <p className="text-gray-500 text-xs truncate">{phone}</p>}
-            </div>
           </div>
         </div>
         <div className="mt-2 flex justify-center items-center">
