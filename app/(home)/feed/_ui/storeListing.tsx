@@ -60,8 +60,7 @@ export default function FeedStores({
                 brandLogo={store.profileImage as string}
                 coverImage={store.coverImage as string}
                 onClick={() => redirectToStore(store.id)}
-                email={store.email as string}
-                phone={store.phone as string}
+                address={store.address}
               />
             ))}
           </ProductScrolling>

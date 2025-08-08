@@ -2,7 +2,10 @@ import { useEffect, useState, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLazyQuery } from "@apollo/client";
 import { DepartmentCategory, Product } from "@/types/product";
-import { GET_DEPARTMENT_CATEGORIES, GET_DEPARTMENT_CATEGORY } from "../_graphql/departmentCategories";
+import {
+  GET_DEPARTMENT_CATEGORIES,
+  GET_DEPARTMENT_CATEGORY,
+} from "../_graphql/departmentCategories";
 import { Filters } from "../types/filters";
 import useAlert from "@/hooks/useAlert";
 import useCategoryStore from "../_store/categories";
@@ -32,16 +35,25 @@ export default function useDepartmentCategories() {
 
   const [DepartmentCategoriesByDepartment, { loading: departmentCategoriesLoading }] =
     useLazyQuery(GET_DEPARTMENT_CATEGORIES);
-  const [DepartmentCategory, { loading: departmentCategoryLoading }] = useLazyQuery(GET_DEPARTMENT_CATEGORY);
+  const [DepartmentCategory, { loading: departmentCategoryLoading }] = useLazyQuery(
+    GET_DEPARTMENT_CATEGORY
+  );
 
-  const isDepartmentCategoryPage = /^\/market\/department\/\d+\/department-category\/?$/.test(pathname);
-  const isDepartmentCategoryIdPage = /^\/market\/department\/\d+\/department-category\/\d+\/?$/.test(pathname);
+  const isDepartmentCategoryPage =
+    /^\/market\/department\/\d+\/department-category\/?$/.test(pathname);
+  const isDepartmentCategoryIdPage =
+    /^\/market\/department\/\d+\/department-category\/\d+\/?$/.test(pathname);
   const pathParts = pathname.split("/");
   const departmentIndex = pathParts.findIndex((part) => part === "department");
-  const departmentId = departmentIndex !== -1 ? parseInt(pathParts[departmentIndex + 1] || "0") : 0;
-  const departmentCategoryIndex = pathParts.findIndex((part) => part === "department-category");
+  const departmentId =
+    departmentIndex !== -1 ? parseInt(pathParts[departmentIndex + 1] || "0") : 0;
+  const departmentCategoryIndex = pathParts.findIndex(
+    (part) => part === "department-category"
+  );
   const departmentCategoryId =
-    departmentCategoryIndex !== -1 ? parseInt(pathParts[departmentCategoryIndex + 1] || "0") : 0;
+    departmentCategoryIndex !== -1
+      ? parseInt(pathParts[departmentCategoryIndex + 1] || "0")
+      : 0;
 
   // Selects a department category, or deselects it if already selected
   const selectDepartmentCategory = (departmentCategory: DepartmentCategory) => {
@@ -70,7 +82,8 @@ export default function useDepartmentCategories() {
     return productsByDepartmentCategory;
   }
 
-  const productsByDepartmentCategory = getProductsByDepartmentCategory(departmentCategories);
+  const productsByDepartmentCategory =
+    getProductsByDepartmentCategory(departmentCategories);
 
   const redirectToDepartmentCategory = (departmentCategoryId: number) => {
     setSelectedProductCategory(null);
@@ -79,7 +92,9 @@ export default function useDepartmentCategories() {
 
   const redirectToDepartmentCategorySelected = (departmentCategoryId: number) => {
     setSelectedProductCategory(null);
-    router.push(`/market/department/${departmentId}/department-category/${departmentCategoryId}`);
+    router.push(
+      `/market/department/${departmentId}/department-category/${departmentCategoryId}`
+    );
   };
 
   const redirectToProductCategorySelected = (productCategoryId: number) => {
@@ -152,7 +167,7 @@ export default function useDepartmentCategories() {
         productsByProductCategory.push(product);
       });
 
-      return productsByDepartmentCategory;
+      return productsByProductCategory;
     }
   }
 
@@ -160,14 +175,19 @@ export default function useDepartmentCategories() {
 
   // /////////////////////////////////////////////////////////////////////////////////////////
   // Filtering data for selected department page
-  const brands = useMemo(() => Array.from(new Set(productsList.map((p) => p.brand).filter(Boolean))), [productsList]);
+  const brands = useMemo(
+    () => Array.from(new Set(productsList.map((p) => p.brand).filter(Boolean))),
+    [productsList]
+  );
   const locations = useMemo(
     () =>
       Array.from(
         new Set(
           productsList
             .map((p) =>
-              p.user?.county?.county && p.user?.city?.city ? `${p.user.county.county}, ${p.user.city.city}` : ""
+              p.user?.county?.county && p.user?.city?.city
+                ? `${p.user.county.county}, ${p.user.city.city}`
+                : ""
             )
             .filter(Boolean)
         )
@@ -175,7 +195,10 @@ export default function useDepartmentCategories() {
     [productsList]
   );
   const prices = useMemo(
-    () => productsList.map((p) => p.price).filter((price) => typeof price === "number" && !isNaN(price)),
+    () =>
+      productsList
+        .map((p) => p.price)
+        .filter((price) => typeof price === "number" && !isNaN(price)),
     [productsList]
   );
   const minPrice = useMemo(() => (prices.length ? Math.min(...prices) : null), [prices]);
@@ -194,17 +217,32 @@ export default function useDepartmentCategories() {
 
   const filteredProductList = useMemo(() => {
     return productsList.filter((product) => {
-      const matchesBrand = selectedFilters.brands.length ? selectedFilters.brands.includes(product.brand) : true;
-      const matchesLocation = selectedFilters.location
-        ? selectedFilters.location === product.user?.county?.county + ", " + product.user?.city?.city
+      const matchesBrand = selectedFilters.brands.length
+        ? selectedFilters.brands.includes(product.brand)
         : true;
-      const matchesMinPrice = selectedFilters.minPrice !== null ? product.price >= selectedFilters.minPrice : true;
-      const matchesMaxPrice = selectedFilters.maxPrice !== null ? product.price <= selectedFilters.maxPrice : true;
+      const matchesLocation = selectedFilters.location
+        ? selectedFilters.location ===
+          product.user?.county?.county + ", " + product.user?.city?.city
+        : true;
+      const matchesMinPrice =
+        selectedFilters.minPrice !== null
+          ? product.price >= selectedFilters.minPrice
+          : true;
+      const matchesMaxPrice =
+        selectedFilters.maxPrice !== null
+          ? product.price <= selectedFilters.maxPrice
+          : true;
       const matchesBadges = selectedFilters.badges.length
         ? selectedFilters.badges.some((badge) => product.badges?.includes(badge))
         : true;
 
-      return matchesBrand && matchesLocation && matchesMinPrice && matchesMaxPrice && matchesBadges;
+      return (
+        matchesBrand &&
+        matchesLocation &&
+        matchesMinPrice &&
+        matchesMaxPrice &&
+        matchesBadges
+      );
     });
   }, [productsList, selectedFilters]);
 

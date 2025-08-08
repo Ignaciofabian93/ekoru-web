@@ -15,8 +15,6 @@ export default function StoresPage() {
     router.push(`/stores/${storeId}`);
   };
 
-  console.log("stores", stores);
-
   return (
     <PageWrapper>
       <PageHeader
@@ -41,8 +39,7 @@ export default function StoresPage() {
               brandLogo={store.profileImage as string}
               coverImage={store.coverImage as string}
               onClick={() => redirectToStore(store.id)}
-              email={store.email as string}
-              phone={store.phone as string}
+              address={store.address as string}
             />
           ))
         )}

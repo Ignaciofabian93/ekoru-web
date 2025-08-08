@@ -5,10 +5,10 @@ import PageWrapper from "@/app/(home)/_ui/pageWrapper";
 import ContentWrapper from "@/app/(home)/_ui/catalog/contentWrapper";
 import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/ui/banner/banner";
-import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/catalog/pageHeader";
 import ProductsListing from "@/app/(home)/_ui/product/productsListing";
+import { ChevronRight } from "lucide-react";
 
 // This page is for browsing product categories in a department category.
 export default function BrowseProductCategoriesPage() {
@@ -33,16 +33,21 @@ export default function BrowseProductCategoriesPage() {
       <PageHeader
         image={wallpaper}
         alt="Portada de categoría"
-        message={selectedProductCategory?.productCategoryName as string}
+        message="Encuentra los mejores productos en cada categoría"
       />
       <ContentWrapper>
         <Banner
           isLoading={productCategoriesLoading}
           title="Encuentra tus productos favoritos"
           description="Explora las categorías de productos"
+          variant="accented"
         />
       </ContentWrapper>
       <ContentWrapper>
+        <div className="flex items-center gap-2 mb-6">
+          <ChevronRight className="text-primary" size={20} />
+          <span className="text-xl font-semibold text-main">Subcategorías</span>
+        </div>
         <RenderCategories
           moduleName="Subcategorías"
           data={productCategories}
@@ -64,9 +69,6 @@ export default function BrowseProductCategoriesPage() {
           onFilterChange={onFilterChange}
         />
       </ContentWrapper>
-      <div className="w-full mt-20">
-        <Pagination currentPage={1} totalPages={20} onPageChange={() => {}} />
-      </div>
     </PageWrapper>
   );
 }

@@ -116,13 +116,6 @@ export default function useProductsByDepartment({ id }: { id: number }) {
     [products?.productsByDepartment, filterProducts]
   );
 
-  console.log("brands:", brands);
-  console.log("locations:", locations);
-  console.log("prices:", prices);
-  console.log("minPrice:", minPrice);
-  console.log("maxPrice:", maxPrice);
-  console.log("badges:", badges);
-
   return {
     products: (products?.productsByDepartment as Product[]) || [],
     productsLoading,

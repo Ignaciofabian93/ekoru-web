@@ -6,7 +6,6 @@ import ContentWrapper from "@/app/(home)/_ui/catalog/contentWrapper";
 import useDepartmentCategories from "@/app/(home)/market/_hooks/useDepartmentCategory";
 import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/ui/banner/banner";
-import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/catalog/pageHeader";
 import ProductsListing from "@/app/(home)/_ui/product/productsListing";
@@ -33,19 +32,22 @@ export default function BrowseDepartmentCategoryPage() {
       <PageHeader
         image={wallpaper}
         alt="Portada de categoría"
-        message={selectedDepartmentCategory?.departmentCategoryName as string}
+        message="Encuentra los mejores productos en cada categoría"
       />
       <ContentWrapper>
         <Banner
           isLoading={departmentCategoryLoading}
-          title={selectedDepartmentCategory?.departmentCategoryName as string}
+          title={selectedDepartmentCategory?.departmentCategoryName || "Categoría"}
           description="Encuentra todos tus favoritos aquí"
+          variant="accented"
         />
       </ContentWrapper>
       <ContentWrapper>
         <RenderCategories
           moduleName="Subcategorías"
-          data={selectedDepartmentCategory ? selectedDepartmentCategory.productCategories : []}
+          data={
+            selectedDepartmentCategory ? selectedDepartmentCategory.productCategories : []
+          }
           isLoading={departmentCategoryLoading}
           redirect={(e) => redirectToProductCategorySelected(e)}
           selectObject={(e) => selectProductCategory(e as ProductCategory)}
@@ -64,9 +66,6 @@ export default function BrowseDepartmentCategoryPage() {
           onFilterChange={onFilterChange}
         />
       </ContentWrapper>
-      <div className="w-full mt-20">
-        <Pagination currentPage={1} totalPages={20} onPageChange={() => {}} />
-      </div>
     </PageWrapper>
   );
 }

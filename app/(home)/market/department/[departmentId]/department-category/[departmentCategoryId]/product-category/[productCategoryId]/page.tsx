@@ -3,7 +3,6 @@ import PageWrapper from "@/app/(home)/_ui/pageWrapper";
 import ContentWrapper from "@/app/(home)/_ui/catalog/contentWrapper";
 import useProductCategories from "@/app/(home)/market/_hooks/useProductCategory";
 import Banner from "@/ui/banner/banner";
-import Pagination from "@/ui/pagination/pagination";
 import wallpaper from "@/assets/images/market.jpg";
 import PageHeader from "@/app/(home)/_ui/catalog/pageHeader";
 import ProductsListing from "@/app/(home)/_ui/product/productsListing";
@@ -24,12 +23,17 @@ export default function BrowseProductCategoryResultsPage() {
   //
   return (
     <PageWrapper>
-      <PageHeader image={wallpaper} alt="Portada de categoría" message="Encuentra tus productos favoritos" />
+      <PageHeader
+        image={wallpaper}
+        alt="Portada de categoría"
+        message="Encuentra los mejores productos en cada categoría"
+      />
       <ContentWrapper>
         <Banner
           isLoading={productCategoriesLoading}
           title="Encuentra tus productos favoritos"
-          description="Explora las categorías de productos"
+          description="Explora los productos de esta categoría"
+          variant="accented"
         />
       </ContentWrapper>
       <ContentWrapper>
@@ -44,9 +48,6 @@ export default function BrowseProductCategoryResultsPage() {
           onFilterChange={onFilterChange}
         />
       </ContentWrapper>
-      <div className="w-full mt-20">
-        <Pagination currentPage={1} totalPages={20} onPageChange={() => {}} />
-      </div>
     </PageWrapper>
   );
 }

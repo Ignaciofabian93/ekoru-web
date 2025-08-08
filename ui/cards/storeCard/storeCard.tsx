@@ -8,9 +8,8 @@ interface StoreCardProps {
   brandLogo: string; // URL or import for the logo
   coverImage?: string; // Optional cover image
   location?: string; // Optional location or city
-  email?: string; // Optional email
-  phone?: string; // Optional phone number
   onClick: () => void; // Function to handle click events
+  address?: string; // Optional address
 }
 
 export default function StoreCard({
@@ -19,6 +18,7 @@ export default function StoreCard({
   coverImage,
   location,
   onClick,
+  address,
 }: StoreCardProps) {
   return (
     <div className={clsx("min-w-[164px] w-full max-w-[164px] h-[300px] pb-3 mx-1")}>
@@ -81,6 +81,10 @@ export default function StoreCard({
             {location && (
               <p className="text-main text-xs font-medium truncate">{location}</p>
             )}
+
+            <div className="space-y-0.5 mt-4">
+              {address && <p className="text-gray-500 text-xs line-clamp-2">{address}</p>}
+            </div>
           </div>
         </div>
         <div className="mt-2 flex justify-center items-center">
