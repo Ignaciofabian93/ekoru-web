@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { GET_CITIES, GET_COUNTIES, GET_COUNTRIES, GET_REGIONS } from "@/graphql/geolocalization/query";
+import {
+  GET_CITIES,
+  GET_COUNTIES,
+  GET_COUNTRIES,
+  GET_REGIONS,
+} from "@/graphql/geolocalization/query";
 import { City, Country, Region, County } from "@/types/location";
 import { User } from "@/types/user";
 import { GET_MY_PRODUCTS } from "@/graphql/myProducts/query";
@@ -14,16 +19,23 @@ export default function useProfile() {
   const { notify, notifyError } = useAlert();
   const [formData, setFormData] = useState<User>(data);
 
-  const [GetCountries, { data: countries, loading: countriesLoading, error: countriesError }] =
-    useLazyQuery(GET_COUNTRIES);
+  const [
+    GetCountries,
+    { data: countries, loading: countriesLoading, error: countriesError },
+  ] = useLazyQuery(GET_COUNTRIES);
   const [GetRegions, { data: regions, loading: regionsLoading, error: regionsError }] =
     useLazyQuery(GET_REGIONS);
-  const [GetCities, { data: cities, loading: citiesLoading, error: citiesError }] = useLazyQuery(GET_CITIES);
-  const [GetCounties, { data: counties, loading: countiesLoading, error: countiesError }] =
-    useLazyQuery(GET_COUNTIES);
+  const [GetCities, { data: cities, loading: citiesLoading, error: citiesError }] =
+    useLazyQuery(GET_CITIES);
+  const [
+    GetCounties,
+    { data: counties, loading: countiesLoading, error: countiesError },
+  ] = useLazyQuery(GET_COUNTIES);
 
-  const [MyProducts, { data: products, loading: myProductsLoading, refetch: refetchMyProducts }] =
-    useLazyQuery(GET_MY_PRODUCTS);
+  const [
+    MyProducts,
+    { data: products, loading: myProductsLoading, refetch: refetchMyProducts },
+  ] = useLazyQuery(GET_MY_PRODUCTS);
 
   // Update user data
   const [UpdateProfile, { loading: updateLoading }] = useMutation(UPDATE_USER, {
@@ -76,7 +88,8 @@ export default function useProfile() {
     }));
   };
 
-  const handleDate = (date: string) => setFormData((prev) => ({ ...prev, birthday: date }));
+  const handleDate = (date: string) =>
+    setFormData((prev) => ({ ...prev, birthday: date }));
 
   const handleProfileImage = (base64Image: string) => {
     setFormData((prev) => ({ ...prev, profileImage: base64Image }));
@@ -87,7 +100,8 @@ export default function useProfile() {
   };
 
   const handleCountry = (value: string | number) => {
-    const country = countries.find((country: Country) => country.id === value);
+    const countryList = (countries?.countries as Country[]) || [];
+    const country = countryList.find((country: Country) => country.id === value);
     if (country) {
       setFormData((prev) => ({
         ...prev,
@@ -100,7 +114,8 @@ export default function useProfile() {
   };
 
   const handleRegion = (value: string | number) => {
-    const region = regions.find((region: Region) => region.id === value);
+    const regionList = (regions?.regions as Region[]) || [];
+    const region = regionList.find((region: Region) => region.id === value);
     if (region) {
       setFormData((prev) => ({
         ...prev,
@@ -112,7 +127,8 @@ export default function useProfile() {
   };
 
   const handleCity = (value: string | number) => {
-    const city = cities.find((city: City) => city.id === value);
+    const cityList = (cities?.cities as City[]) || [];
+    const city = cityList.find((city: City) => city.id === value);
     if (city) {
       setFormData((prev) => ({
         ...prev,
@@ -123,7 +139,8 @@ export default function useProfile() {
   };
 
   const handleCounty = (value: string | number) => {
-    const county = counties.find((county: County) => county.id === value);
+    const countyList = (counties?.counties as County[]) || [];
+    const county = countyList.find((county: County) => county.id === value);
     if (county) {
       setFormData((prev) => ({
         ...prev,

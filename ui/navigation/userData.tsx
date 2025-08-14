@@ -62,7 +62,9 @@ export default function UserData() {
             className="absolute right-0 top-full min-w-[260px] bg-white text-main rounded-md shadow-lg z-50 p-4 flex flex-col gap-2"
           >
             <div className="w-full flex items-center justify-between gap-2">
-              <span className="font-semibold text-lg">{data.name || data.businessName}</span>
+              <span className="font-semibold text-lg">
+                {data.name || data.businessName}
+              </span>
               <span
                 className="flex items-center text-sm text-primary cursor-pointer font-semibold"
                 onClick={() => router.push("/profile")}
@@ -73,7 +75,6 @@ export default function UserData() {
             <span className="text-sm text-main">
               {data.county.county || ""}, {data.city.city || ""}
             </span>
-            <span className="text-sm text-main">Notificaciones</span>
             <Button
               text="Cerrar sesión"
               onClick={handleLogout}
