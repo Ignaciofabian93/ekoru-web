@@ -29,11 +29,20 @@ export default function BrowseDepartmentResultsPage() {
     id: Number(departmentId),
   });
 
-  const circularOptionsData = products.map((product) => ({
-    id: product.productCategory.departmentCategory.id,
-    name: product.productCategory.departmentCategory.departmentCategoryName,
-    href: `/market/department/${product.productCategory.departmentCategory.id}/department-category/${product.productCategory.departmentCategory.id}`,
-  }));
+  // Create unique department categories by using a Map to avoid duplicates
+  const uniqueCategories = new Map();
+  products.forEach((product) => {
+    const category = product.productCategory.departmentCategory;
+    if (!uniqueCategories.has(category.id)) {
+      uniqueCategories.set(category.id, {
+        id: category.id,
+        name: category.departmentCategoryName,
+        href: `/market/department/${category.id}/department-category/${category.id}`,
+      });
+    }
+  });
+
+  const circularOptionsData = Array.from(uniqueCategories.values());
 
   return (
     <PageWrapper>
